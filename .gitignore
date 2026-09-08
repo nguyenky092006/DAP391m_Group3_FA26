@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# VESC audio and generated artifacts are intentionally not versioned.
+data/raw/
+data/interim/
+data/processed/
+artifacts/
+checkpoints/
+runs/
+mlruns/
+*.wav
+*.zip
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Keep reviewed manifests, while ignoring machine-specific scratch manifests.
+data/manifests/*.tmp
+

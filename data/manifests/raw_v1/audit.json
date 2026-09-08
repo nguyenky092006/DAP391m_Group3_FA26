@@ -1,0 +1,72 @@
+{
+  "channel_counts": {
+    "1": 895,
+    "2": 9
+  },
+  "counts_by_folder_label": {
+    "angry": 181,
+    "anxiety": 129,
+    "happy": 158,
+    "neutral": 196,
+    "sad": 240
+  },
+  "counts_by_original_split": {
+    "test": 232,
+    "train": 672
+  },
+  "counts_by_source": {
+    "p01": 34,
+    "p02": 76,
+    "p03": 88,
+    "p04": 142,
+    "p05": 5,
+    "p06": 61,
+    "p07": 110,
+    "p08": 15,
+    "p09": 57,
+    "p10": 83,
+    "p11": 36,
+    "p12": 196,
+    "unknown": 1
+  },
+  "counts_by_view": {
+    "processed": 212,
+    "raw": 692
+  },
+  "cross_original_split_pair_count": 155,
+  "exact_duplicate_group_count": 0,
+  "exact_duplicate_groups": [],
+  "issue_counts": {
+    "filename_label_alias": 3,
+    "folder_filename_label_mismatch": 1,
+    "missing_source_id": 1
+  },
+  "malformed_family_count": 0,
+  "manifest_sha256": "9d298cd8f1a674a3a0801569aa92de9a977a4f6ed40ac362ad0ba340ab688233",
+  "overlapping_train_test_speaker_count": 51,
+  "pair_channel_mismatch_count": 4,
+  "pair_label_conflict_count": 0,
+  "pair_sample_rate_mismatch_count": 84,
+  "paired_families_by_label": {
+    "angry": 33,
+    "anxiety": 26,
+    "happy": 34,
+    "sad": 90
+  },
+  "paired_family_count": 183,
+  "sample_rates_hz": {
+    "16000": 27,
+    "24200": 789,
+    "24400": 88
+  },
+  "schema_version": 1,
+  "singleton_family_count": 538,
+  "speaker_count": 81,
+  "test_files_with_train_speaker_count": 231,
+  "test_root": "C:\\Users\\Thu Ky\\Documents\\Codex\\2026-09-08\\https-docs-google-com-document-d\\work\\vesc\\data\\test\\VESC_test",
+  "test_speaker_count": 52,
+  "total_files": 904,
+  "train_root": "C:\\Users\\Thu Ky\\Documents\\Codex\\2026-09-08\\https-docs-google-com-document-d\\work\\vesc\\data\\train\\VESC",
+  "train_speaker_count": 80,
+  "utterance_family_count": 721
+}
