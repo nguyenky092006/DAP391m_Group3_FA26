@@ -17,7 +17,6 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-import pyarrow.parquet as pq
 import numpy as np
 
 
@@ -149,6 +148,8 @@ def _quantile(values: list[float], probability: float) -> float | None:
 
 
 def audit_dataset(input_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    import pyarrow.parquet as pq
+
     input_size = input_path.stat().st_size
     input_hash = file_sha256(input_path)
     parquet_file = pq.ParquetFile(input_path)

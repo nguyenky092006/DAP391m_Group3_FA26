@@ -1,0 +1,13 @@
+accent,emotion,utterances,pct_within_accent,frequency_rank
+central,neutral,118,42.91,1
+central,happy,117,42.55,2
+central,angry,25,9.09,3
+central,sad,15,5.45,4
+north,neutral,341,28.83,1
+north,angry,331,27.98,2
+north,happy,268,22.65,3
+north,sad,243,20.54,4
+south,angry,1109,31.38,1
+south,neutral,1046,29.6,2
+south,sad,791,22.38,3
+south,happy,588,16.64,4

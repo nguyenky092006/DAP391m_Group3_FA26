@@ -16,5 +16,19 @@ The project compares five models: SVM, XGBoost, CNN 2D, Wav2Vec2, and Pitch-Fusi
 
 - B1: research framing and dataset provenance documented.
 - B2: record audit, cleaning policy, and audio-quality screening completed.
-- B5: the global speaker-disjoint split was completed early; grouped
-  cross-validation and federated client partitions remain future work.
+- B3: metadata EDA and RQ-linked SQL completed with reproducible tables and
+  figures. The audit found that frozen split v1 has no Central-Sad test sample.
+- B5: the global speaker-disjoint split was completed early, but it requires a
+  documented version decision before modelling because accent-emotion test
+  coverage is incomplete. Grouped cross-validation and federated client
+  partitions remain future work.
+
+## Reproduce B3 EDA and SQL
+
+```powershell
+python -m pip install -r requirements-eda.txt
+python src/fedecai/eda/b3_eda_sql.py
+```
+
+See `docs/research/B3_eda_sql_report.md` and
+`notebooks/B3_eda_sql.ipynb` for the findings and review workflow.

@@ -46,3 +46,16 @@ Audit v2 adds signal-quality screening to the original record audit. It creates
 silence flags are review signals only. Cleaning reads `raw_manifest.csv`
 and creates the canonical `clean_manifest.csv` and `cleaning_report.json`.
 Version numbers are stored inside the artifacts instead of in filenames.
+
+## Reproduce B3 EDA and SQL
+
+```powershell
+python -m pip install -r requirements-eda.txt
+python src/fedecai/eda/b3_eda_sql.py
+```
+
+The command builds `data/processed/visec_metadata.sqlite`, which is generated
+and ignored by Git. It also writes the tracked SQL evidence tables under
+`reports/tables/b3/` and figures under `reports/figures/b3/`. B3 uses all
+B2-eligible rows for descriptive EDA; split labels are read only for coverage
+and leakage checks.

@@ -1,0 +1,16 @@
+accent,speaker_id,utterances,accent_utterances,pct_of_accent,speaker_rank
+central,6,151,275,54.91,1
+central,72,26,275,9.45,2
+central,33,15,275,5.45,3
+central,101,15,275,5.45,3
+central,69,14,275,5.09,5
+north,14,115,1183,9.72,1
+north,12,100,1183,8.45,2
+north,3,82,1183,6.93,3
+north,57,77,1183,6.51,4
+north,29,75,1183,6.34,5
+south,0,2217,3534,62.73,1
+south,15,220,3534,6.23,2
+south,2,105,3534,2.97,3
+south,38,62,3534,1.75,4
+south,4,56,3534,1.58,5

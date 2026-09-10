@@ -1,0 +1,60 @@
+{
+  "b3_version": "b3.1-v1",
+  "scope": "All B2-eligible rows; split labels are used only for coverage and leakage checks.",
+  "source_rows": 5280,
+  "eligible_rows": 4992,
+  "excluded_rows": 288,
+  "eligible_speakers": 147,
+  "duration_seconds": {
+    "minimum": 1.0,
+    "median": 1.92,
+    "mean": 2.129415126702724,
+    "maximum": 24.704
+  },
+  "accent_counts": {
+    "central": 275,
+    "north": 1183,
+    "south": 3534
+  },
+  "emotion_counts": {
+    "angry": 1465,
+    "happy": 973,
+    "neutral": 1505,
+    "sad": 1049
+  },
+  "quality_flags": {
+    "possible_clipping": 77,
+    "high_silence": 403,
+    "mean_silent_frame_ratio": 0.2836778173171239
+  },
+  "largest_speaker": {
+    "speaker_id": "0",
+    "accent": "south",
+    "samples": 2217,
+    "eligible_share": 0.4441105769230769
+  },
+  "split_speaker_counts": {
+    "test": 22,
+    "train": 103,
+    "validation": 22
+  },
+  "split_cross_stratum_complete": false,
+  "missing_split_cells": [
+    {
+      "split": "test",
+      "accent": "central",
+      "emotion": "sad"
+    }
+  ],
+  "sql_result_rows": {
+    "rq2_emotion_distribution_by_accent": 12,
+    "rq1_rq2_speaker_concentration": 15,
+    "rq1_rq2_quality_by_accent_emotion": 12,
+    "b5_split_coverage_check": 36
+  },
+  "figures": [
+    "b3_duration_distribution.png",
+    "b3_emotion_composition_by_accent.png",
+    "b3_duration_accent_emotion_heatmap.png"
+  ]
+}
