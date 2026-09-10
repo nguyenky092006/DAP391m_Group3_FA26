@@ -1,0 +1,67 @@
+{
+  "cleaning_policy_version": "b2.2-v2",
+  "input_rows": 5280,
+  "output_rows_retained_for_traceability": 5280,
+  "eligible_rows": 4992,
+  "excluded_rows": 288,
+  "actions": {
+    "exclude_conflicting_duplicate": 20,
+    "exclude_duplicate_copy": 268,
+    "keep": 4983,
+    "keep_with_metadata_normalization": 9
+  },
+  "corrections": {
+    "accent_rows": 9,
+    "gender_rows": 2,
+    "accent_speakers": [
+      "15",
+      "26",
+      "28",
+      "34",
+      "38",
+      "113"
+    ],
+    "gender_speakers": [
+      "25",
+      "63"
+    ]
+  },
+  "eligible_distributions": {
+    "speakers": 147,
+    "accent": {
+      "central": 275,
+      "north": 1183,
+      "south": 3534
+    },
+    "emotion": {
+      "angry": 1465,
+      "happy": 973,
+      "neutral": 1505,
+      "sad": 1049
+    },
+    "gender": {
+      "female": 3542,
+      "male": 1450
+    }
+  },
+  "validation": {
+    "eligible_audio_hashes_unique": true,
+    "all_eligible_audio_readable": true,
+    "all_eligible_speakers_present": true,
+    "all_eligible_emotions_valid": true,
+    "all_eligible_accents_valid": true,
+    "one_clean_accent_per_speaker": true,
+    "one_clean_gender_per_speaker": true
+  },
+  "policy": {
+    "consistent_duplicates": "Keep the lowest source_row_index and exclude the other copies.",
+    "conflicting_duplicates": "Exclude every row in the checksum group from supervised modeling.",
+    "speaker_accent_and_gender": "Use the unique non-conflicting audio rows to select the unambiguous majority label for each speaker; preserve raw labels.",
+    "emotion": "Never repair or infer a conflicting emotion label automatically."
+  },
+  "input_manifest": {
+    "path": "raw_manifest.csv",
+    "normalized_text_sha256": "ea692eff36a8fa9c4eee20d3d2d20d59e69b75d7e387933472e26b678fcdf898",
+    "normalization": "UTF-8 text; CRLF converted to LF; exactly one trailing newline"
+  }
+}

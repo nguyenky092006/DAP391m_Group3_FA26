@@ -1,0 +1,120 @@
+{
+  "split_version": "speaker_disjoint_v1",
+  "status": "FROZEN",
+  "seed": 391,
+  "target_sample_fractions": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "planned_speaker_counts": {
+    "train": 103,
+    "validation": 22,
+    "test": 22
+  },
+  "optimizer": {
+    "restarts": 32,
+    "steps_per_restart": 30000,
+    "objective_score": 0.09787948306681295
+  },
+  "assignment_sha256": "9e4d37b62db267c7748b5d097022d8412aff18427e6d567e6c87323cc35b8fc0",
+  "distributions": {
+    "train": {
+      "samples": 3547,
+      "sample_fraction": 0.7105368589743589,
+      "speakers": 103,
+      "accent_samples": {
+        "central": 193,
+        "north": 768,
+        "south": 2586
+      },
+      "accent_speakers": {
+        "central": 13,
+        "north": 41,
+        "south": 49
+      },
+      "emotion_samples": {
+        "angry": 1086,
+        "happy": 690,
+        "neutral": 1029,
+        "sad": 742
+      },
+      "gender_samples": {
+        "female": 2735,
+        "male": 812
+      }
+    },
+    "validation": {
+      "samples": 724,
+      "sample_fraction": 0.1450320512820513,
+      "speakers": 22,
+      "accent_samples": {
+        "central": 44,
+        "north": 206,
+        "south": 474
+      },
+      "accent_speakers": {
+        "central": 3,
+        "north": 7,
+        "south": 12
+      },
+      "emotion_samples": {
+        "angry": 187,
+        "happy": 138,
+        "neutral": 242,
+        "sad": 157
+      },
+      "gender_samples": {
+        "female": 419,
+        "male": 305
+      }
+    },
+    "test": {
+      "samples": 721,
+      "sample_fraction": 0.14443108974358973,
+      "speakers": 22,
+      "accent_samples": {
+        "central": 38,
+        "north": 209,
+        "south": 474
+      },
+      "accent_speakers": {
+        "central": 3,
+        "north": 8,
+        "south": 11
+      },
+      "emotion_samples": {
+        "angry": 192,
+        "happy": 145,
+        "neutral": 234,
+        "sad": 150
+      },
+      "gender_samples": {
+        "female": 388,
+        "male": 333
+      }
+    }
+  },
+  "speaker_overlap": {
+    "train_validation": [],
+    "train_test": [],
+    "validation_test": []
+  },
+  "validation": {
+    "speaker_overlap_zero": true,
+    "eligible_audio_hashes_unique": true,
+    "all_splits_have_all_emotions": true,
+    "all_splits_have_all_accents": true,
+    "speaker_counts_match_plan": true,
+    "excluded_rows_not_assigned": true
+  },
+  "dominant_speaker": {
+    "speaker_id": "0",
+    "samples": 2217,
+    "eligible_dataset_fraction": 0.4441105769230769,
+    "assigned_split": "train",
+    "decision": "Forced into train because placing this speaker in validation or test would dominate evaluation.",
+    "source_limitation": "The released metadata does not document whether speaker_id 0 is a single verified identity or a catch-all identifier."
+  },
+  "freeze_rule": "Do not change speaker-to-split membership for model tuning or model comparison. A new split requires a new version and written justification."
+}
