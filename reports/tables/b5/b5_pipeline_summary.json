@@ -1,0 +1,253 @@
+{
+  "status": "PASS",
+  "split_version": "speaker_disjoint_v2",
+  "assignment_sha256": "da5610e76cf0ce3cd5de8e282e5819824b5251ff22d28e2cf27294598d80ef77",
+  "eligible_rows": 4992,
+  "excluded_rows": 288,
+  "split_distributions": {
+    "train": {
+      "samples": 3681,
+      "sample_fraction": 0.7373798076923077,
+      "speakers": 103,
+      "accent_samples": {
+        "central": 224,
+        "north": 805,
+        "south": 2652
+      },
+      "emotion_samples": {
+        "angry": 1165,
+        "happy": 746,
+        "neutral": 1047,
+        "sad": 723
+      },
+      "gender_samples": {
+        "female": 2802,
+        "male": 879
+      }
+    },
+    "validation": {
+      "samples": 646,
+      "sample_fraction": 0.1294070512820513,
+      "speakers": 22,
+      "accent_samples": {
+        "central": 26,
+        "north": 200,
+        "south": 420
+      },
+      "emotion_samples": {
+        "angry": 150,
+        "happy": 108,
+        "neutral": 226,
+        "sad": 162
+      },
+      "gender_samples": {
+        "female": 402,
+        "male": 244
+      }
+    },
+    "test": {
+      "samples": 665,
+      "sample_fraction": 0.13321314102564102,
+      "speakers": 22,
+      "accent_samples": {
+        "central": 25,
+        "north": 178,
+        "south": 462
+      },
+      "emotion_samples": {
+        "angry": 150,
+        "happy": 119,
+        "neutral": 232,
+        "sad": 164
+      },
+      "gender_samples": {
+        "female": 338,
+        "male": 327
+      }
+    }
+  },
+  "partitioning": {
+    "cv": {
+      "method": "speaker-grouped 5-fold cross-validation on split-v2 training speakers only",
+      "seed": 391,
+      "balance_score": 15.610730247901387,
+      "assignment_sha256": "615bb3a8be28ad4b3c14215d4c59ca845f601b480dbbfe3c92a68c64a57dacfe",
+      "coverage_policy": "Every fold must contain every accent and every emotion. Full accent-emotion cross coverage is reported but not required because some training cross-strata contain fewer speakers than CV folds.",
+      "cross_strata_complete": false,
+      "missing_cross_strata": [
+        {
+          "fold": "fold_0",
+          "accent": "central",
+          "emotion": "angry"
+        },
+        {
+          "fold": "fold_2",
+          "accent": "central",
+          "emotion": "sad"
+        },
+        {
+          "fold": "fold_3",
+          "accent": "central",
+          "emotion": "angry"
+        },
+        {
+          "fold": "fold_3",
+          "accent": "central",
+          "emotion": "happy"
+        },
+        {
+          "fold": "fold_3",
+          "accent": "central",
+          "emotion": "sad"
+        },
+        {
+          "fold": "fold_4",
+          "accent": "central",
+          "emotion": "sad"
+        }
+      ],
+      "folds": [
+        {
+          "fold": "fold_0",
+          "samples": 362,
+          "speakers": 21,
+          "accent_samples": {
+            "central": 153,
+            "north": 133,
+            "south": 76
+          },
+          "emotion_samples": {
+            "angry": 39,
+            "happy": 119,
+            "neutral": 167,
+            "sad": 37
+          }
+        },
+        {
+          "fold": "fold_1",
+          "samples": 359,
+          "speakers": 21,
+          "accent_samples": {
+            "central": 29,
+            "north": 231,
+            "south": 99
+          },
+          "emotion_samples": {
+            "angry": 73,
+            "happy": 68,
+            "neutral": 121,
+            "sad": 97
+          }
+        },
+        {
+          "fold": "fold_2",
+          "samples": 356,
+          "speakers": 21,
+          "accent_samples": {
+            "central": 8,
+            "north": 194,
+            "south": 154
+          },
+          "emotion_samples": {
+            "angry": 64,
+            "happy": 45,
+            "neutral": 140,
+            "sad": 107
+          }
+        },
+        {
+          "fold": "fold_3",
+          "samples": 2261,
+          "speakers": 20,
+          "accent_samples": {
+            "central": 1,
+            "north": 20,
+            "south": 2240
+          },
+          "emotion_samples": {
+            "angry": 866,
+            "happy": 428,
+            "neutral": 530,
+            "sad": 437
+          }
+        },
+        {
+          "fold": "fold_4",
+          "samples": 343,
+          "speakers": 20,
+          "accent_samples": {
+            "central": 33,
+            "north": 227,
+            "south": 83
+          },
+          "emotion_samples": {
+            "angry": 123,
+            "happy": 86,
+            "neutral": 89,
+            "sad": 45
+          }
+        }
+      ]
+    },
+    "federated_clients": {
+      "method": "non-IID accent-domain clients on split-v2 training speakers only",
+      "clients": [
+        {
+          "client_id": "client_central",
+          "samples": 224,
+          "speakers": 12,
+          "emotion_samples": {
+            "angry": 17,
+            "happy": 102,
+            "neutral": 94,
+            "sad": 11
+          }
+        },
+        {
+          "client_id": "client_north",
+          "samples": 805,
+          "speakers": 40,
+          "emotion_samples": {
+            "angry": 223,
+            "happy": 179,
+            "neutral": 236,
+            "sad": 167
+          }
+        },
+        {
+          "client_id": "client_south",
+          "samples": 2652,
+          "speakers": 51,
+          "emotion_samples": {
+            "angry": 925,
+            "happy": 465,
+            "neutral": 717,
+            "sad": 545
+          }
+        }
+      ]
+    },
+    "validation": {
+      "cv_train_speakers_covered_once": true,
+      "cv_fold_count": true,
+      "cv_marginal_coverage_complete": true,
+      "clients_train_speakers_covered_once": true,
+      "clients_are_accent_aligned": true,
+      "each_client_has_all_emotions": true
+    }
+  },
+  "validation": {
+    "same_seed_repeat_identical": true,
+    "protected_v1_hashes_unchanged": true,
+    "protected_v1_sha256": {
+      "data\\manifests\\split_manifest.csv": "0d35123d2b7c5b2d44e873e844e8d9153644fee99b95bd46f9d36d0499dafcb3",
+      "data\\manifests\\split_report.json": "9fc988cdb00316b3cde787e926c05928efc0ba1d0bfbe0bee6d10613a7b29d5b"
+    },
+    "cv_train_speakers_covered_once": true,
+    "cv_fold_count": true,
+    "cv_marginal_coverage_complete": true,
+    "clients_train_speakers_covered_once": true,
+    "clients_are_accent_aligned": true,
+    "each_client_has_all_emotions": true
+  }
+}

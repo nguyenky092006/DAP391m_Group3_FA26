@@ -1,0 +1,4 @@
+client_id,samples,speakers,emotion_angry,emotion_happy,emotion_neutral,emotion_sad
+client_central,224,12,17,102,94,11
+client_north,805,40,223,179,236,167
+client_south,2652,51,925,465,717,545

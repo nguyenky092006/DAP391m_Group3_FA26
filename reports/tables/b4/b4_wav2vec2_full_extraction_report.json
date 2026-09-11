@@ -1,0 +1,159 @@
+{
+  "status": "PASS",
+  "feature_family": "wav2vec2_embedding",
+  "feature_version": "b4_features_v1",
+  "eligible_rows": 4992,
+  "indexed_artifacts": 4992,
+  "unique_samples": 4992,
+  "chunk_count": 20,
+  "failures": 0,
+  "processed_this_invocation": 4992,
+  "resumed_this_invocation": 0,
+  "invalidated_this_invocation": 0,
+  "manifest_sha256": "dfde353769f23bbac8aecf1f3d7c3e3211604e7cc8c15c28bdafd055f784704c",
+  "plan_sha256": "06bc28e91464a23e8ce8743d8f6ef40f8480be603f05d81c065cec58003a3cb9",
+  "aggregate_index_path": "reports/tables/b4/b4_wav2vec2_full_feature_index.csv",
+  "aggregate_index_sha256": "9a6d19baa2f716b94a0a7fd053292f2c65ffd7828e779c8385cf064cdf12a16b",
+  "chunks": [
+    {
+      "chunk_id": 0,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 1,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 2,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 3,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 4,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 5,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 6,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 7,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 8,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 9,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 10,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 11,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 12,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 13,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 14,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 15,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 16,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 17,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 18,
+      "processed": 256,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    },
+    {
+      "chunk_id": 19,
+      "processed": 128,
+      "resumed": 0,
+      "invalidated": 0,
+      "failures": 0
+    }
+  ]
+}

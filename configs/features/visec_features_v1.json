@@ -1,0 +1,182 @@
+{
+  "schema_version": "b4.features.v1",
+  "dataset": {
+    "manifest": "data/manifests/clean_manifest.csv",
+    "eligibility_field": "is_eligible_for_split",
+    "sample_id_field": "sample_id",
+    "speaker_id_field": "speaker_id",
+    "emotion_field": "emotion",
+    "accent_field": "accent_clean"
+  },
+  "audio_contract": {
+    "sample_rate_hz": 16000,
+    "mono": true,
+    "dtype": "float32",
+    "trim_silence": false,
+    "peak_normalization": false,
+    "preserve_full_duration_during_extraction": true
+  },
+  "leakage_policy": {
+    "per_sample_deterministic_extraction_scope": "all_eligible_rows",
+    "fixed_duration_selection_scope": "train_only_after_b5",
+    "augmentation_scope": "train_only_after_b5",
+    "normalization_fit_scope": "train_only_after_b5",
+    "feature_selection_fit_scope": "train_only_after_b5",
+    "dimensionality_reduction_fit_scope": "train_only_after_b5",
+    "test_usage": "final_evaluation_only"
+  },
+  "feature_families": [
+    {
+      "name": "mfcc40_summary",
+      "status": "locked_for_pilot",
+      "kind": "tabular",
+      "extractor": "librosa.feature.mfcc",
+      "fit_required": false,
+      "parameters": {
+        "n_mfcc": 40,
+        "n_fft": 400,
+        "win_length": 400,
+        "hop_length": 160,
+        "window": "hann",
+        "center": true
+      },
+      "aggregation": ["mean", "standard_deviation"],
+      "output_dimension": 80,
+      "planned_consumers": ["svm", "xgboost"]
+    },
+    {
+      "name": "egemaps_v02",
+      "status": "locked_for_pilot",
+      "kind": "tabular",
+      "extractor": "opensmile",
+      "fit_required": false,
+      "parameters": {
+        "feature_set": "eGeMAPSv02",
+        "feature_level": "Functionals"
+      },
+      "output_dimension": 88,
+      "planned_consumers": ["svm", "xgboost", "accent_probe"]
+    },
+    {
+      "name": "log_mel_80",
+      "status": "locked_for_pilot",
+      "kind": "variable_length_matrix",
+      "extractor": "librosa.feature.melspectrogram",
+      "fit_required": false,
+      "parameters": {
+        "n_mels": 80,
+        "n_fft": 400,
+        "win_length": 400,
+        "hop_length": 160,
+        "window": "hann",
+        "fmin_hz": 20,
+        "fmax_hz": 8000,
+        "power": 2.0,
+        "log_scale": "power_to_db",
+        "top_db": 80
+      },
+      "padding_or_crop": "deferred_until_train_only_duration_decision",
+      "planned_consumers": ["cnn_2d"]
+    },
+    {
+      "name": "pitch_contour",
+      "status": "locked_for_pilot",
+      "kind": "variable_length_sequence",
+      "extractor": "librosa.pyin",
+      "fit_required": false,
+      "parameters": {
+        "fmin_hz": 50,
+        "fmax_hz": 500,
+        "frame_length": 1024,
+        "hop_length": 160,
+        "fill_unvoiced_with": "nan",
+        "no_voiced_summary_policy": "voiced_fraction_and_f0_statistics_zero_sentinel"
+      },
+      "summary_fields": [
+        "voiced_fraction",
+        "f0_mean_hz",
+        "f0_standard_deviation_hz",
+        "f0_median_hz",
+        "f0_q10_hz",
+        "f0_q90_hz"
+      ],
+      "planned_consumers": ["svm", "xgboost", "pitch_fusion"]
+    },
+    {
+      "name": "wav2vec2_embedding",
+      "status": "pilot_validated",
+      "kind": "fixed_length_embedding",
+      "extractor": "transformers.Wav2Vec2Model",
+      "fit_required": false,
+      "parameters": {
+        "model_id": "nguyenvulebinh/wav2vec2-base-vi",
+        "model_revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+        "sample_rate_hz": 16000,
+        "waveform_normalization": true,
+        "layer_selection": "final_transformer_hidden_state",
+        "hidden_dimension": 768,
+        "pooling": "attention_mask_aware_mean_over_valid_frames",
+        "output_dimension": 768
+      },
+      "baseline_reproduction": {
+        "repository": "https://github.com/thanhpv2102/ViSEC",
+        "repository_revision": "7fbd5d88f3fbe864bc12aa7a7b71c6f52e5f5953",
+        "source_file": "train_no_joint.py",
+        "model_class": "transformers.Wav2Vec2ForSequenceClassification",
+        "classifier_projection_dimension": 256,
+        "freeze_convolutional_feature_extractor": true,
+        "official_script_return_attention_mask": false
+      },
+      "pitch_fusion_reference": {
+        "source_files": ["ser_pitch_model.py", "train_interpolated_pitch.py"],
+        "processor_id_in_training_script": "facebook/wav2vec2-base-100h",
+        "audio_model_id": "nguyenvulebinh/wav2vec2-base-vi",
+        "audio_backbone_output": "final_transformer_hidden_state",
+        "fusion_pooling": "unmasked_temporal_mean_after_cross_attention_and_projection"
+      },
+      "protocol_note": "The fixed 768-value embedding is a project analysis protocol, not an assertion that the official classifier exposes a standalone pooled embedding. Baseline reproduction remains a separate model-training path.",
+      "pilot_evidence": {
+        "scope": "one_reviewed_utterance_cpu_only",
+        "sample_id": "visec_hf_000111",
+        "report": "reports/tables/b4/b4_wav2vec2_one_sample_report.json",
+        "artifact_sha256": "5ce4952cbcd3961cf883b796b994efa7f6491d92e2726a8a28753097514e560e"
+      },
+      "planned_consumers": ["wav2vec2", "pitch_fusion", "accent_probe"]
+    }
+  ],
+  "post_split_transforms": [
+    {
+      "name": "standard_scaler",
+      "fit_scope": "train_only_after_b5",
+      "applies_to": ["mfcc40_summary", "egemaps_v02", "pitch_contour_summary"]
+    },
+    {
+      "name": "optional_feature_selection",
+      "fit_scope": "train_only_after_b5",
+      "applies_to": ["mfcc40_summary", "egemaps_v02", "pitch_contour_summary"]
+    },
+    {
+      "name": "sequence_padding_or_crop",
+      "fit_scope": "train_only_after_b5",
+      "applies_to": ["log_mel_80", "pitch_contour", "wav2vec2_embedding"]
+    }
+  ],
+  "output_contract": {
+    "root": "data/interim/features/b4_features_v1",
+    "index_file": "feature_index.csv",
+    "required_index_fields": [
+      "sample_id",
+      "speaker_id",
+      "emotion",
+      "accent",
+      "feature_family",
+      "feature_version",
+      "artifact_path",
+      "artifact_sha256",
+      "status",
+      "error"
+    ],
+    "raw_audio_committed_to_git": false,
+    "generated_features_committed_to_git": false
+  }
+}

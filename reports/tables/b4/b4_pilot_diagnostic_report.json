@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "scope": "12-sample balanced B4 pilot; diagnostic only, not population evidence.",
+  "run_root": "data/interim/features/b4_features_v1/balanced_12",
+  "sample_count": 12,
+  "accent_emotion_cells": 12,
+  "figures": {
+    "log_mel_grid": "reports/figures/b4/b4_pilot_log_mel_grid.png",
+    "pitch_grid": "reports/figures/b4/b4_pilot_pitch_grid.png",
+    "frame_duration_check": "reports/figures/b4/b4_pilot_frame_duration_check.png"
+  },
+  "log_mel_frames": {
+    "minimum": 161,
+    "maximum": 801,
+    "maximum_absolute_expected_error": 0,
+    "hop_length_samples": 160,
+    "hop_duration_ms": 10.0
+  },
+  "pitch_voiced_fraction": {
+    "minimum": 0.12056737588652482,
+    "mean": 0.5568213770355908,
+    "maximum": 0.9296482412060302
+  },
+  "interpretation_guardrail": "Panels are one sample per cell and may reveal extraction problems; they must not be used to claim accent or emotion population differences."
+}

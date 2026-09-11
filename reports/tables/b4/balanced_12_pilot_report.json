@@ -1,0 +1,70 @@
+{
+  "feature_version": "b4_features_v1",
+  "scope": "Per-sample deterministic pilot only; no fitting, padding, cropping, normalization, or augmentation.",
+  "selected_samples": 12,
+  "selected_speakers": 12,
+  "selected_cells": [
+    "central:angry",
+    "central:happy",
+    "central:neutral",
+    "central:sad",
+    "north:angry",
+    "north:happy",
+    "north:neutral",
+    "north:sad",
+    "south:angry",
+    "south:happy",
+    "south:neutral",
+    "south:sad"
+  ],
+  "quality_flagged_selected": 0,
+  "families": {
+    "mfcc40_summary": {
+      "ok": 12,
+      "error": 0,
+      "shapes": [
+        "80"
+      ]
+    },
+    "egemaps_v02": {
+      "ok": 12,
+      "error": 0,
+      "shapes": [
+        "88"
+      ]
+    },
+    "log_mel_80": {
+      "ok": 12,
+      "error": 0,
+      "shapes": [
+        "80x161",
+        "80x193",
+        "80x199",
+        "80x237",
+        "80x282",
+        "80x301",
+        "80x365",
+        "80x666",
+        "80x801"
+      ]
+    },
+    "pitch_contour": {
+      "ok": 12,
+      "error": 0,
+      "shapes": [
+        "frames=161;summary=6",
+        "frames=193;summary=6",
+        "frames=199;summary=6",
+        "frames=237;summary=6",
+        "frames=282;summary=6",
+        "frames=301;summary=6",
+        "frames=365;summary=6",
+        "frames=666;summary=6",
+        "frames=801;summary=6"
+      ]
+    }
+  },
+  "feature_records": 48,
+  "failures": 0,
+  "output_root": "data/interim/features/b4_features_v1/balanced_12"
+}

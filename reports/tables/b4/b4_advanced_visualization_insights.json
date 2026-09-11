@@ -1,0 +1,29 @@
+{
+  "scope": "Exploratory full-feature analysis; projections and standardization are not reused by models.",
+  "rq1_emotion_structure_in_wav2vec2_projection": {
+    "mean_pairwise_emotion_centroid_distance": 0.34850797057151794,
+    "mean_within_emotion_distance": 0.787993311882019,
+    "centroid_to_within_ratio": 0.44227275252342224,
+    "approximate_explained_variance_ratio": [
+      0.18418267338996022,
+      0.12244864097468487
+    ]
+  },
+  "rq2_accent_shift_within_emotion": {
+    "maximum_shift_accent": "central",
+    "maximum_shift_emotion": "sad",
+    "maximum_cosine_distance": 0.15846693515777588
+  },
+  "rq2_acoustic_profile_difference_by_accent": {
+    "largest_accent_profile_spread_feature": "mfcc_mean_01",
+    "largest_standardized_mean_spread": 1.033819374689477,
+    "profile_columns": [
+      "pitch_voiced_fraction",
+      "pitch_f0_mean_hz",
+      "pitch_f0_std_hz",
+      "mfcc_mean_01",
+      "egemaps_010_loudness_sma3_amean",
+      "egemaps_034_hnrdbacf_sma3nz_amean"
+    ]
+  }
+}

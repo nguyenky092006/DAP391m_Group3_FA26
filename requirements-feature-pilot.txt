@@ -1,0 +1,5 @@
+numpy==2.5.3
+pyarrow==25.0.1
+librosa==1.0.0
+opensmile==2.6.0
+matplotlib==3.11.1

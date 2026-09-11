@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "Three reviewed utterances, one per accent, all Angry; CPU and local checkpoint cache only.",
+  "feature_version": "b4_features_v1",
+  "model_id": "nguyenvulebinh/wav2vec2-base-vi",
+  "model_revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+  "selected_samples": [
+    "visec_hf_000111",
+    "visec_hf_000017",
+    "visec_hf_000009"
+  ],
+  "selected_speakers": 3,
+  "selected_accents": [
+    "central",
+    "north",
+    "south"
+  ],
+  "processed": 3,
+  "resumed": 0,
+  "invalidated": 0,
+  "failures": 0,
+  "model_loaded": true,
+  "runtime_load_seconds": 0.08728859999973793,
+  "resume_reasons": {
+    "visec_hf_000111": "missing_index_record;recomputed_valid_frames=98;elapsed_seconds=0.544480",
+    "visec_hf_000017": "missing_index_record;recomputed_valid_frames=332;elapsed_seconds=0.321381",
+    "visec_hf_000009": "missing_index_record;recomputed_valid_frames=95;elapsed_seconds=0.137588"
+  },
+  "index_path": "data/interim/features/b4_features_v1/wav2vec2_resume_3/feature_index.csv",
+  "evidence_index_path": "reports/tables/b4/b4_wav2vec2_resume3_feature_index.csv",
+  "artifact_hashes": {
+    "visec_hf_000111": "5ce4952cbcd3961cf883b796b994efa7f6491d92e2726a8a28753097514e560e",
+    "visec_hf_000017": "16785213f296ebf4485b0f1e167c683910881012c0b6c6cd047ccc9944c79587",
+    "visec_hf_000009": "0414ea0a4b9a9e41cd5076c716c64416dcad49f89cedb7d6abd1572f4ae95fc7"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "feature_version": "b4_features_v1",
+  "eligible_samples": 4992,
+  "feature_families": [
+    "mfcc40_summary",
+    "egemaps_v02",
+    "log_mel_80",
+    "pitch_contour"
+  ],
+  "expected_records": 19968,
+  "clean_records": 19968,
+  "processed_this_invocation": 78,
+  "resumed_this_invocation": 19890,
+  "invalidated_this_invocation": 78,
+  "failures": 0,
+  "manifest_sha256": "dfde353769f23bbac8aecf1f3d7c3e3211604e7cc8c15c28bdafd055f784704c",
+  "index_path": "reports/tables/b4/b4_handcrafted_full_feature_index.csv",
+  "index_sha256": "409d20908ae76d8515d673740f0b354ced1a6e5e5e6fe8c2bb0f09d95d4ea712",
+  "egemaps_feature_names_path": "reports/tables/b4/b4_egemaps_feature_names.json"
+}

@@ -1,0 +1,3 @@
+-r requirements-wav2vec-pilot.txt
+
+pandas==3.0.1

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "python": "3.14.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "required_distributions": {
+    "torch": "2.14.0",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.36.2",
+    "safetensors": "0.8.0"
+  },
+  "installed_distributions": {
+    "torch": "2.14.0",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.36.2",
+    "safetensors": "0.8.0"
+  },
+  "missing_distributions": [],
+  "mismatched_distributions": {},
+  "import_check": {
+    "attempted": true,
+    "wav2vec2_model_importable": true,
+    "torch_cuda_available": false,
+    "torch_cuda_device_count": 0,
+    "error": null
+  },
+  "model_weights_loaded": false
+}

@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "mode": "plan_only",
+  "inference_started": false,
+  "model_loaded": false,
+  "audio_loaded": false,
+  "manifest_path": "data/manifests/clean_manifest.csv",
+  "manifest_sha256": "dfde353769f23bbac8aecf1f3d7c3e3211604e7cc8c15c28bdafd055f784704c",
+  "eligible_selection_sha256": "ad5c09f67daa2b92626b814ec4ce3a1149f1b5d5c5610fbe50b685e09e3c5ae5",
+  "chunk_size": 256,
+  "chunk_count": 20,
+  "full_chunks": 19,
+  "final_chunk_size": 128,
+  "plan_sha256": "06bc28e91464a23e8ce8743d8f6ef40f8480be603f05d81c065cec58003a3cb9",
+  "coverage": {
+    "status": "PASS",
+    "eligible_rows": 4992,
+    "covered_rows": 4992,
+    "unique_covered_samples": 4992,
+    "gaps": 0,
+    "overlaps": 0,
+    "first_sample_id": "visec_hf_000000",
+    "last_sample_id": "visec_hf_005279"
+  },
+  "storage_estimate": {
+    "embedding_payload_bytes": 15335424,
+    "npy_bytes_using_observed_3200_per_artifact": 15974400,
+    "excludes_checkpoint_and_csv_json_evidence": true
+  },
+  "plan_csv": "reports/tables/b4/b4_wav2vec2_full_chunk_plan.csv",
+  "execution_policy": "Sequential CPU chunks only; validate each report before advancing; reruns must reuse only lineage-and-hash-verified artifacts."
+}
