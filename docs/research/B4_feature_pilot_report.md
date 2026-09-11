@@ -15,7 +15,7 @@ The B4.2 pilot passed on 12 reviewed ViSEC utterances. The selection contains on
 | openSMILE | 2.6.0 |
 | Matplotlib | 3.11.1 |
 
-The environment is isolated under `.venv/`. Direct dependency versions are recorded in `requirements-feature-pilot.txt`.
+The environment is isolated under `.venv/`. Direct dependency versions are recorded in the unified `requirements.txt`.
 
 ## Pilot coverage
 

@@ -15,7 +15,7 @@ B3 metadata EDA and RQ-linked SQL are reproducible from the reviewed manifest. T
 
 Run from the repository root:
 
-    python -m pip install -r requirements-eda.txt
+    python -m pip install -r requirements.txt
     python src/fedecai/eda/b3_eda_sql.py
 
 ## Dataset accounting
@@ -74,4 +74,3 @@ Median duration also varies across accent-emotion cells: Central-Happy is 3.26 s
 - Raw data and B2 cleaning decisions remain unchanged.
 
 B3 is ready for review. The split-coverage decision should be resolved before B5-B8 model evaluation, and B4 advanced visualization should not treat the three descriptive B3 plots as its final required advanced figures.
-

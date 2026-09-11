@@ -75,7 +75,7 @@ Speaker IDs must still be treated as indivisible groups. A record cannot be move
 - Audit script: `src/fedecai/data/audit_visec.py`
 - Current record manifest: `data/manifests/raw_manifest.csv`
 - Current machine-readable report: `data/manifests/raw_audit.json`
-- Audit dependency: `requirements-audit.txt`
+- Unified project dependencies: `requirements.txt`
 - Unit tests: `tests/test_audit_visec.py`
 
 The script preserves all source rows and raw labels. It adds normalized fields, WAV header measurements, checksums, duplicate group IDs, and machine-readable issue flags.

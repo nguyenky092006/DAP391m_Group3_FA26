@@ -1,0 +1,543 @@
+{
+  "status": "PASS",
+  "experiment": "E5_fedprox_cnn",
+  "scenario": "main",
+  "kind": "baseline",
+  "rounds": [
+    {
+      "round": 1,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.20918077358763815,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.3932553295485317,
+          "emotion_loss": 1.3917775185347645,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.3625453085729173,
+          "emotion_loss": 1.3557346448604672,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.4378537703866827,
+          "emotion_loss": 1.436810871346356,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3449984131583668,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.3059199085402176,
+          "emotion_loss": 1.3043944007965154,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.286098437929921,
+          "emotion_loss": 1.2824277903668275,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.347499508400486,
+          "emotion_loss": 1.3465715966812553,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.2884039935430889,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2562884748242307,
+          "emotion_loss": 1.2549331084088988,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.251402587720445,
+          "emotion_loss": 1.2484001486846998,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2813947912764876,
+          "emotion_loss": 1.2807730815181992,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3245091109487963,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2553285646646823,
+          "emotion_loss": 1.2541126262673123,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.2304061268325281,
+          "emotion_loss": 1.2280667807523649,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2635767316165036,
+          "emotion_loss": 1.2628839215187178,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.37754195398085677,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.252604021776191,
+          "emotion_loss": 1.2514448717692013,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.2337549384279298,
+          "emotion_loss": 1.2311935497381372,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2672427174163192,
+          "emotion_loss": 1.2665168393148134,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3325124780702955,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2476448237115119,
+          "emotion_loss": 1.2464769193699266,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.2007284832634735,
+          "emotion_loss": 1.198488623133233,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.276050259642405,
+          "emotion_loss": 1.2754509860522127,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3358536198266311,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2737296392823931,
+          "emotion_loss": 1.2723044224701594,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.193521448996953,
+          "emotion_loss": 1.1914329588037842,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2645340328347192,
+          "emotion_loss": 1.2636850922075036,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3429893787544105,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2702405364232292,
+          "emotion_loss": 1.2691649469225688,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1946404127076926,
+          "emotion_loss": 1.1923365161667512,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.248017431121983,
+          "emotion_loss": 1.2472305624452356,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.30543073698985607,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2305144337066918,
+          "emotion_loss": 1.229390617801633,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1762350525699186,
+          "emotion_loss": 1.1740464163126856,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.247970229632234,
+          "emotion_loss": 1.2471897268948489,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.4118099199324789,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2554119630151441,
+          "emotion_loss": 1.2541105538997066,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1731765109229706,
+          "emotion_loss": 1.1710706782391056,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.255471036205553,
+          "emotion_loss": 1.2545915211716743,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.34787426465871696,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.220654936336534,
+          "emotion_loss": 1.219671381092488,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1615409265455456,
+          "emotion_loss": 1.1594541850333617,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2433876596085012,
+          "emotion_loss": 1.242515707342592,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.4241064004205256,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.208660758738955,
+          "emotion_loss": 1.2076565422866021,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.16151462508883,
+          "emotion_loss": 1.159470715999937,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2597917546964672,
+          "emotion_loss": 1.2591112796574422,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 13,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.31095467039206887,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2392411315284961,
+          "emotion_loss": 1.2379188886375927,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1505616767328048,
+          "emotion_loss": 1.1487213432413452,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.283981891200967,
+          "emotion_loss": 1.2832446088529612,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 14,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.2946918162407338,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.1773954177006885,
+          "emotion_loss": 1.176353143292223,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1572660341222776,
+          "emotion_loss": 1.1554887551707433,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2500351543295873,
+          "emotion_loss": 1.2492697163803936,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 15,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.4035469283253169,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.1782576371488613,
+          "emotion_loss": 1.1772069551018127,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1478090374681649,
+          "emotion_loss": 1.145966791914759,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2654995353254554,
+          "emotion_loss": 1.2647644353239504,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 16,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3320047399137643,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2321830764087527,
+          "emotion_loss": 1.231112093384089,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.149365715500022,
+          "emotion_loss": 1.1472538165732478,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2390546011598143,
+          "emotion_loss": 1.238233565957579,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 17,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.26559441036474024,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.171663563844939,
+          "emotion_loss": 1.1705920285012523,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1429418527304167,
+          "emotion_loss": 1.140904768519338,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2584450538844278,
+          "emotion_loss": 1.2576545950484603,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 18,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.2687891069664635,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.187562083052756,
+          "emotion_loss": 1.1866192208627426,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1375925678569507,
+          "emotion_loss": 1.1357031030367937,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2469688552699676,
+          "emotion_loss": 1.2461215443807105,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 19,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.38325356573725616,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.2029486696793001,
+          "emotion_loss": 1.2017988268464934,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1200176462416385,
+          "emotion_loss": 1.11829225503122,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2738733690078945,
+          "emotion_loss": 1.2729927203426623,
+          "accent_loss": 0.0
+        }
+      ]
+    },
+    {
+      "round": 20,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3919082035359793,
+      "clients": [
+        {
+          "client": "main_client_00",
+          "loss": 1.1927020656489908,
+          "emotion_loss": 1.1917296452813795,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_01",
+          "loss": 1.1255606475036573,
+          "emotion_loss": 1.1238396332095435,
+          "accent_loss": 0.0
+        },
+        {
+          "client": "main_client_02",
+          "loss": 1.2730135695575036,
+          "emotion_loss": 1.2723430284082073,
+          "accent_loss": 0.0
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "overall": {
+      "samples": 646,
+      "accuracy": 0.43034055727554177,
+      "macro_f1": 0.4241064004205256,
+      "uar": 0.4285944499071343,
+      "per_class_f1": {
+        "angry": 0.5592105263157895,
+        "happy": 0.3076923076923077,
+        "neutral": 0.41262135922330095,
+        "sad": 0.4169014084507042
+      }
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.365530303030303,
+        "uar": 0.48660714285714285
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.45532961891331064,
+        "uar": 0.4468369609484592
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.3876900006176891,
+        "uar": 0.4023700570151135
+      }
+    },
+    "worst_accent_macro_f1": 0.365530303030303,
+    "accent_macro_f1_gap": 0.08979931588300766
+  },
+  "runtime_seconds": 74.62592390000009,
+  "test_samples_loaded": 0
+}

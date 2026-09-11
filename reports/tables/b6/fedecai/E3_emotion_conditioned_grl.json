@@ -1,0 +1,282 @@
+{
+  "status": "PASS",
+  "experiment": "E3_emotion_conditioned_grl",
+  "kind": "conditional",
+  "history": [
+    {
+      "epoch": 1,
+      "grl_strength": 0.0,
+      "loss": 2.3781943295320005,
+      "emotion_loss": 1.3468854061386826,
+      "accent_loss": 1.031308923425703,
+      "validation_macro_f1": 0.24253918723120121
+    },
+    {
+      "epoch": 2,
+      "grl_strength": 0.0,
+      "loss": 2.2171637801429687,
+      "emotion_loss": 1.2673686505400334,
+      "accent_loss": 0.9497951306716413,
+      "validation_macro_f1": 0.3046963461152379
+    },
+    {
+      "epoch": 3,
+      "grl_strength": 0.0,
+      "loss": 2.160519457679506,
+      "emotion_loss": 1.237855806521701,
+      "accent_loss": 0.922663655027816,
+      "validation_macro_f1": 0.3525283937964612
+    },
+    {
+      "epoch": 4,
+      "grl_strength": 0.003703703703703704,
+      "loss": 2.10408490664672,
+      "emotion_loss": 1.2200526083594139,
+      "accent_loss": 0.8840323008457237,
+      "validation_macro_f1": 0.37987817089641046
+    },
+    {
+      "epoch": 5,
+      "grl_strength": 0.007407407407407408,
+      "loss": 2.062197347401083,
+      "emotion_loss": 1.1980399828959793,
+      "accent_loss": 0.864157373054751,
+      "validation_macro_f1": 0.41907206156355126
+    },
+    {
+      "epoch": 6,
+      "grl_strength": 0.011111111111111112,
+      "loss": 2.0612092739018175,
+      "emotion_loss": 1.1908964501940276,
+      "accent_loss": 0.8703128273349131,
+      "validation_macro_f1": 0.39332643760868263
+    },
+    {
+      "epoch": 7,
+      "grl_strength": 0.014814814814814815,
+      "loss": 2.0505209798172936,
+      "emotion_loss": 1.177721630843623,
+      "accent_loss": 0.8727993505281523,
+      "validation_macro_f1": 0.3308548796901408
+    },
+    {
+      "epoch": 8,
+      "grl_strength": 0.018518518518518517,
+      "loss": 2.042929647863316,
+      "emotion_loss": 1.173566523144926,
+      "accent_loss": 0.8693631257547111,
+      "validation_macro_f1": 0.43550839846151446
+    },
+    {
+      "epoch": 9,
+      "grl_strength": 0.022222222222222223,
+      "loss": 2.0089184111533234,
+      "emotion_loss": 1.1561877795840956,
+      "accent_loss": 0.8527306333665969,
+      "validation_macro_f1": 0.28687658473756683
+    },
+    {
+      "epoch": 10,
+      "grl_strength": 0.025925925925925925,
+      "loss": 2.006102160246791,
+      "emotion_loss": 1.1546700245593755,
+      "accent_loss": 0.8514321344243998,
+      "validation_macro_f1": 0.38871033960157475
+    },
+    {
+      "epoch": 11,
+      "grl_strength": 0.02962962962962963,
+      "loss": 2.015352976804711,
+      "emotion_loss": 1.1544982009658151,
+      "accent_loss": 0.8608547693618903,
+      "validation_macro_f1": 0.4110259524787183
+    },
+    {
+      "epoch": 12,
+      "grl_strength": 0.03333333333333333,
+      "loss": 1.9883833764137635,
+      "emotion_loss": 1.1401666090463174,
+      "accent_loss": 0.8482167671083659,
+      "validation_macro_f1": 0.38974519412456676
+    },
+    {
+      "epoch": 13,
+      "grl_strength": 0.037037037037037035,
+      "loss": 1.9828091958591842,
+      "emotion_loss": 1.141924026057112,
+      "accent_loss": 0.840885177072511,
+      "validation_macro_f1": 0.39645325997278263
+    },
+    {
+      "epoch": 14,
+      "grl_strength": 0.040740740740740744,
+      "loss": 1.9796028026450234,
+      "emotion_loss": 1.135726663736635,
+      "accent_loss": 0.8438761435718324,
+      "validation_macro_f1": 0.3810853362218041
+    },
+    {
+      "epoch": 15,
+      "grl_strength": 0.044444444444444446,
+      "loss": 2.0007871180505603,
+      "emotion_loss": 1.1361430104223809,
+      "accent_loss": 0.8646441120325434,
+      "validation_macro_f1": 0.3340382754598215
+    },
+    {
+      "epoch": 16,
+      "grl_strength": 0.04814814814814815,
+      "loss": 2.00625581282761,
+      "emotion_loss": 1.1323867012255544,
+      "accent_loss": 0.8738691126383766,
+      "validation_macro_f1": 0.40000987772749313
+    },
+    {
+      "epoch": 17,
+      "grl_strength": 0.05185185185185185,
+      "loss": 2.014621579041464,
+      "emotion_loss": 1.1418161446618762,
+      "accent_loss": 0.8728054384924866,
+      "validation_macro_f1": 0.2765860948238987
+    },
+    {
+      "epoch": 18,
+      "grl_strength": 0.05555555555555556,
+      "loss": 1.9586818333521903,
+      "emotion_loss": 1.1222534364282162,
+      "accent_loss": 0.836428397960295,
+      "validation_macro_f1": 0.40267784004948304
+    },
+    {
+      "epoch": 19,
+      "grl_strength": 0.05925925925925926,
+      "loss": 1.9633658834528385,
+      "emotion_loss": 1.1171562473788854,
+      "accent_loss": 0.8462096314428942,
+      "validation_macro_f1": 0.41731757770447014
+    },
+    {
+      "epoch": 20,
+      "grl_strength": 0.06296296296296297,
+      "loss": 1.994309800631713,
+      "emotion_loss": 1.1266492829961448,
+      "accent_loss": 0.867660518412809,
+      "validation_macro_f1": 0.2832924207929638
+    },
+    {
+      "epoch": 21,
+      "grl_strength": 0.06666666666666667,
+      "loss": 1.9965491038695264,
+      "emotion_loss": 1.1171683127126821,
+      "accent_loss": 0.8793807867524805,
+      "validation_macro_f1": 0.38430562817078195
+    },
+    {
+      "epoch": 22,
+      "grl_strength": 0.07037037037037037,
+      "loss": 1.957520083220424,
+      "emotion_loss": 1.1060850278283876,
+      "accent_loss": 0.8514350621605075,
+      "validation_macro_f1": 0.4057523009720155
+    },
+    {
+      "epoch": 23,
+      "grl_strength": 0.07407407407407407,
+      "loss": 1.9771595207189483,
+      "emotion_loss": 1.1097782108324503,
+      "accent_loss": 0.8673813036847652,
+      "validation_macro_f1": 0.30241653151263354
+    },
+    {
+      "epoch": 24,
+      "grl_strength": 0.07777777777777778,
+      "loss": 1.9771409900056962,
+      "emotion_loss": 1.1046945548387883,
+      "accent_loss": 0.8724464369480845,
+      "validation_macro_f1": 0.44852388121396536
+    },
+    {
+      "epoch": 25,
+      "grl_strength": 0.08148148148148149,
+      "loss": 1.982927632247647,
+      "emotion_loss": 1.1054387233141356,
+      "accent_loss": 0.8774889084315436,
+      "validation_macro_f1": 0.11319457765841805
+    },
+    {
+      "epoch": 26,
+      "grl_strength": 0.0851851851851852,
+      "loss": 1.9902598838448622,
+      "emotion_loss": 1.1122101773000612,
+      "accent_loss": 0.8780497091356032,
+      "validation_macro_f1": 0.1986099430571828
+    },
+    {
+      "epoch": 27,
+      "grl_strength": 0.08888888888888889,
+      "loss": 1.990773672385243,
+      "emotion_loss": 1.1163239379642904,
+      "accent_loss": 0.8744497341780648,
+      "validation_macro_f1": 0.4080823959416768
+    },
+    {
+      "epoch": 28,
+      "grl_strength": 0.0925925925925926,
+      "loss": 1.954221196098193,
+      "emotion_loss": 1.0895528747672072,
+      "accent_loss": 0.864668323921788,
+      "validation_macro_f1": 0.3841026751567338
+    },
+    {
+      "epoch": 29,
+      "grl_strength": 0.0962962962962963,
+      "loss": 1.9710021950375352,
+      "emotion_loss": 1.0890897471306926,
+      "accent_loss": 0.8819124432757833,
+      "validation_macro_f1": 0.4092279820715828
+    },
+    {
+      "epoch": 30,
+      "grl_strength": 0.1,
+      "loss": 1.984712974787471,
+      "emotion_loss": 1.091360458243447,
+      "accent_loss": 0.8933525160258634,
+      "validation_macro_f1": 0.26138272867795753
+    }
+  ],
+  "validation": {
+    "overall": {
+      "samples": 646,
+      "accuracy": 0.4674922600619195,
+      "macro_f1": 0.44852388121396536,
+      "uar": 0.4413621217087294,
+      "per_class_f1": {
+        "angry": 0.5283018867924528,
+        "happy": 0.2818181818181818,
+        "neutral": 0.515748031496063,
+        "sad": 0.4682274247491639
+      }
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.3605769230769231,
+        "uar": 0.5044642857142857
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.40085708340225973,
+        "uar": 0.3947101678808995
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.46882404881297746,
+        "uar": 0.4635781355846631
+      }
+    },
+    "worst_accent_macro_f1": 0.3605769230769231,
+    "accent_macro_f1_gap": 0.10824712573605438
+  },
+  "runtime_seconds": 107.02126299999964,
+  "test_samples_loaded": 0
+}

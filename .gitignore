@@ -6,6 +6,7 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .venv/
+.venv-gpu/
 venv/
 
 # IDE and operating system
@@ -38,4 +39,3 @@ mlruns/
 *.pth
 *.ckpt
 *.onnx
-

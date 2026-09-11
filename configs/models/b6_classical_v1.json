@@ -1,0 +1,33 @@
+{
+  "schema_version": "b6.classical.v1",
+  "seed": 391,
+  "split_version": "speaker_disjoint_v2",
+  "emotion_order": ["angry", "happy", "neutral", "sad"],
+  "feature_contract": {
+    "families": ["mfcc40_summary", "egemaps_v02", "pitch_summary"],
+    "numeric_prefixes": ["mfcc_", "egemaps_", "pitch_"],
+    "expected_features": 174,
+    "normalization": "fit inside each training fold only"
+  },
+  "evaluation": {
+    "selection_partition": "train grouped cv_fold only",
+    "report_partition": "validation",
+    "test_policy": "never load into model selection or B6 metrics",
+    "primary_metric": "macro_f1",
+    "secondary_metrics": ["accuracy", "uar", "per_class_f1", "per_accent_macro_f1"]
+  },
+  "models": {
+    "svm_rbf": {
+      "C": [1.0, 10.0],
+      "gamma": ["scale", 0.01],
+      "class_weight": "balanced"
+    },
+    "xgboost": {
+      "n_estimators": [200, 400],
+      "max_depth": [3, 5],
+      "learning_rate": [0.05],
+      "subsample": 0.8,
+      "colsample_bytree": 0.8
+    }
+  }
+}

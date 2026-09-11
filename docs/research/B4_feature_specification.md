@@ -6,7 +6,7 @@ The feature contract is defined before extraction. This step does not extract au
 
 The isolated pilot environment uses Python 3.14 with NumPy 2.5.3, PyArrow
 25.0.1, librosa 1.0.0, openSMILE 2.6.0, and Matplotlib 3.11.1. Exact direct
-dependencies are recorded in `requirements-feature-pilot.txt`.
+dependencies are recorded in the unified `requirements.txt`.
 
 ## B4.2 pilot status
 

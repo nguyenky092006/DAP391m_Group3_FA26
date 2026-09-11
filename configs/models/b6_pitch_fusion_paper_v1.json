@@ -1,0 +1,37 @@
+{
+  "schema_version": "b6.pitch_fusion.paper_aligned.v1",
+  "seed": 391,
+  "split_version": "speaker_disjoint_v2",
+  "emotion_order": ["angry", "happy", "neutral", "sad"],
+  "feature_contract": {"numeric_prefixes": ["mfcc_", "egemaps_", "pitch_"], "expected_features": 174},
+  "models": {"pitch_fusion_paper_aligned": {}},
+  "backbone": {
+    "model_id": "nguyenvulebinh/wav2vec2-base-vi",
+    "revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "local_snapshot": "data/interim/models/huggingface/models--nguyenvulebinh--wav2vec2-base-vi/snapshots/86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "freeze_feature_encoder": true
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 8,
+    "learning_rate": 0.00001,
+    "weight_decay": 0.0001,
+    "max_audio_samples": 160000,
+    "gradient_clip": 1.0,
+    "num_workers": 0,
+    "mixed_precision": true
+  },
+  "architecture": {
+    "hidden_size": 768,
+    "attention_heads": 16,
+    "classifier_projection_size": 256,
+    "dropout": 0.1,
+    "masked_temporal_pooling": true
+  },
+  "reproduction_boundary": {
+    "paper_aligned": true,
+    "exact_historical_reproduction": false,
+    "difference": "Uses the validated B4 pYIN pitch contour interpolated to waveform length instead of torchaudio compute_kaldi_pitch; uses padding-aware pooling and the fixed B5 speaker-disjoint split."
+  }
+}

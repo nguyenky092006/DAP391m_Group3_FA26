@@ -1,0 +1,7 @@
+scenario,client_id,samples,sample_share,speakers,max_accent_share,accent_samples_central,accent_samples_north,accent_samples_south,emotion_samples_angry,emotion_samples_happy,emotion_samples_neutral,emotion_samples_sad
+main_mixed_accent_v1,main_client_00,458,0.12442271121977723,20,0.4519650655021834,151,100,207,80,133,178,67
+main_mixed_accent_v1,main_client_01,2858,0.7764194512360771,47,0.7757172848145556,51,590,2217,982,548,740,588
+main_mixed_accent_v1,main_client_02,365,0.09915783754414562,36,0.6246575342465753,22,115,228,103,65,129,68
+stress_accent_domain_v1,stress_client_central,224,0.06085302906818799,12,1.0,224,0,0,17,102,94,11
+stress_accent_domain_v1,stress_client_north,805,0.2186905732138006,40,1.0,0,805,0,223,179,236,167
+stress_accent_domain_v1,stress_client_south,2652,0.7204563977180114,51,1.0,0,0,2652,925,465,717,545

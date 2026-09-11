@@ -1,0 +1,543 @@
+{
+  "status": "PASS",
+  "experiment": "E7_fedecai",
+  "scenario": "stress",
+  "kind": "conditional",
+  "rounds": [
+    {
+      "round": 1,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.24919173932173552,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 2.4537191731589183,
+          "emotion_loss": 1.3590437514441354,
+          "accent_loss": 1.0946754728044783
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 1.8622873791996737,
+          "emotion_loss": 1.3925750196350286,
+          "accent_loss": 0.4697123489024476
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.5107312268980668,
+          "emotion_loss": 1.3518665205479388,
+          "accent_loss": 0.15886470953460508
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.34409396786245006,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 5.973138877323696,
+          "emotion_loss": 1.3389641898018974,
+          "accent_loss": 4.634174721581595
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 3.1780779723054873,
+          "emotion_loss": 1.3349608778213122,
+          "accent_loss": 1.8431170585733023
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.2758400344920553,
+          "emotion_loss": 1.2726496114630146,
+          "accent_loss": 0.0031904215496949126
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "grl_strength": 0.0,
+      "validation_macro_f1": 0.3721669625726702,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 10.139237131391253,
+          "emotion_loss": 1.3560886212757655,
+          "accent_loss": 8.783148493085589
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 5.327059082362963,
+          "emotion_loss": 1.2789494284931917,
+          "accent_loss": 4.048109710734823
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.231500569871468,
+          "emotion_loss": 1.2312821682042485,
+          "accent_loss": 0.00021840375258932025
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "grl_strength": 0.0058823529411764705,
+      "validation_macro_f1": 0.18782452752256787,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 14.387702669416155,
+          "emotion_loss": 1.4349715539387293,
+          "accent_loss": 12.952730996268135
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 7.872718968006395,
+          "emotion_loss": 1.281592433645118,
+          "accent_loss": 6.591126482234978
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.2017889366250591,
+          "emotion_loss": 1.2017722413910281,
+          "accent_loss": 1.6696502347927935e-05
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "grl_strength": 0.011764705882352941,
+      "validation_macro_f1": 0.3089877548510642,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 20.453688757760183,
+          "emotion_loss": 1.332938483783177,
+          "accent_loss": 19.120750154767716
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 11.142823404110736,
+          "emotion_loss": 1.2585200748828627,
+          "accent_loss": 9.884303337594737
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1752278743646083,
+          "emotion_loss": 1.1752249924845286,
+          "accent_loss": 2.891722745682731e-06
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "grl_strength": 0.017647058823529415,
+      "validation_macro_f1": 0.40869967348522573,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 25.4758358001709,
+          "emotion_loss": 1.3036247491836548,
+          "accent_loss": 24.172210965837753
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 14.32335603844305,
+          "emotion_loss": 1.2464081275537147,
+          "accent_loss": 13.076947907631443
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1746793672509863,
+          "emotion_loss": 1.1746788986847592,
+          "accent_loss": 4.800590509138531e-07
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "grl_strength": 0.023529411764705882,
+      "validation_macro_f1": 0.2893835087093514,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 29.765437262398855,
+          "emotion_loss": 1.3307474851608276,
+          "accent_loss": 28.434689658028738
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 17.68705520392945,
+          "emotion_loss": 1.2403700992927789,
+          "accent_loss": 16.446685061247454
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.161848383881208,
+          "emotion_loss": 1.1618483479206378,
+          "accent_loss": 4.670368799858826e-08
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "grl_strength": 0.029411764705882356,
+      "validation_macro_f1": 0.3826160013034675,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 35.1164185660226,
+          "emotion_loss": 1.383253574371338,
+          "accent_loss": 33.73316465105329
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 20.712488727688047,
+          "emotion_loss": 1.2841501800910287,
+          "accent_loss": 19.428338646740645
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1659112417140518,
+          "emotion_loss": 1.1659112287682465,
+          "accent_loss": 1.577766134534111e-08
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "grl_strength": 0.03529411764705883,
+      "validation_macro_f1": 0.3983779342723005,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 36.58676855904715,
+          "emotion_loss": 1.299562624522618,
+          "accent_loss": 35.287205287388396
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 23.12606957477072,
+          "emotion_loss": 1.2557198770297981,
+          "accent_loss": 21.87034965894237
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1493569598118825,
+          "emotion_loss": 1.1493569540581912,
+          "accent_loss": 1.0653295346606048e-08
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "grl_strength": 0.041176470588235294,
+      "validation_macro_f1": 0.33100835654630534,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 37.97722625732422,
+          "emotion_loss": 1.342044472694397,
+          "accent_loss": 36.63518197195871
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 24.22369719558621,
+          "emotion_loss": 1.269303482363683,
+          "accent_loss": 22.9543936071929
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1439515794564157,
+          "emotion_loss": 1.143951570825879,
+          "accent_loss": 1.173208244681292e-08
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "grl_strength": 0.047058823529411764,
+      "validation_macro_f1": 0.37592186431849994,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 39.205803462437224,
+          "emotion_loss": 1.3123771718570165,
+          "accent_loss": 37.89342662266323
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 24.153487423488073,
+          "emotion_loss": 1.276414031715867,
+          "accent_loss": 22.877073267824162
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1445936405101333,
+          "emotion_loss": 1.1445936405101333,
+          "accent_loss": 4.315266832654599e-09
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "grl_strength": 0.05294117647058824,
+      "validation_macro_f1": 0.3781066162869192,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 39.30316979544504,
+          "emotion_loss": 1.3681273800986153,
+          "accent_loss": 37.93504279000418
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 24.452026474994163,
+          "emotion_loss": 1.317965955319612,
+          "accent_loss": 23.134060467548252
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1281053876085698,
+          "emotion_loss": 1.1281053840125128,
+          "accent_loss": 6.11329292936007e-09
+        }
+      ]
+    },
+    {
+      "round": 13,
+      "grl_strength": 0.05882352941176471,
+      "validation_macro_f1": 0.39514502171334126,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 38.18641117640904,
+          "emotion_loss": 1.3013192074639457,
+          "accent_loss": 36.88509150913784
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 25.08931886424189,
+          "emotion_loss": 1.3214238326742043,
+          "accent_loss": 23.767894984180142
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1258699041685907,
+          "emotion_loss": 1.1258699020109566,
+          "accent_loss": 4.315265195619865e-09
+        }
+      ]
+    },
+    {
+      "round": 14,
+      "grl_strength": 0.06470588235294118,
+      "validation_macro_f1": 0.3923385440336162,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 37.79509081159319,
+          "emotion_loss": 1.342770985194615,
+          "accent_loss": 36.4523195539202
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 24.131786515846017,
+          "emotion_loss": 1.3383688209960178,
+          "accent_loss": 22.793417581119893
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.126281080202819,
+          "emotion_loss": 1.1262810787643962,
+          "accent_loss": 4.270316216608069e-09
+        }
+      ]
+    },
+    {
+      "round": 15,
+      "grl_strength": 0.07058823529411766,
+      "validation_macro_f1": 0.3407947539689424,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 37.755925859723774,
+          "emotion_loss": 1.283030322619847,
+          "accent_loss": 36.472894941057476
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 23.5381251495077,
+          "emotion_loss": 1.2711570766401588,
+          "accent_loss": 22.266968055393384
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1242827468328347,
+          "emotion_loss": 1.1242827137491103,
+          "accent_loss": 3.6588995925577094e-08
+        }
+      ]
+    },
+    {
+      "round": 16,
+      "grl_strength": 0.07647058823529412,
+      "validation_macro_f1": 0.3320837362103209,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 38.64516612461635,
+          "emotion_loss": 1.3459674630846297,
+          "accent_loss": 37.29919869559152
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 24.023091493926433,
+          "emotion_loss": 1.3137103489467077,
+          "accent_loss": 22.7093811686735
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.114441220037538,
+          "emotion_loss": 1.114441216441481,
+          "accent_loss": 6.8774533244522066e-09
+        }
+      ]
+    },
+    {
+      "round": 17,
+      "grl_strength": 0.08235294117647059,
+      "validation_macro_f1": 0.30853334586100845,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 38.64542007446289,
+          "emotion_loss": 1.3127456733158656,
+          "accent_loss": 37.33267484392439
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 24.35626636410352,
+          "emotion_loss": 1.314125064589222,
+          "accent_loss": 23.042141474848208
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1123047303829798,
+          "emotion_loss": 1.1123047188755972,
+          "accent_loss": 1.424924062369772e-08
+        }
+      ]
+    },
+    {
+      "round": 18,
+      "grl_strength": 0.08823529411764706,
+      "validation_macro_f1": 0.3320757886140507,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 39.037196568080354,
+          "emotion_loss": 1.2998008387429374,
+          "accent_loss": 37.737396240234375
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 23.653467114371544,
+          "emotion_loss": 1.3362876390078053,
+          "accent_loss": 22.317179405022852
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1053309345317281,
+          "emotion_loss": 1.1053309316548827,
+          "accent_loss": 5.708730740348602e-09
+        }
+      ]
+    },
+    {
+      "round": 19,
+      "grl_strength": 0.09411764705882353,
+      "validation_macro_f1": 0.40390826929070034,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 38.4195671081543,
+          "emotion_loss": 1.3017353670937675,
+          "accent_loss": 37.117831638881135
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 22.32382024208211,
+          "emotion_loss": 1.2969635483641062,
+          "accent_loss": 21.02685676479932
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.102138379400492,
+          "emotion_loss": 1.102138375804435,
+          "accent_loss": 7.506763374475926e-09
+        }
+      ]
+    },
+    {
+      "round": 20,
+      "grl_strength": 0.1,
+      "validation_macro_f1": 0.3575305528376908,
+      "clients": [
+        {
+          "client": "stress_client_central",
+          "loss": 38.071078709193635,
+          "emotion_loss": 1.413811206817627,
+          "accent_loss": 36.65726743425642
+        },
+        {
+          "client": "stress_client_north",
+          "loss": 22.53109824257608,
+          "emotion_loss": 1.3529170809325224,
+          "accent_loss": 21.17818108908138
+        },
+        {
+          "client": "stress_client_south",
+          "loss": 1.1149825625469962,
+          "emotion_loss": 1.1149825575125163,
+          "accent_loss": 6.427946938928126e-09
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "overall": {
+      "samples": 646,
+      "accuracy": 0.44427244582043346,
+      "macro_f1": 0.40869967348522573,
+      "uar": 0.4126718015951054,
+      "per_class_f1": {
+        "angry": 0.5667752442996743,
+        "happy": 0.18497109826589594,
+        "neutral": 0.49795918367346936,
+        "sad": 0.38509316770186336
+      }
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.27805555555555556,
+        "uar": 0.42410714285714285
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.44362441480623316,
+        "uar": 0.44625548667360515
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.3863779716334669,
+        "uar": 0.40141512491031217
+      }
+    },
+    "worst_accent_macro_f1": 0.27805555555555556,
+    "accent_macro_f1_gap": 0.1655688592506776
+  },
+  "runtime_seconds": 72.6683095999997,
+  "test_samples_loaded": 0
+}

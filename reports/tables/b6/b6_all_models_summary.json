@@ -1,0 +1,58 @@
+{
+  "schema_version": "b6.all_models.v1",
+  "status": "PASS",
+  "models_completed": 5,
+  "test_untouched": true,
+  "results": [
+    {
+      "model": "pitch_fusion_paper_aligned",
+      "display_name": "Pitch-Fusion Paper-Aligned Reproduction",
+      "cv_macro_f1": null,
+      "validation_accuracy": 0.6222910216718266,
+      "validation_macro_f1": 0.6051578630245624,
+      "validation_uar": 0.6084188244291489,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "svm_rbf",
+      "display_name": "SVM RBF",
+      "cv_macro_f1": 0.40789191229451893,
+      "validation_accuracy": 0.4845201238390093,
+      "validation_macro_f1": 0.46728031418753074,
+      "validation_uar": 0.46326941986234027,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "wav2vec2_embedding_mlp",
+      "display_name": "Wav2Vec2 Frozen Embedding MLP",
+      "cv_macro_f1": 0.45951306610288684,
+      "validation_accuracy": 0.4969040247678019,
+      "validation_macro_f1": 0.466869208909239,
+      "validation_uar": 0.4620586146618595,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "xgboost",
+      "display_name": "XGBoost",
+      "cv_macro_f1": 0.3760606643743446,
+      "validation_accuracy": 0.47368421052631576,
+      "validation_macro_f1": 0.4385052011136351,
+      "validation_uar": 0.4344414399650388,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "cnn2d_logmel",
+      "display_name": "CNN2D Log-Mel Baseline",
+      "cv_macro_f1": 0.42488035012424163,
+      "validation_accuracy": 0.4195046439628483,
+      "validation_macro_f1": 0.3429656268537384,
+      "validation_uar": 0.3589101933792199,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    }
+  ]
+}

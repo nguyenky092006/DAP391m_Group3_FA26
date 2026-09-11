@@ -1,0 +1,282 @@
+{
+  "status": "PASS",
+  "experiment": "E1_cnn",
+  "kind": "baseline",
+  "history": [
+    {
+      "epoch": 1,
+      "grl_strength": 0.0,
+      "loss": 1.3596204215500285,
+      "emotion_loss": 1.3596204215500285,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.35872963454662116
+    },
+    {
+      "epoch": 2,
+      "grl_strength": 0.0,
+      "loss": 1.2717397312080365,
+      "emotion_loss": 1.2717397312080365,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.21148505811497062
+    },
+    {
+      "epoch": 3,
+      "grl_strength": 0.0,
+      "loss": 1.2350076646851444,
+      "emotion_loss": 1.2350076646851444,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3518274216257256
+    },
+    {
+      "epoch": 4,
+      "grl_strength": 0.0,
+      "loss": 1.2212634581775972,
+      "emotion_loss": 1.2212634581775972,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3198688779703299
+    },
+    {
+      "epoch": 5,
+      "grl_strength": 0.0,
+      "loss": 1.1977257225313318,
+      "emotion_loss": 1.1977257225313318,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.36660565139930584
+    },
+    {
+      "epoch": 6,
+      "grl_strength": 0.0,
+      "loss": 1.1911977053789689,
+      "emotion_loss": 1.1911977053789689,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.37813357121674873
+    },
+    {
+      "epoch": 7,
+      "grl_strength": 0.0,
+      "loss": 1.1750177961754689,
+      "emotion_loss": 1.1750177961754689,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3184998807292473
+    },
+    {
+      "epoch": 8,
+      "grl_strength": 0.0,
+      "loss": 1.166395180998079,
+      "emotion_loss": 1.166395180998079,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3692255775083744
+    },
+    {
+      "epoch": 9,
+      "grl_strength": 0.0,
+      "loss": 1.1668594015969171,
+      "emotion_loss": 1.1668594015969171,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.2463433754068429
+    },
+    {
+      "epoch": 10,
+      "grl_strength": 0.0,
+      "loss": 1.1665876149418755,
+      "emotion_loss": 1.1665876149418755,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.37364794327738765
+    },
+    {
+      "epoch": 11,
+      "grl_strength": 0.0,
+      "loss": 1.1566622584321453,
+      "emotion_loss": 1.1566622584321453,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3983763915309858
+    },
+    {
+      "epoch": 12,
+      "grl_strength": 0.0,
+      "loss": 1.1533802318300963,
+      "emotion_loss": 1.1533802318300963,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3143213612725808
+    },
+    {
+      "epoch": 13,
+      "grl_strength": 0.0,
+      "loss": 1.1619077841246526,
+      "emotion_loss": 1.1619077841246526,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.2995639872036554
+    },
+    {
+      "epoch": 14,
+      "grl_strength": 0.0,
+      "loss": 1.1525894609426421,
+      "emotion_loss": 1.1525894609426421,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3581252302524991
+    },
+    {
+      "epoch": 15,
+      "grl_strength": 0.0,
+      "loss": 1.139980766054924,
+      "emotion_loss": 1.139980766054924,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.31516112750034486
+    },
+    {
+      "epoch": 16,
+      "grl_strength": 0.0,
+      "loss": 1.1342943455660612,
+      "emotion_loss": 1.1342943455660612,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.24756477246577763
+    },
+    {
+      "epoch": 17,
+      "grl_strength": 0.0,
+      "loss": 1.1404006012559293,
+      "emotion_loss": 1.1404006012559293,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.1833877881105215
+    },
+    {
+      "epoch": 18,
+      "grl_strength": 0.0,
+      "loss": 1.1276317158330882,
+      "emotion_loss": 1.1276317158330882,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.35957801694318436
+    },
+    {
+      "epoch": 19,
+      "grl_strength": 0.0,
+      "loss": 1.1167293199214299,
+      "emotion_loss": 1.1167293199214299,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.40921181922956135
+    },
+    {
+      "epoch": 20,
+      "grl_strength": 0.0,
+      "loss": 1.1159839880787072,
+      "emotion_loss": 1.1159839880787072,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3364917437419521
+    },
+    {
+      "epoch": 21,
+      "grl_strength": 0.0,
+      "loss": 1.1161651042323175,
+      "emotion_loss": 1.1161651042323175,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3046793100844428
+    },
+    {
+      "epoch": 22,
+      "grl_strength": 0.0,
+      "loss": 1.0993397262749935,
+      "emotion_loss": 1.0993397262749935,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3872193549980894
+    },
+    {
+      "epoch": 23,
+      "grl_strength": 0.0,
+      "loss": 1.1152803496931014,
+      "emotion_loss": 1.1152803496931014,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.36506359869889277
+    },
+    {
+      "epoch": 24,
+      "grl_strength": 0.0,
+      "loss": 1.1108504867171567,
+      "emotion_loss": 1.1108504867171567,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.41515947216986604
+    },
+    {
+      "epoch": 25,
+      "grl_strength": 0.0,
+      "loss": 1.1086717497813445,
+      "emotion_loss": 1.1086717497813445,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.36851972825425783
+    },
+    {
+      "epoch": 26,
+      "grl_strength": 0.0,
+      "loss": 1.1047730480837648,
+      "emotion_loss": 1.1047730480837648,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3521682756912691
+    },
+    {
+      "epoch": 27,
+      "grl_strength": 0.0,
+      "loss": 1.0950174437240232,
+      "emotion_loss": 1.0950174437240232,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.37840992938761264
+    },
+    {
+      "epoch": 28,
+      "grl_strength": 0.0,
+      "loss": 1.0979749660587803,
+      "emotion_loss": 1.0979749660587803,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.18244169235878033
+    },
+    {
+      "epoch": 29,
+      "grl_strength": 0.0,
+      "loss": 1.1054867565615674,
+      "emotion_loss": 1.1054867565615674,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.4142715247062778
+    },
+    {
+      "epoch": 30,
+      "grl_strength": 0.0,
+      "loss": 1.0943558476470598,
+      "emotion_loss": 1.0943558476470598,
+      "accent_loss": 0.0,
+      "validation_macro_f1": 0.3453656492932084
+    }
+  ],
+  "validation": {
+    "overall": {
+      "samples": 646,
+      "accuracy": 0.4458204334365325,
+      "macro_f1": 0.41515947216986604,
+      "uar": 0.4079648749044029,
+      "per_class_f1": {
+        "angry": 0.46963562753036436,
+        "happy": 0.2347417840375587,
+        "neutral": 0.5236363636363637,
+        "sad": 0.4326241134751773
+      }
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.3598901098901099,
+        "uar": 0.5044642857142857
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.3700236167341431,
+        "uar": 0.37951491017693106
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.43112594942753446,
+        "uar": 0.4250070011765309
+      }
+    },
+    "worst_accent_macro_f1": 0.3598901098901099,
+    "accent_macro_f1_gap": 0.07123583953742457
+  },
+  "runtime_seconds": 105.08249940000042,
+  "test_samples_loaded": 0
+}

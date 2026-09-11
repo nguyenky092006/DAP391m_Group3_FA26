@@ -1,0 +1,34 @@
+{
+  "schema_version": "b6.fedecai.v1",
+  "seed": 391,
+  "split_version": "speaker_disjoint_v2",
+  "emotion_order": ["angry", "happy", "neutral", "sad"],
+  "accent_order": ["central", "north", "south"],
+  "training": {
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.35,
+    "max_frames": 512,
+    "gradient_clip": 5.0,
+    "adversarial_lambda": 0.1,
+    "warmup_epochs": 3
+  },
+  "federated": {
+    "rounds": 20,
+    "local_epochs": 1,
+    "client_fraction": 1.0,
+    "fedprox_mu": 0.01,
+    "scenarios": ["main", "stress"]
+  },
+  "experiments": {
+    "E1": "centralized_cnn",
+    "E2": "centralized_unconditional_grl",
+    "E3": "centralized_emotion_conditioned_grl",
+    "E4": "fedavg_cnn",
+    "E5": "fedprox_cnn",
+    "E6": "fedavg_unconditional_grl",
+    "E7": "fedecai"
+  }
+}

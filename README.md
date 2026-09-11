@@ -27,6 +27,16 @@ The project compares five models: SVM, XGBoost, CNN 2D, Wav2Vec2, and Pitch-Fusi
 - B5: complete. The frozen speaker-disjoint v2 split has full 36/36
   split-accent-emotion coverage. Same-seed reproducibility, preservation of v1,
   grouped five-fold CV, and three accent-domain federated clients all passed.
+- B6: in progress. The leakage-safe modelling contract and one-command
+  SVM/XGBoost grouped-CV runner are prepared; CNN 2D, Wav2Vec2, and
+  Pitch-Fusion remain in the same modelling step.
+
+The deep-model runtime uses a separate CUDA environment so the verified CPU
+environment remains reproducible:
+
+```powershell
+.\scripts\setup_b6_gpu.ps1
+```
 
 The reproducible version 2 split runner is available at
 `src/fedecai/data/run_b5_split_pipeline.py`. It writes new versioned files,
@@ -40,7 +50,7 @@ remain byte-for-byte unchanged. Run it once from the repository root:
 ## Reproduce B3 EDA and SQL
 
 ```powershell
-python -m pip install -r requirements-eda.txt
+python -m pip install -r requirements.txt
 python src/fedecai/eda/b3_eda_sql.py
 ```
 
@@ -122,3 +132,29 @@ features, joins them with the completed Wav2Vec2 index, writes the full Parquet
 feature table, renders three advanced figures, and creates the interactive
 Plotly HTML dashboard. If interrupted during extraction, run the same command
 again.
+
+## Run all five B6 models with one command
+
+```powershell
+.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_all_models.py
+```
+
+The runner executes SVM RBF, XGBoost, CNN2D, Wav2Vec2 embedding MLP, and
+Pitch-Fusion in sequence. A normal rerun skips completed models. Pass `--force`
+to retrain all five; neural grouped-CV folds run all 30 epochs and checkpoint
+after each completed fold.
+
+## Run the B6 E1-E7 FedECAI experiment ladder
+
+```powershell
+.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_fedecai_pipeline.py
+
+# Paper-aligned raw-waveform Pitch-Fusion (30 epochs, resumable)
+.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_pitch_fusion_paper.py
+```
+
+The runner trains centralized CNN, unconditional GRL, and emotion-conditioned
+GRL, followed by FedAvg, FedProx, federated unconditional GRL, and FedECAI on
+both B5 main and stress client scenarios. It checkpoints every centralized
+epoch and communication round. Run the same command to resume; use `--force`
+only to restart all E1-E7 experiments.

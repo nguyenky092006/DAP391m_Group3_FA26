@@ -1,0 +1,13 @@
+{
+  "schema_version": "b6.fedecai.summary.v1",
+  "status": "PASS",
+  "experiments_completed": 11,
+  "centralized_epochs_verified": true,
+  "federated_rounds_verified": true,
+  "validation_prediction_rows_per_experiment": 646,
+  "test_untouched": true,
+  "best_validation_macro_f1_experiment": "E3_emotion_conditioned_grl",
+  "fedecai_improves_fedavg_macro_f1_in_all_scenarios": false,
+  "fedecai_improves_fedavg_worst_accent_in_all_scenarios": false,
+  "interpretation": "Single-seed validation evidence only. The default FedECAI configuration does not support H5 and must proceed to B7 diagnostics and B8 lambda tuning without touching test."
+}

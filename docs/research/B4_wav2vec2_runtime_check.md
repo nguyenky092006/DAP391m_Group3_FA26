@@ -23,9 +23,8 @@ were downloaded during this checkpoint.
 | huggingface-hub | 0.36.2 |
 | safetensors | 0.8.0 |
 
-The dependency file is `requirements-wav2vec-pilot.txt`. It includes the
-existing handcrafted-feature environment through
-`requirements-feature-pilot.txt` and adds only the Wav2Vec2 runtime packages.
+The Wav2Vec2 and handcrafted-feature dependencies are pinned together in the
+unified `requirements.txt` so B1-B6 can be reproduced with one installation.
 
 ## Automated runtime gate
 

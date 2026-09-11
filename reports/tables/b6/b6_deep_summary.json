@@ -1,0 +1,25 @@
+{
+  "schema_version": "b6.deep.v1",
+  "models_completed": 3,
+  "results": [
+    {
+      "model": "cnn2d_logmel",
+      "mean_cv_macro_f1": 0.42488035012424163,
+      "validation_macro_f1": 0.3429656268537384,
+      "validation_uar": 0.3589101933792199
+    },
+    {
+      "model": "wav2vec2_embedding_mlp",
+      "mean_cv_macro_f1": 0.45951306610288684,
+      "validation_macro_f1": 0.466869208909239,
+      "validation_uar": 0.4620586146618595
+    },
+    {
+      "model": "pitch_fusion",
+      "mean_cv_macro_f1": 0.4671242850870091,
+      "validation_macro_f1": 0.468602977977978,
+      "validation_uar": 0.4689112859171856
+    }
+  ],
+  "test_untouched": true
+}
