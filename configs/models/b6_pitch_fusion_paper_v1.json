@@ -9,10 +9,11 @@
     "model_id": "nguyenvulebinh/wav2vec2-base-vi",
     "revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
     "local_snapshot": "data/interim/models/huggingface/models--nguyenvulebinh--wav2vec2-base-vi/snapshots/86bde51fa76dd7f2c4c1bb28d7475d622639f869",
-    "freeze_feature_encoder": true
+    "freeze_feature_encoder": true,
+    "freeze_audio_encoder": true
   },
   "training": {
-    "epochs": 30,
+    "epochs": 10,
     "batch_size": 2,
     "gradient_accumulation_steps": 8,
     "learning_rate": 0.00001,
@@ -20,7 +21,11 @@
     "max_audio_samples": 160000,
     "gradient_clip": 1.0,
     "num_workers": 0,
-    "mixed_precision": true
+    "mixed_precision": true,
+    "early_stopping": true,
+    "patience": 3,
+    "min_delta": 0.001,
+    "tuning_mode": "minimal_single_baseline"
   },
   "architecture": {
     "hidden_size": 768,

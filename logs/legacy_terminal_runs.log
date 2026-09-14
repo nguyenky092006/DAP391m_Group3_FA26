@@ -1,0 +1,1241 @@
+===== SOURCE: log_b4_remaining.log =====
+[1/2] Full resumable MFCC/eGeMAPS/log-Mel/pitch extraction
+[2/2] Combined feature table, three figures, and Plotly dashboard
+feature table loaded 512/4992
+feature table loaded 1024/4992
+feature table loaded 1536/4992
+feature table loaded 2048/4992
+feature table loaded 2560/4992
+feature table loaded 3072/4992
+feature table loaded 3584/4992
+feature table loaded 4096/4992
+feature table loaded 4608/4992
+{
+  "status": "PASS",
+  "handcrafted": {
+    "status": "PASS",
+    "feature_version": "b4_features_v1",
+    "eligible_samples": 4992,
+    "feature_families": [
+      "mfcc40_summary",
+      "egemaps_v02",
+      "log_mel_80",
+      "pitch_contour"
+    ],
+    "expected_records": 19968,
+    "clean_records": 19968,
+    "processed_this_invocation": 0,
+    "resumed_this_invocation": 19968,
+    "invalidated_this_invocation": 0,
+    "failures": 0,
+    "manifest_sha256": "dfde353769f23bbac8aecf1f3d7c3e3211604e7cc8c15c28bdafd055f784704c",
+    "index_path": "reports/tables/b4/b4_handcrafted_full_feature_index.csv",
+    "index_sha256": "407f17e9bd4bb550bc705a7e6ee107e7b3419c82ee0511f44ae8d84466be9355",
+    "egemaps_feature_names_path": "reports/tables/b4/b4_egemaps_feature_names.json"
+  },
+  "deliverables": {
+    "status": "PASS",
+    "feature_table": {
+      "status": "PASS",
+      "rows": 4992,
+      "columns": 951,
+      "metadata_columns": 9,
+      "mfcc_columns": 80,
+      "egemaps_columns": 88,
+      "pitch_summary_columns": 6,
+      "wav2vec2_columns": 768,
+      "variable_length_paths": [
+        "log_mel_artifact_path",
+        "pitch_artifact_path"
+      ],
+      "table_path": "data/interim/features/b4_features_v1/b4_full_feature_table.parquet",
+      "table_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
+      "egemaps_columns_ordered": [
+        "egemaps_000_f0semitonefrom27_5hz_sma3nz_amean",
+        "egemaps_001_f0semitonefrom27_5hz_sma3nz_stddevnorm",
+        "egemaps_002_f0semitonefrom27_5hz_sma3nz_percentile20_0",
+        "egemaps_003_f0semitonefrom27_5hz_sma3nz_percentile50_0",
+        "egemaps_004_f0semitonefrom27_5hz_sma3nz_percentile80_0",
+        "egemaps_005_f0semitonefrom27_5hz_sma3nz_pctlrange0_2",
+        "egemaps_006_f0semitonefrom27_5hz_sma3nz_meanrisingslope",
+        "egemaps_007_f0semitonefrom27_5hz_sma3nz_stddevrisingslope",
+        "egemaps_008_f0semitonefrom27_5hz_sma3nz_meanfallingslope",
+        "egemaps_009_f0semitonefrom27_5hz_sma3nz_stddevfallingslope",
+        "egemaps_010_loudness_sma3_amean",
+        "egemaps_011_loudness_sma3_stddevnorm",
+        "egemaps_012_loudness_sma3_percentile20_0",
+        "egemaps_013_loudness_sma3_percentile50_0",
+        "egemaps_014_loudness_sma3_percentile80_0",
+        "egemaps_015_loudness_sma3_pctlrange0_2",
+        "egemaps_016_loudness_sma3_meanrisingslope",
+        "egemaps_017_loudness_sma3_stddevrisingslope",
+        "egemaps_018_loudness_sma3_meanfallingslope",
+        "egemaps_019_loudness_sma3_stddevfallingslope",
+        "egemaps_020_spectralflux_sma3_amean",
+        "egemaps_021_spectralflux_sma3_stddevnorm",
+        "egemaps_022_mfcc1_sma3_amean",
+        "egemaps_023_mfcc1_sma3_stddevnorm",
+        "egemaps_024_mfcc2_sma3_amean",
+        "egemaps_025_mfcc2_sma3_stddevnorm",
+        "egemaps_026_mfcc3_sma3_amean",
+        "egemaps_027_mfcc3_sma3_stddevnorm",
+        "egemaps_028_mfcc4_sma3_amean",
+        "egemaps_029_mfcc4_sma3_stddevnorm",
+        "egemaps_030_jitterlocal_sma3nz_amean",
+        "egemaps_031_jitterlocal_sma3nz_stddevnorm",
+        "egemaps_032_shimmerlocaldb_sma3nz_amean",
+        "egemaps_033_shimmerlocaldb_sma3nz_stddevnorm",
+        "egemaps_034_hnrdbacf_sma3nz_amean",
+        "egemaps_035_hnrdbacf_sma3nz_stddevnorm",
+        "egemaps_036_logrelf0_h1_h2_sma3nz_amean",
+        "egemaps_037_logrelf0_h1_h2_sma3nz_stddevnorm",
+        "egemaps_038_logrelf0_h1_a3_sma3nz_amean",
+        "egemaps_039_logrelf0_h1_a3_sma3nz_stddevnorm",
+        "egemaps_040_f1frequency_sma3nz_amean",
+        "egemaps_041_f1frequency_sma3nz_stddevnorm",
+        "egemaps_042_f1bandwidth_sma3nz_amean",
+        "egemaps_043_f1bandwidth_sma3nz_stddevnorm",
+        "egemaps_044_f1amplitudelogrelf0_sma3nz_amean",
+        "egemaps_045_f1amplitudelogrelf0_sma3nz_stddevnorm",
+        "egemaps_046_f2frequency_sma3nz_amean",
+        "egemaps_047_f2frequency_sma3nz_stddevnorm",
+        "egemaps_048_f2bandwidth_sma3nz_amean",
+        "egemaps_049_f2bandwidth_sma3nz_stddevnorm",
+        "egemaps_050_f2amplitudelogrelf0_sma3nz_amean",
+        "egemaps_051_f2amplitudelogrelf0_sma3nz_stddevnorm",
+        "egemaps_052_f3frequency_sma3nz_amean",
+        "egemaps_053_f3frequency_sma3nz_stddevnorm",
+        "egemaps_054_f3bandwidth_sma3nz_amean",
+        "egemaps_055_f3bandwidth_sma3nz_stddevnorm",
+        "egemaps_056_f3amplitudelogrelf0_sma3nz_amean",
+        "egemaps_057_f3amplitudelogrelf0_sma3nz_stddevnorm",
+        "egemaps_058_alpharatiov_sma3nz_amean",
+        "egemaps_059_alpharatiov_sma3nz_stddevnorm",
+        "egemaps_060_hammarbergindexv_sma3nz_amean",
+        "egemaps_061_hammarbergindexv_sma3nz_stddevnorm",
+        "egemaps_062_slopev0_500_sma3nz_amean",
+        "egemaps_063_slopev0_500_sma3nz_stddevnorm",
+        "egemaps_064_slopev500_1500_sma3nz_amean",
+        "egemaps_065_slopev500_1500_sma3nz_stddevnorm",
+        "egemaps_066_spectralfluxv_sma3nz_amean",
+        "egemaps_067_spectralfluxv_sma3nz_stddevnorm",
+        "egemaps_068_mfcc1v_sma3nz_amean",
+        "egemaps_069_mfcc1v_sma3nz_stddevnorm",
+        "egemaps_070_mfcc2v_sma3nz_amean",
+        "egemaps_071_mfcc2v_sma3nz_stddevnorm",
+        "egemaps_072_mfcc3v_sma3nz_amean",
+        "egemaps_073_mfcc3v_sma3nz_stddevnorm",
+        "egemaps_074_mfcc4v_sma3nz_amean",
+        "egemaps_075_mfcc4v_sma3nz_stddevnorm",
+        "egemaps_076_alpharatiouv_sma3nz_amean",
+        "egemaps_077_hammarbergindexuv_sma3nz_amean",
+        "egemaps_078_slopeuv0_500_sma3nz_amean",
+        "egemaps_079_slopeuv500_1500_sma3nz_amean",
+        "egemaps_080_spectralfluxuv_sma3nz_amean",
+        "egemaps_081_loudnesspeakspersec",
+        "egemaps_082_voicedsegmentspersec",
+        "egemaps_083_meanvoicedsegmentlengthsec",
+        "egemaps_084_stddevvoicedsegmentlengthsec",
+        "egemaps_085_meanunvoicedsegmentlength",
+        "egemaps_086_stddevunvoicedsegmentlength",
+        "egemaps_087_equivalentsoundlevel_dbp"
+      ]
+    },
+    "figures": [
+      "reports/figures/b4/b4_wav2vec2_pca_by_accent_emotion.png",
+      "reports/figures/b4/b4_accent_emotion_embedding_shift_heatmap.png",
+      "reports/figures/b4/b4_accent_acoustic_radar.png"
+    ],
+    "tables": [
+      "reports/tables/b4/b4_wav2vec2_pca_projection.csv",
+      "reports/tables/b4/b4_accent_emotion_embedding_shift.csv",
+      "reports/tables/b4/b4_accent_acoustic_radar_profiles.csv",
+      "reports/tables/b4/b4_advanced_visualization_insights.json"
+    ],
+    "dashboard": "reports/dashboard/b4_feature_dashboard.html"
+  }
+}
+
+
+===== SOURCE: log_b4_wav2vec.log =====
+[1/20] chunk=0 offset=0 size=256
+  PASS processed=0 resumed=256 invalidated=0
+[2/20] chunk=1 offset=256 size=256
+  PASS processed=0 resumed=256 invalidated=0
+[3/20] chunk=2 offset=512 size=256
+  PASS processed=0 resumed=256 invalidated=0
+[4/20] chunk=3 offset=768 size=256
+
+
+===== SOURCE: log_b5_split.log =====
+[1/4] Optimizing coverage-complete speaker-disjoint split v2
+[2/4] Repeating split optimization to verify deterministic output
+[3/4] Building grouped CV folds and accent-domain federated clients
+[4/4] Publishing versioned manifests, evidence tables, and B5 report
+{
+  "status": "PASS",
+  "split_version": "speaker_disjoint_v2",
+  "assignment_sha256": "da5610e76cf0ce3cd5de8e282e5819824b5251ff22d28e2cf27294598d80ef77",
+  "eligible_rows": 4992,
+  "excluded_rows": 288,
+  "split_distributions": {
+    "train": {
+      "samples": 3681,
+      "sample_fraction": 0.7373798076923077,
+      "speakers": 103,
+      "accent_samples": {
+        "central": 224,
+        "north": 805,
+        "south": 2652
+      },
+      "emotion_samples": {
+        "angry": 1165,
+        "happy": 746,
+        "neutral": 1047,
+        "sad": 723
+      },
+      "gender_samples": {
+        "female": 2802,
+        "male": 879
+      }
+    },
+    "validation": {
+      "samples": 646,
+      "sample_fraction": 0.1294070512820513,
+      "speakers": 22,
+      "accent_samples": {
+        "central": 26,
+        "north": 200,
+        "south": 420
+      },
+      "emotion_samples": {
+        "angry": 150,
+        "happy": 108,
+        "neutral": 226,
+        "sad": 162
+      },
+      "gender_samples": {
+        "female": 402,
+        "male": 244
+      }
+    },
+    "test": {
+      "samples": 665,
+      "sample_fraction": 0.13321314102564102,
+      "speakers": 22,
+      "accent_samples": {
+        "central": 25,
+        "north": 178,
+        "south": 462
+      },
+      "emotion_samples": {
+        "angry": 150,
+        "happy": 119,
+        "neutral": 232,
+        "sad": 164
+      },
+      "gender_samples": {
+        "female": 338,
+        "male": 327
+      }
+    }
+  },
+  "partitioning": {
+    "cv": {
+      "method": "speaker-grouped 5-fold cross-validation on split-v2 training speakers only",
+      "seed": 391,
+      "balance_score": 15.610730247901387,
+      "assignment_sha256": "615bb3a8be28ad4b3c14215d4c59ca845f601b480dbbfe3c92a68c64a57dacfe",
+      "coverage_policy": "Every fold must contain every accent and every emotion. Full accent-emotion cross coverage is reported but not required because some training cross-strata contain fewer speakers than CV folds.",
+      "cross_strata_complete": false,
+      "missing_cross_strata": [
+        {
+          "fold": "fold_0",
+          "accent": "central",
+          "emotion": "angry"
+        },
+        {
+          "fold": "fold_2",
+          "accent": "central",
+          "emotion": "sad"
+        },
+        {
+          "fold": "fold_3",
+          "accent": "central",
+          "emotion": "angry"
+        },
+        {
+          "fold": "fold_3",
+          "accent": "central",
+          "emotion": "happy"
+        },
+        {
+          "fold": "fold_3",
+          "accent": "central",
+          "emotion": "sad"
+        },
+        {
+          "fold": "fold_4",
+          "accent": "central",
+          "emotion": "sad"
+        }
+      ],
+      "folds": [
+        {
+          "fold": "fold_0",
+          "samples": 362,
+          "speakers": 21,
+          "accent_samples": {
+            "central": 153,
+            "north": 133,
+            "south": 76
+          },
+          "emotion_samples": {
+            "angry": 39,
+            "happy": 119,
+            "neutral": 167,
+            "sad": 37
+          }
+        },
+        {
+          "fold": "fold_1",
+          "samples": 359,
+          "speakers": 21,
+          "accent_samples": {
+            "central": 29,
+            "north": 231,
+            "south": 99
+          },
+          "emotion_samples": {
+            "angry": 73,
+            "happy": 68,
+            "neutral": 121,
+            "sad": 97
+          }
+        },
+        {
+          "fold": "fold_2",
+          "samples": 356,
+          "speakers": 21,
+          "accent_samples": {
+            "central": 8,
+            "north": 194,
+            "south": 154
+          },
+          "emotion_samples": {
+            "angry": 64,
+            "happy": 45,
+            "neutral": 140,
+            "sad": 107
+          }
+        },
+        {
+          "fold": "fold_3",
+          "samples": 2261,
+          "speakers": 20,
+          "accent_samples": {
+            "central": 1,
+            "north": 20,
+            "south": 2240
+          },
+          "emotion_samples": {
+            "angry": 866,
+            "happy": 428,
+            "neutral": 530,
+            "sad": 437
+          }
+        },
+        {
+          "fold": "fold_4",
+          "samples": 343,
+          "speakers": 20,
+          "accent_samples": {
+            "central": 33,
+            "north": 227,
+            "south": 83
+          },
+          "emotion_samples": {
+            "angry": 123,
+            "happy": 86,
+            "neutral": 89,
+            "sad": 45
+          }
+        }
+      ]
+    },
+    "federated_clients": {
+      "method": "non-IID accent-domain clients on split-v2 training speakers only",
+      "clients": [
+        {
+          "client_id": "client_central",
+          "samples": 224,
+          "speakers": 12,
+          "emotion_samples": {
+            "angry": 17,
+            "happy": 102,
+            "neutral": 94,
+            "sad": 11
+          }
+        },
+        {
+          "client_id": "client_north",
+          "samples": 805,
+          "speakers": 40,
+          "emotion_samples": {
+            "angry": 223,
+            "happy": 179,
+            "neutral": 236,
+            "sad": 167
+          }
+        },
+        {
+          "client_id": "client_south",
+          "samples": 2652,
+          "speakers": 51,
+          "emotion_samples": {
+            "angry": 925,
+            "happy": 465,
+            "neutral": 717,
+            "sad": 545
+          }
+        }
+      ]
+    },
+    "validation": {
+      "cv_train_speakers_covered_once": true,
+      "cv_fold_count": true,
+      "cv_marginal_coverage_complete": true,
+      "clients_train_speakers_covered_once": true,
+      "clients_are_accent_aligned": true,
+      "each_client_has_all_emotions": true
+    }
+  },
+  "validation": {
+    "same_seed_repeat_identical": true,
+    "protected_v1_hashes_unchanged": true,
+    "protected_v1_sha256": {
+      "data\\manifests\\split_manifest.csv": "0d35123d2b7c5b2d44e873e844e8d9153644fee99b95bd46f9d36d0499dafcb3",
+      "data\\manifests\\split_report.json": "9fc988cdb00316b3cde787e926c05928efc0ba1d0bfbe0bee6d10613a7b29d5b"
+    },
+    "cv_train_speakers_covered_once": true,
+    "cv_fold_count": true,
+    "cv_marginal_coverage_complete": true,
+    "clients_train_speakers_covered_once": true,
+    "clients_are_accent_aligned": true,
+    "each_client_has_all_emotions": true
+  }
+}
+
+
+===== SOURCE: log_b6_models.log =====
+
+========================================================================
+B6 phase 1/3: SVM RBF + XGBoost
+========================================================================
+[1/4] Validating B4 features and frozen B5 split v2
+{
+  "rows": 4992,
+  "features": 174,
+  "splits": {
+    "train": 3681,
+    "test": 665,
+    "validation": 646
+  },
+  "cv_folds": [
+    "fold_0",
+    "fold_1",
+    "fold_2",
+    "fold_3",
+    "fold_4"
+  ]
+}
+[2/4] svm_rbf: verified report exists, resume skip
+[3/4] xgboost: verified report exists, resume skip
+[4/4] Publishing consolidated B6 classical summary
+{
+  "status": "PASS",
+  "schema_version": "b6.classical.v1",
+  "completed_models": [
+    "svm_rbf",
+    "xgboost"
+  ],
+  "test_partition_touched": false,
+  "models": {
+    "svm_rbf": {
+      "status": "PASS",
+      "model": "svm_rbf",
+      "scope": "B6 model selection on grouped train CV and one validation report; test untouched",
+      "config_schema": "b6.classical.v1",
+      "seed": 391,
+      "train_samples": 3681,
+      "validation_samples": 646,
+      "test_samples_reserved": 665,
+      "features": 174,
+      "cv_folds": [
+        "fold_0",
+        "fold_1",
+        "fold_2",
+        "fold_3",
+        "fold_4"
+      ],
+      "best_parameters": {
+        "model__C": 1.0,
+        "model__gamma": "scale"
+      },
+      "best_cv_macro_f1": 0.40789191229451893,
+      "grid_search_seconds": 5.655880699999898,
+      "probability_calibration": "sigmoid CalibratedClassifierCV using B5 grouped folds",
+      "prediction_rule": "selected estimator decision rule; grouped calibrator supplies confidence only",
+      "calibration_seconds": 2.2478335000000698,
+      "total_tuning_seconds": 7.903714199999968,
+      "validation_metrics": {
+        "overall": {
+          "samples": 646,
+          "accuracy": 0.4845201238390093,
+          "macro_f1": 0.46728031418753074,
+          "uar": 0.46326941986234027,
+          "per_class_f1": {
+            "angry": 0.5910652920962199,
+            "happy": 0.32989690721649484,
+            "neutral": 0.5195876288659794,
+            "sad": 0.42857142857142855
+          }
+        },
+        "per_accent": {
+          "central": {
+            "samples": 26,
+            "macro_f1": 0.35027472527472525,
+            "uar": 0.4642857142857143
+          },
+          "north": {
+            "samples": 200,
+            "macro_f1": 0.4375030088299129,
+            "uar": 0.43973709217611656
+          },
+          "south": {
+            "samples": 420,
+            "macro_f1": 0.45739659022205215,
+            "uar": 0.4628144409883688
+          }
+        },
+        "worst_accent_macro_f1": 0.35027472527472525,
+        "accent_macro_f1_gap": 0.1071218649473269
+      },
+      "model_artifact": "artifacts/b6/classical/svm_rbf.joblib",
+      "model_artifact_sha256": "48c1d8afe6f058280f0e5751697078bb675ea6a2ecb0eb279bbd16f4a9436b29",
+      "lineage": {
+        "config_sha256": "7f93ed8f3cdcc9a0d5e62bf6602dc85b767fa3784a0389578db2f356f7292199",
+        "features_sha256": "22c98b9243914ea7c3b05742aeb8a8a7dc0870345c39643226a1688326cfad28",
+        "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a"
+      }
+    },
+    "xgboost": {
+      "status": "PASS",
+      "model": "xgboost",
+      "scope": "B6 model selection on grouped train CV and one validation report; test untouched",
+      "config_schema": "b6.classical.v1",
+      "seed": 391,
+      "train_samples": 3681,
+      "validation_samples": 646,
+      "test_samples_reserved": 665,
+      "features": 174,
+      "cv_folds": [
+        "fold_0",
+        "fold_1",
+        "fold_2",
+        "fold_3",
+        "fold_4"
+      ],
+      "best_parameters": {
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "n_estimators": 400
+      },
+      "best_cv_macro_f1": 0.3760606643743446,
+      "grid_search_seconds": 67.5331842999999,
+      "probability_calibration": null,
+      "prediction_rule": "predict_proba argmax",
+      "calibration_seconds": 0.0,
+      "total_tuning_seconds": 67.5331842999999,
+      "validation_metrics": {
+        "overall": {
+          "samples": 646,
+          "accuracy": 0.47368421052631576,
+          "macro_f1": 0.4385052011136351,
+          "uar": 0.4344414399650388,
+          "per_class_f1": {
+            "angry": 0.5527272727272727,
+            "happy": 0.24,
+            "neutral": 0.5360443622920518,
+            "sad": 0.42524916943521596
+          }
+        },
+        "per_accent": {
+          "central": {
+            "samples": 26,
+            "macro_f1": 0.35027472527472525,
+            "uar": 0.48660714285714285
+          },
+          "north": {
+            "samples": 200,
+            "macro_f1": 0.42996493071356956,
+            "uar": 0.436947373184307
+          },
+          "south": {
+            "samples": 420,
+            "macro_f1": 0.42367735654373584,
+            "uar": 0.43018205063177006
+          }
+        },
+        "worst_accent_macro_f1": 0.35027472527472525,
+        "accent_macro_f1_gap": 0.07969020543884431
+      },
+      "model_artifact": "artifacts/b6/classical/xgboost.joblib",
+      "model_artifact_sha256": "8aa950423f00e7f6a22f4de893daf01761cbd7f5782bd4d1f9288e9073de05b0",
+      "lineage": {
+        "config_sha256": "7f93ed8f3cdcc9a0d5e62bf6602dc85b767fa3784a0389578db2f356f7292199",
+        "features_sha256": "22c98b9243914ea7c3b05742aeb8a8a7dc0870345c39643226a1688326cfad28",
+        "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a"
+      }
+    }
+  }
+}
+
+========================================================================
+B6 phase 2/3: CNN2D + Wav2Vec2 MLP + fusion ablation
+========================================================================
+{"status": "PASS", "device": "cuda", "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU", "train": 3681, "validation": 646, "test_loaded_for_training": false}
+[1/3] cnn2d_logmel: grouped cross-validation
+cnn2d_logmel fold fold_0 epoch 1/30 train_loss=1.3595 val_macro_f1=0.1554
+cnn2d_logmel fold fold_0 epoch 2/30 train_loss=1.2728 val_macro_f1=0.3216
+cnn2d_logmel fold fold_0 epoch 3/30 train_loss=1.2385 val_macro_f1=0.1381
+cnn2d_logmel fold fold_0 epoch 4/30 train_loss=1.2219 val_macro_f1=0.3151
+cnn2d_logmel fold fold_0 epoch 5/30 train_loss=1.2002 val_macro_f1=0.3740
+cnn2d_logmel fold fold_0 epoch 6/30 train_loss=1.1951 val_macro_f1=0.2922
+cnn2d_logmel fold fold_0 epoch 7/30 train_loss=1.1911 val_macro_f1=0.4194
+cnn2d_logmel fold fold_0 epoch 8/30 train_loss=1.1739 val_macro_f1=0.3483
+cnn2d_logmel fold fold_0 epoch 9/30 train_loss=1.1667 val_macro_f1=0.4101
+cnn2d_logmel fold fold_0 epoch 10/30 train_loss=1.1649 val_macro_f1=0.2764
+cnn2d_logmel fold fold_0 epoch 11/30 train_loss=1.1636 val_macro_f1=0.3580
+cnn2d_logmel fold fold_0 epoch 12/30 train_loss=1.1577 val_macro_f1=0.3965
+cnn2d_logmel fold fold_0 epoch 13/30 train_loss=1.1447 val_macro_f1=0.3848
+cnn2d_logmel fold fold_0 epoch 14/30 train_loss=1.1500 val_macro_f1=0.4565
+cnn2d_logmel fold fold_0 epoch 15/30 train_loss=1.1415 val_macro_f1=0.2581
+cnn2d_logmel fold fold_0 epoch 16/30 train_loss=1.1377 val_macro_f1=0.3834
+cnn2d_logmel fold fold_0 epoch 17/30 train_loss=1.1269 val_macro_f1=0.4493
+cnn2d_logmel fold fold_0 epoch 18/30 train_loss=1.1329 val_macro_f1=0.4128
+cnn2d_logmel fold fold_0 epoch 19/30 train_loss=1.1247 val_macro_f1=0.2158
+cnn2d_logmel fold fold_0 epoch 20/30 train_loss=1.1176 val_macro_f1=0.3367
+cnn2d_logmel fold fold_0 epoch 21/30 train_loss=1.1257 val_macro_f1=0.3476
+cnn2d_logmel fold fold_0 epoch 22/30 train_loss=1.1149 val_macro_f1=0.2489
+cnn2d_logmel fold fold_0 epoch 23/30 train_loss=1.1098 val_macro_f1=0.3620
+cnn2d_logmel fold fold_0 epoch 24/30 train_loss=1.1114 val_macro_f1=0.4168
+cnn2d_logmel fold fold_0 epoch 25/30 train_loss=1.1048 val_macro_f1=0.4183
+cnn2d_logmel fold fold_0 epoch 26/30 train_loss=1.1109 val_macro_f1=0.2472
+cnn2d_logmel fold fold_0 epoch 27/30 train_loss=1.0996 val_macro_f1=0.2673
+cnn2d_logmel fold fold_0 epoch 28/30 train_loss=1.1073 val_macro_f1=0.4379
+cnn2d_logmel fold fold_0 epoch 29/30 train_loss=1.0979 val_macro_f1=0.4501
+cnn2d_logmel fold fold_0 epoch 30/30 train_loss=1.0903 val_macro_f1=0.1319
+cnn2d_logmel fold fold_1 epoch 1/30 train_loss=1.3368 val_macro_f1=0.2719
+cnn2d_logmel fold fold_1 epoch 2/30 train_loss=1.2582 val_macro_f1=0.3284
+cnn2d_logmel fold fold_1 epoch 3/30 train_loss=1.2098 val_macro_f1=0.3411
+cnn2d_logmel fold fold_1 epoch 4/30 train_loss=1.1976 val_macro_f1=0.2822
+cnn2d_logmel fold fold_1 epoch 5/30 train_loss=1.1814 val_macro_f1=0.3173
+cnn2d_logmel fold fold_1 epoch 6/30 train_loss=1.1827 val_macro_f1=0.3478
+cnn2d_logmel fold fold_1 epoch 7/30 train_loss=1.1579 val_macro_f1=0.3569
+cnn2d_logmel fold fold_1 epoch 8/30 train_loss=1.1510 val_macro_f1=0.3537
+cnn2d_logmel fold fold_1 epoch 9/30 train_loss=1.1448 val_macro_f1=0.1143
+cnn2d_logmel fold fold_1 epoch 10/30 train_loss=1.1501 val_macro_f1=0.2554
+cnn2d_logmel fold fold_1 epoch 11/30 train_loss=1.1328 val_macro_f1=0.2273
+cnn2d_logmel fold fold_1 epoch 12/30 train_loss=1.1335 val_macro_f1=0.3682
+cnn2d_logmel fold fold_1 epoch 13/30 train_loss=1.1244 val_macro_f1=0.3605
+cnn2d_logmel fold fold_1 epoch 14/30 train_loss=1.1208 val_macro_f1=0.3654
+cnn2d_logmel fold fold_1 epoch 15/30 train_loss=1.1133 val_macro_f1=0.3588
+cnn2d_logmel fold fold_1 epoch 16/30 train_loss=1.1126 val_macro_f1=0.2784
+cnn2d_logmel fold fold_1 epoch 17/30 train_loss=1.1064 val_macro_f1=0.3099
+cnn2d_logmel fold fold_1 epoch 18/30 train_loss=1.1056 val_macro_f1=0.2429
+cnn2d_logmel fold fold_1 epoch 19/30 train_loss=1.0964 val_macro_f1=0.3535
+cnn2d_logmel fold fold_1 epoch 20/30 train_loss=1.0990 val_macro_f1=0.2476
+cnn2d_logmel fold fold_1 epoch 21/30 train_loss=1.0859 val_macro_f1=0.3545
+cnn2d_logmel fold fold_1 epoch 22/30 train_loss=1.0997 val_macro_f1=0.2904
+cnn2d_logmel fold fold_1 epoch 23/30 train_loss=1.0892 val_macro_f1=0.3921
+cnn2d_logmel fold fold_1 epoch 24/30 train_loss=1.0861 val_macro_f1=0.3882
+cnn2d_logmel fold fold_1 epoch 25/30 train_loss=1.0864 val_macro_f1=0.4281
+cnn2d_logmel fold fold_1 epoch 26/30 train_loss=1.0739 val_macro_f1=0.3457
+cnn2d_logmel fold fold_1 epoch 27/30 train_loss=1.0662 val_macro_f1=0.3103
+cnn2d_logmel fold fold_1 epoch 28/30 train_loss=1.0714 val_macro_f1=0.3930
+cnn2d_logmel fold fold_1 epoch 29/30 train_loss=1.0744 val_macro_f1=0.2887
+cnn2d_logmel fold fold_1 epoch 30/30 train_loss=1.0549 val_macro_f1=0.2767
+cnn2d_logmel fold fold_2 epoch 1/30 train_loss=1.3332 val_macro_f1=0.2692
+cnn2d_logmel fold fold_2 epoch 2/30 train_loss=1.2527 val_macro_f1=0.3745
+cnn2d_logmel fold fold_2 epoch 3/30 train_loss=1.2101 val_macro_f1=0.3457
+cnn2d_logmel fold fold_2 epoch 4/30 train_loss=1.1976 val_macro_f1=0.3501
+cnn2d_logmel fold fold_2 epoch 5/30 train_loss=1.1839 val_macro_f1=0.3381
+cnn2d_logmel fold fold_2 epoch 6/30 train_loss=1.1834 val_macro_f1=0.2917
+cnn2d_logmel fold fold_2 epoch 7/30 train_loss=1.1542 val_macro_f1=0.3605
+cnn2d_logmel fold fold_2 epoch 8/30 train_loss=1.1636 val_macro_f1=0.3665
+cnn2d_logmel fold fold_2 epoch 9/30 train_loss=1.1484 val_macro_f1=0.2599
+cnn2d_logmel fold fold_2 epoch 10/30 train_loss=1.1543 val_macro_f1=0.3560
+cnn2d_logmel fold fold_2 epoch 11/30 train_loss=1.1380 val_macro_f1=0.2823
+cnn2d_logmel fold fold_2 epoch 12/30 train_loss=1.1282 val_macro_f1=0.3670
+cnn2d_logmel fold fold_2 epoch 13/30 train_loss=1.1315 val_macro_f1=0.3186
+cnn2d_logmel fold fold_2 epoch 14/30 train_loss=1.1267 val_macro_f1=0.4037
+cnn2d_logmel fold fold_2 epoch 15/30 train_loss=1.1215 val_macro_f1=0.3775
+cnn2d_logmel fold fold_2 epoch 16/30 train_loss=1.1212 val_macro_f1=0.2356
+cnn2d_logmel fold fold_2 epoch 17/30 train_loss=1.1180 val_macro_f1=0.1751
+cnn2d_logmel fold fold_2 epoch 18/30 train_loss=1.1107 val_macro_f1=0.3525
+cnn2d_logmel fold fold_2 epoch 19/30 train_loss=1.0937 val_macro_f1=0.2038
+cnn2d_logmel fold fold_2 epoch 20/30 train_loss=1.1002 val_macro_f1=0.1824
+cnn2d_logmel fold fold_2 epoch 21/30 train_loss=1.1068 val_macro_f1=0.4453
+cnn2d_logmel fold fold_2 epoch 22/30 train_loss=1.0920 val_macro_f1=0.1687
+cnn2d_logmel fold fold_2 epoch 23/30 train_loss=1.0857 val_macro_f1=0.3102
+cnn2d_logmel fold fold_2 epoch 24/30 train_loss=1.0918 val_macro_f1=0.3882
+cnn2d_logmel fold fold_2 epoch 25/30 train_loss=1.0878 val_macro_f1=0.2164
+cnn2d_logmel fold fold_2 epoch 26/30 train_loss=1.0867 val_macro_f1=0.2952
+cnn2d_logmel fold fold_2 epoch 27/30 train_loss=1.0839 val_macro_f1=0.3983
+cnn2d_logmel fold fold_2 epoch 28/30 train_loss=1.0839 val_macro_f1=0.2475
+cnn2d_logmel fold fold_2 epoch 29/30 train_loss=1.0770 val_macro_f1=0.2229
+cnn2d_logmel fold fold_2 epoch 30/30 train_loss=1.0753 val_macro_f1=0.3067
+cnn2d_logmel fold fold_3 epoch 1/30 train_loss=1.3554 val_macro_f1=0.2765
+cnn2d_logmel fold fold_3 epoch 2/30 train_loss=1.3333 val_macro_f1=0.1926
+cnn2d_logmel fold fold_3 epoch 3/30 train_loss=1.3070 val_macro_f1=0.1109
+cnn2d_logmel fold fold_3 epoch 4/30 train_loss=1.2857 val_macro_f1=0.2405
+cnn2d_logmel fold fold_3 epoch 5/30 train_loss=1.2589 val_macro_f1=0.2178
+cnn2d_logmel fold fold_3 epoch 6/30 train_loss=1.2478 val_macro_f1=0.2952
+cnn2d_logmel fold fold_3 epoch 7/30 train_loss=1.2159 val_macro_f1=0.3306
+cnn2d_logmel fold fold_3 epoch 8/30 train_loss=1.2282 val_macro_f1=0.2880
+cnn2d_logmel fold fold_3 epoch 9/30 train_loss=1.2212 val_macro_f1=0.3276
+cnn2d_logmel fold fold_3 epoch 10/30 train_loss=1.2144 val_macro_f1=0.3168
+cnn2d_logmel fold fold_3 epoch 11/30 train_loss=1.2207 val_macro_f1=0.3010
+cnn2d_logmel fold fold_3 epoch 12/30 train_loss=1.1904 val_macro_f1=0.2684
+cnn2d_logmel fold fold_3 epoch 13/30 train_loss=1.1858 val_macro_f1=0.3159
+cnn2d_logmel fold fold_3 epoch 14/30 train_loss=1.1752 val_macro_f1=0.1725
+cnn2d_logmel fold fold_3 epoch 15/30 train_loss=1.1884 val_macro_f1=0.3584
+cnn2d_logmel fold fold_3 epoch 16/30 train_loss=1.1867 val_macro_f1=0.3531
+cnn2d_logmel fold fold_3 epoch 17/30 train_loss=1.1691 val_macro_f1=0.3632
+cnn2d_logmel fold fold_3 epoch 18/30 train_loss=1.1648 val_macro_f1=0.2054
+cnn2d_logmel fold fold_3 epoch 19/30 train_loss=1.1539 val_macro_f1=0.3880
+cnn2d_logmel fold fold_3 epoch 20/30 train_loss=1.1676 val_macro_f1=0.2462
+cnn2d_logmel fold fold_3 epoch 21/30 train_loss=1.1328 val_macro_f1=0.2635
+cnn2d_logmel fold fold_3 epoch 22/30 train_loss=1.1573 val_macro_f1=0.1150
+cnn2d_logmel fold fold_3 epoch 23/30 train_loss=1.1552 val_macro_f1=0.3734
+cnn2d_logmel fold fold_3 epoch 24/30 train_loss=1.1524 val_macro_f1=0.3447
+cnn2d_logmel fold fold_3 epoch 25/30 train_loss=1.1440 val_macro_f1=0.2867
+cnn2d_logmel fold fold_3 epoch 26/30 train_loss=1.1407 val_macro_f1=0.2710
+cnn2d_logmel fold fold_3 epoch 27/30 train_loss=1.1591 val_macro_f1=0.3254
+cnn2d_logmel fold fold_3 epoch 28/30 train_loss=1.1504 val_macro_f1=0.2917
+cnn2d_logmel fold fold_3 epoch 29/30 train_loss=1.1414 val_macro_f1=0.2167
+cnn2d_logmel fold fold_3 epoch 30/30 train_loss=1.1308 val_macro_f1=0.3300
+cnn2d_logmel fold fold_4 epoch 1/30 train_loss=1.3389 val_macro_f1=0.2668
+cnn2d_logmel fold fold_4 epoch 2/30 train_loss=1.2547 val_macro_f1=0.3376
+cnn2d_logmel fold fold_4 epoch 3/30 train_loss=1.2422 val_macro_f1=0.2343
+cnn2d_logmel fold fold_4 epoch 4/30 train_loss=1.2092 val_macro_f1=0.2914
+cnn2d_logmel fold fold_4 epoch 5/30 train_loss=1.1875 val_macro_f1=0.3318
+cnn2d_logmel fold fold_4 epoch 6/30 train_loss=1.1660 val_macro_f1=0.2120
+cnn2d_logmel fold fold_4 epoch 7/30 train_loss=1.1634 val_macro_f1=0.3251
+cnn2d_logmel fold fold_4 epoch 8/30 train_loss=1.1588 val_macro_f1=0.1998
+cnn2d_logmel fold fold_4 epoch 9/30 train_loss=1.1581 val_macro_f1=0.0665
+cnn2d_logmel fold fold_4 epoch 10/30 train_loss=1.1554 val_macro_f1=0.1895
+cnn2d_logmel fold fold_4 epoch 11/30 train_loss=1.1387 val_macro_f1=0.3114
+cnn2d_logmel fold fold_4 epoch 12/30 train_loss=1.1220 val_macro_f1=0.1215
+cnn2d_logmel fold fold_4 epoch 13/30 train_loss=1.1220 val_macro_f1=0.3314
+cnn2d_logmel fold fold_4 epoch 14/30 train_loss=1.1183 val_macro_f1=0.3504
+cnn2d_logmel fold fold_4 epoch 15/30 train_loss=1.1191 val_macro_f1=0.3815
+cnn2d_logmel fold fold_4 epoch 16/30 train_loss=1.1196 val_macro_f1=0.3654
+cnn2d_logmel fold fold_4 epoch 17/30 train_loss=1.1083 val_macro_f1=0.2214
+cnn2d_logmel fold fold_4 epoch 18/30 train_loss=1.1022 val_macro_f1=0.3688
+cnn2d_logmel fold fold_4 epoch 19/30 train_loss=1.0881 val_macro_f1=0.2549
+cnn2d_logmel fold fold_4 epoch 20/30 train_loss=1.0920 val_macro_f1=0.2083
+cnn2d_logmel fold fold_4 epoch 21/30 train_loss=1.1010 val_macro_f1=0.3257
+cnn2d_logmel fold fold_4 epoch 22/30 train_loss=1.0826 val_macro_f1=0.3270
+cnn2d_logmel fold fold_4 epoch 23/30 train_loss=1.0762 val_macro_f1=0.3286
+cnn2d_logmel fold fold_4 epoch 24/30 train_loss=1.0815 val_macro_f1=0.1763
+cnn2d_logmel fold fold_4 epoch 25/30 train_loss=1.0707 val_macro_f1=0.2610
+cnn2d_logmel fold fold_4 epoch 26/30 train_loss=1.0694 val_macro_f1=0.4066
+cnn2d_logmel fold fold_4 epoch 27/30 train_loss=1.0890 val_macro_f1=0.3791
+cnn2d_logmel fold fold_4 epoch 28/30 train_loss=1.0655 val_macro_f1=0.2119
+cnn2d_logmel fold fold_4 epoch 29/30 train_loss=1.0748 val_macro_f1=0.2895
+cnn2d_logmel fold fold_4 epoch 30/30 train_loss=1.0809 val_macro_f1=0.3867
+cnn2d_logmel: final train for 21 epochs (median CV best epoch)
+cnn2d_logmel final epoch 1/21 train_loss=1.3596 val_macro_f1=0.3579
+cnn2d_logmel final epoch 2/21 train_loss=1.2738 val_macro_f1=0.3648
+cnn2d_logmel final epoch 3/21 train_loss=1.2311 val_macro_f1=0.4063
+cnn2d_logmel final epoch 4/21 train_loss=1.2138 val_macro_f1=0.3342
+cnn2d_logmel final epoch 5/21 train_loss=1.2062 val_macro_f1=0.4144
+cnn2d_logmel final epoch 6/21 train_loss=1.1724 val_macro_f1=0.4120
+cnn2d_logmel final epoch 7/21 train_loss=1.1801 val_macro_f1=0.3241
+cnn2d_logmel final epoch 8/21 train_loss=1.1750 val_macro_f1=0.3523
+cnn2d_logmel final epoch 9/21 train_loss=1.1670 val_macro_f1=0.2773
+cnn2d_logmel final epoch 10/21 train_loss=1.1628 val_macro_f1=0.3857
+cnn2d_logmel final epoch 11/21 train_loss=1.1496 val_macro_f1=0.4171
+cnn2d_logmel final epoch 12/21 train_loss=1.1462 val_macro_f1=0.4107
+cnn2d_logmel final epoch 13/21 train_loss=1.1332 val_macro_f1=0.2231
+cnn2d_logmel final epoch 14/21 train_loss=1.1284 val_macro_f1=0.3246
+cnn2d_logmel final epoch 15/21 train_loss=1.1325 val_macro_f1=0.4257
+cnn2d_logmel final epoch 16/21 train_loss=1.1284 val_macro_f1=0.2917
+cnn2d_logmel final epoch 17/21 train_loss=1.1154 val_macro_f1=0.4620
+cnn2d_logmel final epoch 18/21 train_loss=1.1389 val_macro_f1=0.2786
+cnn2d_logmel final epoch 19/21 train_loss=1.1279 val_macro_f1=0.4260
+cnn2d_logmel final epoch 20/21 train_loss=1.1163 val_macro_f1=0.3319
+cnn2d_logmel final epoch 21/21 train_loss=1.1161 val_macro_f1=0.3430
+cnn2d_logmel: validation Macro-F1=0.3430
+[2/3] wav2vec2_embedding_mlp: grouped cross-validation
+wav2vec2_embedding_mlp fold fold_0 epoch 1/30 train_loss=1.2228 val_macro_f1=0.2773
+wav2vec2_embedding_mlp fold fold_0 epoch 2/30 train_loss=1.0668 val_macro_f1=0.3015
+wav2vec2_embedding_mlp fold fold_0 epoch 3/30 train_loss=0.9872 val_macro_f1=0.2981
+wav2vec2_embedding_mlp fold fold_0 epoch 4/30 train_loss=0.9341 val_macro_f1=0.2997
+wav2vec2_embedding_mlp fold fold_0 epoch 5/30 train_loss=0.8877 val_macro_f1=0.3065
+wav2vec2_embedding_mlp fold fold_0 epoch 6/30 train_loss=0.8412 val_macro_f1=0.3612
+wav2vec2_embedding_mlp fold fold_0 epoch 7/30 train_loss=0.8050 val_macro_f1=0.3660
+wav2vec2_embedding_mlp fold fold_0 epoch 8/30 train_loss=0.7731 val_macro_f1=0.3976
+wav2vec2_embedding_mlp fold fold_0 epoch 9/30 train_loss=0.7392 val_macro_f1=0.4086
+wav2vec2_embedding_mlp fold fold_0 epoch 10/30 train_loss=0.7115 val_macro_f1=0.3866
+wav2vec2_embedding_mlp fold fold_0 epoch 11/30 train_loss=0.6732 val_macro_f1=0.3750
+wav2vec2_embedding_mlp fold fold_0 epoch 12/30 train_loss=0.6723 val_macro_f1=0.3911
+wav2vec2_embedding_mlp fold fold_0 epoch 13/30 train_loss=0.6434 val_macro_f1=0.4146
+wav2vec2_embedding_mlp fold fold_0 epoch 14/30 train_loss=0.6062 val_macro_f1=0.4270
+wav2vec2_embedding_mlp fold fold_0 epoch 15/30 train_loss=0.6060 val_macro_f1=0.4147
+wav2vec2_embedding_mlp fold fold_0 epoch 16/30 train_loss=0.5839 val_macro_f1=0.3910
+wav2vec2_embedding_mlp fold fold_0 epoch 17/30 train_loss=0.5625 val_macro_f1=0.3973
+wav2vec2_embedding_mlp fold fold_0 epoch 18/30 train_loss=0.5285 val_macro_f1=0.4150
+wav2vec2_embedding_mlp fold fold_0 epoch 19/30 train_loss=0.5170 val_macro_f1=0.4539
+wav2vec2_embedding_mlp fold fold_0 epoch 20/30 train_loss=0.4934 val_macro_f1=0.4551
+wav2vec2_embedding_mlp fold fold_0 epoch 21/30 train_loss=0.4873 val_macro_f1=0.4357
+wav2vec2_embedding_mlp fold fold_0 epoch 22/30 train_loss=0.4736 val_macro_f1=0.4417
+wav2vec2_embedding_mlp fold fold_0 epoch 23/30 train_loss=0.4547 val_macro_f1=0.3732
+wav2vec2_embedding_mlp fold fold_0 epoch 24/30 train_loss=0.4633 val_macro_f1=0.3737
+wav2vec2_embedding_mlp fold fold_0 epoch 25/30 train_loss=0.4243 val_macro_f1=0.4209
+wav2vec2_embedding_mlp fold fold_0 epoch 26/30 train_loss=0.4127 val_macro_f1=0.3724
+wav2vec2_embedding_mlp fold fold_0 epoch 27/30 train_loss=0.4030 val_macro_f1=0.3263
+wav2vec2_embedding_mlp fold fold_0 epoch 28/30 train_loss=0.3850 val_macro_f1=0.3625
+wav2vec2_embedding_mlp fold fold_0 epoch 29/30 train_loss=0.3967 val_macro_f1=0.3800
+wav2vec2_embedding_mlp fold fold_0 epoch 30/30 train_loss=0.3563 val_macro_f1=0.4131
+wav2vec2_embedding_mlp fold fold_1 epoch 1/30 train_loss=1.2127 val_macro_f1=0.3184
+wav2vec2_embedding_mlp fold fold_1 epoch 2/30 train_loss=1.0507 val_macro_f1=0.3844
+wav2vec2_embedding_mlp fold fold_1 epoch 3/30 train_loss=0.9816 val_macro_f1=0.3897
+wav2vec2_embedding_mlp fold fold_1 epoch 4/30 train_loss=0.9213 val_macro_f1=0.4115
+wav2vec2_embedding_mlp fold fold_1 epoch 5/30 train_loss=0.8800 val_macro_f1=0.4139
+wav2vec2_embedding_mlp fold fold_1 epoch 6/30 train_loss=0.8315 val_macro_f1=0.4477
+wav2vec2_embedding_mlp fold fold_1 epoch 7/30 train_loss=0.7902 val_macro_f1=0.4688
+wav2vec2_embedding_mlp fold fold_1 epoch 8/30 train_loss=0.7723 val_macro_f1=0.4532
+wav2vec2_embedding_mlp fold fold_1 epoch 9/30 train_loss=0.7293 val_macro_f1=0.4565
+wav2vec2_embedding_mlp fold fold_1 epoch 10/30 train_loss=0.7105 val_macro_f1=0.4758
+wav2vec2_embedding_mlp fold fold_1 epoch 11/30 train_loss=0.6703 val_macro_f1=0.4704
+wav2vec2_embedding_mlp fold fold_1 epoch 12/30 train_loss=0.6524 val_macro_f1=0.4540
+wav2vec2_embedding_mlp fold fold_1 epoch 13/30 train_loss=0.6345 val_macro_f1=0.4604
+wav2vec2_embedding_mlp fold fold_1 epoch 14/30 train_loss=0.6092 val_macro_f1=0.4776
+wav2vec2_embedding_mlp fold fold_1 epoch 15/30 train_loss=0.5903 val_macro_f1=0.4612
+wav2vec2_embedding_mlp fold fold_1 epoch 16/30 train_loss=0.5732 val_macro_f1=0.4836
+wav2vec2_embedding_mlp fold fold_1 epoch 17/30 train_loss=0.5593 val_macro_f1=0.4890
+wav2vec2_embedding_mlp fold fold_1 epoch 18/30 train_loss=0.5345 val_macro_f1=0.4818
+wav2vec2_embedding_mlp fold fold_1 epoch 19/30 train_loss=0.4976 val_macro_f1=0.4629
+wav2vec2_embedding_mlp fold fold_1 epoch 20/30 train_loss=0.4897 val_macro_f1=0.4536
+wav2vec2_embedding_mlp fold fold_1 epoch 21/30 train_loss=0.4818 val_macro_f1=0.4826
+wav2vec2_embedding_mlp fold fold_1 epoch 22/30 train_loss=0.4603 val_macro_f1=0.4922
+wav2vec2_embedding_mlp fold fold_1 epoch 23/30 train_loss=0.4579 val_macro_f1=0.4711
+wav2vec2_embedding_mlp fold fold_1 epoch 24/30 train_loss=0.4446 val_macro_f1=0.4487
+wav2vec2_embedding_mlp fold fold_1 epoch 25/30 train_loss=0.4155 val_macro_f1=0.4574
+wav2vec2_embedding_mlp fold fold_1 epoch 26/30 train_loss=0.4245 val_macro_f1=0.4426
+wav2vec2_embedding_mlp fold fold_1 epoch 27/30 train_loss=0.3854 val_macro_f1=0.4724
+wav2vec2_embedding_mlp fold fold_1 epoch 28/30 train_loss=0.3889 val_macro_f1=0.4914
+wav2vec2_embedding_mlp fold fold_1 epoch 29/30 train_loss=0.3903 val_macro_f1=0.4662
+wav2vec2_embedding_mlp fold fold_1 epoch 30/30 train_loss=0.3631 val_macro_f1=0.4536
+wav2vec2_embedding_mlp fold fold_2 epoch 1/30 train_loss=1.2241 val_macro_f1=0.3607
+wav2vec2_embedding_mlp fold fold_2 epoch 2/30 train_loss=1.0764 val_macro_f1=0.3606
+wav2vec2_embedding_mlp fold fold_2 epoch 3/30 train_loss=0.9874 val_macro_f1=0.3780
+wav2vec2_embedding_mlp fold fold_2 epoch 4/30 train_loss=0.9293 val_macro_f1=0.3908
+wav2vec2_embedding_mlp fold fold_2 epoch 5/30 train_loss=0.8875 val_macro_f1=0.3545
+wav2vec2_embedding_mlp fold fold_2 epoch 6/30 train_loss=0.8502 val_macro_f1=0.4027
+wav2vec2_embedding_mlp fold fold_2 epoch 7/30 train_loss=0.8146 val_macro_f1=0.4178
+wav2vec2_embedding_mlp fold fold_2 epoch 8/30 train_loss=0.7777 val_macro_f1=0.3976
+wav2vec2_embedding_mlp fold fold_2 epoch 9/30 train_loss=0.7405 val_macro_f1=0.4386
+wav2vec2_embedding_mlp fold fold_2 epoch 10/30 train_loss=0.7042 val_macro_f1=0.4183
+wav2vec2_embedding_mlp fold fold_2 epoch 11/30 train_loss=0.6897 val_macro_f1=0.4580
+wav2vec2_embedding_mlp fold fold_2 epoch 12/30 train_loss=0.6650 val_macro_f1=0.4342
+wav2vec2_embedding_mlp fold fold_2 epoch 13/30 train_loss=0.6265 val_macro_f1=0.4204
+wav2vec2_embedding_mlp fold fold_2 epoch 14/30 train_loss=0.6185 val_macro_f1=0.4816
+wav2vec2_embedding_mlp fold fold_2 epoch 15/30 train_loss=0.5993 val_macro_f1=0.4540
+wav2vec2_embedding_mlp fold fold_2 epoch 16/30 train_loss=0.5663 val_macro_f1=0.4665
+wav2vec2_embedding_mlp fold fold_2 epoch 17/30 train_loss=0.5768 val_macro_f1=0.4739
+wav2vec2_embedding_mlp fold fold_2 epoch 18/30 train_loss=0.5250 val_macro_f1=0.4544
+wav2vec2_embedding_mlp fold fold_2 epoch 19/30 train_loss=0.5108 val_macro_f1=0.4681
+wav2vec2_embedding_mlp fold fold_2 epoch 20/30 train_loss=0.5179 val_macro_f1=0.4542
+wav2vec2_embedding_mlp fold fold_2 epoch 21/30 train_loss=0.4832 val_macro_f1=0.4780
+wav2vec2_embedding_mlp fold fold_2 epoch 22/30 train_loss=0.4729 val_macro_f1=0.4638
+wav2vec2_embedding_mlp fold fold_2 epoch 23/30 train_loss=0.4576 val_macro_f1=0.4635
+wav2vec2_embedding_mlp fold fold_2 epoch 24/30 train_loss=0.4552 val_macro_f1=0.4575
+wav2vec2_embedding_mlp fold fold_2 epoch 25/30 train_loss=0.4289 val_macro_f1=0.4709
+wav2vec2_embedding_mlp fold fold_2 epoch 26/30 train_loss=0.4263 val_macro_f1=0.4643
+wav2vec2_embedding_mlp fold fold_2 epoch 27/30 train_loss=0.4005 val_macro_f1=0.4749
+wav2vec2_embedding_mlp fold fold_2 epoch 28/30 train_loss=0.3907 val_macro_f1=0.4691
+wav2vec2_embedding_mlp fold fold_2 epoch 29/30 train_loss=0.3730 val_macro_f1=0.4871
+wav2vec2_embedding_mlp fold fold_2 epoch 30/30 train_loss=0.3635 val_macro_f1=0.4641
+wav2vec2_embedding_mlp fold fold_3 epoch 1/30 train_loss=1.3232 val_macro_f1=0.2842
+wav2vec2_embedding_mlp fold fold_3 epoch 2/30 train_loss=1.1970 val_macro_f1=0.3076
+wav2vec2_embedding_mlp fold fold_3 epoch 3/30 train_loss=1.1368 val_macro_f1=0.3320
+wav2vec2_embedding_mlp fold fold_3 epoch 4/30 train_loss=1.0702 val_macro_f1=0.3694
+wav2vec2_embedding_mlp fold fold_3 epoch 5/30 train_loss=1.0132 val_macro_f1=0.3601
+wav2vec2_embedding_mlp fold fold_3 epoch 6/30 train_loss=0.9618 val_macro_f1=0.3190
+wav2vec2_embedding_mlp fold fold_3 epoch 7/30 train_loss=0.9181 val_macro_f1=0.3307
+wav2vec2_embedding_mlp fold fold_3 epoch 8/30 train_loss=0.8556 val_macro_f1=0.3011
+wav2vec2_embedding_mlp fold fold_3 epoch 9/30 train_loss=0.8325 val_macro_f1=0.2959
+wav2vec2_embedding_mlp fold fold_3 epoch 10/30 train_loss=0.7795 val_macro_f1=0.3395
+wav2vec2_embedding_mlp fold fold_3 epoch 11/30 train_loss=0.7615 val_macro_f1=0.3098
+wav2vec2_embedding_mlp fold fold_3 epoch 12/30 train_loss=0.7322 val_macro_f1=0.3529
+wav2vec2_embedding_mlp fold fold_3 epoch 13/30 train_loss=0.6942 val_macro_f1=0.3175
+wav2vec2_embedding_mlp fold fold_3 epoch 14/30 train_loss=0.6538 val_macro_f1=0.3056
+wav2vec2_embedding_mlp fold fold_3 epoch 15/30 train_loss=0.6117 val_macro_f1=0.3289
+wav2vec2_embedding_mlp fold fold_3 epoch 16/30 train_loss=0.5710 val_macro_f1=0.3490
+wav2vec2_embedding_mlp fold fold_3 epoch 17/30 train_loss=0.5526 val_macro_f1=0.3339
+wav2vec2_embedding_mlp fold fold_3 epoch 18/30 train_loss=0.5458 val_macro_f1=0.3661
+wav2vec2_embedding_mlp fold fold_3 epoch 19/30 train_loss=0.5229 val_macro_f1=0.3405
+wav2vec2_embedding_mlp fold fold_3 epoch 20/30 train_loss=0.5042 val_macro_f1=0.2744
+wav2vec2_embedding_mlp fold fold_3 epoch 21/30 train_loss=0.4909 val_macro_f1=0.3480
+wav2vec2_embedding_mlp fold fold_3 epoch 22/30 train_loss=0.4805 val_macro_f1=0.3595
+wav2vec2_embedding_mlp fold fold_3 epoch 23/30 train_loss=0.4325 val_macro_f1=0.3462
+wav2vec2_embedding_mlp fold fold_3 epoch 24/30 train_loss=0.4366 val_macro_f1=0.2853
+wav2vec2_embedding_mlp fold fold_3 epoch 25/30 train_loss=0.4406 val_macro_f1=0.3654
+wav2vec2_embedding_mlp fold fold_3 epoch 26/30 train_loss=0.4458 val_macro_f1=0.3709
+wav2vec2_embedding_mlp fold fold_3 epoch 27/30 train_loss=0.3875 val_macro_f1=0.3124
+wav2vec2_embedding_mlp fold fold_3 epoch 28/30 train_loss=0.3704 val_macro_f1=0.3109
+wav2vec2_embedding_mlp fold fold_3 epoch 29/30 train_loss=0.4408 val_macro_f1=0.3621
+wav2vec2_embedding_mlp fold fold_3 epoch 30/30 train_loss=0.4101 val_macro_f1=0.3080
+wav2vec2_embedding_mlp fold fold_4 epoch 1/30 train_loss=1.2228 val_macro_f1=0.3484
+wav2vec2_embedding_mlp fold fold_4 epoch 2/30 train_loss=1.0674 val_macro_f1=0.3391
+wav2vec2_embedding_mlp fold fold_4 epoch 3/30 train_loss=0.9905 val_macro_f1=0.3848
+wav2vec2_embedding_mlp fold fold_4 epoch 4/30 train_loss=0.9411 val_macro_f1=0.3974
+wav2vec2_embedding_mlp fold fold_4 epoch 5/30 train_loss=0.8895 val_macro_f1=0.4091
+wav2vec2_embedding_mlp fold fold_4 epoch 6/30 train_loss=0.8577 val_macro_f1=0.4000
+wav2vec2_embedding_mlp fold fold_4 epoch 7/30 train_loss=0.8233 val_macro_f1=0.4283
+wav2vec2_embedding_mlp fold fold_4 epoch 8/30 train_loss=0.8124 val_macro_f1=0.4406
+wav2vec2_embedding_mlp fold fold_4 epoch 9/30 train_loss=0.7833 val_macro_f1=0.4359
+wav2vec2_embedding_mlp fold fold_4 epoch 10/30 train_loss=0.7377 val_macro_f1=0.4394
+wav2vec2_embedding_mlp fold fold_4 epoch 11/30 train_loss=0.7453 val_macro_f1=0.4623
+wav2vec2_embedding_mlp fold fold_4 epoch 12/30 train_loss=0.7074 val_macro_f1=0.4602
+wav2vec2_embedding_mlp fold fold_4 epoch 13/30 train_loss=0.7045 val_macro_f1=0.4307
+wav2vec2_embedding_mlp fold fold_4 epoch 14/30 train_loss=0.6810 val_macro_f1=0.4553
+wav2vec2_embedding_mlp fold fold_4 epoch 15/30 train_loss=0.6816 val_macro_f1=0.4753
+wav2vec2_embedding_mlp fold fold_4 epoch 16/30 train_loss=0.6660 val_macro_f1=0.4416
+wav2vec2_embedding_mlp fold fold_4 epoch 17/30 train_loss=0.6255 val_macro_f1=0.4480
+wav2vec2_embedding_mlp fold fold_4 epoch 18/30 train_loss=0.5979 val_macro_f1=0.4610
+wav2vec2_embedding_mlp fold fold_4 epoch 19/30 train_loss=0.5811 val_macro_f1=0.4567
+wav2vec2_embedding_mlp fold fold_4 epoch 20/30 train_loss=0.5606 val_macro_f1=0.4317
+wav2vec2_embedding_mlp fold fold_4 epoch 21/30 train_loss=0.5781 val_macro_f1=0.4422
+wav2vec2_embedding_mlp fold fold_4 epoch 22/30 train_loss=0.5420 val_macro_f1=0.4802
+wav2vec2_embedding_mlp fold fold_4 epoch 23/30 train_loss=0.5410 val_macro_f1=0.4923
+wav2vec2_embedding_mlp fold fold_4 epoch 24/30 train_loss=0.5286 val_macro_f1=0.4617
+wav2vec2_embedding_mlp fold fold_4 epoch 25/30 train_loss=0.5002 val_macro_f1=0.4853
+wav2vec2_embedding_mlp fold fold_4 epoch 26/30 train_loss=0.4917 val_macro_f1=0.4715
+wav2vec2_embedding_mlp fold fold_4 epoch 27/30 train_loss=0.5094 val_macro_f1=0.4561
+wav2vec2_embedding_mlp fold fold_4 epoch 28/30 train_loss=0.5022 val_macro_f1=0.4564
+wav2vec2_embedding_mlp fold fold_4 epoch 29/30 train_loss=0.4847 val_macro_f1=0.4746
+wav2vec2_embedding_mlp fold fold_4 epoch 30/30 train_loss=0.4498 val_macro_f1=0.4777
+wav2vec2_embedding_mlp: final train for 23 epochs (median CV best epoch)
+wav2vec2_embedding_mlp final epoch 1/23 train_loss=1.2189 val_macro_f1=0.3540
+wav2vec2_embedding_mlp final epoch 2/23 train_loss=1.0655 val_macro_f1=0.3467
+wav2vec2_embedding_mlp final epoch 3/23 train_loss=0.9904 val_macro_f1=0.3747
+wav2vec2_embedding_mlp final epoch 4/23 train_loss=0.9428 val_macro_f1=0.3916
+wav2vec2_embedding_mlp final epoch 5/23 train_loss=0.8878 val_macro_f1=0.4138
+wav2vec2_embedding_mlp final epoch 6/23 train_loss=0.8497 val_macro_f1=0.4286
+wav2vec2_embedding_mlp final epoch 7/23 train_loss=0.8198 val_macro_f1=0.4413
+wav2vec2_embedding_mlp final epoch 8/23 train_loss=0.7877 val_macro_f1=0.4275
+wav2vec2_embedding_mlp final epoch 9/23 train_loss=0.7462 val_macro_f1=0.4177
+wav2vec2_embedding_mlp final epoch 10/23 train_loss=0.7230 val_macro_f1=0.4296
+wav2vec2_embedding_mlp final epoch 11/23 train_loss=0.6879 val_macro_f1=0.4622
+wav2vec2_embedding_mlp final epoch 12/23 train_loss=0.6637 val_macro_f1=0.4611
+wav2vec2_embedding_mlp final epoch 13/23 train_loss=0.6509 val_macro_f1=0.4648
+wav2vec2_embedding_mlp final epoch 14/23 train_loss=0.6278 val_macro_f1=0.4687
+wav2vec2_embedding_mlp final epoch 15/23 train_loss=0.6143 val_macro_f1=0.4674
+wav2vec2_embedding_mlp final epoch 16/23 train_loss=0.5735 val_macro_f1=0.4651
+wav2vec2_embedding_mlp final epoch 17/23 train_loss=0.5618 val_macro_f1=0.4525
+wav2vec2_embedding_mlp final epoch 18/23 train_loss=0.5704 val_macro_f1=0.4431
+wav2vec2_embedding_mlp final epoch 19/23 train_loss=0.5482 val_macro_f1=0.4792
+wav2vec2_embedding_mlp final epoch 20/23 train_loss=0.5129 val_macro_f1=0.4809
+wav2vec2_embedding_mlp final epoch 21/23 train_loss=0.5021 val_macro_f1=0.4547
+wav2vec2_embedding_mlp final epoch 22/23 train_loss=0.4977 val_macro_f1=0.4673
+wav2vec2_embedding_mlp final epoch 23/23 train_loss=0.4808 val_macro_f1=0.4669
+wav2vec2_embedding_mlp: validation Macro-F1=0.4669
+[3/3] pitch_fusion: grouped cross-validation
+pitch_fusion fold fold_0 epoch 1/30 train_loss=1.2693 val_macro_f1=0.2157
+pitch_fusion fold fold_0 epoch 2/30 train_loss=1.1099 val_macro_f1=0.2673
+pitch_fusion fold fold_0 epoch 3/30 train_loss=1.0069 val_macro_f1=0.2750
+pitch_fusion fold fold_0 epoch 4/30 train_loss=0.9206 val_macro_f1=0.3034
+pitch_fusion fold fold_0 epoch 5/30 train_loss=0.8671 val_macro_f1=0.2966
+pitch_fusion fold fold_0 epoch 6/30 train_loss=0.8103 val_macro_f1=0.3650
+pitch_fusion fold fold_0 epoch 7/30 train_loss=0.7703 val_macro_f1=0.3868
+pitch_fusion fold fold_0 epoch 8/30 train_loss=0.7332 val_macro_f1=0.4156
+pitch_fusion fold fold_0 epoch 9/30 train_loss=0.6966 val_macro_f1=0.3592
+pitch_fusion fold fold_0 epoch 10/30 train_loss=0.6662 val_macro_f1=0.3726
+pitch_fusion fold fold_0 epoch 11/30 train_loss=0.6309 val_macro_f1=0.4339
+pitch_fusion fold fold_0 epoch 12/30 train_loss=0.6134 val_macro_f1=0.3701
+pitch_fusion fold fold_0 epoch 13/30 train_loss=0.5821 val_macro_f1=0.3627
+pitch_fusion fold fold_0 epoch 14/30 train_loss=0.5568 val_macro_f1=0.4040
+pitch_fusion fold fold_0 epoch 15/30 train_loss=0.5372 val_macro_f1=0.3843
+pitch_fusion fold fold_0 epoch 16/30 train_loss=0.4958 val_macro_f1=0.4229
+pitch_fusion fold fold_0 epoch 17/30 train_loss=0.4914 val_macro_f1=0.3633
+pitch_fusion fold fold_0 epoch 18/30 train_loss=0.4666 val_macro_f1=0.4453
+pitch_fusion fold fold_0 epoch 19/30 train_loss=0.4611 val_macro_f1=0.4135
+pitch_fusion fold fold_0 epoch 20/30 train_loss=0.4451 val_macro_f1=0.4314
+pitch_fusion fold fold_0 epoch 21/30 train_loss=0.4047 val_macro_f1=0.3928
+pitch_fusion fold fold_0 epoch 22/30 train_loss=0.3837 val_macro_f1=0.4280
+pitch_fusion fold fold_0 epoch 23/30 train_loss=0.3685 val_macro_f1=0.4028
+pitch_fusion fold fold_0 epoch 24/30 train_loss=0.3570 val_macro_f1=0.4015
+pitch_fusion fold fold_0 epoch 25/30 train_loss=0.3482 val_macro_f1=0.3752
+pitch_fusion fold fold_0 epoch 26/30 train_loss=0.3352 val_macro_f1=0.4331
+pitch_fusion fold fold_0 epoch 27/30 train_loss=0.3165 val_macro_f1=0.3861
+pitch_fusion fold fold_0 epoch 28/30 train_loss=0.2920 val_macro_f1=0.3990
+pitch_fusion fold fold_0 epoch 29/30 train_loss=0.2887 val_macro_f1=0.3853
+pitch_fusion fold fold_0 epoch 30/30 train_loss=0.2665 val_macro_f1=0.4012
+pitch_fusion fold fold_1 epoch 1/30 train_loss=1.2692 val_macro_f1=0.2726
+pitch_fusion fold fold_1 epoch 2/30 train_loss=1.0849 val_macro_f1=0.3397
+pitch_fusion fold fold_1 epoch 3/30 train_loss=0.9746 val_macro_f1=0.3697
+pitch_fusion fold fold_1 epoch 4/30 train_loss=0.9051 val_macro_f1=0.3902
+pitch_fusion fold fold_1 epoch 5/30 train_loss=0.8497 val_macro_f1=0.4379
+pitch_fusion fold fold_1 epoch 6/30 train_loss=0.7936 val_macro_f1=0.4536
+pitch_fusion fold fold_1 epoch 7/30 train_loss=0.7523 val_macro_f1=0.4321
+pitch_fusion fold fold_1 epoch 8/30 train_loss=0.7262 val_macro_f1=0.4528
+pitch_fusion fold fold_1 epoch 9/30 train_loss=0.6973 val_macro_f1=0.4515
+pitch_fusion fold fold_1 epoch 10/30 train_loss=0.6619 val_macro_f1=0.4488
+pitch_fusion fold fold_1 epoch 11/30 train_loss=0.6262 val_macro_f1=0.4624
+pitch_fusion fold fold_1 epoch 12/30 train_loss=0.5968 val_macro_f1=0.4658
+pitch_fusion fold fold_1 epoch 13/30 train_loss=0.5774 val_macro_f1=0.4469
+pitch_fusion fold fold_1 epoch 14/30 train_loss=0.5606 val_macro_f1=0.4856
+pitch_fusion fold fold_1 epoch 15/30 train_loss=0.5193 val_macro_f1=0.4663
+pitch_fusion fold fold_1 epoch 16/30 train_loss=0.5023 val_macro_f1=0.4721
+pitch_fusion fold fold_1 epoch 17/30 train_loss=0.4773 val_macro_f1=0.4448
+pitch_fusion fold fold_1 epoch 18/30 train_loss=0.4679 val_macro_f1=0.4866
+pitch_fusion fold fold_1 epoch 19/30 train_loss=0.4488 val_macro_f1=0.4789
+pitch_fusion fold fold_1 epoch 20/30 train_loss=0.4408 val_macro_f1=0.4611
+pitch_fusion fold fold_1 epoch 21/30 train_loss=0.4196 val_macro_f1=0.4944
+pitch_fusion fold fold_1 epoch 22/30 train_loss=0.3946 val_macro_f1=0.4601
+pitch_fusion fold fold_1 epoch 23/30 train_loss=0.3692 val_macro_f1=0.4746
+pitch_fusion fold fold_1 epoch 24/30 train_loss=0.3543 val_macro_f1=0.4701
+pitch_fusion fold fold_1 epoch 25/30 train_loss=0.3304 val_macro_f1=0.4776
+pitch_fusion fold fold_1 epoch 26/30 train_loss=0.3500 val_macro_f1=0.4777
+pitch_fusion fold fold_1 epoch 27/30 train_loss=0.3315 val_macro_f1=0.4531
+pitch_fusion fold fold_1 epoch 28/30 train_loss=0.3039 val_macro_f1=0.4525
+pitch_fusion fold fold_1 epoch 29/30 train_loss=0.2941 val_macro_f1=0.4436
+pitch_fusion fold fold_1 epoch 30/30 train_loss=0.2852 val_macro_f1=0.4618
+pitch_fusion fold fold_2 epoch 1/30 train_loss=1.2822 val_macro_f1=0.3829
+pitch_fusion fold fold_2 epoch 2/30 train_loss=1.1158 val_macro_f1=0.3666
+pitch_fusion fold fold_2 epoch 3/30 train_loss=0.9855 val_macro_f1=0.3936
+pitch_fusion fold fold_2 epoch 4/30 train_loss=0.9166 val_macro_f1=0.4107
+pitch_fusion fold fold_2 epoch 5/30 train_loss=0.8601 val_macro_f1=0.4223
+pitch_fusion fold fold_2 epoch 6/30 train_loss=0.8058 val_macro_f1=0.4391
+pitch_fusion fold fold_2 epoch 7/30 train_loss=0.7640 val_macro_f1=0.4414
+pitch_fusion fold fold_2 epoch 8/30 train_loss=0.7277 val_macro_f1=0.4542
+pitch_fusion fold fold_2 epoch 9/30 train_loss=0.6919 val_macro_f1=0.4514
+pitch_fusion fold fold_2 epoch 10/30 train_loss=0.6691 val_macro_f1=0.4679
+pitch_fusion fold fold_2 epoch 11/30 train_loss=0.6533 val_macro_f1=0.4674
+pitch_fusion fold fold_2 epoch 12/30 train_loss=0.6170 val_macro_f1=0.4774
+pitch_fusion fold fold_2 epoch 13/30 train_loss=0.5912 val_macro_f1=0.4620
+pitch_fusion fold fold_2 epoch 14/30 train_loss=0.5621 val_macro_f1=0.5167
+pitch_fusion fold fold_2 epoch 15/30 train_loss=0.5511 val_macro_f1=0.5052
+pitch_fusion fold fold_2 epoch 16/30 train_loss=0.5248 val_macro_f1=0.4690
+pitch_fusion fold fold_2 epoch 17/30 train_loss=0.5085 val_macro_f1=0.5034
+pitch_fusion fold fold_2 epoch 18/30 train_loss=0.4883 val_macro_f1=0.4810
+pitch_fusion fold fold_2 epoch 19/30 train_loss=0.4617 val_macro_f1=0.4902
+pitch_fusion fold fold_2 epoch 20/30 train_loss=0.4486 val_macro_f1=0.5008
+pitch_fusion fold fold_2 epoch 21/30 train_loss=0.4109 val_macro_f1=0.4838
+pitch_fusion fold fold_2 epoch 22/30 train_loss=0.3938 val_macro_f1=0.4898
+pitch_fusion fold fold_2 epoch 23/30 train_loss=0.3718 val_macro_f1=0.4957
+pitch_fusion fold fold_2 epoch 24/30 train_loss=0.3692 val_macro_f1=0.4686
+pitch_fusion fold fold_2 epoch 25/30 train_loss=0.3450 val_macro_f1=0.4719
+pitch_fusion fold fold_2 epoch 26/30 train_loss=0.3536 val_macro_f1=0.4846
+pitch_fusion fold fold_2 epoch 27/30 train_loss=0.3164 val_macro_f1=0.4836
+pitch_fusion fold fold_2 epoch 28/30 train_loss=0.3099 val_macro_f1=0.4911
+pitch_fusion fold fold_2 epoch 29/30 train_loss=0.2911 val_macro_f1=0.5006
+pitch_fusion fold fold_2 epoch 30/30 train_loss=0.2939 val_macro_f1=0.4799
+pitch_fusion fold fold_3 epoch 1/30 train_loss=1.3471 val_macro_f1=0.2471
+pitch_fusion fold fold_3 epoch 2/30 train_loss=1.2655 val_macro_f1=0.2943
+pitch_fusion fold fold_3 epoch 3/30 train_loss=1.1946 val_macro_f1=0.3124
+pitch_fusion fold fold_3 epoch 4/30 train_loss=1.1215 val_macro_f1=0.3453
+pitch_fusion fold fold_3 epoch 5/30 train_loss=1.0500 val_macro_f1=0.3431
+pitch_fusion fold fold_3 epoch 6/30 train_loss=0.9764 val_macro_f1=0.3402
+pitch_fusion fold fold_3 epoch 7/30 train_loss=0.9145 val_macro_f1=0.3286
+pitch_fusion fold fold_3 epoch 8/30 train_loss=0.8542 val_macro_f1=0.3187
+pitch_fusion fold fold_3 epoch 9/30 train_loss=0.8055 val_macro_f1=0.3175
+pitch_fusion fold fold_3 epoch 10/30 train_loss=0.7533 val_macro_f1=0.3392
+pitch_fusion fold fold_3 epoch 11/30 train_loss=0.7135 val_macro_f1=0.3522
+pitch_fusion fold fold_3 epoch 12/30 train_loss=0.6767 val_macro_f1=0.3598
+pitch_fusion fold fold_3 epoch 13/30 train_loss=0.6605 val_macro_f1=0.3309
+pitch_fusion fold fold_3 epoch 14/30 train_loss=0.6322 val_macro_f1=0.3596
+pitch_fusion fold fold_3 epoch 15/30 train_loss=0.6122 val_macro_f1=0.3326
+pitch_fusion fold fold_3 epoch 16/30 train_loss=0.5466 val_macro_f1=0.3266
+pitch_fusion fold fold_3 epoch 17/30 train_loss=0.5229 val_macro_f1=0.3222
+pitch_fusion fold fold_3 epoch 18/30 train_loss=0.5017 val_macro_f1=0.3663
+pitch_fusion fold fold_3 epoch 19/30 train_loss=0.4901 val_macro_f1=0.3479
+pitch_fusion fold fold_3 epoch 20/30 train_loss=0.4443 val_macro_f1=0.3758
+pitch_fusion fold fold_3 epoch 21/30 train_loss=0.4165 val_macro_f1=0.3285
+pitch_fusion fold fold_3 epoch 22/30 train_loss=0.4251 val_macro_f1=0.3432
+pitch_fusion fold fold_3 epoch 23/30 train_loss=0.4114 val_macro_f1=0.3156
+pitch_fusion fold fold_3 epoch 24/30 train_loss=0.3865 val_macro_f1=0.3438
+pitch_fusion fold fold_3 epoch 25/30 train_loss=0.3742 val_macro_f1=0.3592
+pitch_fusion fold fold_3 epoch 26/30 train_loss=0.3394 val_macro_f1=0.3315
+pitch_fusion fold fold_3 epoch 27/30 train_loss=0.3400 val_macro_f1=0.3753
+pitch_fusion fold fold_3 epoch 28/30 train_loss=0.3124 val_macro_f1=0.3200
+pitch_fusion fold fold_3 epoch 29/30 train_loss=0.3092 val_macro_f1=0.3553
+pitch_fusion fold fold_3 epoch 30/30 train_loss=0.2831 val_macro_f1=0.3305
+pitch_fusion fold fold_4 epoch 1/30 train_loss=1.2624 val_macro_f1=0.3255
+pitch_fusion fold fold_4 epoch 2/30 train_loss=1.1018 val_macro_f1=0.3772
+pitch_fusion fold fold_4 epoch 3/30 train_loss=0.9963 val_macro_f1=0.3925
+pitch_fusion fold fold_4 epoch 4/30 train_loss=0.9283 val_macro_f1=0.4049
+pitch_fusion fold fold_4 epoch 5/30 train_loss=0.8706 val_macro_f1=0.4358
+pitch_fusion fold fold_4 epoch 6/30 train_loss=0.8188 val_macro_f1=0.4177
+pitch_fusion fold fold_4 epoch 7/30 train_loss=0.7931 val_macro_f1=0.4259
+pitch_fusion fold fold_4 epoch 8/30 train_loss=0.7513 val_macro_f1=0.4316
+pitch_fusion fold fold_4 epoch 9/30 train_loss=0.7297 val_macro_f1=0.4415
+pitch_fusion fold fold_4 epoch 10/30 train_loss=0.7047 val_macro_f1=0.4593
+pitch_fusion fold fold_4 epoch 11/30 train_loss=0.6960 val_macro_f1=0.4407
+pitch_fusion fold fold_4 epoch 12/30 train_loss=0.6573 val_macro_f1=0.4527
+pitch_fusion fold fold_4 epoch 13/30 train_loss=0.6206 val_macro_f1=0.4730
+pitch_fusion fold fold_4 epoch 14/30 train_loss=0.6044 val_macro_f1=0.4697
+pitch_fusion fold fold_4 epoch 15/30 train_loss=0.5913 val_macro_f1=0.4811
+pitch_fusion fold fold_4 epoch 16/30 train_loss=0.5614 val_macro_f1=0.4767
+pitch_fusion fold fold_4 epoch 17/30 train_loss=0.5503 val_macro_f1=0.4671
+pitch_fusion fold fold_4 epoch 18/30 train_loss=0.5335 val_macro_f1=0.4737
+pitch_fusion fold fold_4 epoch 19/30 train_loss=0.5357 val_macro_f1=0.4575
+pitch_fusion fold fold_4 epoch 20/30 train_loss=0.4905 val_macro_f1=0.4725
+pitch_fusion fold fold_4 epoch 21/30 train_loss=0.4772 val_macro_f1=0.4822
+pitch_fusion fold fold_4 epoch 22/30 train_loss=0.5230 val_macro_f1=0.4791
+pitch_fusion fold fold_4 epoch 23/30 train_loss=0.4944 val_macro_f1=0.4741
+pitch_fusion fold fold_4 epoch 24/30 train_loss=0.4554 val_macro_f1=0.4971
+pitch_fusion fold fold_4 epoch 25/30 train_loss=0.4299 val_macro_f1=0.5009
+pitch_fusion fold fold_4 epoch 26/30 train_loss=0.4207 val_macro_f1=0.4857
+pitch_fusion fold fold_4 epoch 27/30 train_loss=0.3821 val_macro_f1=0.4721
+pitch_fusion fold fold_4 epoch 28/30 train_loss=0.3968 val_macro_f1=0.4743
+pitch_fusion fold fold_4 epoch 29/30 train_loss=0.3847 val_macro_f1=0.4841
+pitch_fusion fold fold_4 epoch 30/30 train_loss=0.3644 val_macro_f1=0.5035
+pitch_fusion: final train for 20 epochs (median CV best epoch)
+pitch_fusion final epoch 1/20 train_loss=1.2720 val_macro_f1=0.3512
+pitch_fusion final epoch 2/20 train_loss=1.1070 val_macro_f1=0.3577
+pitch_fusion final epoch 3/20 train_loss=1.0005 val_macro_f1=0.3765
+pitch_fusion final epoch 4/20 train_loss=0.9193 val_macro_f1=0.3963
+pitch_fusion final epoch 5/20 train_loss=0.8687 val_macro_f1=0.4237
+pitch_fusion final epoch 6/20 train_loss=0.8288 val_macro_f1=0.4184
+pitch_fusion final epoch 7/20 train_loss=0.7714 val_macro_f1=0.4334
+pitch_fusion final epoch 8/20 train_loss=0.7380 val_macro_f1=0.4442
+pitch_fusion final epoch 9/20 train_loss=0.7017 val_macro_f1=0.4532
+pitch_fusion final epoch 10/20 train_loss=0.6727 val_macro_f1=0.4335
+pitch_fusion final epoch 11/20 train_loss=0.6427 val_macro_f1=0.4711
+pitch_fusion final epoch 12/20 train_loss=0.6316 val_macro_f1=0.4543
+pitch_fusion final epoch 13/20 train_loss=0.6005 val_macro_f1=0.4756
+pitch_fusion final epoch 14/20 train_loss=0.5743 val_macro_f1=0.4652
+pitch_fusion final epoch 15/20 train_loss=0.5622 val_macro_f1=0.4629
+pitch_fusion final epoch 16/20 train_loss=0.5452 val_macro_f1=0.4662
+pitch_fusion final epoch 17/20 train_loss=0.5156 val_macro_f1=0.4613
+pitch_fusion final epoch 18/20 train_loss=0.4946 val_macro_f1=0.4561
+pitch_fusion final epoch 19/20 train_loss=0.4746 val_macro_f1=0.4776
+pitch_fusion final epoch 20/20 train_loss=0.4569 val_macro_f1=0.4686
+pitch_fusion: validation Macro-F1=0.4686
+{
+  "status": "PASS",
+  "models_completed": [
+    "cnn2d_logmel",
+    "wav2vec2_embedding_mlp",
+    "pitch_fusion"
+  ],
+  "test_untouched": true
+}
+
+========================================================================
+B6 phase 3/3: paper-aligned Pitch-Fusion
+========================================================================
+{"status": "PASS", "device": "cuda", "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU", "train": 3681, "validation": 646, "test_loaded_for_training": false, "parameters": 141871492, "paper_aligned": true, "exact_historical_reproduction": false}
+pitch_fusion_paper_aligned epoch 1/30 train_loss=1.2447 val_macro_f1=0.3539
+pitch_fusion_paper_aligned epoch 2/30 train_loss=1.0516 val_macro_f1=0.4307
+pitch_fusion_paper_aligned epoch 3/30 train_loss=0.9545 val_macro_f1=0.4806
+pitch_fusion_paper_aligned epoch 4/30 train_loss=0.8973 val_macro_f1=0.5162
+pitch_fusion_paper_aligned epoch 5/30 train_loss=0.8278 val_macro_f1=0.5428
+pitch_fusion_paper_aligned epoch 6/30 train_loss=0.7850 val_macro_f1=0.5614
+pitch_fusion_paper_aligned epoch 7/30 train_loss=0.7453 val_macro_f1=0.5702
+pitch_fusion_paper_aligned epoch 8/30 train_loss=0.7354 val_macro_f1=0.5661
+pitch_fusion_paper_aligned epoch 9/30 train_loss=0.6867 val_macro_f1=0.5662
+pitch_fusion_paper_aligned epoch 10/30 train_loss=0.6557 val_macro_f1=0.5850
+pitch_fusion_paper_aligned epoch 11/30 train_loss=0.6171 val_macro_f1=0.5960
+pitch_fusion_paper_aligned epoch 12/30 train_loss=0.5973 val_macro_f1=0.5973
+pitch_fusion_paper_aligned epoch 13/30 train_loss=0.5644 val_macro_f1=0.5913
+pitch_fusion_paper_aligned epoch 14/30 train_loss=0.5383 val_macro_f1=0.5950
+pitch_fusion_paper_aligned epoch 15/30 train_loss=0.5227 val_macro_f1=0.5721
+pitch_fusion_paper_aligned epoch 16/30 train_loss=0.4913 val_macro_f1=0.5816
+pitch_fusion_paper_aligned epoch 17/30 train_loss=0.4590 val_macro_f1=0.5826
+pitch_fusion_paper_aligned epoch 18/30 train_loss=0.4503 val_macro_f1=0.5775
+pitch_fusion_paper_aligned epoch 19/30 train_loss=0.4106 val_macro_f1=0.5988
+pitch_fusion_paper_aligned epoch 20/30 train_loss=0.4062 val_macro_f1=0.5969
+pitch_fusion_paper_aligned epoch 21/30 train_loss=0.3852 val_macro_f1=0.5861
+pitch_fusion_paper_aligned epoch 22/30 train_loss=0.3725 val_macro_f1=0.5702
+pitch_fusion_paper_aligned epoch 23/30 train_loss=0.3576 val_macro_f1=0.5612
+pitch_fusion_paper_aligned epoch 24/30 train_loss=0.3370 val_macro_f1=0.6023
+pitch_fusion_paper_aligned epoch 25/30 train_loss=0.3276 val_macro_f1=0.5816
+pitch_fusion_paper_aligned epoch 26/30 train_loss=0.2931 val_macro_f1=0.5594
+pitch_fusion_paper_aligned epoch 27/30 train_loss=0.3081 val_macro_f1=0.5852
+pitch_fusion_paper_aligned epoch 28/30 train_loss=0.3000 val_macro_f1=0.5772
+pitch_fusion_paper_aligned epoch 29/30 train_loss=0.2711 val_macro_f1=0.5811
+pitch_fusion_paper_aligned epoch 30/30 train_loss=0.2534 val_macro_f1=0.5576
+{
+  "status": "PASS",
+  "validation_macro_f1": 0.6022958153217735,
+  "best_epoch": 24,
+  "test_untouched": true
+}
+
+{
+  "schema_version": "b6.all_models.v1",
+  "status": "PASS",
+  "models_completed": 5,
+  "test_untouched": true,
+  "results": [
+    {
+      "model": "pitch_fusion_paper_aligned",
+      "display_name": "Pitch-Fusion Paper-Aligned Reproduction",
+      "cv_macro_f1": null,
+      "validation_accuracy": 0.6191950464396285,
+      "validation_macro_f1": 0.6022958153217735,
+      "validation_uar": 0.6060485633125752,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "svm_rbf",
+      "display_name": "SVM RBF",
+      "cv_macro_f1": 0.40789191229451893,
+      "validation_accuracy": 0.4845201238390093,
+      "validation_macro_f1": 0.46728031418753074,
+      "validation_uar": 0.46326941986234027,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "wav2vec2_embedding_mlp",
+      "display_name": "Wav2Vec2 Frozen Embedding MLP",
+      "cv_macro_f1": 0.45951306610288684,
+      "validation_accuracy": 0.4969040247678019,
+      "validation_macro_f1": 0.466869208909239,
+      "validation_uar": 0.4620586146618595,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "xgboost",
+      "display_name": "XGBoost",
+      "cv_macro_f1": 0.3760606643743446,
+      "validation_accuracy": 0.47368421052631576,
+      "validation_macro_f1": 0.4385052011136351,
+      "validation_uar": 0.4344414399650388,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "cnn2d_logmel",
+      "display_name": "CNN2D Log-Mel Baseline",
+      "cv_macro_f1": 0.42488035012424163,
+      "validation_accuracy": 0.4195046439628483,
+      "validation_macro_f1": 0.3429656268537384,
+      "validation_uar": 0.3589101933792199,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    }
+  ]
+}
+
+

@@ -12,6 +12,7 @@ REQUIRED_FAMILIES = {
     "mfcc40_summary",
     "egemaps_v02",
     "log_mel_80",
+    "mel_3ch",
     "pitch_contour",
     "wav2vec2_embedding",
 }
@@ -20,6 +21,7 @@ ALLOWED_STATUSES = {
     "deferred",
     "specified_not_downloaded",
     "pilot_validated",
+    "contract_validated",
 }
 TRAIN_ONLY = "train_only_after_b5"
 WAV2VEC2_MODEL_ID = "nguyenvulebinh/wav2vec2-base-vi"
@@ -39,6 +41,8 @@ def validate_feature_spec(spec: dict[str, Any]) -> dict[str, Any]:
     errors: list[str] = []
     if spec.get("schema_version") != "b4.features.v1":
         errors.append("schema_version must be b4.features.v1")
+    if spec.get("contract_revision") != "b4.features.v2":
+        errors.append("contract_revision must be b4.features.v2")
 
     dataset = spec.get("dataset", {})
     for field in (
@@ -103,6 +107,28 @@ def validate_feature_spec(spec: dict[str, Any]) -> dict[str, Any]:
     log_mel = family_by_name.get("log_mel_80", {})
     if log_mel.get("parameters", {}).get("n_mels") != 80:
         errors.append("log_mel_80 must use 80 Mel bands")
+    mel_3ch = family_by_name.get("mel_3ch", {})
+    mel_3ch_parameters = mel_3ch.get("parameters", {})
+    mel_3ch_padding = mel_3ch.get("padding_or_crop", {})
+    if mel_3ch.get("derived_from") != "log_mel_80":
+        errors.append("mel_3ch must be derived from log_mel_80")
+    if mel_3ch_parameters.get("mel_3ch_mode") != "repeat_normalized_log_mel":
+        errors.append("mel_3ch must record mel_3ch_mode=repeat_normalized_log_mel")
+    if (
+        mel_3ch_parameters.get("input_db_min") != -80.0
+        or mel_3ch_parameters.get("input_db_max") != 0.0
+        or mel_3ch_parameters.get("normalization")
+        != "fixed_db_range_to_unit_interval"
+    ):
+        errors.append("mel_3ch must use the fixed -80..0 dB normalization contract")
+    if mel_3ch_parameters.get("channels") != 3 or mel_3ch_parameters.get("layout") != "channels_first":
+        errors.append("mel_3ch must declare channels-first three-channel output")
+    if mel_3ch_padding.get("target_frames_selection_scope") != TRAIN_ONLY:
+        errors.append("mel_3ch target frames must be selected from training only")
+    if set(mel_3ch.get("planned_consumers", [])) != {"resnet18", "mobilenet_v3", "vit"}:
+        errors.append("mel_3ch consumers must be ResNet-18, MobileNetV3, and ViT")
+    if mel_3ch.get("materialization") != "on_load_from_existing_log_mel_artifact":
+        errors.append("mel_3ch must be materialized on load from existing log-Mel artifacts")
     pitch = family_by_name.get("pitch_contour", {})
     if (
         pitch.get("parameters", {}).get("no_voiced_summary_policy")
@@ -188,6 +214,11 @@ def validate_feature_spec(spec: dict[str, Any]) -> dict[str, Any]:
             family["name"]
             for family in families
             if family["status"] == "pilot_validated"
+        ),
+        "contract_validated": sorted(
+            family["name"]
+            for family in families
+            if family["status"] == "contract_validated"
         ),
     }
 

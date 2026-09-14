@@ -39,13 +39,13 @@
     "artifact_sha256": "5ce4952cbcd3961cf883b796b994efa7f6491d92e2726a8a28753097514e560e"
   },
   "timing_seconds": {
-    "snapshot_resolution_or_download": 6.710000161547214e-05,
-    "model_load": 0.05410709999887331,
-    "first_inference": 0.17211839999981748,
-    "second_inference": 0.10800960000051418
+    "snapshot_resolution_or_download": 43.981499400004395,
+    "model_load": 0.18180299999949057,
+    "first_inference": 0.4544378999999026,
+    "second_inference": 0.1286619000020437
   },
   "cache": {
     "path": "data/interim/models/huggingface",
-    "local_files_only": true
+    "local_files_only": false
   }
 }

@@ -1,5 +1,6 @@
 {
   "schema_version": "b4.features.v1",
+  "contract_revision": "b4.features.v2",
   "dataset": {
     "manifest": "data/manifests/clean_manifest.csv",
     "eligibility_field": "is_eligible_for_split",
@@ -42,7 +43,7 @@
       },
       "aggregation": ["mean", "standard_deviation"],
       "output_dimension": 80,
-      "planned_consumers": ["svm", "xgboost"]
+      "planned_consumers": ["svm", "xgboost", "accent_probe"]
     },
     {
       "name": "egemaps_v02",
@@ -79,6 +80,31 @@
       "planned_consumers": ["cnn_2d"]
     },
     {
+      "name": "mel_3ch",
+      "status": "contract_validated",
+      "kind": "derived_variable_length_tensor",
+      "extractor": "fedecai.features.mel_3ch.build_mel_3ch",
+      "fit_required": false,
+      "derived_from": "log_mel_80",
+      "parameters": {
+        "mel_3ch_mode": "repeat_normalized_log_mel",
+        "input_db_min": -80.0,
+        "input_db_max": 0.0,
+        "normalization": "fixed_db_range_to_unit_interval",
+        "channels": 3,
+        "layout": "channels_first",
+        "dtype": "float32"
+      },
+      "padding_or_crop": {
+        "target_frames_selection_scope": "train_only_after_b5",
+        "crop": "center",
+        "pad": "right",
+        "pad_value_after_normalization": 0.0
+      },
+      "materialization": "on_load_from_existing_log_mel_artifact",
+      "planned_consumers": ["resnet18", "mobilenet_v3", "vit"]
+    },
+    {
       "name": "pitch_contour",
       "status": "locked_for_pilot",
       "kind": "variable_length_sequence",
@@ -100,7 +126,7 @@
         "f0_q10_hz",
         "f0_q90_hz"
       ],
-      "planned_consumers": ["svm", "xgboost", "pitch_fusion"]
+      "planned_consumers": ["svm", "xgboost", "pitch_fusion", "accent_probe"]
     },
     {
       "name": "wav2vec2_embedding",
@@ -158,7 +184,7 @@
     {
       "name": "sequence_padding_or_crop",
       "fit_scope": "train_only_after_b5",
-      "applies_to": ["log_mel_80", "pitch_contour", "wav2vec2_embedding"]
+      "applies_to": ["log_mel_80", "mel_3ch", "pitch_contour", "wav2vec2_embedding"]
     }
   ],
   "output_contract": {

@@ -615,7 +615,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report", type=Path, default=repo_root / "data/manifests/raw_audit.json")
     parser.add_argument("--invalid-report", type=Path, default=repo_root / "data/manifests/invalid_audio.csv")
     parser.add_argument("--duplicate-report", type=Path, default=repo_root / "data/manifests/duplicate_report.csv")
-    parser.add_argument("--quality-report", type=Path, default=repo_root / "docs/research/B2_quality_report.md")
+    parser.add_argument("--quality-report", type=Path, default=repo_root / "reports/tables/b2/b2_quality_report.md")
     return parser.parse_args()
 
 

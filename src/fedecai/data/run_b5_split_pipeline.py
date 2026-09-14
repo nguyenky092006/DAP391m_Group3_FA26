@@ -275,7 +275,7 @@ The released ViSEC metadata does not establish whether speaker ID 0 represents o
 verified person or a catch-all ID. Therefore, speaker-disjoint claims remain limited
 to the released `speaker_id` metadata. The dominant ID is intentionally kept in train.
 """
-    write_text_atomic(documentation, repo_root / "docs/research/B5_split_v2_finalization.md")
+    write_text_atomic(documentation, repo_root / "reports/tables/b5/b5_split_v2_finalization.md")
     print(json.dumps(pipeline_summary, ensure_ascii=False, indent=2))
 
 

@@ -1,12 +1,30 @@
 {
-  "schema_version": "b6.deep.v1",
-  "models_completed": 3,
+  "schema_version": "b6.image_models.v1",
+  "models_completed": 6,
   "results": [
     {
       "model": "cnn2d_logmel",
       "mean_cv_macro_f1": 0.42488035012424163,
       "validation_macro_f1": 0.3429656268537384,
       "validation_uar": 0.3589101933792199
+    },
+    {
+      "model": "resnet18_mel3",
+      "mean_cv_macro_f1": 0.4137872571809611,
+      "validation_macro_f1": 0.35175007420948057,
+      "validation_uar": 0.3685455588331695
+    },
+    {
+      "model": "mobilenet_v3_mel3",
+      "mean_cv_macro_f1": 0.36336823008533586,
+      "validation_macro_f1": 0.37018460113183493,
+      "validation_uar": 0.37049519283295096
+    },
+    {
+      "model": "vit_b16_mel3",
+      "mean_cv_macro_f1": 0.27205590395293083,
+      "validation_macro_f1": 0.26061164141938165,
+      "validation_uar": 0.31586337812738996
     },
     {
       "model": "wav2vec2_embedding_mlp",

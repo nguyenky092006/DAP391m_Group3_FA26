@@ -34,7 +34,11 @@ def read_manifest(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(stream))
 
 
-def build_database(rows: list[dict[str, str]], output_path: Path) -> None:
+def build_database(
+    rows: list[dict[str, str]],
+    output_path: Path,
+    client_rows: list[dict[str, str]] | None = None,
+) -> None:
     """Create a compact SQLite database from the reviewed CSV manifest."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if output_path.exists():
@@ -63,12 +67,47 @@ def build_database(rows: list[dict[str, str]], output_path: Path) -> None:
                 exclusion_reason TEXT NOT NULL,
                 audio_sha256 TEXT NOT NULL
             );
+
+            CREATE TABLE manifest_records (
+                sample_id TEXT PRIMARY KEY,
+                speaker_id TEXT NOT NULL,
+                accent TEXT NOT NULL,
+                emotion TEXT NOT NULL,
+                is_eligible INTEGER NOT NULL CHECK (is_eligible IN (0, 1)),
+                split TEXT NOT NULL
+            );
+
+            CREATE TABLE quality_records (
+                sample_id TEXT PRIMARY KEY,
+                duration_sec REAL NOT NULL,
+                possible_clipping INTEGER NOT NULL CHECK (possible_clipping IN (0, 1)),
+                high_silence INTEGER NOT NULL CHECK (high_silence IN (0, 1)),
+                silent_frame_ratio REAL NOT NULL,
+                peak_amplitude_ratio REAL NOT NULL
+            );
+
+            CREATE TABLE federated_speaker_partitions (
+                speaker_id TEXT PRIMARY KEY,
+                split_version TEXT NOT NULL,
+                main_partition_version TEXT NOT NULL,
+                main_client_id TEXT NOT NULL,
+                stress_partition_version TEXT NOT NULL,
+                stress_client_id TEXT NOT NULL,
+                accent TEXT NOT NULL,
+                samples INTEGER NOT NULL
+            );
             """
         )
         records = []
+        manifest_records = []
+        quality_records = []
         for row in rows:
             accent = row.get("accent_clean") or row.get("accent") or ""
             gender = row.get("gender_clean") or row.get("gender") or ""
+            is_eligible = int(_as_bool(row["is_eligible_for_split"]))
+            split = row.get("split") or ("eligible" if is_eligible else "excluded")
+            possible_clipping = int(_as_bool(row["possible_clipping"]))
+            high_silence = int(_as_bool(row["high_silence_ratio"]))
             records.append(
                 (
                     row["sample_id"],
@@ -78,15 +117,28 @@ def build_database(rows: list[dict[str, str]], output_path: Path) -> None:
                     accent,
                     row["emotion"],
                     gender,
-                    int(_as_bool(row["is_eligible_for_split"])),
-                    row.get("split") or ("eligible" if _as_bool(row["is_eligible_for_split"]) else "excluded"),
-                    int(_as_bool(row["possible_clipping"])),
-                    int(_as_bool(row["high_silence_ratio"])),
+                    is_eligible,
+                    split,
+                    possible_clipping,
+                    high_silence,
                     float(row["silent_frame_ratio"]),
                     float(row["peak_amplitude_ratio"]),
                     row["cleaning_action"],
                     row.get("exclusion_reason", ""),
                     row["audio_sha256"],
+                )
+            )
+            manifest_records.append(
+                (row["sample_id"], row["speaker_id"], accent, row["emotion"], is_eligible, split)
+            )
+            quality_records.append(
+                (
+                    row["sample_id"],
+                    float(row["duration_sec_measured"]),
+                    possible_clipping,
+                    high_silence,
+                    float(row["silent_frame_ratio"]),
+                    float(row["peak_amplitude_ratio"]),
                 )
             )
 
@@ -96,12 +148,38 @@ def build_database(rows: list[dict[str, str]], output_path: Path) -> None:
             """,
             records,
         )
+        connection.executemany(
+            "INSERT INTO manifest_records VALUES (?, ?, ?, ?, ?, ?)", manifest_records
+        )
+        connection.executemany(
+            "INSERT INTO quality_records VALUES (?, ?, ?, ?, ?, ?)", quality_records
+        )
+        if client_rows:
+            connection.executemany(
+                "INSERT INTO federated_speaker_partitions VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                [
+                    (
+                        row["speaker_id"],
+                        row["split_version"],
+                        row["main_partition_version"],
+                        row["main_client_id"],
+                        row["stress_partition_version"],
+                        row["stress_client_id"],
+                        row["accent"],
+                        int(row["samples"]),
+                    )
+                    for row in client_rows
+                ],
+            )
         connection.executescript(
             """
             CREATE INDEX idx_utterances_eligible ON utterances(is_eligible);
             CREATE INDEX idx_utterances_speaker ON utterances(speaker_id);
             CREATE INDEX idx_utterances_accent_emotion ON utterances(accent, emotion);
             CREATE INDEX idx_utterances_split ON utterances(split);
+            CREATE INDEX idx_manifest_records_split ON manifest_records(split);
+            CREATE INDEX idx_federated_main_client ON federated_speaker_partitions(main_client_id);
+            CREATE INDEX idx_federated_stress_client ON federated_speaker_partitions(stress_client_id);
 
             CREATE VIEW eligible_utterances AS
             SELECT * FROM utterances WHERE is_eligible = 1;
@@ -247,8 +325,8 @@ def build_summary(database_path: Path, query_row_counts: dict[str, int]) -> dict
 
     eligible_rows = int(counts["eligible_rows"])
     return {
-        "b3_version": "b3.1-v1",
-        "scope": "All B2-eligible rows; split labels are used only for coverage and leakage checks.",
+        "b3_version": "b3.2-v2",
+        "scope": "All B2-eligible rows from canonical speaker-disjoint split v2; split labels are used only for coverage and leakage checks.",
         "source_rows": int(counts["source_rows"]),
         "eligible_rows": eligible_rows,
         "excluded_rows": int(counts["excluded_rows"]),
@@ -378,7 +456,14 @@ def validate_summary(summary: dict[str, Any]) -> None:
 def parse_args() -> argparse.Namespace:
     repo_root = Path(__file__).resolve().parents[3]
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", type=Path, default=repo_root / "data/manifests/split_manifest.csv")
+    parser.add_argument(
+        "--input", type=Path, default=repo_root / "data/manifests/split_manifest_v2_enriched.csv"
+    )
+    parser.add_argument(
+        "--clients",
+        type=Path,
+        default=repo_root / "data/manifests/federated_speaker_partitions_v1.csv",
+    )
     parser.add_argument("--database", type=Path, default=repo_root / "data/processed/visec_metadata.sqlite")
     parser.add_argument("--sql", type=Path, default=repo_root / "sql/B3_rq_queries.sql")
     parser.add_argument("--tables", type=Path, default=repo_root / "reports/tables/b3")
@@ -391,11 +476,16 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     rows = read_manifest(args.input.resolve())
-    build_database(rows, args.database.resolve())
+    client_rows = read_manifest(args.clients.resolve())
+    build_database(rows, args.database.resolve(), client_rows)
     query_counts = execute_queries(args.database.resolve(), args.sql.resolve(), args.tables.resolve())
     summary = build_summary(args.database.resolve(), query_counts)
     if not args.skip_figures:
         summary["figures"] = render_figures(args.database.resolve(), args.figures.resolve())
+    else:
+        summary["figures"] = sorted(
+            path.name for path in args.figures.resolve().glob("b3_*.png") if path.is_file()
+        )
     validate_summary(summary)
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

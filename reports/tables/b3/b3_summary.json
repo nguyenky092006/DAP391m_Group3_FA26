@@ -1,6 +1,6 @@
 {
-  "b3_version": "b3.1-v1",
-  "scope": "All B2-eligible rows; split labels are used only for coverage and leakage checks.",
+  "b3_version": "b3.2-v2",
+  "scope": "All B2-eligible rows from canonical speaker-disjoint split v2; split labels are used only for coverage and leakage checks.",
   "source_rows": 5280,
   "eligible_rows": 4992,
   "excluded_rows": 288,
@@ -38,19 +38,17 @@
     "train": 103,
     "validation": 22
   },
-  "split_cross_stratum_complete": false,
-  "missing_split_cells": [
-    {
-      "split": "test",
-      "accent": "central",
-      "emotion": "sad"
-    }
-  ],
+  "split_cross_stratum_complete": true,
+  "missing_split_cells": [],
   "sql_result_rows": {
+    "rq1_rq2_samples_speakers_by_accent": 3,
     "rq2_emotion_distribution_by_accent": 12,
     "rq1_rq2_speaker_concentration": 15,
     "rq1_rq2_quality_by_accent_emotion": 12,
-    "b5_split_coverage_check": 36
+    "b5_split_coverage_check": 36,
+    "evaluation_speaker_overlap_across_splits": 3,
+    "rq5_federated_client_distributions": 6,
+    "rq1_rq2_manifest_quality_join": 12
   },
   "figures": [
     "b3_duration_distribution.png",

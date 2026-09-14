@@ -26,10 +26,15 @@ from torch.utils.data import DataLoader, Dataset
 from transformers import Wav2Vec2Model
 
 from fedecai.models.b6_common import (
-    classification_metrics, load_b6_table, load_config, prediction_rows,
-    sha256_file, write_csv_atomic, write_json_atomic,
+    classification_metrics, git_state, load_b6_table, load_config,
+    prediction_rows, register_experiment, sha256_file, write_csv_atomic,
+    write_json_atomic,
 )
 from fedecai.models.b6_deep_models import PaperAlignedPitchFusionHead
+from fedecai.models.benchmark_costs import (
+    TrainingTimer, benchmark_inference_latency, model_size, parameter_count,
+)
+from fedecai.models.centralized_evaluator import evaluate_prediction_file
 
 ROOT = Path(__file__).resolve().parents[3]
 MODEL_NAME = "pitch_fusion_paper_aligned"
@@ -120,9 +125,16 @@ def collate(batch):
 
 
 class PaperAlignedPitchFusion(nn.Module):
-    def __init__(self, backbone: nn.Module, architecture: dict[str, Any]) -> None:
+    def __init__(
+        self, backbone: nn.Module, architecture: dict[str, Any],
+        freeze_backbone: bool = False,
+    ) -> None:
         super().__init__()
         self.backbone = backbone
+        self.freeze_backbone = freeze_backbone
+        if freeze_backbone:
+            for parameter in self.backbone.parameters():
+                parameter.requires_grad = False
         self.head = PaperAlignedPitchFusionHead(
             hidden_size=int(architecture["hidden_size"]),
             projection_size=int(architecture["classifier_projection_size"]),
@@ -131,7 +143,12 @@ class PaperAlignedPitchFusion(nn.Module):
         )
 
     def forward(self, audio, pitch, attention_mask):
-        acoustic = self.backbone(audio, attention_mask=attention_mask).last_hidden_state
+        if self.freeze_backbone:
+            self.backbone.eval()
+            with torch.no_grad():
+                acoustic = self.backbone(audio, attention_mask=attention_mask).last_hidden_state
+        else:
+            acoustic = self.backbone(audio, attention_mask=attention_mask).last_hidden_state
         frame_valid = self.backbone._get_feature_vector_attention_mask(
             acoustic.shape[1], attention_mask
         )
@@ -147,7 +164,10 @@ def build_model(config: dict[str, Any], local_files_only: bool) -> PaperAlignedP
     )
     if config["backbone"]["freeze_feature_encoder"]:
         backbone.feature_extractor._freeze_parameters()
-    return PaperAlignedPitchFusion(backbone, config["architecture"])
+    return PaperAlignedPitchFusion(
+        backbone, config["architecture"],
+        freeze_backbone=bool(config["backbone"].get("freeze_audio_encoder", False)),
+    )
 
 
 def evaluate(model, loader, device):
@@ -161,7 +181,10 @@ def evaluate(model, loader, device):
                 logits = model(audio, pitch, mask)
                 loss = criterion(logits, labels)
             losses += float(loss.item()) * len(labels)
-            probabilities.append(torch.softmax(logits, dim=1).cpu().numpy())
+            # Autocast may leave logits in float16.  Compute exported
+            # probabilities in float32 so the shared evaluator's probability
+            # simplex check is not tripped by half-precision rounding.
+            probabilities.append(torch.softmax(logits.float(), dim=1).cpu().numpy())
             predictions.append(logits.argmax(1).cpu().numpy())
     return np.concatenate(predictions), np.concatenate(probabilities), losses / len(loader.dataset)
 
@@ -174,6 +197,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--raw-parquet", default="data/raw/visec_hf/train-00000-of-00001.parquet")
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--smoke-test", action="store_true")
     parser.add_argument("--allow-download", action="store_true")
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
@@ -193,6 +217,28 @@ def main() -> None:
     validation = frame[frame["split"] == "validation"].reset_index(drop=True)
     if len(train) != 3681 or len(validation) != 646:
         raise ValueError("Unexpected B5 train/validation sizes")
+    experiment_id = f"b6_{MODEL_NAME}_seed{config['seed']}"
+    report_dir = ROOT / "reports/tables/b6"
+    report_path = report_dir / f"{MODEL_NAME}_report.json"
+    model_path = ROOT / "artifacts/checkpoints" / f"{experiment_id}.pt"
+    canonical_prediction = ROOT / "artifacts/predictions" / f"{experiment_id}_validation.csv"
+    canonical_metrics = ROOT / "artifacts/metrics" / f"{experiment_id}_validation.json"
+    if not args.force and not args.preflight_only and not args.smoke_test and all(
+        path.is_file() for path in (report_path, model_path, canonical_prediction, canonical_metrics)
+    ):
+        existing = json.loads(report_path.read_text(encoding="utf-8"))
+        lineage = existing.get("lineage", {})
+        if (
+            lineage.get("config_sha256") == sha256_file(config_path)
+            and lineage.get("checkpoint_sha256") == sha256_file(model_path)
+            and int(existing.get("test_samples_loaded", -1)) == 0
+        ):
+            print(json.dumps({
+                "status": "SKIP_COMPLETE", "model": MODEL_NAME,
+                "validation_macro_f1": existing["validation"]["overall"]["macro_f1"],
+                "test_untouched": True,
+            }), flush=True)
+            return
     pitch_paths = [resolve(str(path)) for path in frame["pitch_artifact_path"]]
     missing = [path for path in pitch_paths if not path.is_file()]
     if missing:
@@ -211,7 +257,7 @@ def main() -> None:
         "parameters": parameters, "paper_aligned": True,
         "exact_historical_reproduction": False,
     }), flush=True)
-    if args.preflight_only:
+    if args.preflight_only or args.smoke_test:
         probe_encoder = LabelEncoder().fit(config["emotion_order"])
         probe = PitchFusionDataset(
             train.iloc[:1], audio_bytes,
@@ -226,7 +272,27 @@ def main() -> None:
             logits = model(audio.to(device), pitch.to(device), mask.to(device))
         if tuple(logits.shape) != (1, 4) or not torch.isfinite(logits).all():
             raise RuntimeError(f"Invalid preflight logits: {tuple(logits.shape)}")
-        print(json.dumps({"forward_smoke_test": "PASS", "logits_shape": [1, 4]}), flush=True)
+        if args.smoke_test:
+            model.train()
+            target = torch.tensor([0], device=device)
+            optimizer = torch.optim.AdamW(
+                (value for value in model.parameters() if value.requires_grad),
+                lr=float(config["training"]["learning_rate"]),
+            )
+            optimizer.zero_grad(set_to_none=True)
+            trained_logits = model(audio.to(device), pitch.to(device), mask.to(device))
+            loss = nn.CrossEntropyLoss()(trained_logits, target)
+            loss.backward(); optimizer.step()
+            if not torch.isfinite(loss):
+                raise RuntimeError("Pitch-Fusion smoke loss is not finite")
+            print(json.dumps({
+                "status": "SMOKE_TEST_ONLY", "forward_smoke_test": "PASS",
+                "tiny_train_step": "PASS", "logits_shape": [1, 4],
+                "audio_encoder_frozen": bool(config["backbone"].get("freeze_audio_encoder")),
+                "test_samples_loaded": 0,
+            }), flush=True)
+        else:
+            print(json.dumps({"forward_smoke_test": "PASS", "logits_shape": [1, 4]}), flush=True)
         return
 
     training = config["training"]
@@ -240,9 +306,15 @@ def main() -> None:
     model.to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=float(training["learning_rate"]), weight_decay=float(training["weight_decay"]))
     scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda" and bool(training["mixed_precision"]))
-    artifact_dir, report_dir = ROOT / "artifacts/b6/pitch_fusion_paper", ROOT / "reports/tables/b6"
-    checkpoint_path, model_path = artifact_dir / "checkpoint.pt", artifact_dir / "pitch_fusion_paper_aligned.pt"
+    artifact_dir = ROOT / "artifacts/b6/pitch_fusion_paper"
+    checkpoint_path = artifact_dir / "checkpoint.pt"
     artifact_dir.mkdir(parents=True, exist_ok=True)
+    model_path.parent.mkdir(parents=True, exist_ok=True)
+    previous_report_path = report_dir / f"{MODEL_NAME}_report.json"
+    previous_report = (
+        json.loads(previous_report_path.read_text(encoding="utf-8"))
+        if previous_report_path.is_file() else {}
+    )
     history, start_epoch, best_score, best_state = [], 1, -1.0, None
     if checkpoint_path.exists() and not args.force:
         saved = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
@@ -253,33 +325,42 @@ def main() -> None:
         print(f"resume checkpoint: epoch {saved['epoch']}", flush=True)
     seed_everything(int(config["seed"]))
     accumulation = int(training["gradient_accumulation_steps"])
+    reused_completed_checkpoint = start_epoch > int(training["epochs"])
     started = time.perf_counter()
-    for epoch in range(start_epoch, int(training["epochs"]) + 1):
-        model.train()
-        optimizer.zero_grad(set_to_none=True)
-        total = 0.0
-        for step, (audio, pitch, mask, labels) in enumerate(train_loader, 1):
-            audio, pitch, mask, labels = (x.to(device, non_blocking=True) for x in (audio, pitch, mask, labels))
-            with torch.autocast(device_type=device.type, enabled=scaler.is_enabled()):
-                logits = model(audio, pitch, mask)
-                loss = criterion(logits, labels) / accumulation
-            scaler.scale(loss).backward()
-            if step % accumulation == 0 or step == len(train_loader):
-                scaler.unscale_(optimizer)
-                nn.utils.clip_grad_norm_(model.parameters(), float(training["gradient_clip"]))
-                scaler.step(optimizer)
-                scaler.update()
-                optimizer.zero_grad(set_to_none=True)
-            total += float(loss.item()) * accumulation * len(labels)
-        predicted, _, validation_loss = evaluate(model, validation_loader, device)
-        score = classification_metrics(encoder.inverse_transform(y_validation), encoder.inverse_transform(predicted), validation["accent_clean"].to_numpy(), config["emotion_order"])["overall"]["macro_f1"]
-        history.append({"epoch": epoch, "train_loss": total / len(train), "validation_loss": validation_loss, "validation_macro_f1": score})
-        if score > best_score:
-            best_score = score
-            best_state = {name: value.detach().cpu().clone() for name, value in model.state_dict().items()}
-        torch.save({"epoch": epoch, "model_state": model.state_dict(), "optimizer_state": optimizer.state_dict(), "scaler_state": scaler.state_dict(), "history": history, "best_score": best_score, "best_state": best_state}, checkpoint_path.with_suffix(".tmp"))
-        checkpoint_path.with_suffix(".tmp").replace(checkpoint_path)
-        print(f"{MODEL_NAME} epoch {epoch}/{training['epochs']} train_loss={total / len(train):.4f} val_macro_f1={score:.4f}", flush=True)
+    with TrainingTimer() as training_timer:
+        stale = 0
+        for epoch in range(start_epoch, int(training["epochs"]) + 1):
+            model.train()
+            optimizer.zero_grad(set_to_none=True)
+            total = 0.0
+            for step, (audio, pitch, mask, labels) in enumerate(train_loader, 1):
+                audio, pitch, mask, labels = (x.to(device, non_blocking=True) for x in (audio, pitch, mask, labels))
+                with torch.autocast(device_type=device.type, enabled=scaler.is_enabled()):
+                    logits = model(audio, pitch, mask)
+                    loss = criterion(logits, labels) / accumulation
+                scaler.scale(loss).backward()
+                if step % accumulation == 0 or step == len(train_loader):
+                    scaler.unscale_(optimizer)
+                    nn.utils.clip_grad_norm_(model.parameters(), float(training["gradient_clip"]))
+                    scaler.step(optimizer)
+                    scaler.update()
+                    optimizer.zero_grad(set_to_none=True)
+                total += float(loss.item()) * accumulation * len(labels)
+            predicted, _, validation_loss = evaluate(model, validation_loader, device)
+            score = classification_metrics(encoder.inverse_transform(y_validation), encoder.inverse_transform(predicted), validation["accent_clean"].to_numpy(), config["emotion_order"])["overall"]["macro_f1"]
+            history.append({"epoch": epoch, "train_loss": total / len(train), "validation_loss": validation_loss, "validation_macro_f1": score})
+            if score > best_score + float(training.get("min_delta", 0.0)):
+                best_score = score
+                stale = 0
+                best_state = {name: value.detach().cpu().clone() for name, value in model.state_dict().items()}
+            else:
+                stale += 1
+            torch.save({"epoch": epoch, "model_state": model.state_dict(), "optimizer_state": optimizer.state_dict(), "scaler_state": scaler.state_dict(), "history": history, "best_score": best_score, "best_state": best_state}, checkpoint_path.with_suffix(".tmp"))
+            checkpoint_path.with_suffix(".tmp").replace(checkpoint_path)
+            print(f"{MODEL_NAME} epoch {epoch}/{training['epochs']} train_loss={total / len(train):.4f} val_macro_f1={score:.4f}", flush=True)
+            if bool(training.get("early_stopping")) and stale >= int(training.get("patience", 3)):
+                print(f"{MODEL_NAME} early stopping at epoch {epoch}", flush=True)
+                break
     if best_state is None:
         raise RuntimeError("Training produced no checkpoint")
     model.load_state_dict(best_state)
@@ -288,7 +369,53 @@ def main() -> None:
     predicted_text = encoder.inverse_transform(predicted)
     metrics = classification_metrics(validation["emotion"].to_numpy(), predicted_text, validation["accent_clean"].to_numpy(), config["emotion_order"])
     torch.save({"model_state": best_state, "classes": list(encoder.classes_), "config": config}, model_path)
-    write_csv_atomic(prediction_rows(validation, predicted_text, probabilities, config["emotion_order"]), report_dir / f"{MODEL_NAME}_validation_predictions.csv")
+    parameter_evidence = parameter_count(model)
+    size_evidence = model_size(model_path)
+    latency_batch = tuple(item[:1] for item in next(iter(validation_loader)))
+    audio_probe, pitch_probe, mask_probe, _ = (
+        item.to(device) for item in latency_batch
+    )
+    model.eval()
+    latency_evidence = benchmark_inference_latency(
+        lambda: model(audio_probe, pitch_probe, mask_probe), device=device,
+        batch_size=1, precision="float32", warmup_runs=10, timed_runs=50,
+        preprocessing_included=False,
+    )
+    recorded_training_time = (
+        previous_report.get("runtime_seconds")
+        if reused_completed_checkpoint and previous_report.get("runtime_seconds") is not None
+        else training_timer.training_time_sec
+    )
+    costs = {
+        **parameter_evidence, **size_evidence, **training_timer.as_dict(),
+        **latency_evidence, "feature_extraction_time_sec": None,
+        "training_time_sec": recorded_training_time,
+        "model_training_time_sec": recorded_training_time,
+        "end_to_end_training_pipeline_time_sec": recorded_training_time,
+        "cost_protocol": {
+            "feature_extraction": "raw decode and pitch loading occur in the training data path",
+            "latency_path": "model-ready waveform and pitch tensors -> Wav2Vec2 plus fusion network",
+            "reused_completed_checkpoint": reused_completed_checkpoint,
+            "training_time_source": (
+                "persisted prior runtime_seconds" if reused_completed_checkpoint
+                else "current TrainingTimer"
+            ),
+        },
+    }
+    prediction_path = report_dir / f"{MODEL_NAME}_validation_predictions.csv"
+    rows = prediction_rows(
+        validation, predicted_text, probabilities, config["emotion_order"],
+        experiment_id=experiment_id, model=MODEL_NAME, seed=int(config["seed"]),
+    )
+    write_csv_atomic(rows, prediction_path)
+    write_csv_atomic(rows, canonical_prediction)
+    evaluated = evaluate_prediction_file(
+        canonical_prediction, canonical_metrics,
+        expected_sample_ids=validation["sample_id"].astype(str),
+        expected_split="validation", dataset_version="visec_clean_eligible_v1",
+        split_version=config["split_version"], costs=costs,
+    )
+    repository_state = git_state(ROOT)
     report = {
         "schema_version": config["schema_version"], "model": MODEL_NAME,
         "display_name": "Pitch-Fusion Paper-Aligned Reproduction",
@@ -296,10 +423,41 @@ def main() -> None:
         "reproduction_boundary": config["reproduction_boundary"],
         "best_epoch": max(history, key=lambda row: row["validation_macro_f1"])["epoch"],
         "validation": metrics, "history": history, "test_samples_loaded": 0,
-        "lineage": {"feature_sha256": sha256_file(features_path), "manifest_sha256": sha256_file(manifest_path), "raw_parquet_sha256": sha256_file(raw_path), "config_sha256": sha256_file(config_path)},
+        "training_strategy": (
+            "reused_completed_paper_aligned_checkpoint" if reused_completed_checkpoint
+            else "minimum_single_baseline_frozen_audio_encoder"
+        ),
+        "costs": costs,
+        "lineage": {
+            "feature_sha256": sha256_file(features_path),
+            "manifest_sha256": sha256_file(manifest_path),
+            "raw_parquet_sha256": sha256_file(raw_path),
+            "config_sha256": sha256_file(config_path),
+            "checkpoint_path": str(model_path.relative_to(ROOT)).replace("\\", "/"),
+            "checkpoint_sha256": sha256_file(model_path), **repository_state,
+        },
         "runtime_seconds": time.perf_counter() - started, "device": str(device),
     }
-    write_json_atomic(report, report_dir / f"{MODEL_NAME}_report.json")
+    write_json_atomic(report, report_path)
+    register_experiment(ROOT, {
+        "experiment_id": f"b6_{MODEL_NAME}_dev_v1_{int(time.time())}", "step": "B6",
+        "rq": "RQ3", "model": MODEL_NAME,
+        "variant": "paper_aligned_minimal_frozen_audio_encoder",
+        "dataset_version": "visec_clean_eligible_v1", "status": "completed",
+        "feature_config": "configs/features/visec_features_v1.json",
+        "model_config": str(config_path.relative_to(ROOT)).replace("\\", "/"),
+        "seed": config["seed"], "split_version": config["split_version"],
+        "git_commit": repository_state["git_commit"], "hardware": costs["gpu_name"],
+        "train_time_sec": costs["training_time_sec"],
+        "inference_latency_ms": costs["inference_latency_ms"],
+        "model_size_mb": costs["model_size_mb"],
+        "overall_macro_f1": evaluated["overall_macro_f1"],
+        "worst_accent_macro_f1": evaluated["worst_accent_macro_f1"],
+        "accent_gap": evaluated["accent_gap"],
+        "checkpoint_path": str(model_path.relative_to(ROOT)).replace("\\", "/"),
+        "prediction_path": str(canonical_prediction.relative_to(ROOT)).replace("\\", "/"),
+        "notes": "Paper-aligned development run; known reproduction differences retained; final test remained unopened.",
+    })
     print(json.dumps({"status": "PASS", "validation_macro_f1": metrics["overall"]["macro_f1"], "best_epoch": report["best_epoch"], "test_untouched": True}, indent=2), flush=True)
 
 

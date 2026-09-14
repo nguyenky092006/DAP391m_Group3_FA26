@@ -1,41 +1,110 @@
-# Python
+# ==========================================
+# Python & Virtual Environments
+# ==========================================
 __pycache__/
 *.py[cod]
+*$py.class
 *.egg-info/
+.installed.cfg
+*.egg
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .venv/
-.venv-gpu/
+.venv-*/
 venv/
+env/
+ENV/
+.conda/
 
-# IDE and operating system
+# ==========================================
+# IDEs, Editors & OS Files
+# ==========================================
 .vscode/
 .idea/
+*.swp
+*.swo
 .DS_Store
 Thumbs.db
 
-# Secrets
+# ==========================================
+# Secrets & Environment Variables
+# ==========================================
 .env
 .env.*
 !.env.example
 
-# Raw and generated data
+# ==========================================
+# Data Directories & Manifests
+# ==========================================
 data/raw/*
 !data/raw/.gitkeep
 data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/manifests/*
+!data/manifests/.gitkeep
 
-# Generated model artifacts
+# Chặn các file dữ liệu phát sinh trong folder data
+data/**/*.csv
+data/**/*.json
+data/**/*.sqlite
+data/**/*.parquet
+
+# ==========================================
+# Generated Model Artifacts & Heavy Files
+# ==========================================
 artifacts/
 checkpoints/
 runs/
 mlruns/
+wandb/
 *.wav
+*.mp3
+*.flac
 *.zip
+*.tar.gz
 *.pt
 *.pth
 *.ckpt
 *.onnx
+*.bin
+*.safetensors
+
+# ==========================================
+# Generated Reports, Tables & Figures
+# ==========================================
+reports/tables/*
+!reports/tables/.gitkeep
+reports/figures/*
+!reports/figures/.gitkeep
+reports/dashboard/*
+!reports/dashboard/.gitkeep
+*.html
+
+# Chặn các file CSV/JSON log
+reports/**/*.csv
+reports/**/*.json
+
+# Versioned B3 SQL evidence required by the B3 Definition of Done.
+!reports/tables/b3/
+!reports/tables/b3/*.csv
+!reports/tables/b3/b3_summary.json
+!reports/tables/b4/
+!reports/tables/b4/b4_mel_3ch_contract_report.json
+!reports/tables/b4/b4_accent_probe_report.json
+!reports/tables/b4/b4_accent_probe_metrics.csv
+!reports/tables/b4/b4_accent_probe_validation_predictions.csv
+!reports/tables/b4/b4_accent_probe_permutations.csv
+!reports/tables/b4/b4_accent_probe_speaker_bootstrap.csv
+!reports/figures/b6/centralized_validation_cost_table.png
+!reports/figures/b6/centralized_validation_performance_table.png
+
+# ==========================================
+# Jupyter Notebook Checkpoints & Cache
+# ==========================================
+.ipynb_checkpoints/
+.cache/
+
+# End of repository ignore rules.

@@ -1,160 +1,57 @@
-# DAP391m Group 3 - Federated Vietnamese Speech Emotion Recognition
+# FedECAI — Vietnamese Speech Emotion Recognition
 
-This project studies Vietnamese speech emotion recognition using the ViSEC dataset. The main objective is to evaluate emotion recognition performance on unseen speakers and examine performance differences among Northern, Central, and Southern accents.
+This repository studies speaker-disjoint Vietnamese speech emotion recognition on ViSEC, including performance differences across North, Central, and South accent groups.
 
-The project compares five models: SVM, XGBoost, CNN 2D, Wav2Vec2, and Pitch-Fusion. It also investigates emotion-conditioned accent-invariant learning and federated learning methods.
+## Current verified state
 
-## Main rules
+- B1–B5 are complete and documented in `docs/research/B1_SPEC.md` through `B5_SPEC.md`.
+- B6 centralized infrastructure is ready for the fixed 8-model benchmark: SVM, XGBoost, CNN 2D, ResNet-18, MobileNetV3, ViT, raw-waveform frozen Wav2Vec2, and Pitch-Fusion.
+- Existing CNN 2D, ResNet-18, MobileNetV3, and ViT outputs are development/validation evidence only; they are not final test results.
+- Federated learning, GRL, FedAvg, FedProx, and FedECAI are not the current execution phase.
+- No backbone has been selected.
 
-- All evaluation splits must be speaker-disjoint.
-- The test set must remain unchanged after it is finalized.
-- Data augmentation is applied only to training data.
-- Accent information is used for analysis and domain-invariance experiments, not as the main application output.
-- All models must use the same finalized data split for fair comparison.
+The authoritative rules are `PROJECT_RULES.md`; the master protocol is `PLAN_FEDECAI.md`. Use only the relevant `docs/research/B*_SPEC.md` for a normal step task. `doc.md` is the concise reader-facing status.
 
-## Current progress
+## Environment
 
-- B1: research framing and dataset provenance documented.
-- B2: record audit, cleaning policy, and audio-quality screening completed.
-- B3: metadata EDA and RQ-linked SQL completed with reproducible tables and
-  figures. The audit found that frozen split v1 has no Central-Sad test sample.
-- B4: complete. All five feature families were extracted for 4,992 eligible
-  utterances. The final 4,992-row, 951-column feature table combines 80 MFCC,
-  88 eGeMAPS, six pitch-summary, and 768 Wav2Vec2 values plus metadata and
-  variable-length artifact paths. Three RQ-linked advanced figures and an
-  interactive Plotly dashboard were generated and visually reviewed. All
-  generated arrays and the Parquet table remain under ignored `data/interim/`.
-- B5: complete. The frozen speaker-disjoint v2 split has full 36/36
-  split-accent-emotion coverage. Same-seed reproducibility, preservation of v1,
-  grouped five-fold CV, and three accent-domain federated clients all passed.
-- B6: in progress. The leakage-safe modelling contract and one-command
-  SVM/XGBoost grouped-CV runner are prepared; CNN 2D, Wav2Vec2, and
-  Pitch-Fusion remain in the same modelling step.
+All benchmark commands must use the existing uv-managed `DAP301m` interpreter. Do not silently fall back to a system Python. The exact environment captured by the latest validation is stored under `logs/runs/` and `artifacts/audit/benchmark_preflight.json`.
 
-The deep-model runtime uses a separate CUDA environment so the verified CPU
-environment remains reproducible:
+From the repository root, resolve and verify the interpreter before running anything:
 
 ```powershell
-.\scripts\setup_b6_gpu.ps1
+$python = (Resolve-Path '.\DAP301m\Scripts\python.exe').Path
+& $python -c "import sys; print(sys.executable); print(sys.version)"
 ```
 
-The reproducible version 2 split runner is available at
-`src/fedecai/data/run_b5_split_pipeline.py`. It writes new versioned files,
-checks same-seed reproducibility, and verifies that the frozen version 1 files
-remain byte-for-byte unchanged. Run it once from the repository root:
+If the environment is located elsewhere, use its exact resolved `python.exe` path and record it in the run evidence.
+
+## Reproducible entry points
+
+Data and feature steps:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\data\run_b5_split_pipeline.py
+& $python src\fedecai\data\audit_visec.py
+& $python src\fedecai\data\clean_visec_manifest.py
+& $python src\fedecai\eda\b3_eda_sql.py
+& $python src\fedecai\data\run_b5_split_pipeline.py
 ```
 
-## Reproduce B3 EDA and SQL
+Centralized infrastructure validation only (no expensive benchmark training):
 
 ```powershell
-python -m pip install -r requirements.txt
-python src/fedecai/eda/b3_eda_sql.py
+& $python scripts\run_centralized_infrastructure_validation.py
 ```
 
-See `docs/research/B3_eda_sql_report.md` and
-`notebooks/B3_eda_sql.ipynb` for the findings and review workflow.
+The hard gate is `artifacts/audit/benchmark_preflight.json`. Full centralized training is allowed only when it reports `CENTRALIZED_INFRASTRUCTURE_STATUS = READY`. Do not start federated work or choose a backbone during this phase.
 
-## Reproduce B4 pilot diagnostics
+## Evidence layout
 
-```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\render_feature_pilot_diagnostics.py --run-name balanced_12
-```
+- Machine-readable predictions: `artifacts/predictions/`
+- Checkpoints: `artifacts/checkpoints/`
+- Metrics: `artifacts/metrics/`
+- Current run evidence: `logs/runs/`
+- Run registries/history: `logs/run_index.csv`, `logs/experiment_registry.csv`, `logs/infrastructure_run_history.csv`
+- Generated tables and figures: `reports/`
+- Cleanup decisions and hard-gate audit: `artifacts/audit/`
 
-The command requires the ignored pilot arrays under
-`data/interim/features/b4_features_v1/balanced_12/`. See
-`docs/research/B4_feature_pilot_diagnostics.md` for the three tracked figures,
-quantitative checks, and interpretation limits.
-
-## Reproduce the B4 Wav2Vec2 one-sample pilot
-
-```powershell
-$env:HF_HUB_DISABLE_IMPLICIT_TOKEN = '1'
-$env:HF_TOKEN = ''
-.\.venv\Scripts\python.exe src\fedecai\features\extract_wav2vec2_pilot.py --local-files-only
-```
-
-The offline command requires the ignored checkpoint cache created by the first
-online run. See `docs/research/B4_wav2vec2_one_sample_pilot.md` for the pinned
-model, sample lineage, output checks, and scope limits.
-
-## Reproduce the B4 Wav2Vec2 three-sample resume pilot
-
-```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\extract_wav2vec2_resume_pilot.py
-```
-
-The first run computes any missing or invalid artifact. Repeating the command
-reopens and verifies lineage, SHA-256, shape, dtype, and finite values before it
-skips a sample. See `docs/research/B4_wav2vec2_resume_pilot.md`.
-
-## Reproduce the B4 Wav2Vec2 eligible-chunk preflight
-
-```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\extract_wav2vec2_chunk.py --chunk-offset 0 --chunk-size 12
-```
-
-Chunk offsets are applied after filtering the B2 manifest to eligible rows and
-sorting numerically by source row. The report records both the complete
-manifest SHA-256 and selected-row SHA-256. See
-`docs/research/B4_wav2vec2_chunk_preflight.md`.
-
-## Reproduce the B4 Wav2Vec2 full-run plan
-
-```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\plan_wav2vec2_full_run.py --chunk-size 256
-```
-
-This command reads only the clean manifest and writes a 20-row execution plan.
-It does not load audio, the model, or embeddings. See
-`docs/research/B4_wav2vec2_full_run_plan.md`.
-
-## Run the complete Wav2Vec2 extraction with one command
-
-```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\run_wav2vec2_full_extraction.py
-```
-
-The runner executes all 20 planned chunks sequentially, safely resumes partial
-runs, validates every chunk, and writes one aggregate 4,992-row feature index.
-If the terminal is interrupted, run the same command again.
-
-## Run all remaining B4 deliverables with one command
-
-```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\run_b4_remaining_pipeline.py
-```
-
-This resume-safe runner extracts full MFCC, eGeMAPS, log-Mel, and pitch
-features, joins them with the completed Wav2Vec2 index, writes the full Parquet
-feature table, renders three advanced figures, and creates the interactive
-Plotly HTML dashboard. If interrupted during extraction, run the same command
-again.
-
-## Run all five B6 models with one command
-
-```powershell
-.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_all_models.py
-```
-
-The runner executes SVM RBF, XGBoost, CNN2D, Wav2Vec2 embedding MLP, and
-Pitch-Fusion in sequence. A normal rerun skips completed models. Pass `--force`
-to retrain all five; neural grouped-CV folds run all 30 epochs and checkpoint
-after each completed fold.
-
-## Run the B6 E1-E7 FedECAI experiment ladder
-
-```powershell
-.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_fedecai_pipeline.py
-
-# Paper-aligned raw-waveform Pitch-Fusion (30 epochs, resumable)
-.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_pitch_fusion_paper.py
-```
-
-The runner trains centralized CNN, unconditional GRL, and emotion-conditioned
-GRL, followed by FedAvg, FedProx, federated unconditional GRL, and FedECAI on
-both B5 main and stress client scenarios. It checkpoints every centralized
-epoch and communication round. Run the same command to resume; use `--force`
-only to restart all E1-E7 experiments.
+Raw and generated data are described in `data/README.md`. Never change the frozen split, labels, accent groups, benchmark list, or RQ3 Pareto dimensions without an explicit protocol-change record.

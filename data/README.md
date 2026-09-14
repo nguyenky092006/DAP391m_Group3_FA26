@@ -13,7 +13,7 @@ The pinned ViSEC file is expected at `raw/visec_hf/train-00000-of-00001.parquet`
 
 Raw audio, archives, processed audio, and large generated features are excluded from Git. A tracked manifest must use stable sample identifiers and repository-safe relative paths rather than relying only on one person's absolute local path.
 
-See `docs/research/B1_dataset_provenance.md` before downloading or moving ViSEC data.
+See `docs/research/B1_SPEC.md` before downloading or moving ViSEC data.
 
 ## Reproduce the ViSEC download
 
@@ -42,7 +42,7 @@ python -m unittest discover -s tests -v
 
 Audit v2 adds signal-quality screening to the original record audit. It creates
 `raw_manifest.csv`, `raw_audit.json`, `invalid_audio.csv`,
-`duplicate_report.csv`, and `docs/research/B2_quality_report.md`. Clipping and
+`duplicate_report.csv`, and `reports/tables/b2/b2_quality_report.md`. Clipping and
 silence flags are review signals only. Cleaning reads `raw_manifest.csv`
 and creates the canonical `clean_manifest.csv` and `cleaning_report.json`.
 Version numbers are stored inside the artifacts instead of in filenames.

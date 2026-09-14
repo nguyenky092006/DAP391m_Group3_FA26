@@ -19,10 +19,11 @@ class TestFeatureSpec(unittest.TestCase):
     def test_repository_feature_spec_passes(self):
         result = validate_feature_spec(self.spec)
         self.assertEqual(result["status"], "PASS")
-        self.assertEqual(result["feature_family_count"], 5)
+        self.assertEqual(result["feature_family_count"], 6)
         self.assertEqual(result["deferred"], [])
         self.assertEqual(result["specified_not_downloaded"], [])
         self.assertEqual(result["pilot_validated"], ["wav2vec2_embedding"])
+        self.assertEqual(result["contract_validated"], ["mel_3ch"])
 
     def test_global_normalization_is_rejected(self):
         invalid = copy.deepcopy(self.spec)
@@ -49,6 +50,17 @@ class TestFeatureSpec(unittest.TestCase):
         )
         wav2vec["parameters"]["model_revision"] = "main"
         with self.assertRaisesRegex(FeatureSpecError, "model_revision"):
+            validate_feature_spec(invalid)
+
+    def test_invalid_three_channel_mode_is_rejected(self):
+        invalid = copy.deepcopy(self.spec)
+        mel_3ch = next(
+            family
+            for family in invalid["feature_families"]
+            if family["name"] == "mel_3ch"
+        )
+        mel_3ch["parameters"]["mel_3ch_mode"] = "rgb_colormap"
+        with self.assertRaisesRegex(FeatureSpecError, "mel_3ch_mode"):
             validate_feature_spec(invalid)
 
     def test_padding_blind_wav2vec2_pooling_is_rejected(self):

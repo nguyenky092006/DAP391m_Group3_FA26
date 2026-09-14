@@ -1,0 +1,13 @@
+accent,emotion,utterances,mean_duration_sec,possible_clipping,high_silence,mean_silent_frame_pct
+central,angry,25,2.734,0,0,16.2
+central,happy,117,4.252,0,1,20.27
+central,neutral,118,2.997,2,1,19.64
+central,sad,15,2.795,0,0,8.34
+north,angry,331,2.599,8,2,13.65
+north,happy,268,2.657,0,4,17.18
+north,neutral,341,2.287,6,4,15.53
+north,sad,243,2.188,26,2,11.73
+south,angry,1109,1.777,25,160,39.07
+south,happy,588,1.874,4,53,32.18
+south,neutral,1046,2.092,1,78,29.31
+south,sad,791,1.927,5,98,33.14

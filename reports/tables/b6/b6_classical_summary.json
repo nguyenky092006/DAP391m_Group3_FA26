@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "schema_version": "b6.classical.v1",
+  "schema_version": "b6.classical.centralized.v1",
   "completed_models": [
     "svm_rbf",
     "xgboost"
@@ -11,12 +11,12 @@
       "status": "PASS",
       "model": "svm_rbf",
       "scope": "B6 model selection on grouped train CV and one validation report; test untouched",
-      "config_schema": "b6.classical.v1",
+      "config_schema": "b6.classical.centralized.v1",
       "seed": 391,
       "train_samples": 3681,
       "validation_samples": 646,
       "test_samples_reserved": 665,
-      "features": 174,
+      "features": 168,
       "cv_folds": [
         "fold_0",
         "fold_1",
@@ -28,63 +28,185 @@
         "model__C": 1.0,
         "model__gamma": "scale"
       },
-      "best_cv_macro_f1": 0.40789191229451893,
-      "grid_search_seconds": 5.655880699999898,
+      "best_cv_macro_f1": 0.41371204477998696,
+      "grid_search_seconds": 6.84735290001845,
       "probability_calibration": "sigmoid CalibratedClassifierCV using B5 grouped folds",
       "prediction_rule": "selected estimator decision rule; grouped calibrator supplies confidence only",
-      "calibration_seconds": 2.2478335000000698,
-      "total_tuning_seconds": 7.903714199999968,
+      "calibration_seconds": 3.4817919000051916,
+      "total_tuning_seconds": 10.329144800023641,
+      "costs": {
+        "total_parameters": null,
+        "trainable_parameters": null,
+        "model_specific_representation": {
+          "estimator": "Pipeline"
+        },
+        "model_size_definition": "serialized deployable artifacts; bytes / 1024^2",
+        "checkpoint_artifact": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\checkpoints\\b6_svm_rbf_seed391.joblib",
+        "checkpoint_size_mb": 8.187570571899414,
+        "external_artifacts": [],
+        "external_artifacts_size_mb": 0.0,
+        "effective_deployment_size_mb": 8.187570571899414,
+        "model_size_mb": 8.187570571899414,
+        "training_start_timestamp": "2026-09-14T02:17:15.923009+00:00",
+        "training_end_timestamp": "2026-09-14T02:17:26.252185+00:00",
+        "training_time_sec": 10.329151399986586,
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+        "device": "cpu",
+        "gpu_name": null,
+        "batch_size": 1,
+        "precision": "float32",
+        "warmup_runs": 10,
+        "timed_runs": 50,
+        "preprocessing_included": false,
+        "primary_latency_statistic": "median",
+        "inference_latency_ms": 2.92895,
+        "latency_mean_ms": 3.0166340000000003,
+        "latency_median_ms": 2.92895,
+        "latency_std_ms": 0.460502989614617,
+        "latency_p95_ms": 3.78059,
+        "feature_extraction_time_sec": null,
+        "model_training_time_sec": 10.329151399986586,
+        "end_to_end_training_pipeline_time_sec": 10.329151399986586,
+        "cost_protocol": {
+          "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
+          "latency_path": "model-ready 168-feature vector -> fitted estimator"
+        }
+      },
       "validation_metrics": {
         "overall": {
           "samples": 646,
-          "accuracy": 0.4845201238390093,
-          "macro_f1": 0.46728031418753074,
-          "uar": 0.46326941986234027,
+          "accuracy": 0.48297213622291024,
+          "macro_f1": 0.4663039778267338,
+          "weighted_f1": 0.48066797698854097,
+          "uar": 0.46225090134382174,
           "per_class_f1": {
-            "angry": 0.5910652920962199,
-            "happy": 0.32989690721649484,
-            "neutral": 0.5195876288659794,
-            "sad": 0.42857142857142855
+            "angry": 0.5813148788927336,
+            "happy": 0.3333333333333333,
+            "neutral": 0.5206611570247934,
+            "sad": 0.42990654205607476
+          },
+          "per_class": {
+            "angry": {
+              "precision": 0.60431654676259,
+              "recall": 0.56,
+              "f1": 0.5813148788927336,
+              "support": 150
+            },
+            "happy": {
+              "precision": 0.36666666666666664,
+              "recall": 0.3055555555555556,
+              "f1": 0.3333333333333333,
+              "support": 108
+            },
+            "neutral": {
+              "precision": 0.4883720930232558,
+              "recall": 0.5575221238938053,
+              "f1": 0.5206611570247934,
+              "support": 226
+            },
+            "sad": {
+              "precision": 0.4339622641509434,
+              "recall": 0.42592592592592593,
+              "f1": 0.42990654205607476,
+              "support": 162
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "angry",
+              "happy",
+              "neutral",
+              "sad"
+            ],
+            "values": [
+              [
+                84,
+                24,
+                30,
+                12
+              ],
+              [
+                11,
+                33,
+                40,
+                24
+              ],
+              [
+                18,
+                28,
+                126,
+                54
+              ],
+              [
+                26,
+                5,
+                62,
+                69
+              ]
+            ]
           }
         },
         "per_accent": {
           "central": {
             "samples": 26,
-            "macro_f1": 0.35027472527472525,
-            "uar": 0.4642857142857143
+            "macro_f1": 0.36813186813186816,
+            "uar": 0.48214285714285715,
+            "per_emotion_f1": {
+              "angry": 0.2857142857142857,
+              "happy": 0.6153846153846154,
+              "neutral": 0.5714285714285714,
+              "sad": 0.0
+            }
           },
           "north": {
             "samples": 200,
-            "macro_f1": 0.4375030088299129,
-            "uar": 0.43973709217611656
+            "macro_f1": 0.43264895330112724,
+            "uar": 0.435748223901534,
+            "per_emotion_f1": {
+              "angry": 0.45,
+              "happy": 0.4074074074074074,
+              "neutral": 0.4166666666666667,
+              "sad": 0.45652173913043476
+            }
           },
           "south": {
             "samples": 420,
-            "macro_f1": 0.45739659022205215,
-            "uar": 0.4628144409883688
+            "macro_f1": 0.45492134269729967,
+            "uar": 0.46015486652028376,
+            "per_emotion_f1": {
+              "angry": 0.6435643564356436,
+              "happy": 0.18181818181818182,
+              "neutral": 0.5539358600583091,
+              "sad": 0.44036697247706424
+            }
           }
         },
-        "worst_accent_macro_f1": 0.35027472527472525,
-        "accent_macro_f1_gap": 0.1071218649473269
+        "worst_accent_macro_f1": 0.36813186813186816,
+        "best_accent_macro_f1": 0.45492134269729967,
+        "accent_macro_f1_gap": 0.08678947456543151,
+        "accent_macro_f1_std": 0.03680417624777542
       },
-      "model_artifact": "artifacts/b6/classical/svm_rbf.joblib",
-      "model_artifact_sha256": "48c1d8afe6f058280f0e5751697078bb675ea6a2ecb0eb279bbd16f4a9436b29",
+      "model_artifact": "artifacts/checkpoints/b6_svm_rbf_seed391.joblib",
+      "model_artifact_sha256": "40eef0bfbe819005a50f7c9c93ab5638621a85fba7f1dbeb667156f7e6cd6186",
       "lineage": {
-        "config_sha256": "7f93ed8f3cdcc9a0d5e62bf6602dc85b767fa3784a0389578db2f356f7292199",
-        "features_sha256": "22c98b9243914ea7c3b05742aeb8a8a7dc0870345c39643226a1688326cfad28",
-        "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a"
+        "config_sha256": "b000f8a74902e37bb44a7d8d81637c021f11f1e540474f68ecda13f8c474a57c",
+        "features_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
+        "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+        "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+        "worktree_dirty": true
       }
     },
     "xgboost": {
       "status": "PASS",
       "model": "xgboost",
       "scope": "B6 model selection on grouped train CV and one validation report; test untouched",
-      "config_schema": "b6.classical.v1",
+      "config_schema": "b6.classical.centralized.v1",
       "seed": 391,
       "train_samples": 3681,
       "validation_samples": 646,
       "test_samples_reserved": 665,
-      "features": 174,
+      "features": 168,
       "cv_folds": [
         "fold_0",
         "fold_1",
@@ -97,51 +219,174 @@
         "max_depth": 5,
         "n_estimators": 400
       },
-      "best_cv_macro_f1": 0.3760606643743446,
-      "grid_search_seconds": 67.5331842999999,
+      "best_cv_macro_f1": 0.3812043822758945,
+      "grid_search_seconds": 78.4586055999971,
       "probability_calibration": null,
       "prediction_rule": "predict_proba argmax",
       "calibration_seconds": 0.0,
-      "total_tuning_seconds": 67.5331842999999,
+      "total_tuning_seconds": 78.4586055999971,
+      "costs": {
+        "total_parameters": null,
+        "trainable_parameters": null,
+        "model_specific_representation": {
+          "estimator": "XGBClassifier",
+          "trees": 400
+        },
+        "model_size_definition": "serialized deployable artifacts; bytes / 1024^2",
+        "checkpoint_artifact": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\checkpoints\\b6_xgboost_seed391.joblib",
+        "checkpoint_size_mb": 3.579146385192871,
+        "external_artifacts": [],
+        "external_artifacts_size_mb": 0.0,
+        "effective_deployment_size_mb": 3.579146385192871,
+        "model_size_mb": 3.579146385192871,
+        "training_start_timestamp": "2026-09-14T02:18:30.473793+00:00",
+        "training_end_timestamp": "2026-09-14T02:19:48.932829+00:00",
+        "training_time_sec": 78.45861090000835,
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+        "device": "cpu",
+        "gpu_name": null,
+        "batch_size": 1,
+        "precision": "float32",
+        "warmup_runs": 10,
+        "timed_runs": 50,
+        "preprocessing_included": false,
+        "primary_latency_statistic": "median",
+        "inference_latency_ms": 0.99115,
+        "latency_mean_ms": 1.3521100000000001,
+        "latency_median_ms": 0.99115,
+        "latency_std_ms": 1.0039725881218073,
+        "latency_p95_ms": 3.55933,
+        "feature_extraction_time_sec": null,
+        "model_training_time_sec": 78.45861090000835,
+        "end_to_end_training_pipeline_time_sec": 78.45861090000835,
+        "cost_protocol": {
+          "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
+          "latency_path": "model-ready 168-feature vector -> fitted estimator"
+        }
+      },
       "validation_metrics": {
         "overall": {
           "samples": 646,
-          "accuracy": 0.47368421052631576,
-          "macro_f1": 0.4385052011136351,
-          "uar": 0.4344414399650388,
+          "accuracy": 0.4613003095975232,
+          "macro_f1": 0.42355967287658214,
+          "weighted_f1": 0.447369410705714,
+          "uar": 0.4217822025565388,
           "per_class_f1": {
-            "angry": 0.5527272727272727,
+            "angry": 0.5403508771929825,
             "happy": 0.24,
-            "neutral": 0.5360443622920518,
-            "sad": 0.42524916943521596
+            "neutral": 0.5309090909090909,
+            "sad": 0.3829787234042553
+          },
+          "per_class": {
+            "angry": {
+              "precision": 0.5703703703703704,
+              "recall": 0.5133333333333333,
+              "f1": 0.5403508771929825,
+              "support": 150
+            },
+            "happy": {
+              "precision": 0.31343283582089554,
+              "recall": 0.19444444444444445,
+              "f1": 0.24,
+              "support": 108
+            },
+            "neutral": {
+              "precision": 0.4506172839506173,
+              "recall": 0.6460176991150443,
+              "f1": 0.5309090909090909,
+              "support": 226
+            },
+            "sad": {
+              "precision": 0.45,
+              "recall": 0.3333333333333333,
+              "f1": 0.3829787234042553,
+              "support": 162
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "angry",
+              "happy",
+              "neutral",
+              "sad"
+            ],
+            "values": [
+              [
+                77,
+                21,
+                40,
+                12
+              ],
+              [
+                11,
+                21,
+                64,
+                12
+              ],
+              [
+                17,
+                21,
+                146,
+                42
+              ],
+              [
+                30,
+                4,
+                74,
+                54
+              ]
+            ]
           }
         },
         "per_accent": {
           "central": {
             "samples": 26,
-            "macro_f1": 0.35027472527472525,
-            "uar": 0.48660714285714285
+            "macro_f1": 0.29340909090909095,
+            "uar": 0.4375,
+            "per_emotion_f1": {
+              "angry": 0.25,
+              "happy": 0.36363636363636365,
+              "neutral": 0.56,
+              "sad": 0.0
+            }
           },
           "north": {
             "samples": 200,
-            "macro_f1": 0.42996493071356956,
-            "uar": 0.436947373184307
+            "macro_f1": 0.4224085075146274,
+            "uar": 0.4232001448029323,
+            "per_emotion_f1": {
+              "angry": 0.4358974358974359,
+              "happy": 0.2988505747126437,
+              "neutral": 0.41830065359477125,
+              "sad": 0.5365853658536586
+            }
           },
           "south": {
             "samples": 420,
-            "macro_f1": 0.42367735654373584,
-            "uar": 0.43018205063177006
+            "macro_f1": 0.4143527826255983,
+            "uar": 0.4245054340974907,
+            "per_emotion_f1": {
+              "angry": 0.592964824120603,
+              "happy": 0.15584415584415584,
+              "neutral": 0.5752688172043011,
+              "sad": 0.3333333333333333
+            }
           }
         },
-        "worst_accent_macro_f1": 0.35027472527472525,
-        "accent_macro_f1_gap": 0.07969020543884431
+        "worst_accent_macro_f1": 0.29340909090909095,
+        "best_accent_macro_f1": 0.4224085075146274,
+        "accent_macro_f1_gap": 0.12899941660553643,
+        "accent_macro_f1_std": 0.059003880055160635
       },
-      "model_artifact": "artifacts/b6/classical/xgboost.joblib",
-      "model_artifact_sha256": "8aa950423f00e7f6a22f4de893daf01761cbd7f5782bd4d1f9288e9073de05b0",
+      "model_artifact": "artifacts/checkpoints/b6_xgboost_seed391.joblib",
+      "model_artifact_sha256": "b30ae612a3083de1a8bccb58ec8132f8c5f843779cb90c5e9623c8fe02056357",
       "lineage": {
-        "config_sha256": "7f93ed8f3cdcc9a0d5e62bf6602dc85b767fa3784a0389578db2f356f7292199",
-        "features_sha256": "22c98b9243914ea7c3b05742aeb8a8a7dc0870345c39643226a1688326cfad28",
-        "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a"
+        "config_sha256": "b000f8a74902e37bb44a7d8d81637c021f11f1e540474f68ecda13f8c474a57c",
+        "features_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
+        "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+        "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+        "worktree_dirty": true
       }
     }
   }

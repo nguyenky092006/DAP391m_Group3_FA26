@@ -1,6 +1,15 @@
 -- B3 SQL evidence queries for the reviewed ViSEC metadata.
 -- Every query is read-only, uses B2-eligible records, and is tied to an RQ.
 
+-- name: rq1_rq2_samples_speakers_by_accent
+SELECT accent,
+       COUNT(*) AS utterances,
+       COUNT(DISTINCT speaker_id) AS speakers,
+       ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2) AS pct_of_eligible_utterances
+FROM eligible_utterances
+GROUP BY accent
+ORDER BY utterances DESC, accent;
+
 -- name: rq2_emotion_distribution_by_accent
 WITH accents AS (
     SELECT 'central' AS accent UNION ALL
@@ -129,3 +138,75 @@ SELECT split,
        emotion_rank
 FROM ranked
 ORDER BY split_order, accent, emotion;
+
+-- name: evaluation_speaker_overlap_across_splits
+WITH speaker_splits AS (
+    SELECT DISTINCT speaker_id, split
+    FROM eligible_utterances
+    WHERE split IN ('train', 'validation', 'test')
+),
+split_pairs(left_split, right_split, pair_order) AS (
+    VALUES ('train', 'validation', 1),
+           ('train', 'test', 2),
+           ('validation', 'test', 3)
+)
+SELECT p.left_split,
+       p.right_split,
+       COUNT(DISTINCT CASE WHEN r.speaker_id IS NOT NULL THEN l.speaker_id END)
+           AS overlapping_speakers
+FROM split_pairs p
+LEFT JOIN speaker_splits l ON l.split = p.left_split
+LEFT JOIN speaker_splits r
+  ON r.split = p.right_split AND r.speaker_id = l.speaker_id
+GROUP BY p.left_split, p.right_split, p.pair_order
+ORDER BY p.pair_order;
+
+-- name: rq5_federated_client_distributions
+WITH assignments AS (
+    SELECT 'main' AS scenario,
+           main_client_id AS client_id,
+           speaker_id,
+           samples,
+           accent
+    FROM federated_speaker_partitions
+    UNION ALL
+    SELECT 'stress' AS scenario,
+           stress_client_id AS client_id,
+           speaker_id,
+           samples,
+           accent
+    FROM federated_speaker_partitions
+),
+client_totals AS (
+    SELECT scenario,
+           client_id,
+           COUNT(DISTINCT speaker_id) AS speakers,
+           SUM(samples) AS utterances,
+           COUNT(DISTINCT accent) AS accents
+    FROM assignments
+    GROUP BY scenario, client_id
+)
+SELECT scenario,
+       client_id,
+       speakers,
+       utterances,
+       accents,
+       ROUND(100.0 * utterances / SUM(utterances) OVER (PARTITION BY scenario), 2)
+           AS pct_of_scenario_utterances,
+       RANK() OVER (PARTITION BY scenario ORDER BY utterances DESC) AS size_rank
+FROM client_totals
+ORDER BY scenario, size_rank, client_id;
+
+-- name: rq1_rq2_manifest_quality_join
+SELECT m.accent,
+       m.emotion,
+       COUNT(*) AS utterances,
+       ROUND(AVG(q.duration_sec), 3) AS mean_duration_sec,
+       SUM(q.possible_clipping) AS possible_clipping,
+       SUM(q.high_silence) AS high_silence,
+       ROUND(100.0 * AVG(q.silent_frame_ratio), 2) AS mean_silent_frame_pct
+FROM manifest_records m
+JOIN quality_records q ON q.sample_id = m.sample_id
+WHERE m.is_eligible = 1
+GROUP BY m.accent, m.emotion
+ORDER BY m.accent, m.emotion;

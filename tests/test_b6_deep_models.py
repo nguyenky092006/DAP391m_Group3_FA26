@@ -2,7 +2,17 @@ import unittest
 
 import torch
 
-from fedecai.models.b6_deep_models import AccentInvariantCNN, FrozenPitchFusion, LogMelCNN2D, PaperAlignedPitchFusionHead, Wav2Vec2EmbeddingMLP
+from fedecai.models.b6_deep_models import (
+    AccentInvariantCNN, FrozenPitchFusion,
+    LogMelCNN2D, MelImageClassifier, PaperAlignedPitchFusionHead,
+    Wav2Vec2EmbeddingMLP,
+)
+
+try:
+    from torchvision import models as _vision_models  # noqa: F401
+    TORCHVISION_RUNTIME_AVAILABLE = True
+except Exception:
+    TORCHVISION_RUNTIME_AVAILABLE = False
 
 
 class B6DeepModelTests(unittest.TestCase):
@@ -11,6 +21,21 @@ class B6DeepModelTests(unittest.TestCase):
 
     def test_embedding_mlp_shape(self):
         self.assertEqual(tuple(Wav2Vec2EmbeddingMLP()(torch.zeros(2, 768)).shape), (2, 4))
+
+    @unittest.skipUnless(TORCHVISION_RUNTIME_AVAILABLE, "torchvision runtime unavailable")
+    def test_required_three_channel_image_models(self):
+        for backbone in MelImageClassifier.SUPPORTED:
+            with self.subTest(backbone=backbone):
+                model = MelImageClassifier(backbone).eval()
+                with torch.inference_mode():
+                    output = model(torch.zeros(1, 3, 80, 128))
+                self.assertEqual(tuple(output.shape), (1, 4))
+
+    @unittest.skipUnless(TORCHVISION_RUNTIME_AVAILABLE, "torchvision runtime unavailable")
+    def test_image_models_reject_one_channel_input(self):
+        model = MelImageClassifier("resnet18").eval()
+        with self.assertRaisesRegex(ValueError, "B4 Mel tensor"):
+            model(torch.zeros(1, 1, 80, 128))
 
     def test_pitch_fusion_shape(self):
         output = FrozenPitchFusion()(torch.zeros(2, 768), torch.zeros(2, 6))

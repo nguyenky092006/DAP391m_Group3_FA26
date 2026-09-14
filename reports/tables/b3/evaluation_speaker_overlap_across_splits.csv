@@ -1,0 +1,4 @@
+left_split,right_split,overlapping_speakers
+train,validation,0
+train,test,0
+validation,test,0

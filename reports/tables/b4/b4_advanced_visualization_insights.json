@@ -5,8 +5,8 @@
     "mean_within_emotion_distance": 0.787993311882019,
     "centroid_to_within_ratio": 0.44227275252342224,
     "approximate_explained_variance_ratio": [
-      0.18418267338996022,
-      0.12244864097468487
+      0.1841826727802039,
+      0.12244864097551456
     ]
   },
   "rq2_accent_shift_within_emotion": {

@@ -22,7 +22,10 @@ from sklearn.preprocessing import LabelEncoder
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
 
-from fedecai.models.b6_common import classification_metrics, prediction_rows, write_csv_atomic, write_json_atomic
+from fedecai.models.b6_common import (
+    classification_metrics, git_state, prediction_rows, register_experiment,
+    sha256_file, write_csv_atomic, write_json_atomic,
+)
 from fedecai.models.b6_deep_models import AccentInvariantCNN
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -70,7 +73,7 @@ def weights(values: np.ndarray, classes: int, device: torch.device) -> torch.Ten
     return torch.tensor(len(values) / (classes * np.maximum(counts, 1)), device=device)
 
 
-def evaluate(model: AccentInvariantCNN, data: DataLoader, device: torch.device) -> tuple[np.ndarray, np.ndarray]:
+def evaluate(model: nn.Module, data: DataLoader, device: torch.device) -> tuple[np.ndarray, np.ndarray]:
     model.eval(); predictions, probabilities = [], []
     with torch.inference_mode():
         for values, _, _ in data:
@@ -80,7 +83,7 @@ def evaluate(model: AccentInvariantCNN, data: DataLoader, device: torch.device) 
 
 
 def train_epoch(
-    model: AccentInvariantCNN, data: DataLoader, optimizer: torch.optim.Optimizer,
+    model: nn.Module, data: DataLoader, optimizer: torch.optim.Optimizer,
     device: torch.device, strength: float, emotion_loss: nn.Module, accent_loss: nn.Module,
     clip: float, proximal: dict[str, torch.Tensor] | None = None, mu: float = 0.0,
 ) -> dict[str, float]:
@@ -101,7 +104,7 @@ def train_epoch(
     return {"loss": total / count, "emotion_loss": emotion_total / count, "accent_loss": accent_total / count}
 
 
-def metric_bundle(model: AccentInvariantCNN, data: DataLoader, frame: pd.DataFrame, emotions: LabelEncoder, device: torch.device):
+def metric_bundle(model: nn.Module, data: DataLoader, frame: pd.DataFrame, emotions: LabelEncoder, device: torch.device):
     predicted, probabilities = evaluate(model, data, device)
     predicted_text = emotions.inverse_transform(predicted)
     metrics = classification_metrics(frame["emotion"].to_numpy(), predicted_text, frame["accent_clean"].to_numpy(), list(emotions.classes_))
@@ -146,8 +149,33 @@ def train_centralized(name: str, kind: str, train: pd.DataFrame, validation: pd.
         print(f"{name} epoch {epoch}/{cfg['epochs']} macro_f1={score:.4f} grl={strength:.4f}", flush=True)
     model.load_state_dict(best_state); metrics, predicted, probabilities = metric_bundle(model, valid_loader, validation, emotions, device)
     torch_save_atomic({"model_state": model.state_dict(), "kind": kind, "config": cfg}, model_path)
-    write_csv_atomic(prediction_rows(validation, predicted, probabilities, list(emotions.classes_)), report_dir / f"{name}_validation_predictions.csv")
-    write_json_atomic({"status": "PASS", "experiment": name, "kind": kind, "history": history, "validation": metrics, "runtime_seconds": time.perf_counter()-started, "test_samples_loaded": 0}, report_path)
+    prediction_path = report_dir / f"{name}_validation_predictions.csv"
+    write_csv_atomic(prediction_rows(validation, predicted, probabilities, list(emotions.classes_)), prediction_path)
+    repository_state = git_state(ROOT)
+    config_path = ROOT / "configs/models/b6_fedecai_v1.json"
+    report = {
+        "status": "PASS", "experiment": name, "kind": kind,
+        "backbone": "legacy_compact_cnn", "mel_3ch_mode": "legacy_one_channel",
+        "seed": config["seed"], "split_version": config["split_version"],
+        "history": history, "validation": metrics,
+        "runtime_seconds": time.perf_counter()-started, "test_samples_loaded": 0,
+        "lineage": {
+            "config_sha256": sha256_file(config_path),
+            "checkpoint_path": str(model_path.relative_to(ROOT)).replace("\\", "/"),
+            "checkpoint_sha256": sha256_file(model_path), **repository_state,
+        },
+    }
+    write_json_atomic(report, report_path)
+    register_experiment(ROOT, {
+        "experiment_id": f"b6_{name}_dev_v1_{int(time.time())}", "step": "B6", "status": "completed",
+        "config_path": "configs/models/b6_fedecai_v1.json",
+        "config_sha256": sha256_file(config_path), "seed": config["seed"],
+        "split_version": config["split_version"], **repository_state,
+        "fit_split": "train", "evaluation_split": "validation",
+        "test_samples_loaded": 0,
+        "outputs": ";".join(str(path.relative_to(ROOT)).replace("\\", "/") for path in (model_path, report_path, prediction_path)),
+        "notes": "Centralized development ladder run on ResNet-18; final test remained unopened.",
+    })
 
 
 def average_states(states: list[dict[str, torch.Tensor]], sizes: list[int]) -> dict[str, torch.Tensor]:
@@ -199,12 +227,41 @@ def train_federated(name: str, kind: str, scenario: str, train: pd.DataFrame, va
         print(f"{full_name} round {round_index}/{fed['rounds']} macro_f1={score:.4f} grl={strength:.4f}", flush=True)
     global_model.load_state_dict(best_state); metrics, predicted, probabilities = metric_bundle(global_model, valid_loader, validation, emotions, device)
     torch_save_atomic({"model_state": global_model.state_dict(), "kind": kind, "scenario": scenario, "config": config}, model_path)
-    write_csv_atomic(prediction_rows(validation, predicted, probabilities, list(emotions.classes_)), report_dir/f"{full_name}_validation_predictions.csv")
-    write_json_atomic({"status":"PASS","experiment":name,"scenario":scenario,"kind":kind,"rounds":history,"validation":metrics,"runtime_seconds":time.perf_counter()-started,"test_samples_loaded":0}, report_path)
+    prediction_path = report_dir / f"{full_name}_validation_predictions.csv"
+    write_csv_atomic(prediction_rows(validation, predicted, probabilities, list(emotions.classes_)), prediction_path)
+    repository_state = git_state(ROOT)
+    config_path = ROOT / "configs/models/b6_fedecai_v1.json"
+    report = {
+        "status":"PASS", "experiment":name, "scenario":scenario, "kind":kind,
+        "backbone": "legacy_compact_cnn", "mel_3ch_mode": "legacy_one_channel",
+        "seed": config["seed"], "split_version": config["split_version"],
+        "rounds":history, "validation":metrics,
+        "runtime_seconds":time.perf_counter()-started, "test_samples_loaded":0,
+        "lineage": {
+            "config_sha256": sha256_file(config_path),
+            "checkpoint_path": str(model_path.relative_to(ROOT)).replace("\\", "/"),
+            "checkpoint_sha256": sha256_file(model_path), **repository_state,
+        },
+    }
+    write_json_atomic(report, report_path)
+    register_experiment(ROOT, {
+        "experiment_id": f"b6_{full_name}_dev_v1_{int(time.time())}", "step": "B6", "status": "completed",
+        "config_path": "configs/models/b6_fedecai_v1.json",
+        "config_sha256": sha256_file(config_path), "seed": config["seed"],
+        "split_version": config["split_version"], **repository_state,
+        "fit_split": f"train/{scenario}_clients", "evaluation_split": "validation",
+        "test_samples_loaded": 0,
+        "outputs": ";".join(str(path.relative_to(ROOT)).replace("\\", "/") for path in (model_path, report_path, prediction_path)),
+        "notes": "Federated development ladder run on ResNet-18; final test remained unopened.",
+    })
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--force", action="store_true"); parser.add_argument("--preflight-only", action="store_true"); parser.add_argument("--device", choices=("cuda","cpu"), default="cuda"); return parser.parse_args()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--force", action="store_true")
+    parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--device", choices=("cuda","cpu"), default="cuda")
+    return parser.parse_args()
 
 
 def main() -> None:

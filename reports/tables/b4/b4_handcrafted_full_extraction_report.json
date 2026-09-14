@@ -10,12 +10,12 @@
   ],
   "expected_records": 19968,
   "clean_records": 19968,
-  "processed_this_invocation": 78,
-  "resumed_this_invocation": 19890,
-  "invalidated_this_invocation": 78,
+  "processed_this_invocation": 0,
+  "resumed_this_invocation": 19968,
+  "invalidated_this_invocation": 0,
   "failures": 0,
   "manifest_sha256": "dfde353769f23bbac8aecf1f3d7c3e3211604e7cc8c15c28bdafd055f784704c",
   "index_path": "reports/tables/b4/b4_handcrafted_full_feature_index.csv",
-  "index_sha256": "409d20908ae76d8515d673740f0b354ced1a6e5e5e6fe8c2bb0f09d95d4ea712",
+  "index_sha256": "407f17e9bd4bb550bc705a7e6ee107e7b3419c82ee0511f44ae8d84466be9355",
   "egemaps_feature_names_path": "reports/tables/b4/b4_egemaps_feature_names.json"
 }

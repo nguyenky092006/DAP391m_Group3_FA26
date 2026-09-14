@@ -4,9 +4,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import time
 from pathlib import Path
 from typing import Any
+
+SOURCE_ROOT = Path(__file__).resolve().parents[2]
+if str(SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SOURCE_ROOT))
 
 import joblib
 import numpy as np
@@ -19,12 +24,20 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.svm import SVC
 from sklearn.utils.class_weight import compute_sample_weight
 
+from fedecai.models.benchmark_costs import (
+    TrainingTimer, benchmark_inference_latency, classical_parameter_description,
+    model_size,
+)
+from fedecai.models.centralized_evaluator import evaluate_prediction_file
+
 try:
     from .b6_common import (
         classification_metrics,
+        git_state,
         load_b6_table,
         load_config,
         prediction_rows,
+        register_experiment,
         sha256_file,
         write_csv_atomic,
         write_json_atomic,
@@ -32,9 +45,11 @@ try:
 except ImportError:
     from b6_common import (  # type: ignore
         classification_metrics,
+        git_state,
         load_b6_table,
         load_config,
         prediction_rows,
+        register_experiment,
         sha256_file,
         write_csv_atomic,
         write_json_atomic,
@@ -151,15 +166,18 @@ def main() -> None:
         "macro_f1": make_scorer(f1_score, average="macro", zero_division=0),
         "uar": make_scorer(recall_score, average="macro", zero_division=0),
     }
-    artifact_dir = root / "artifacts/b6/classical"
+    artifact_dir = root / "artifacts/checkpoints"
     report_dir = root / "reports/tables/b6"
     reports: dict[str, Any] = {}
 
     for number, model_name in enumerate(args.models, start=2):
         report_path = report_dir / f"{model_name}_validation_report.json"
-        if report_path.exists() and not args.force:
+        model_path = artifact_dir / f"b6_{model_name}_seed{config['seed']}.joblib"
+        canonical_prediction = root / "artifacts/predictions" / f"b6_{model_name}_seed{config['seed']}_validation.csv"
+        canonical_metrics = root / "artifacts/metrics" / f"b6_{model_name}_seed{config['seed']}_validation.json"
+        if all(path.exists() for path in (report_path, model_path, canonical_prediction, canonical_metrics)) and not args.force:
             reports[model_name] = json.loads(report_path.read_text(encoding="utf-8"))
-            print(f"[{number}/4] {model_name}: verified report exists, resume skip")
+            print(f"[{number}/4] {model_name}: verified full artifact set exists, resume skip")
             continue
         print(f"[{number}/4] Training and grouped-CV tuning: {model_name}")
         estimator, parameter_grid, fit_policy = estimators[model_name]
@@ -176,28 +194,24 @@ def main() -> None:
         fit_kwargs = {}
         if fit_policy.get("sample_weight") == "balanced":
             fit_kwargs["sample_weight"] = compute_sample_weight("balanced", y_train)
-        started = time.perf_counter()
-        search.fit(x_train, y_train, **fit_kwargs)
-        search_seconds = time.perf_counter() - started
-        calibration_seconds = 0.0
-        decision_estimator = search.best_estimator_
-        probability_estimator = search.best_estimator_
-        calibration = None
-        if model_name == "svm_rbf":
-            # Calibrate probabilities using the same speaker-grouped folds. This
-            # replaces deprecated SVC(probability=True) and prevents row-level
-            # calibration folds from mixing held-out speakers.
-            calibration = "sigmoid CalibratedClassifierCV using B5 grouped folds"
-            calibration_started = time.perf_counter()
-            probability_estimator = CalibratedClassifierCV(
-                estimator=clone(search.best_estimator_),
-                method="sigmoid",
-                cv=predefined,
-                n_jobs=args.jobs,
-                ensemble=False,
-            )
-            probability_estimator.fit(x_train, y_train)
-            calibration_seconds = time.perf_counter() - calibration_started
+        with TrainingTimer() as training_timer:
+            started = time.perf_counter()
+            search.fit(x_train, y_train, **fit_kwargs)
+            search_seconds = time.perf_counter() - started
+            calibration_seconds = 0.0
+            decision_estimator = search.best_estimator_
+            probability_estimator = search.best_estimator_
+            calibration = None
+            if model_name == "svm_rbf":
+                # Calibrate probabilities using the same speaker-grouped folds.
+                calibration = "sigmoid CalibratedClassifierCV using B5 grouped folds"
+                calibration_started = time.perf_counter()
+                probability_estimator = CalibratedClassifierCV(
+                    estimator=clone(search.best_estimator_), method="sigmoid",
+                    cv=predefined, n_jobs=args.jobs, ensemble=False,
+                )
+                probability_estimator.fit(x_train, y_train)
+                calibration_seconds = time.perf_counter() - calibration_started
         elapsed = search_seconds + calibration_seconds
         # The calibrated probability argmax may differ from the SVM maximum-
         # margin decision and was observed to collapse the rare Sad class.
@@ -210,8 +224,8 @@ def main() -> None:
         reorder = [list(probability_order).index(label) for label in labels]
         probabilities = probabilities_raw[:, reorder]
         metrics = classification_metrics(y_validation_text, predicted, validation["accent_clean"].to_numpy(), labels)
+        repository_state = git_state(root)
         artifact_dir.mkdir(parents=True, exist_ok=True)
-        model_path = artifact_dir / f"{model_name}.joblib"
         joblib.dump(
             {
                 "estimator": decision_estimator,
@@ -222,6 +236,28 @@ def main() -> None:
             },
             model_path,
         )
+        parameter_evidence = classical_parameter_description(decision_estimator)
+        size_evidence = model_size(model_path)
+        latency_probe = x_validation[:1]
+
+        def inference_path() -> None:
+            decision_estimator.predict(latency_probe)
+            probability_estimator.predict_proba(latency_probe)
+
+        latency_evidence = benchmark_inference_latency(
+            inference_path, device="cpu", batch_size=1, precision="float32",
+            warmup_runs=10, timed_runs=50, preprocessing_included=False,
+        )
+        costs = {
+            **parameter_evidence, **size_evidence, **training_timer.as_dict(),
+            **latency_evidence, "feature_extraction_time_sec": None,
+            "model_training_time_sec": training_timer.training_time_sec,
+            "end_to_end_training_pipeline_time_sec": training_timer.training_time_sec,
+            "cost_protocol": {
+                "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
+                "latency_path": "model-ready 168-feature vector -> fitted estimator",
+            },
+        }
         report = {
             "status": "PASS",
             "model": model_name,
@@ -244,6 +280,7 @@ def main() -> None:
             ),
             "calibration_seconds": calibration_seconds,
             "total_tuning_seconds": elapsed,
+            "costs": costs,
             "validation_metrics": metrics,
             "model_artifact": str(model_path.relative_to(root)).replace("\\", "/"),
             "model_artifact_sha256": sha256_file(model_path),
@@ -251,14 +288,50 @@ def main() -> None:
                 "config_sha256": sha256_file(args.config.resolve()),
                 "features_sha256": sha256_file(args.features.resolve()),
                 "manifest_sha256": sha256_file(args.manifest.resolve()),
+                **repository_state,
             },
         }
         write_csv_atomic(
             cv_rows(search, model_name, folds),
             report_dir / f"{model_name}_cv_results.csv",
         )
-        write_csv_atomic(prediction_rows(validation, predicted, probabilities, labels), report_dir / f"{model_name}_validation_predictions.csv")
+        experiment_id = f"b6_{model_name}_seed{config['seed']}"
+        rows = prediction_rows(
+            validation, predicted, probabilities, labels,
+            experiment_id=experiment_id, model=model_name, seed=int(config["seed"]),
+        )
+        write_csv_atomic(rows, report_dir / f"{model_name}_validation_predictions.csv")
+        canonical_prediction = root / "artifacts/predictions" / f"{experiment_id}_validation.csv"
+        canonical_metrics = root / "artifacts/metrics" / f"{experiment_id}_validation.json"
+        write_csv_atomic(rows, canonical_prediction)
+        evaluated = evaluate_prediction_file(
+            canonical_prediction, canonical_metrics,
+            expected_sample_ids=validation["sample_id"].astype(str),
+            expected_split="validation", dataset_version="visec_clean_eligible_v1",
+            split_version=config["split_version"], costs=costs,
+            require_argmax_consistency=model_name != "svm_rbf",
+        )
         write_json_atomic(report, report_path)
+        register_experiment(root, {
+            "experiment_id": f"b6_{model_name}_dev_v1_{int(time.time())}", "step": "B6",
+            "rq": "RQ3", "model": model_name,
+            "variant": "speaker_grouped_cv_centralized",
+            "dataset_version": "visec_clean_eligible_v1",
+            "status": "completed",
+            "model_config": str(args.config.resolve().relative_to(root)).replace("\\", "/"),
+            "feature_config": "configs/features/visec_features_v1.json",
+            "seed": config["seed"], "split_version": config["split_version"],
+            "git_commit": repository_state["git_commit"], "hardware": costs["device"],
+            "train_time_sec": costs["training_time_sec"],
+            "inference_latency_ms": costs["inference_latency_ms"],
+            "model_size_mb": costs["model_size_mb"],
+            "overall_macro_f1": evaluated["overall_macro_f1"],
+            "worst_accent_macro_f1": evaluated["worst_accent_macro_f1"],
+            "accent_gap": evaluated["accent_gap"],
+            "checkpoint_path": str(model_path.relative_to(root)).replace("\\", "/"),
+            "prediction_path": str(canonical_prediction.relative_to(root)).replace("\\", "/"),
+            "notes": "Development model selection only; final test remained unopened.",
+        })
         reports[model_name] = report
 
     # A targeted --models rerun must retain other already verified model

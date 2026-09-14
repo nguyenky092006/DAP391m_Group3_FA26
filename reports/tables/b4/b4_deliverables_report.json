@@ -14,7 +14,7 @@
       "pitch_artifact_path"
     ],
     "table_path": "data/interim/features/b4_features_v1/b4_full_feature_table.parquet",
-    "table_sha256": "22c98b9243914ea7c3b05742aeb8a8a7dc0870345c39643226a1688326cfad28",
+    "table_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
     "egemaps_columns_ordered": [
       "egemaps_000_f0semitonefrom27_5hz_sma3nz_amean",
       "egemaps_001_f0semitonefrom27_5hz_sma3nz_stddevnorm",

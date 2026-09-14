@@ -4,6 +4,17 @@ from __future__ import annotations
 
 import torch
 from torch import nn
+from torch.nn import functional as F
+
+
+def _torchvision_models():
+    try:
+        from torchvision import models
+    except ImportError as error:
+        raise RuntimeError(
+            "A working torchvision runtime is required for the B6 ResNet-18, MobileNetV3, and ViT models"
+        ) from error
+    return models
 
 
 class _GradientReversal(torch.autograd.Function):
@@ -36,6 +47,41 @@ class LogMelCNN2D(nn.Module):
 
     def forward(self, values: torch.Tensor) -> torch.Tensor:
         return self.classifier(self.features(values))
+
+
+class MelImageClassifier(nn.Module):
+    """Torchvision image backbone consuming the shared B4 three-channel Mel tensor."""
+
+    SUPPORTED = ("resnet18", "mobilenet_v3_small", "vit_b_16")
+
+    def __init__(self, backbone: str, classes: int = 4, dropout: float = 0.2) -> None:
+        super().__init__()
+        models = _torchvision_models()
+        self.backbone_name = backbone
+        if backbone == "resnet18":
+            self.network = models.resnet18(weights=None, num_classes=classes)
+            self.network.fc = nn.Sequential(nn.Dropout(dropout), self.network.fc)
+        elif backbone == "mobilenet_v3_small":
+            self.network = models.mobilenet_v3_small(weights=None, num_classes=classes)
+            self.network.classifier[2] = nn.Dropout(p=dropout, inplace=True)
+        elif backbone == "vit_b_16":
+            self.network = models.vit_b_16(weights=None, image_size=224, num_classes=classes)
+            self.network.heads.head = nn.Sequential(
+                nn.Dropout(dropout), self.network.heads.head
+            )
+        else:
+            raise ValueError(f"Unsupported image backbone: {backbone}")
+
+    def forward(self, values: torch.Tensor) -> torch.Tensor:
+        if values.ndim != 4 or values.shape[1] != 3 or values.shape[2] != 80:
+            raise ValueError(
+                f"Expected B4 Mel tensor shape (batch, 3, 80, frames), got {tuple(values.shape)}"
+            )
+        if self.backbone_name == "vit_b_16":
+            values = F.interpolate(
+                values, size=(224, 224), mode="bilinear", align_corners=False
+            )
+        return self.network(values)
 
 
 class AccentInvariantCNN(nn.Module):
@@ -89,6 +135,52 @@ class Wav2Vec2EmbeddingMLP(nn.Module):
 
     def forward(self, values: torch.Tensor) -> torch.Tensor:
         return self.network(values)
+
+
+class FrozenEmbeddingHead(nn.Module):
+    """Small train-only head for a frozen encoder's cached utterance vectors."""
+
+    def __init__(self, dimension: int = 768, classes: int = 4, dropout: float = 0.2) -> None:
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.LayerNorm(dimension), nn.Dropout(dropout), nn.Linear(dimension, classes)
+        )
+
+    def forward(self, values: torch.Tensor) -> torch.Tensor:
+        if values.ndim != 2 or values.shape[1] != self.network[0].normalized_shape[0]:
+            raise ValueError(f"Unexpected frozen embedding shape: {tuple(values.shape)}")
+        return self.network(values)
+
+
+class FrozenWav2Vec2Classifier(nn.Module):
+    """Official raw-waveform Wav2Vec2 model with a fully frozen encoder."""
+
+    def __init__(
+        self, encoder: nn.Module, hidden_size: int = 768,
+        classes: int = 4, dropout: float = 0.2,
+    ) -> None:
+        super().__init__()
+        self.encoder = encoder
+        for parameter in self.encoder.parameters():
+            parameter.requires_grad = False
+        self.classifier = nn.Sequential(
+            nn.Dropout(dropout), nn.Linear(hidden_size, classes)
+        )
+
+    def forward(
+        self, waveform: torch.Tensor, attention_mask: torch.Tensor
+    ) -> torch.Tensor:
+        # The encoder remains frozen and deterministic while the head trains.
+        self.encoder.eval()
+        with torch.no_grad():
+            hidden = self.encoder(
+                waveform, attention_mask=attention_mask
+            ).last_hidden_state
+            valid = self.encoder._get_feature_vector_attention_mask(
+                hidden.shape[1], attention_mask
+            ).unsqueeze(-1).to(hidden.dtype)
+            pooled = (hidden * valid).sum(dim=1) / valid.sum(dim=1).clamp_min(1)
+        return self.classifier(pooled)
 
 
 class FrozenPitchFusion(nn.Module):

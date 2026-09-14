@@ -1,46 +1,76 @@
 {
   "schema_version": "b6.all_models.v1",
   "status": "PASS",
-  "models_completed": 5,
+  "models_completed": 8,
   "test_untouched": true,
   "results": [
     {
       "model": "pitch_fusion_paper_aligned",
       "display_name": "Pitch-Fusion Paper-Aligned Reproduction",
       "cv_macro_f1": null,
-      "validation_accuracy": 0.6222910216718266,
-      "validation_macro_f1": 0.6051578630245624,
-      "validation_uar": 0.6084188244291489,
+      "validation_accuracy": 0.6191950464396285,
+      "validation_macro_f1": 0.6022958153217735,
+      "validation_uar": 0.6060485633125752,
       "validation_prediction_rows": 646,
       "test_untouched": true
     },
     {
       "model": "svm_rbf",
       "display_name": "SVM RBF",
-      "cv_macro_f1": 0.40789191229451893,
-      "validation_accuracy": 0.4845201238390093,
-      "validation_macro_f1": 0.46728031418753074,
-      "validation_uar": 0.46326941986234027,
-      "validation_prediction_rows": 646,
-      "test_untouched": true
-    },
-    {
-      "model": "wav2vec2_embedding_mlp",
-      "display_name": "Wav2Vec2 Frozen Embedding MLP",
-      "cv_macro_f1": 0.45951306610288684,
-      "validation_accuracy": 0.4969040247678019,
-      "validation_macro_f1": 0.466869208909239,
-      "validation_uar": 0.4620586146618595,
+      "cv_macro_f1": 0.41371204477998696,
+      "validation_accuracy": 0.48297213622291024,
+      "validation_macro_f1": 0.4663039778267338,
+      "validation_uar": 0.46225090134382174,
       "validation_prediction_rows": 646,
       "test_untouched": true
     },
     {
       "model": "xgboost",
       "display_name": "XGBoost",
-      "cv_macro_f1": 0.3760606643743446,
-      "validation_accuracy": 0.47368421052631576,
-      "validation_macro_f1": 0.4385052011136351,
-      "validation_uar": 0.4344414399650388,
+      "cv_macro_f1": 0.3812043822758945,
+      "validation_accuracy": 0.4613003095975232,
+      "validation_macro_f1": 0.42355967287658214,
+      "validation_uar": 0.4217822025565388,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "wav2vec2_raw",
+      "display_name": "Wav2Vec2 Raw Waveform (Frozen Encoder)",
+      "cv_macro_f1": null,
+      "validation_accuracy": 0.44427244582043346,
+      "validation_macro_f1": 0.41932398283552863,
+      "validation_uar": 0.414546050475254,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "vit_b16_mel3",
+      "display_name": "ViT-B/16 3-channel Mel-Spectrogram",
+      "cv_macro_f1": null,
+      "validation_accuracy": 0.4241486068111455,
+      "validation_macro_f1": 0.41416529592535745,
+      "validation_uar": 0.4130331585272588,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "mobilenet_v3_mel3",
+      "display_name": "MobileNetV3-Small 3-channel Mel-Spectrogram",
+      "cv_macro_f1": 0.36336823008533586,
+      "validation_accuracy": 0.3978328173374613,
+      "validation_macro_f1": 0.37018460113183493,
+      "validation_uar": 0.37049519283295096,
+      "validation_prediction_rows": 646,
+      "test_untouched": true
+    },
+    {
+      "model": "resnet18_mel3",
+      "display_name": "ResNet-18 3-channel Mel-Spectrogram",
+      "cv_macro_f1": 0.4137872571809611,
+      "validation_accuracy": 0.369969040247678,
+      "validation_macro_f1": 0.35175007420948057,
+      "validation_uar": 0.3685455588331695,
       "validation_prediction_rows": 646,
       "test_untouched": true
     },

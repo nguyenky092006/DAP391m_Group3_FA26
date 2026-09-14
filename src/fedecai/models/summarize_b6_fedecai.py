@@ -112,7 +112,7 @@ the hypothesis. B8 must tune lambda within the predeclared utility budget.
 - Federated learning alone does not guarantee privacy; no differential privacy
   or secure aggregation is implemented.
 """
-    (ROOT / "docs/research/B6_fedecai_model_card.md").write_text(model_card, encoding="utf-8")
+    (REPORT_DIR / "model_card.md").write_text(model_card, encoding="utf-8")
     print(json.dumps(summary, indent=2))
 
 
