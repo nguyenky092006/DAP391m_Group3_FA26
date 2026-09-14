@@ -1,0 +1,272 @@
+{
+  "schema_version": "b6.vit_frozen_cached.v1",
+  "model": "vit_b16_mel3",
+  "display_name": "ViT-B/16 Frozen Pretrained Cached-Embedding Baseline",
+  "training_strategy": "frozen_pretrained_backbone_cached_embeddings",
+  "model_scope": "3-channel Mel -> frozen pretrained ViT -> CLS embedding -> lightweight head",
+  "cache": {
+    "schema_version": "fedecai.frozen_embedding_cache.v1",
+    "cache_version": "b6_vit_b16_imagenet1k_v1_cache_v1",
+    "model": "vit_b16_mel3",
+    "dataset_version": "visec_clean_eligible_v1",
+    "split_version": "speaker_disjoint_v2",
+    "fit_partitions": [
+      "train",
+      "validation"
+    ],
+    "feature_config": "configs/features/visec_features_v1.json",
+    "feature_config_sha256": "0d3709e3594e1b0d92c14b51a09e73afc7ec8c42823d503963c0b827cabb2475",
+    "model_config_sha256": "19131cb649f78640008900d5fda224aa2e74714c10f24925b8d9e75070a57f01",
+    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+    "mel_3ch_mode": "repeat_normalized_log_mel",
+    "pretrained_model": "torchvision.vit_b_16:IMAGENET1K_V1",
+    "resize": {
+      "size": [
+        224,
+        224
+      ],
+      "mode": "bilinear",
+      "align_corners": false
+    },
+    "normalization": {
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "pooling": "class_token",
+    "embedding_dimension": 768,
+    "encoder_policy": "fully_frozen",
+    "feature_extraction_time_sec": 88.42379219998838,
+    "sample_count": 4327,
+    "dtype": "float32",
+    "embedding_file": "embeddings.npy",
+    "index_file": "index.csv",
+    "embedding_sha256": "a95878bd18828f585da40e04e3246b305ecbd8bbb3e4572841b6266e5695b1cf",
+    "index_sha256": "7bc0a8ad75ac9525b635b3ead4fad1fe487491f405415a2c968b2ad1d89089c0",
+    "generated_at": "2026-09-14T02:21:36.711543+00:00",
+    "path": "data/interim/features/b6_frozen_embeddings/vit_b16_mel3",
+    "reused": false
+  },
+  "selection": {
+    "mean_cv_macro_f1": null,
+    "best_epoch": 4
+  },
+  "validation": {
+    "overall": {
+      "macro_f1": 0.41416529592535745,
+      "uar": 0.4130331585272588,
+      "weighted_f1": 0.42720532373953624,
+      "accuracy": 0.4241486068111455
+    },
+    "per_class": {
+      "angry": {
+        "precision": 0.5304347826086957,
+        "recall": 0.4066666666666667,
+        "f1": 0.46037735849056605,
+        "support": 150
+      },
+      "happy": {
+        "precision": 0.296,
+        "recall": 0.3425925925925926,
+        "f1": 0.31759656652360513,
+        "support": 108
+      },
+      "neutral": {
+        "precision": 0.481651376146789,
+        "recall": 0.4646017699115044,
+        "f1": 0.47297297297297297,
+        "support": 226
+      },
+      "sad": {
+        "precision": 0.3776595744680851,
+        "recall": 0.4382716049382716,
+        "f1": 0.4057142857142857,
+        "support": 162
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "angry",
+        "happy",
+        "neutral",
+        "sad"
+      ],
+      "values": [
+        [
+          61,
+          29,
+          35,
+          25
+        ],
+        [
+          5,
+          37,
+          42,
+          24
+        ],
+        [
+          11,
+          42,
+          105,
+          68
+        ],
+        [
+          38,
+          17,
+          36,
+          71
+        ]
+      ]
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.14251207729468598,
+        "uar": 0.1607142857142857,
+        "per_emotion_f1": {
+          "angry": 0.0,
+          "happy": 0.34782608695652173,
+          "neutral": 0.2222222222222222,
+          "sad": 0.0
+        }
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.4464897824653922,
+        "uar": 0.45914294764468977,
+        "per_emotion_f1": {
+          "angry": 0.4,
+          "happy": 0.4144144144144144,
+          "neutral": 0.4715447154471545,
+          "sad": 0.5
+        }
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.3902972871041995,
+        "uar": 0.39143027393403657,
+        "per_emotion_f1": {
+          "angry": 0.48704663212435234,
+          "happy": 0.20202020202020202,
+          "neutral": 0.4884488448844885,
+          "sad": 0.3836734693877551
+        }
+      }
+    },
+    "worst_accent_macro_f1": 0.14251207729468598,
+    "best_accent_macro_f1": 0.4464897824653922,
+    "accent_gap": 0.3039777051707062,
+    "accent_std": 0.13205956230938248
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.3567514082103669,
+      "validation_loss": 1.3151177684589068,
+      "validation_macro_f1": 0.38024161802332024
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.2362416384499282,
+      "validation_loss": 1.293177228963043,
+      "validation_macro_f1": 0.4022986185954117
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.188354940104828,
+      "validation_loss": 1.2673569356693941,
+      "validation_macro_f1": 0.40590004748881964
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.1623377047359733,
+      "validation_loss": 1.2776459230358017,
+      "validation_macro_f1": 0.41416529592535745
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.1285069272816748,
+      "validation_loss": 1.2967715001327704,
+      "validation_macro_f1": 0.4036744501224713
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.1195424306460677,
+      "validation_loss": 1.3064405375589896,
+      "validation_macro_f1": 0.3938490090170702
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.1126117530124273,
+      "validation_loss": 1.2957230983503831,
+      "validation_macro_f1": 0.3860697875538737
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.111587341535807,
+      "validation_loss": 1.342051950770635,
+      "validation_macro_f1": 0.3688090552138037
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0998280812980883,
+      "validation_loss": 1.304704418123322,
+      "validation_macro_f1": 0.41253574005922705
+    }
+  ],
+  "costs": {
+    "total_parameters": 85803268,
+    "trainable_parameters": 4612,
+    "model_size_definition": "serialized deployable artifacts; bytes / 1024^2",
+    "checkpoint_artifact": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\checkpoints\\b6_vit_b16_mel3_seed391.pt",
+    "checkpoint_size_mb": 0.02297496795654297,
+    "external_artifacts": [
+      "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\data\\interim\\models\\torch\\checkpoints\\vit_b_16-c867db91.pth"
+    ],
+    "external_artifacts_size_mb": 330.28462314605713,
+    "effective_deployment_size_mb": 330.3075981140137,
+    "model_size_mb": 330.3075981140137,
+    "training_start_timestamp": "2026-09-14T02:21:36.822314+00:00",
+    "training_end_timestamp": "2026-09-14T02:21:37.677668+00:00",
+    "training_time_sec": 0.855323399999179,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "batch_size": 1,
+    "precision": "float32",
+    "warmup_runs": 10,
+    "timed_runs": 50,
+    "preprocessing_included": false,
+    "primary_latency_statistic": "median",
+    "inference_latency_ms": 10.3965,
+    "latency_mean_ms": 11.100326,
+    "latency_median_ms": 10.3965,
+    "latency_std_ms": 2.5898457279776337,
+    "latency_p95_ms": 15.640975,
+    "feature_extraction_time_sec": 88.42379219998838,
+    "model_training_time_sec": 0.855323399999179,
+    "end_to_end_training_pipeline_time_sec": 89.27911559998756,
+    "cost_protocol": {
+      "feature_extraction": "one-time frozen pretrained ViT extraction; cache reuse recorded",
+      "cache_reused": false,
+      "latency_path": "model-ready 3-channel Mel -> resize/normalize -> frozen ViT -> head"
+    }
+  },
+  "test_samples_loaded": 0,
+  "lineage": {
+    "config_sha256": "19131cb649f78640008900d5fda224aa2e74714c10f24925b8d9e75070a57f01",
+    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+    "checkpoint_path": "artifacts/checkpoints/b6_vit_b16_mel3_seed391.pt",
+    "checkpoint_sha256": "0df7a6c9ffe2db334d9c71381048ef13211412abbcf2ba48bfe0e376a71d0a20",
+    "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+    "worktree_dirty": true
+  }
+}

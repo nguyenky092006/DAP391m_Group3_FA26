@@ -1,0 +1,260 @@
+{
+  "schema_version": "b6.wav2vec2_raw.cached.v1",
+  "model": "wav2vec2_raw",
+  "display_name": "Wav2Vec2 Raw Waveform Frozen Cached-Embedding Baseline",
+  "training_strategy": "frozen_encoder_cached_embeddings",
+  "model_scope": "raw mono 16 kHz -> frozen Wav2Vec2 -> masked mean -> cached embedding -> head",
+  "encoder_policy": "fully_frozen",
+  "embedding_cache": true,
+  "cache": {
+    "schema_version": "fedecai.frozen_embedding_cache.v1",
+    "cache_version": "b6_wav2vec2_base_vi_cache_v1",
+    "model": "wav2vec2_raw",
+    "dataset_version": "visec_clean_eligible_v1",
+    "split_version": "speaker_disjoint_v2",
+    "fit_partitions": [
+      "train",
+      "validation"
+    ],
+    "sample_rate_hz": 16000,
+    "preprocessing": "per_utterance_zero_mean_unit_variance",
+    "pretrained_model_id": "nguyenvulebinh/wav2vec2-base-vi",
+    "pretrained_model_revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "pooling": "padding_masked_mean",
+    "embedding_dimension": 768,
+    "encoder_policy": "fully_frozen",
+    "source_cache": "B4 validated raw-waveform Wav2Vec2 embeddings",
+    "source_feature_config_sha256": "0d3709e3594e1b0d92c14b51a09e73afc7ec8c42823d503963c0b827cabb2475",
+    "source_extraction_report_sha256": "1271f49ed07c5d9e0beed2cf522947cf5b4feaef95823bc5d6f9bd6329743443",
+    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+    "feature_extraction_time_sec": null,
+    "cache_materialization_time_sec": 38.44091100001242,
+    "feature_extraction_time_note": "Historical B4 extraction duration is unavailable; no value fabricated.",
+    "sample_count": 4327,
+    "dtype": "float32",
+    "embedding_file": "embeddings.npy",
+    "index_file": "index.csv",
+    "embedding_sha256": "840b78fd12e8293c6176237781e849e783dbbc5b9d9169c104fd0cd7aebeca67",
+    "index_sha256": "7bc0a8ad75ac9525b635b3ead4fad1fe487491f405415a2c968b2ad1d89089c0",
+    "generated_at": "2026-09-14T02:22:25.217810+00:00",
+    "path": "data/interim/features/b6_frozen_embeddings/wav2vec2_raw",
+    "reused": false
+  },
+  "selection": {
+    "mean_cv_macro_f1": null,
+    "best_epoch": 4
+  },
+  "validation": {
+    "overall": {
+      "macro_f1": 0.41932398283552863,
+      "uar": 0.414546050475254,
+      "weighted_f1": 0.44110827557325716,
+      "accuracy": 0.44427244582043346
+    },
+    "per_class": {
+      "angry": {
+        "precision": 0.5619834710743802,
+        "recall": 0.4533333333333333,
+        "f1": 0.5018450184501845,
+        "support": 150
+      },
+      "happy": {
+        "precision": 0.25742574257425743,
+        "recall": 0.24074074074074073,
+        "f1": 0.24880382775119617,
+        "support": 108
+      },
+      "neutral": {
+        "precision": 0.45936395759717313,
+        "recall": 0.5752212389380531,
+        "f1": 0.5108055009823183,
+        "support": 226
+      },
+      "sad": {
+        "precision": 0.44680851063829785,
+        "recall": 0.3888888888888889,
+        "f1": 0.4158415841584158,
+        "support": 162
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "angry",
+        "happy",
+        "neutral",
+        "sad"
+      ],
+      "values": [
+        [
+          68,
+          24,
+          48,
+          10
+        ],
+        [
+          10,
+          26,
+          48,
+          24
+        ],
+        [
+          14,
+          38,
+          130,
+          44
+        ],
+        [
+          29,
+          13,
+          57,
+          63
+        ]
+      ]
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.15163398692810456,
+        "uar": 0.33035714285714285,
+        "per_emotion_f1": {
+          "angry": 0.2222222222222222,
+          "happy": 0.26666666666666666,
+          "neutral": 0.11764705882352941,
+          "sad": 0.0
+        }
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.39773177783046204,
+        "uar": 0.40912484727815734,
+        "per_emotion_f1": {
+          "angry": 0.3783783783783784,
+          "happy": 0.3157894736842105,
+          "neutral": 0.45925925925925926,
+          "sad": 0.4375
+        }
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.4308097513666976,
+        "uar": 0.43010910012880454,
+        "per_emotion_f1": {
+          "angry": 0.5638297872340425,
+          "happy": 0.18181818181818182,
+          "neutral": 0.5490196078431373,
+          "sad": 0.42857142857142855
+        }
+      }
+    },
+    "worst_accent_macro_f1": 0.15163398692810456,
+    "best_accent_macro_f1": 0.4308097513666976,
+    "accent_gap": 0.27917576443859304,
+    "accent_std": 0.12454244366665489
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.2103758868203478,
+      "validation_loss": 1.3368200949471063,
+      "validation_macro_f1": 0.3633427484781142
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.1035951228862433,
+      "validation_loss": 1.3076910334105831,
+      "validation_macro_f1": 0.4142036120746707
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0698572996597968,
+      "validation_loss": 1.386951369582315,
+      "validation_macro_f1": 0.38180116619882937
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0537488124708028,
+      "validation_loss": 1.3205494323382068,
+      "validation_macro_f1": 0.41932398283552863
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.0356239075004585,
+      "validation_loss": 1.3543675307518928,
+      "validation_macro_f1": 0.390723069077888
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.015343646483718,
+      "validation_loss": 1.3749748916817892,
+      "validation_macro_f1": 0.4006497711174231
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.0064508184746082,
+      "validation_loss": 1.3317033367998459,
+      "validation_macro_f1": 0.4091389114121386
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.9974184245543128,
+      "validation_loss": 1.3235072392059184,
+      "validation_macro_f1": 0.4050712844930617
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.000523458272664,
+      "validation_loss": 1.3783829298919938,
+      "validation_macro_f1": 0.4058131945374213
+    }
+  ],
+  "costs": {
+    "total_parameters": 94376324,
+    "trainable_parameters": 4612,
+    "model_size_definition": "serialized deployable artifacts; bytes / 1024^2",
+    "checkpoint_artifact": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\checkpoints\\b6_wav2vec2_raw_seed391.pt",
+    "checkpoint_size_mb": 0.02279186248779297,
+    "external_artifacts": [
+      "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\data\\interim\\models\\huggingface\\models--nguyenvulebinh--wav2vec2-base-vi\\snapshots\\86bde51fa76dd7f2c4c1bb28d7475d622639f869"
+    ],
+    "external_artifacts_size_mb": 362.63556575775146,
+    "effective_deployment_size_mb": 362.65835762023926,
+    "model_size_mb": 362.65835762023926,
+    "training_start_timestamp": "2026-09-14T02:22:25.327031+00:00",
+    "training_end_timestamp": "2026-09-14T02:22:40.205994+00:00",
+    "training_time_sec": 14.878100000001723,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "batch_size": 1,
+    "precision": "float32",
+    "warmup_runs": 10,
+    "timed_runs": 50,
+    "preprocessing_included": false,
+    "primary_latency_statistic": "median",
+    "inference_latency_ms": 14.55085,
+    "latency_mean_ms": 14.838098,
+    "latency_median_ms": 14.55085,
+    "latency_std_ms": 2.029233259286867,
+    "latency_p95_ms": 18.261849999999995,
+    "feature_extraction_time_sec": null,
+    "cache_materialization_time_sec": 38.44091100001242,
+    "model_training_time_sec": 14.878100000001723,
+    "end_to_end_training_pipeline_time_sec": null,
+    "cost_protocol": {
+      "feature_extraction": "reused validated B4 one-time raw-waveform extraction; historical duration unavailable",
+      "cache_reused": false,
+      "latency_path": "raw waveform tensor -> frozen Wav2Vec2 encoder -> masked pooling -> classifier"
+    }
+  },
+  "test_samples_loaded": 0,
+  "lineage": {
+    "config_sha256": "ba9577b6372ad21090f6c694e9b66d551cff36f5fbf33ef20b35467299ccd0f3",
+    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+    "raw_parquet_sha256": "bfc7697b3a591cc6cf185c61178815a35363dae4f2c43276636d68eb72cd4a3e",
+    "checkpoint_path": "artifacts/checkpoints/b6_wav2vec2_raw_seed391.pt",
+    "checkpoint_sha256": "75a33b7fd1d028466b49bcd421d1a1a5f85c7ef8e7379ef4a40abe6f3c7aa816",
+    "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+    "worktree_dirty": true
+  }
+}
