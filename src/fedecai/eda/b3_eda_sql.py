@@ -326,7 +326,7 @@ def build_summary(database_path: Path, query_row_counts: dict[str, int]) -> dict
     eligible_rows = int(counts["eligible_rows"])
     return {
         "b3_version": "b3.2-v2",
-        "scope": "All B2-eligible rows from canonical speaker-disjoint split v2; split labels are used only for coverage and leakage checks.",
+        "scope": "All B2-eligible rows from the canonical emotion-stratified split; speaker overlap is descriptive and exact waveform duplication is the leakage hard gate.",
         "source_rows": int(counts["source_rows"]),
         "eligible_rows": eligible_rows,
         "excluded_rows": int(counts["excluded_rows"]),
@@ -457,12 +457,12 @@ def parse_args() -> argparse.Namespace:
     repo_root = Path(__file__).resolve().parents[3]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--input", type=Path, default=repo_root / "data/manifests/split_manifest_v2_enriched.csv"
+        "--input", type=Path, default=repo_root / "data/manifests/emotion_stratified_v1.csv"
     )
     parser.add_argument(
         "--clients",
         type=Path,
-        default=repo_root / "data/manifests/federated_speaker_partitions_v1.csv",
+        default=repo_root / "data/manifests/federated_client_assignments_emotion_stratified_v1.csv",
     )
     parser.add_argument("--database", type=Path, default=repo_root / "data/processed/visec_metadata.sqlite")
     parser.add_argument("--sql", type=Path, default=repo_root / "sql/B3_rq_queries.sql")

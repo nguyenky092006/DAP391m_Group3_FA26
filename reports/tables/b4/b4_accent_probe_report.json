@@ -1,81 +1,84 @@
 {
   "status": "PASS",
-  "scope": "Development diagnostic only; does not confirm H1 and must not replace the final speaker-disjoint probe evaluation.",
+  "scope": "Development diagnostic under the sample-level emotion-stratified protocol. Speaker overlap is allowed, so results may partially reflect speaker-associated information and are not evidence of speaker-independent accent information.",
   "config_path": "configs/features/b4_accent_probe_v1.json",
-  "config_sha256": "e0cb834b08df56abc8cc8a80bc5cc14f0d471e3c8011d89004b40bba398005ac",
+  "config_sha256": "3392076c808a6f4178edffdf31aaf9e046f75f7107e44e71ee182b5804fe9e01",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
-  "split_manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+  "split_version": "emotion_stratified_v1",
+  "split_manifest_sha256": "d1ff69387dedfee1a07ec46c7e157b04eb322b32adddf4bef6248b56faa9025f",
   "feature_table_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
-  "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+  "git_commit": "879595ebd9ee798be11b7544297eb79aedb60119",
   "worktree_dirty": true,
   "split_audit": {
     "train_samples": 3681,
     "validation_samples": 646,
-    "train_speakers": 103,
-    "validation_speakers": 22,
-    "train_validation_speaker_overlap": 0,
+    "train_speakers": 143,
+    "validation_speakers": 98,
+    "train_validation_speaker_overlap": 95,
+    "speaker_overlap_status": "INFO",
     "test_samples_loaded": 0
   },
   "representations": {
     "handcrafted_174": {
       "dimension": 174,
-      "observed_fit_iterations": 62,
+      "observed_fit_iterations": 67,
       "observed": {
-        "macro_f1": 0.4256976657715348,
-        "uar": 0.493653691119599
+        "macro_f1": 0.7512567929039303,
+        "uar": 0.8326244905192274
       },
       "majority_baseline": {
         "label": "south",
-        "macro_f1": 0.2615239887111947,
+        "macro_f1": 0.27586206896551724,
         "uar": 0.3333333333333333
       },
       "permutation_baseline": {
         "resamples": 50,
-        "maximum_fit_iterations": 100,
-        "macro_f1_mean": 0.2869182211772088,
-        "macro_f1_std": 0.03474720344736402,
-        "uar_mean": 0.335555495901786,
-        "uar_std": 0.053349598780098054,
+        "maximum_fit_iterations": 102,
+        "macro_f1_mean": 0.2849496897251982,
+        "macro_f1_std": 0.02157234973174599,
+        "uar_mean": 0.3318456494772284,
+        "uar_std": 0.04148704856979221,
         "macro_f1_empirical_p": 0.0196078431372549,
         "uar_empirical_p": 0.0196078431372549
       },
-      "speaker_bootstrap_95_ci": {
+      "sample_bootstrap_95_ci": {
+        "unit": "validation_sample_emotion_stratified",
         "resamples": 2000,
-        "macro_f1_low": 0.3042592727727424,
-        "macro_f1_high": 0.5087800210669454,
-        "uar_low": 0.3897348933115938,
-        "uar_high": 0.597896546664889
+        "macro_f1_low": 0.7013601967287059,
+        "macro_f1_high": 0.795917058272277,
+        "uar_low": 0.784759062286718,
+        "uar_high": 0.8751504041904382
       }
     },
     "wav2vec2_768": {
       "dimension": 768,
-      "observed_fit_iterations": 93,
+      "observed_fit_iterations": 124,
       "observed": {
-        "macro_f1": 0.4905025303847926,
-        "uar": 0.5081124865565969
+        "macro_f1": 0.818187065241733,
+        "uar": 0.8350358218779271
       },
       "majority_baseline": {
         "label": "south",
-        "macro_f1": 0.2615239887111947,
+        "macro_f1": 0.27586206896551724,
         "uar": 0.3333333333333333
       },
       "permutation_baseline": {
         "resamples": 50,
-        "maximum_fit_iterations": 360,
-        "macro_f1_mean": 0.3148174536245424,
-        "macro_f1_std": 0.028910930100369013,
-        "uar_mean": 0.33122086552506397,
-        "uar_std": 0.04268895524961266,
+        "maximum_fit_iterations": 364,
+        "macro_f1_mean": 0.3059779932148519,
+        "macro_f1_std": 0.019429860993860747,
+        "uar_mean": 0.32602111338953443,
+        "uar_std": 0.02940828940633175,
         "macro_f1_empirical_p": 0.0196078431372549,
         "uar_empirical_p": 0.0196078431372549
       },
-      "speaker_bootstrap_95_ci": {
+      "sample_bootstrap_95_ci": {
+        "unit": "validation_sample_emotion_stratified",
         "resamples": 2000,
-        "macro_f1_low": 0.35916467434938687,
-        "macro_f1_high": 0.5601867064064544,
-        "uar_low": 0.43035894296399946,
-        "uar_high": 0.6058060192355785
+        "macro_f1_low": 0.7653307354202322,
+        "macro_f1_high": 0.8635839710905512,
+        "uar_low": 0.7781883740552042,
+        "uar_high": 0.886780967479455
       }
     }
   },
@@ -83,7 +86,7 @@
     "metrics": "reports/tables/b4/b4_accent_probe_metrics.csv",
     "predictions": "reports/tables/b4/b4_accent_probe_validation_predictions.csv",
     "permutations": "reports/tables/b4/b4_accent_probe_permutations.csv",
-    "bootstrap": "reports/tables/b4/b4_accent_probe_speaker_bootstrap.csv",
+    "bootstrap": "reports/tables/b4/b4_accent_probe_sample_bootstrap.csv",
     "report": "reports/tables/b4/b4_accent_probe_report.json"
   }
 }

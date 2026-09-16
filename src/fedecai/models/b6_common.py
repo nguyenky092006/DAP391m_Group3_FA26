@@ -18,6 +18,19 @@ from sklearn.metrics import (
 )
 
 
+def enforce_b6_training_lock(root: Path, operation: str) -> None:
+    """Refuse centralized B6 execution after the final human lock decision."""
+    lock_path = root / "configs/models/b6_final_lock_v1.json"
+    if not lock_path.is_file():
+        return
+    lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    if lock.get("locked"):
+        raise RuntimeError(
+            f"B6 is permanently locked ({lock.get('lock_version')}); {operation} is disabled "
+            "by explicit human decision. Use saved FINAL_ACTIVE evidence only."
+        )
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -44,11 +57,13 @@ def register_experiment(root: Path, row: dict[str, Any]) -> None:
     path = root / "logs/experiment_registry.csv"
     fields = [
         "experiment_id", "timestamp", "step", "rq", "model", "variant",
-        "dataset_version", "split_version", "feature_config", "model_config",
+        "dataset_version", "split_version", "client_partition_version",
+        "feature_config", "model_config",
         "seed", "git_commit", "hardware", "train_time_sec",
         "inference_latency_ms", "model_size_mb", "overall_macro_f1",
-        "worst_accent_macro_f1", "accent_gap", "status", "checkpoint_path",
-        "prediction_path", "notes",
+        "worst_accent_macro_f1", "accent_gap", "accent_probe_macro_f1",
+        "mean_client_macro_f1", "worst_client_macro_f1", "status",
+        "checkpoint_path", "prediction_path", "notes",
     ]
     existing: list[dict[str, Any]] = []
     if path.exists():
@@ -116,9 +131,9 @@ def load_b6_table(
     if not np.isfinite(matrix).all():
         raise ValueError("B6 handcrafted matrix contains NaN or infinity")
     if not joined.loc[joined["split"] != "train", "cv_fold"].isna().all():
-        raise ValueError("Only training rows may have grouped CV fold labels")
+        raise ValueError("Only training rows may have stratified CV fold labels")
     if joined.loc[joined["split"] == "train", "cv_fold"].isna().any():
-        raise ValueError("Every training row must have a grouped CV fold label")
+        raise ValueError("Every training row must have a stratified CV fold label")
     return joined, columns
 
 

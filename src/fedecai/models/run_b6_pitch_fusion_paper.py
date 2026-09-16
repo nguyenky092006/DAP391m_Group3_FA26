@@ -26,7 +26,7 @@ from torch.utils.data import DataLoader, Dataset
 from transformers import Wav2Vec2Model
 
 from fedecai.models.b6_common import (
-    classification_metrics, git_state, load_b6_table, load_config,
+    classification_metrics, enforce_b6_training_lock, git_state, load_b6_table, load_config,
     prediction_rows, register_experiment, sha256_file, write_csv_atomic,
     write_json_atomic,
 )
@@ -193,7 +193,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/models/b6_pitch_fusion_paper_v1.json")
     parser.add_argument("--features", default="data/interim/features/b4_features_v1/b4_full_feature_table.parquet")
-    parser.add_argument("--manifest", default="data/manifests/split_manifest_v2_enriched.csv")
+    parser.add_argument("--manifest", default="data/manifests/emotion_stratified_v1.csv")
     parser.add_argument("--raw-parquet", default="data/raw/visec_hf/train-00000-of-00001.parquet")
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--preflight-only", action="store_true")
@@ -205,6 +205,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    enforce_b6_training_lock(ROOT, "Pitch-Fusion centralized training")
     config_path, features_path, manifest_path, raw_path = map(
         resolve, (args.config, args.features, args.manifest, args.raw_parquet)
     )

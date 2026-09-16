@@ -1,4 +1,4 @@
-"""Run reproducible speaker-disjoint B4 accent probes on frozen features."""
+"""Run B4 accent probes under the active emotion-stratified protocol."""
 
 from __future__ import annotations
 
@@ -38,8 +38,8 @@ def load_config(path: Path) -> dict[str, Any]:
         raise ValueError("B4 probe must explicitly forbid the test split")
     if config.get("probe", {}).get("scaler_fit_scope") != "train_only":
         raise ValueError("Accent-probe scaler must fit on training only")
-    if config.get("speaker_bootstrap", {}).get("unit") != "validation_speaker":
-        raise ValueError("Accent-probe bootstrap unit must be validation speaker")
+    if config.get("sample_bootstrap", {}).get("unit") != "validation_sample_emotion_stratified":
+        raise ValueError("Accent-probe bootstrap must resample validation samples by emotion")
     return config
 
 
@@ -55,7 +55,7 @@ def load_development_data(
         raise ValueError("Manifest split version does not match accent-probe config")
     development = eligible.loc[
         eligible["split"].isin([config["fit_split"], config["evaluation_split"]]),
-        ["sample_id", "speaker_id", "accent", "split"],
+        ["sample_id", "speaker_id", "accent", "emotion", "split"],
     ].copy()
     if development["sample_id"].duplicated().any():
         raise ValueError("Duplicate sample IDs in development manifest")
@@ -65,9 +65,6 @@ def load_development_data(
         raise ValueError("Feature join is incomplete or contains missing values")
     train = frame.loc[frame["split"].eq(config["fit_split"])].copy()
     validation = frame.loc[frame["split"].eq(config["evaluation_split"])].copy()
-    overlap = set(train["speaker_id"]) & set(validation["speaker_id"])
-    if overlap:
-        raise ValueError(f"Speaker leakage between train and validation: {sorted(overlap)}")
     if train.empty or validation.empty:
         raise ValueError("Train and validation data are both required")
     audit = {
@@ -75,7 +72,8 @@ def load_development_data(
         "validation_samples": len(validation),
         "train_speakers": train["speaker_id"].nunique(),
         "validation_speakers": validation["speaker_id"].nunique(),
-        "train_validation_speaker_overlap": 0,
+        "train_validation_speaker_overlap": len(set(train["speaker_id"]) & set(validation["speaker_id"])),
+        "speaker_overlap_status": "INFO",
         "test_samples_loaded": 0,
     }
     return train, validation, audit
@@ -128,21 +126,23 @@ def fit_checked(model: Pipeline, features: np.ndarray, labels: np.ndarray) -> in
     return int(np.max(model.named_steps["classifier"].n_iter_))
 
 
-def speaker_bootstrap(
+def sample_bootstrap(
     y_true: np.ndarray,
     y_pred: np.ndarray,
-    speakers: np.ndarray,
+    strata: np.ndarray,
     labels: list[str],
     resamples: int,
     seed: int,
 ) -> list[dict[str, float | int]]:
-    unique_speakers = np.unique(speakers)
-    indices = {speaker: np.flatnonzero(speakers == speaker) for speaker in unique_speakers}
+    unique_strata = np.unique(strata)
+    indices = {value: np.flatnonzero(strata == value) for value in unique_strata}
     rng = np.random.default_rng(seed)
     rows: list[dict[str, float | int]] = []
     for replicate in range(resamples):
-        sampled = rng.choice(unique_speakers, size=len(unique_speakers), replace=True)
-        selected = np.concatenate([indices[speaker] for speaker in sampled])
+        selected = np.concatenate([
+            rng.choice(indices[value], size=len(indices[value]), replace=True)
+            for value in unique_strata
+        ])
         result = metrics(y_true[selected], y_pred[selected], labels)
         rows.append({"replicate": replicate, **result})
     return rows
@@ -161,7 +161,7 @@ def run_probe(repo_root: Path, config_path: Path, output_dir: Path) -> dict[str,
     report_representations: dict[str, Any] = {}
     y_train = train["accent"].to_numpy(dtype=str)
     y_validation = validation["accent"].to_numpy(dtype=str)
-    validation_speakers = validation["speaker_id"].to_numpy(dtype=str)
+    validation_emotions = validation["emotion"].to_numpy(dtype=str)
     majority_label = sorted(Counter(y_train).items(), key=lambda item: (-item[1], item[0]))[0][0]
     majority_prediction = np.full(len(validation), majority_label, dtype=object)
     majority_metrics = metrics(y_validation, majority_prediction, labels)
@@ -192,12 +192,12 @@ def run_probe(repo_root: Path, config_path: Path, output_dir: Path) -> dict[str,
             permutation_rows.append(row)
             representation_permutations.append(value)
 
-        representation_bootstrap = speaker_bootstrap(
+        representation_bootstrap = sample_bootstrap(
             y_validation,
             prediction,
-            validation_speakers,
+            validation_emotions,
             labels,
-            int(config["speaker_bootstrap"]["resamples"]),
+            int(config["sample_bootstrap"]["resamples"]),
             seed + 20_000 * (representation_index + 1),
         )
         for row in representation_bootstrap:
@@ -222,7 +222,8 @@ def run_probe(repo_root: Path, config_path: Path, output_dir: Path) -> dict[str,
                 "macro_f1_empirical_p": float((1 + np.sum(permutation_macro >= observed["macro_f1"])) / (len(permutation_macro) + 1)),
                 "uar_empirical_p": float((1 + np.sum(permutation_uar >= observed["uar"])) / (len(permutation_uar) + 1)),
             },
-            "speaker_bootstrap_95_ci": {
+            "sample_bootstrap_95_ci": {
+                "unit": "validation_sample_emotion_stratified",
                 "resamples": len(bootstrap_macro),
                 "macro_f1_low": float(np.quantile(bootstrap_macro, 0.025)),
                 "macro_f1_high": float(np.quantile(bootstrap_macro, 0.975)),
@@ -246,11 +247,11 @@ def run_probe(repo_root: Path, config_path: Path, output_dir: Path) -> dict[str,
                 "permutation_uar_std": summary["permutation_baseline"]["uar_std"],
                 "permutation_macro_f1_empirical_p": summary["permutation_baseline"]["macro_f1_empirical_p"],
                 "permutation_uar_empirical_p": summary["permutation_baseline"]["uar_empirical_p"],
-                "bootstrap_resamples": summary["speaker_bootstrap_95_ci"]["resamples"],
-                "bootstrap_macro_f1_low": summary["speaker_bootstrap_95_ci"]["macro_f1_low"],
-                "bootstrap_macro_f1_high": summary["speaker_bootstrap_95_ci"]["macro_f1_high"],
-                "bootstrap_uar_low": summary["speaker_bootstrap_95_ci"]["uar_low"],
-                "bootstrap_uar_high": summary["speaker_bootstrap_95_ci"]["uar_high"],
+                "bootstrap_resamples": summary["sample_bootstrap_95_ci"]["resamples"],
+                "bootstrap_macro_f1_low": summary["sample_bootstrap_95_ci"]["macro_f1_low"],
+                "bootstrap_macro_f1_high": summary["sample_bootstrap_95_ci"]["macro_f1_high"],
+                "bootstrap_uar_low": summary["sample_bootstrap_95_ci"]["uar_low"],
+                "bootstrap_uar_high": summary["sample_bootstrap_95_ci"]["uar_high"],
             }
         )
         for (_, row), predicted in zip(validation.iterrows(), prediction):
@@ -269,7 +270,7 @@ def run_probe(repo_root: Path, config_path: Path, output_dir: Path) -> dict[str,
         "metrics": output_dir / "b4_accent_probe_metrics.csv",
         "predictions": output_dir / "b4_accent_probe_validation_predictions.csv",
         "permutations": output_dir / "b4_accent_probe_permutations.csv",
-        "bootstrap": output_dir / "b4_accent_probe_speaker_bootstrap.csv",
+        "bootstrap": output_dir / "b4_accent_probe_sample_bootstrap.csv",
     }
     pd.DataFrame(metric_rows).to_csv(paths["metrics"], index=False)
     pd.DataFrame(prediction_rows).to_csv(paths["predictions"], index=False)

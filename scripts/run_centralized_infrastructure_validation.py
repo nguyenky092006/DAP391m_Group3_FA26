@@ -18,6 +18,11 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = ROOT / "src"
+if str(SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SOURCE_ROOT))
+
+from fedecai.models.b6_common import enforce_b6_training_lock
 
 
 def package_record(name: str) -> dict[str, Any]:
@@ -80,6 +85,7 @@ def append_csv(path: Path, row: dict[str, Any]) -> None:
 
 
 def main() -> None:
+    enforce_b6_training_lock(ROOT, "centralized infrastructure/smoke orchestration")
     if "DAP301m" not in str(Path(sys.executable).resolve()):
         raise RuntimeError(f"Validation must run in DAP301m: {sys.executable}")
     now = datetime.now().astimezone()
@@ -146,7 +152,7 @@ def main() -> None:
         "experiment_id": "centralized_infrastructure_validation",
         "model": None, "seed": 391,
         "dataset_version": "visec_clean_eligible_v1",
-        "split_version": "speaker_disjoint_v2",
+        "split_version": "emotion_stratified_v1",
         "evidence_class": "SMOKE_TEST_ONLY",
         "centralized_infrastructure_status": status,
         "smoke_status": smoke.get("status"),
@@ -186,7 +192,7 @@ smoke metrics as research results.
         "run_id": run_id, "experiment_id": "centralized_infrastructure_validation",
         "timestamp": now.isoformat(), "step": "B6", "variant": "SMOKE_TEST_ONLY",
         "seed": 391, "status": status, "dataset_version": "visec_clean_eligible_v1",
-        "split_version": "speaker_disjoint_v2", "git_commit": commit,
+        "split_version": "emotion_stratified_v1", "git_commit": commit,
         "stdout_path": str((run_dir / "stdout.log").relative_to(ROOT)).replace("\\", "/"),
         "stderr_path": str((run_dir / "stderr.log").relative_to(ROOT)).replace("\\", "/"),
         "metrics_path": str((run_dir / "metrics.json").relative_to(ROOT)).replace("\\", "/"),
@@ -197,7 +203,7 @@ smoke metrics as research results.
         "experiment_id": f"centralized_infrastructure_validation_{run_id}",
         "timestamp": now.isoformat(), "step": "B6", "rq": "RQ3",
         "variant": "SMOKE_TEST_ONLY", "dataset_version": "visec_clean_eligible_v1",
-        "split_version": "speaker_disjoint_v2", "seed": 391,
+        "split_version": "emotion_stratified_v1", "seed": 391,
         "git_commit": commit, "hardware": env.get("gpu_name"), "status": status,
         "notes": "Eight-path smoke validation; no benchmark metrics.",
     })

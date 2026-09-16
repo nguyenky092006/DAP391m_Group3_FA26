@@ -21,7 +21,7 @@ from sklearn.svm import SVC
 from xgboost import XGBClassifier
 
 from fedecai.features.mel_3ch import build_mel_3ch, pad_or_crop_mel_3ch
-from fedecai.models.b6_common import load_b6_table, load_config, write_json_atomic
+from fedecai.models.b6_common import enforce_b6_training_lock, load_b6_table, load_config, write_json_atomic
 from fedecai.models.b6_deep_models import LogMelCNN2D, MelImageClassifier
 
 
@@ -104,6 +104,7 @@ def main() -> None:
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--output", default="artifacts/audit/centralized_smoke_tests.json")
     args = parser.parse_args()
+    enforce_b6_training_lock(ROOT, "centralized eight-model smoke tests")
     if "DAP301m" not in str(Path(sys.executable).resolve()):
         raise RuntimeError(f"Smoke tests must use DAP301m, got {sys.executable}")
     if args.device == "cuda" and not torch.cuda.is_available():
@@ -112,7 +113,7 @@ def main() -> None:
     config = load_config(ROOT / "configs/models/b6_classical_centralized_v1.json")
     frame, feature_columns = load_b6_table(
         ROOT / "data/interim/features/b4_features_v1/b4_full_feature_table.parquet",
-        ROOT / "data/manifests/split_manifest_v2_enriched.csv", config,
+        ROOT / "data/manifests/emotion_stratified_v1.csv", config,
     )
     subset, values, labels = actual_training_subset(frame, feature_columns)
     log_mel = ROOT / str(subset.iloc[0]["log_mel_artifact_path"])

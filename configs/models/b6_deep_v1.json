@@ -1,7 +1,7 @@
 {
   "schema_version": "b6.deep.v1",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
+  "split_version": "emotion_stratified_v1",
   "emotion_order": ["angry", "happy", "neutral", "sad"],
   "feature_contract": {
     "numeric_prefixes": ["mfcc_", "egemaps_", "pitch_"],
@@ -16,8 +16,6 @@
     "num_workers": 0
   },
   "models": {
-    "cnn2d_logmel": {"batch_size": 32, "learning_rate": 0.001, "dropout": 0.35, "max_frames": 512},
-    "wav2vec2_embedding_mlp": {"batch_size": 128, "learning_rate": 0.0005, "dropout": 0.40},
-    "pitch_fusion": {"batch_size": 128, "learning_rate": 0.0005, "dropout": 0.40}
+    "cnn2d_logmel": {"batch_size": 32, "learning_rate": 0.001, "dropout": 0.35, "max_frames": 512}
   }
 }

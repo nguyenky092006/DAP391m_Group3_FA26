@@ -3,9 +3,9 @@ import unittest
 import torch
 
 from fedecai.models.b6_deep_models import (
-    AccentInvariantCNN, FrozenPitchFusion,
+    FrozenPitchFusion,
     LogMelCNN2D, MelImageClassifier, PaperAlignedPitchFusionHead,
-    Wav2Vec2EmbeddingMLP,
+    ResNet18EmotionAccentModel, Wav2Vec2EmbeddingMLP,
 )
 
 try:
@@ -51,17 +51,19 @@ class B6DeepModelTests(unittest.TestCase):
         self.assertEqual(tuple(output.shape), (2, 4))
         self.assertTrue(torch.isfinite(output).all())
 
-    def test_accent_invariant_variants(self):
-        values = torch.zeros(2, 1, 80, 128)
-        emotion, accent = AccentInvariantCNN(adversarial=False)(values)
-        self.assertEqual(tuple(emotion.shape), (2, 4))
-        self.assertIsNone(accent)
-        condition = torch.nn.functional.one_hot(torch.tensor([0, 1]), 4).float()
-        emotion, accent = AccentInvariantCNN(adversarial=True, conditional=True)(
-            values, 0.1, condition
-        )
-        self.assertEqual(tuple(emotion.shape), (2, 4))
-        self.assertEqual(tuple(accent.shape), (2, 3))
+    @unittest.skipUnless(TORCHVISION_RUNTIME_AVAILABLE, "torchvision runtime unavailable")
+    def test_resnet18_adversarial_variants(self):
+        values = torch.zeros(2, 3, 80, 128)
+        for mode in ("none", "unconditional", "conditional"):
+            with self.subTest(mode=mode):
+                model = ResNet18EmotionAccentModel(adversary=mode).eval()
+                emotion, accent = model(values, lambda_adv=0.1)
+                self.assertEqual(tuple(emotion.shape), (2, 4))
+                self.assertEqual(model.feature_dim, 512)
+                if mode == "none":
+                    self.assertIsNone(accent)
+                else:
+                    self.assertEqual(tuple(accent.shape), (2, 3))
 
     def test_gradient_reversal_changes_encoder_gradient_sign(self):
         from fedecai.models.b6_deep_models import gradient_reverse

@@ -87,19 +87,38 @@ reports/dashboard/*
 reports/**/*.csv
 reports/**/*.json
 
-# Versioned B3 SQL evidence required by the B3 Definition of Done.
-!reports/tables/b3/
-!reports/tables/b3/*.csv
-!reports/tables/b3/b3_summary.json
+# Versioned split-independent B4 evidence and active B5 protocol evidence.
 !reports/tables/b4/
 !reports/tables/b4/b4_mel_3ch_contract_report.json
-!reports/tables/b4/b4_accent_probe_report.json
-!reports/tables/b4/b4_accent_probe_metrics.csv
-!reports/tables/b4/b4_accent_probe_validation_predictions.csv
-!reports/tables/b4/b4_accent_probe_permutations.csv
-!reports/tables/b4/b4_accent_probe_speaker_bootstrap.csv
-!reports/figures/b6/centralized_validation_cost_table.png
-!reports/figures/b6/centralized_validation_performance_table.png
+!reports/tables/b5/
+!reports/tables/b5/federated_scenarios_emotion_stratified_v1.csv
+!reports/tables/b5/federated_scenarios_emotion_stratified_v1.json
+!reports/tables/b6_final/
+!reports/tables/b6_final/centralized_b6_final_locked.csv
+!reports/tables/b6_final/archived_b6_runs.csv
+!reports/tables/b6_final/b6_final_lock_validation.json
+!reports/tables/b6_final/FINAL_B6_LOCK_REPORT.md
+!reports/tables/fedecai/
+!reports/tables/fedecai/*.csv
+!reports/tables/fedecai/*.md
+!reports/figures/b6/
+!reports/figures/b6/final_centralized_b6_ranking.png
+
+!data/manifests/
+!data/manifests/emotion_stratified_v1.csv
+!data/manifests/emotion_stratified_v1_report.json
+!data/manifests/federated_client_assignments_emotion_stratified_v1.csv
+
+# Recoverable local quarantine created by the 2026-09-14 protocol reset.
+protocol_reset_quarantine/
+
+# Versioned local B6 archive: keep the manifest trackable, not multi-GB payloads.
+archive/b6_superseded/*/*
+!archive/b6_superseded/*/ARCHIVE_MANIFEST.csv
+
+# Superseded plan/spec snapshots: keep payload local and manifest trackable.
+archive/spec_superseded/*/snapshots/
+!archive/spec_superseded/*/ARCHIVE_MANIFEST.csv
 
 # ==========================================
 # Jupyter Notebook Checkpoints & Cache

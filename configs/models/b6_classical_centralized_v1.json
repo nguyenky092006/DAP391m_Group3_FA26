@@ -1,7 +1,7 @@
 {
   "schema_version": "b6.classical.centralized.v1",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
+  "split_version": "emotion_stratified_v1",
   "emotion_order": ["angry", "happy", "neutral", "sad"],
   "feature_contract": {
     "families": ["mfcc40_summary", "egemaps_v02"],
@@ -10,7 +10,7 @@
     "normalization": "fit inside each training fold only"
   },
   "evaluation": {
-    "selection_partition": "train grouped cv_fold only",
+    "selection_partition": "train emotion-stratified cv_fold only",
     "checkpoint_selection_partition": "validation",
     "final_report_partition": "test",
     "test_policy": "single evaluation after model and preprocessing are frozen",

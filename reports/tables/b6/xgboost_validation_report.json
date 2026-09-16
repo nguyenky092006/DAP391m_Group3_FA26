@@ -9,23 +9,23 @@
   "test_samples_reserved": 665,
   "features": 168,
   "cv_folds": [
-    "fold_0",
     "fold_1",
     "fold_2",
     "fold_3",
-    "fold_4"
+    "fold_4",
+    "fold_5"
   ],
   "best_parameters": {
     "learning_rate": 0.05,
     "max_depth": 5,
     "n_estimators": 400
   },
-  "best_cv_macro_f1": 0.3812043822758945,
-  "grid_search_seconds": 78.4586055999971,
+  "best_cv_macro_f1": 0.5868045553842934,
+  "grid_search_seconds": 93.14747429999989,
   "probability_calibration": null,
   "prediction_rule": "predict_proba argmax",
   "calibration_seconds": 0.0,
-  "total_tuning_seconds": 78.4586055999971,
+  "total_tuning_seconds": 93.14747429999989,
   "costs": {
     "total_parameters": null,
     "trainable_parameters": null,
@@ -35,14 +35,14 @@
     },
     "model_size_definition": "serialized deployable artifacts; bytes / 1024^2",
     "checkpoint_artifact": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\checkpoints\\b6_xgboost_seed391.joblib",
-    "checkpoint_size_mb": 3.579146385192871,
+    "checkpoint_size_mb": 3.6082677841186523,
     "external_artifacts": [],
     "external_artifacts_size_mb": 0.0,
-    "effective_deployment_size_mb": 3.579146385192871,
-    "model_size_mb": 3.579146385192871,
-    "training_start_timestamp": "2026-09-14T02:18:30.473793+00:00",
-    "training_end_timestamp": "2026-09-14T02:19:48.932829+00:00",
-    "training_time_sec": 78.45861090000835,
+    "effective_deployment_size_mb": 3.6082677841186523,
+    "model_size_mb": 3.6082677841186523,
+    "training_start_timestamp": "2026-09-14T14:44:42.853080+00:00",
+    "training_end_timestamp": "2026-09-14T14:46:16.000751+00:00",
+    "training_time_sec": 93.14844950000406,
     "platform": "Windows-11-10.0.26200-SP0",
     "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
     "device": "cpu",
@@ -53,14 +53,14 @@
     "timed_runs": 50,
     "preprocessing_included": false,
     "primary_latency_statistic": "median",
-    "inference_latency_ms": 0.99115,
-    "latency_mean_ms": 1.3521100000000001,
-    "latency_median_ms": 0.99115,
-    "latency_std_ms": 1.0039725881218073,
-    "latency_p95_ms": 3.55933,
+    "inference_latency_ms": 1.9339,
+    "latency_mean_ms": 2.003602,
+    "latency_median_ms": 1.9339,
+    "latency_std_ms": 0.42139558492703744,
+    "latency_p95_ms": 2.7195899999999997,
     "feature_extraction_time_sec": null,
-    "model_training_time_sec": 78.45861090000835,
-    "end_to_end_training_pipeline_time_sec": 78.45861090000835,
+    "model_training_time_sec": 93.14844950000406,
+    "end_to_end_training_pipeline_time_sec": 93.14844950000406,
     "cost_protocol": {
       "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
       "latency_path": "model-ready 168-feature vector -> fitted estimator"
@@ -69,40 +69,40 @@
   "validation_metrics": {
     "overall": {
       "samples": 646,
-      "accuracy": 0.4613003095975232,
-      "macro_f1": 0.42355967287658214,
-      "weighted_f1": 0.447369410705714,
-      "uar": 0.4217822025565388,
+      "accuracy": 0.6222910216718266,
+      "macro_f1": 0.6046575725674517,
+      "weighted_f1": 0.6170268934970745,
+      "uar": 0.6004876523258876,
       "per_class_f1": {
-        "angry": 0.5403508771929825,
-        "happy": 0.24,
-        "neutral": 0.5309090909090909,
-        "sad": 0.3829787234042553
+        "angry": 0.7411167512690355,
+        "happy": 0.4351851851851852,
+        "neutral": 0.5887850467289719,
+        "sad": 0.6535433070866141
       },
       "per_class": {
         "angry": {
-          "precision": 0.5703703703703704,
-          "recall": 0.5133333333333333,
-          "f1": 0.5403508771929825,
-          "support": 150
+          "precision": 0.7121951219512195,
+          "recall": 0.7724867724867724,
+          "f1": 0.7411167512690355,
+          "support": 189
         },
         "happy": {
-          "precision": 0.31343283582089554,
-          "recall": 0.19444444444444445,
-          "f1": 0.24,
-          "support": 108
+          "precision": 0.5222222222222223,
+          "recall": 0.373015873015873,
+          "f1": 0.4351851851851852,
+          "support": 126
         },
         "neutral": {
-          "precision": 0.4506172839506173,
-          "recall": 0.6460176991150443,
-          "f1": 0.5309090909090909,
-          "support": 226
+          "precision": 0.5407725321888412,
+          "recall": 0.6461538461538462,
+          "f1": 0.5887850467289719,
+          "support": 195
         },
         "sad": {
-          "precision": 0.45,
-          "recall": 0.3333333333333333,
-          "f1": 0.3829787234042553,
-          "support": 162
+          "precision": 0.7033898305084746,
+          "recall": 0.6102941176470589,
+          "f1": 0.6535433070866141,
+          "support": 136
         }
       },
       "confusion_matrix": {
@@ -114,79 +114,79 @@
         ],
         "values": [
           [
-            77,
-            21,
-            40,
-            12
-          ],
-          [
-            11,
-            21,
-            64,
-            12
-          ],
-          [
-            17,
-            21,
             146,
-            42
+            15,
+            21,
+            7
           ],
           [
-            30,
-            4,
-            74,
-            54
+            23,
+            47,
+            48,
+            8
+          ],
+          [
+            26,
+            23,
+            126,
+            20
+          ],
+          [
+            10,
+            5,
+            38,
+            83
           ]
         ]
       }
     },
     "per_accent": {
       "central": {
-        "samples": 26,
-        "macro_f1": 0.29340909090909095,
-        "uar": 0.4375,
+        "samples": 35,
+        "macro_f1": 0.5138888888888888,
+        "uar": 0.525,
         "per_emotion_f1": {
-          "angry": 0.25,
-          "happy": 0.36363636363636365,
-          "neutral": 0.56,
-          "sad": 0.0
+          "angry": 0.3333333333333333,
+          "happy": 0.7222222222222222,
+          "neutral": 0.5,
+          "sad": 0.5
         }
       },
       "north": {
-        "samples": 200,
-        "macro_f1": 0.4224085075146274,
-        "uar": 0.4232001448029323,
+        "samples": 154,
+        "macro_f1": 0.5261922561754353,
+        "uar": 0.5273298286016309,
         "per_emotion_f1": {
-          "angry": 0.4358974358974359,
-          "happy": 0.2988505747126437,
-          "neutral": 0.41830065359477125,
-          "sad": 0.5365853658536586
+          "angry": 0.6585365853658537,
+          "happy": 0.27586206896551724,
+          "neutral": 0.5370370370370371,
+          "sad": 0.6333333333333333
         }
       },
       "south": {
-        "samples": 420,
-        "macro_f1": 0.4143527826255983,
-        "uar": 0.4245054340974907,
+        "samples": 457,
+        "macro_f1": 0.6188735244659469,
+        "uar": 0.6135111985537682,
         "per_emotion_f1": {
-          "angry": 0.592964824120603,
-          "happy": 0.15584415584415584,
-          "neutral": 0.5752688172043011,
-          "sad": 0.3333333333333333
+          "angry": 0.7712418300653595,
+          "happy": 0.4262295081967213,
+          "neutral": 0.6148648648648649,
+          "sad": 0.6631578947368421
         }
       }
     },
-    "worst_accent_macro_f1": 0.29340909090909095,
-    "best_accent_macro_f1": 0.4224085075146274,
-    "accent_macro_f1_gap": 0.12899941660553643,
-    "accent_macro_f1_std": 0.059003880055160635
+    "worst_accent_macro_f1": 0.5138888888888888,
+    "best_accent_macro_f1": 0.6188735244659469,
+    "accent_macro_f1_gap": 0.10498463557705806,
+    "accent_macro_f1_std": 0.046860269887984994
   },
   "model_artifact": "artifacts/checkpoints/b6_xgboost_seed391.joblib",
-  "model_artifact_sha256": "b30ae612a3083de1a8bccb58ec8132f8c5f843779cb90c5e9623c8fe02056357",
+  "model_artifact_sha256": "a4d480e329068e6986e964ff33809d204e2d9cf73c24c520f827a33c291b9d62",
   "lineage": {
-    "config_sha256": "b000f8a74902e37bb44a7d8d81637c021f11f1e540474f68ecda13f8c474a57c",
+    "config_sha256": "db610cc80a477d426017238cde49942b01fb2d3b505d6805222b285901c066e2",
     "features_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
-    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
-    "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+    "manifest_sha256": "d1ff69387dedfee1a07ec46c7e157b04eb322b32adddf4bef6248b56faa9025f",
+    "git_commit": "879595ebd9ee798be11b7544297eb79aedb60119",
     "worktree_dirty": true
   }
 }

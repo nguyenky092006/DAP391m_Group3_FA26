@@ -42,14 +42,14 @@ class B3EdaSqlTests(unittest.TestCase):
         self.sql_path = self.repo_root / "sql/B3_rq_queries.sql"
         self.rows = [
             make_row(0, accent="south", emotion="happy", speaker=0, split="train"),
-            make_row(1, accent="north", emotion="neutral", speaker=1, split="validation"),
-            make_row(2, accent="central", emotion="angry", speaker=2, split="test"),
+            make_row(1, accent="north", emotion="neutral", speaker=0, split="validation"),
+            make_row(2, accent="central", emotion="angry", speaker=0, split="test"),
             make_row(3, accent="central", emotion="sad", speaker=2, split="excluded", eligible=False),
         ]
         self.client_rows = [
             {
                 "speaker_id": "0",
-                "split_version": "speaker_disjoint_v2",
+                "split_version": "emotion_stratified_v1",
                 "main_partition_version": "main_mixed_accent_v1",
                 "main_client_id": "main_client_00",
                 "stress_partition_version": "stress_accent_domain_v1",
@@ -92,7 +92,7 @@ class B3EdaSqlTests(unittest.TestCase):
             self.assertEqual(summary["source_rows"], 4)
             self.assertEqual(summary["eligible_rows"], 3)
             self.assertEqual(summary["excluded_rows"], 1)
-            self.assertEqual(summary["eligible_speakers"], 3)
+            self.assertEqual(summary["eligible_speakers"], 1)
             self.assertEqual(row_counts["rq2_emotion_distribution_by_accent"], 12)
             self.assertEqual(row_counts["b5_split_coverage_check"], 36)
             self.assertEqual(row_counts["rq1_rq2_samples_speakers_by_accent"], 3)
@@ -120,7 +120,7 @@ class B3EdaSqlTests(unittest.TestCase):
             ) as stream:
                 overlap = list(csv.DictReader(stream))
             self.assertEqual(
-                [row["overlapping_speakers"] for row in overlap], ["0", "0", "0"]
+                [row["overlapping_speakers"] for row in overlap], ["1", "1", "1"]
             )
 
 

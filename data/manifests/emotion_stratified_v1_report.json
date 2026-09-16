@@ -1,0 +1,167 @@
+{
+  "schema_version": "b5.emotion_stratified_split.v1",
+  "status": "PASS",
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "protocol": "deterministic sample-level emotion-stratified train/validation/test",
+  "stratification": {
+    "primary_target": "emotion",
+    "secondary_balance": "accent_clean",
+    "implementation": "joint emotion|accent strata to preserve rare accent/emotion support"
+  },
+  "seed": 391,
+  "stage_seeds": {
+    "train_vs_held_out": 391,
+    "validation_vs_test": 392,
+    "cv": 391
+  },
+  "target_counts": {
+    "train": 3681,
+    "validation": 646,
+    "test": 665
+  },
+  "split_counts": {
+    "train": 3681,
+    "validation": 646,
+    "test": 665
+  },
+  "ratio": {
+    "train": 0.7373798076923077,
+    "validation": 0.1294070512820513,
+    "test": 0.13321314102564102
+  },
+  "total_source_rows": 5280,
+  "total_eligible_samples": 4992,
+  "total_emotions": 4,
+  "total_accents": 3,
+  "total_unique_speakers": 147,
+  "emotion_distribution": {
+    "train": {
+      "angry": 1080,
+      "happy": 718,
+      "neutral": 1110,
+      "sad": 773
+    },
+    "validation": {
+      "angry": 189,
+      "happy": 126,
+      "neutral": 195,
+      "sad": 136
+    },
+    "test": {
+      "angry": 196,
+      "happy": 129,
+      "neutral": 200,
+      "sad": 140
+    }
+  },
+  "accent_distribution": {
+    "train": {
+      "central": 202,
+      "north": 873,
+      "south": 2606
+    },
+    "validation": {
+      "central": 35,
+      "north": 154,
+      "south": 457
+    },
+    "test": {
+      "central": 38,
+      "north": 156,
+      "south": 471
+    }
+  },
+  "accent_emotion_distribution": {
+    "train": {
+      "central": {
+        "angry": 18,
+        "happy": 86,
+        "neutral": 87,
+        "sad": 11
+      },
+      "north": {
+        "angry": 244,
+        "happy": 198,
+        "neutral": 252,
+        "sad": 179
+      },
+      "south": {
+        "angry": 818,
+        "happy": 434,
+        "neutral": 771,
+        "sad": 583
+      }
+    },
+    "validation": {
+      "central": {
+        "angry": 3,
+        "happy": 15,
+        "neutral": 15,
+        "sad": 2
+      },
+      "north": {
+        "angry": 43,
+        "happy": 35,
+        "neutral": 44,
+        "sad": 32
+      },
+      "south": {
+        "angry": 143,
+        "happy": 76,
+        "neutral": 136,
+        "sad": 102
+      }
+    },
+    "test": {
+      "central": {
+        "angry": 4,
+        "happy": 16,
+        "neutral": 16,
+        "sad": 2
+      },
+      "north": {
+        "angry": 44,
+        "happy": 35,
+        "neutral": 45,
+        "sad": 32
+      },
+      "south": {
+        "angry": 148,
+        "happy": 78,
+        "neutral": 139,
+        "sad": 106
+      }
+    }
+  },
+  "unique_speakers_by_split": {
+    "train": 143,
+    "validation": 98,
+    "test": 105
+  },
+  "speaker_overlap": {
+    "train_validation": 95,
+    "train_test": 102,
+    "validation_test": 78
+  },
+  "speaker_overlap_status": "INFO",
+  "speaker_policy": "speaker_id is metadata, not a split grouping constraint",
+  "duplicate_waveform_cross_split": 0,
+  "duplicate_file_identity_cross_split": 0,
+  "test_sample_ids_sha256": "232e6eb42cddf2c97cf30d791520369402045e94751b70824a26ae1cfddd15ed",
+  "assignment_sha256": "f5d2ce580eeb1c91d65df777aebfea4d481d244bcac006146672a5d3423f39d5",
+  "validation": {
+    "all_samples_assigned_exactly_once": true,
+    "split_counts_match_target": true,
+    "split_labels_valid": true,
+    "split_version_valid": true,
+    "fixed_seed_valid": true,
+    "all_emotions_present_per_split": true,
+    "all_accent_emotion_cells_present": true,
+    "sample_stratified_cv_valid": true,
+    "duplicate_waveform_cross_split_zero": true,
+    "duplicate_file_identity_cross_split_zero": true
+  },
+  "source_manifest": "data/manifests/clean_manifest.csv",
+  "output_manifest": "data/manifests/emotion_stratified_v1.csv"
+}

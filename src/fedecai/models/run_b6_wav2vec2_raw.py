@@ -25,7 +25,7 @@ from torch import nn
 from transformers import Wav2Vec2Model
 
 from fedecai.models.b6_common import (
-    git_state, prediction_rows, register_experiment, sha256_file,
+    enforce_b6_training_lock, git_state, prediction_rows, register_experiment, sha256_file,
     write_csv_atomic, write_json_atomic,
 )
 from fedecai.models.b6_deep_models import FrozenEmbeddingHead
@@ -120,8 +120,8 @@ def load_frame(manifest_path: Path, feature_path: Path) -> pd.DataFrame:
         dtype={"sample_id": "string", "speaker_id": "string"},
     )
     eligible = manifest[manifest["split"] != "excluded"].copy()
-    if len(eligible) != 4992 or set(eligible["split_version"]) != {"speaker_disjoint_v2"}:
-        raise ValueError("Wav2Vec2 runner requires the 4,992-row speaker_disjoint_v2 population")
+    if len(eligible) != 4992 or set(eligible["split_version"]) != {"emotion_stratified_v1"}:
+        raise ValueError("Wav2Vec2 runner requires the 4,992-row emotion_stratified_v1 population")
     features = pd.read_parquet(feature_path, columns=["sample_id", "wav2vec_artifact_path"])
     if features["sample_id"].duplicated().any():
         raise ValueError("B4 Wav2Vec2 feature table contains duplicate sample IDs")
@@ -230,7 +230,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="configs/models/b6_wav2vec2_raw_v1.json")
     parser.add_argument("--features", default="data/interim/features/b4_features_v1/b4_full_feature_table.parquet")
-    parser.add_argument("--manifest", default="data/manifests/split_manifest_v2_enriched.csv")
+    parser.add_argument("--manifest", default="data/manifests/emotion_stratified_v1.csv")
     parser.add_argument("--raw-parquet", default="data/raw/visec_hf/train-00000-of-00001.parquet")
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--preflight-only", action="store_true")
@@ -242,6 +242,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    enforce_b6_training_lock(ROOT, "Wav2Vec2 centralized training/cache generation")
     config_path, feature_path, manifest_path, raw_path = map(
         resolve, (args.config, args.features, args.manifest, args.raw_parquet)
     )

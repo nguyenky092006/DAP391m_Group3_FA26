@@ -1,0 +1,144 @@
+{
+  "status": "PASS",
+  "source_manifest": "data\\manifests\\emotion_stratified_v1.csv",
+  "source_manifest_sha256": "d1ff69387dedfee1a07ec46c7e157b04eb322b32adddf4bef6248b56faa9025f",
+  "train_samples": 3681,
+  "train_speakers": 143,
+  "global_split_modified": false,
+  "main": {
+    "version": "main_mixed_accent_v2",
+    "assignment_sha256": "e0c5eea9aa20cf32e80e6a89b9788a565698803710c7efdf6bcf98053af47bc6",
+    "clients": [
+      {
+        "client_id": "main_client_00",
+        "samples": 1074,
+        "sample_share": 0.2917685411572942,
+        "speakers": 80,
+        "accent_samples": {
+          "central": 108,
+          "north": 252,
+          "south": 714
+        },
+        "max_accent_share": 0.664804469273743,
+        "emotion_samples": {
+          "angry": 245,
+          "happy": 195,
+          "neutral": 410,
+          "sad": 224
+        }
+      },
+      {
+        "client_id": "main_client_01",
+        "samples": 2240,
+        "sample_share": 0.6085302906818799,
+        "speakers": 46,
+        "accent_samples": {
+          "central": 73,
+          "north": 534,
+          "south": 1633
+        },
+        "max_accent_share": 0.7290178571428572,
+        "emotion_samples": {
+          "angry": 762,
+          "happy": 444,
+          "neutral": 582,
+          "sad": 452
+        }
+      },
+      {
+        "client_id": "main_client_02",
+        "samples": 367,
+        "sample_share": 0.09970116816082586,
+        "speakers": 17,
+        "accent_samples": {
+          "central": 21,
+          "north": 87,
+          "south": 259
+        },
+        "max_accent_share": 0.7057220708446866,
+        "emotion_samples": {
+          "angry": 73,
+          "happy": 79,
+          "neutral": 118,
+          "sad": 97
+        }
+      }
+    ],
+    "validation": {
+      "all_train_speakers_assigned_once": true,
+      "all_clients_have_multiple_speakers": true,
+      "all_clients_have_all_emotions": true,
+      "main_clients_have_all_accents": true,
+      "main_max_single_accent_share_le_0_85": true,
+      "stress_clients_are_single_accent": true
+    }
+  },
+  "stress": {
+    "version": "stress_accent_domain_v2",
+    "assignment_sha256": "a5206ca0ad0fff4a151849f977659440aa8362224d795ecb94c734cf2be3af17",
+    "clients": [
+      {
+        "client_id": "stress_client_central",
+        "samples": 202,
+        "sample_share": 0.05487639228470524,
+        "speakers": 19,
+        "accent_samples": {
+          "central": 202,
+          "north": 0,
+          "south": 0
+        },
+        "max_accent_share": 1.0,
+        "emotion_samples": {
+          "angry": 18,
+          "happy": 86,
+          "neutral": 87,
+          "sad": 11
+        }
+      },
+      {
+        "client_id": "stress_client_north",
+        "samples": 873,
+        "sample_share": 0.2371638141809291,
+        "speakers": 56,
+        "accent_samples": {
+          "central": 0,
+          "north": 873,
+          "south": 0
+        },
+        "max_accent_share": 1.0,
+        "emotion_samples": {
+          "angry": 244,
+          "happy": 198,
+          "neutral": 252,
+          "sad": 179
+        }
+      },
+      {
+        "client_id": "stress_client_south",
+        "samples": 2606,
+        "sample_share": 0.7079597935343657,
+        "speakers": 68,
+        "accent_samples": {
+          "central": 0,
+          "north": 0,
+          "south": 2606
+        },
+        "max_accent_share": 1.0,
+        "emotion_samples": {
+          "angry": 818,
+          "happy": 434,
+          "neutral": 771,
+          "sad": 583
+        }
+      }
+    ],
+    "validation": {
+      "all_train_speakers_assigned_once": true,
+      "all_clients_have_multiple_speakers": true,
+      "all_clients_have_all_emotions": true,
+      "main_clients_have_all_accents": true,
+      "main_max_single_accent_share_le_0_85": true,
+      "stress_clients_are_single_accent": true
+    }
+  }
+}

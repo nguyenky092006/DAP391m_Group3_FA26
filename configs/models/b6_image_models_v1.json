@@ -1,7 +1,7 @@
 {
   "schema_version": "b6.image_models.v1",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
+  "split_version": "emotion_stratified_v1",
   "emotion_order": ["angry", "happy", "neutral", "sad"],
   "feature_contract": {
     "numeric_prefixes": ["mfcc_", "egemaps_", "pitch_"],

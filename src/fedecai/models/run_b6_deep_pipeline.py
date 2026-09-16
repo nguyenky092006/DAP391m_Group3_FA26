@@ -1,4 +1,4 @@
-"""Train the three remaining B6 neural models with grouped CV and safe resume."""
+"""Train B6 neural models with sample-level emotion-stratified CV and safe resume."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ from torch.utils.data import DataLoader, Dataset, TensorDataset
 
 from fedecai.features.mel_3ch import build_mel_3ch, pad_or_crop_mel_3ch
 from fedecai.models.b6_common import (
-    classification_metrics, git_state, load_b6_table, load_config,
+    classification_metrics, enforce_b6_training_lock, git_state, load_b6_table, load_config,
     prediction_rows, register_experiment, sha256_file, write_csv_atomic,
     write_json_atomic,
 )
@@ -41,9 +41,7 @@ from fedecai.models.centralized_evaluator import evaluate_prediction_file
 
 ROOT = Path(__file__).resolve().parents[3]
 IMAGE_MODELS = ("resnet18_mel3", "mobilenet_v3_mel3", "vit_b16_mel3")
-MODEL_ORDER = (
-    "cnn2d_logmel", *IMAGE_MODELS, "wav2vec2_embedding_mlp", "pitch_fusion",
-)
+MODEL_ORDER = ("cnn2d_logmel", *IMAGE_MODELS)
 DISPLAY_NAMES = {
     "cnn2d_logmel": "CNN2D Log-Mel Baseline",
     "resnet18_mel3": "ResNet-18 3-channel Mel-Spectrogram",
@@ -249,7 +247,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/models/b6_deep_v1.json")
     parser.add_argument("--features", default="data/interim/features/b4_features_v1/b4_full_feature_table.parquet")
-    parser.add_argument("--manifest", default="data/manifests/split_manifest_v2_enriched.csv")
+    parser.add_argument("--manifest", default="data/manifests/emotion_stratified_v1.csv")
     parser.add_argument("--models", nargs="+", choices=MODEL_ORDER)
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--preflight-only", action="store_true")
@@ -259,6 +257,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    enforce_b6_training_lock(ROOT, "deep-model training")
     config_path, feature_path, manifest_path = (resolve(ROOT, value) for value in (args.config, args.features, args.manifest))
     config = load_config(config_path)
     selected_models = args.models or list(config["models"])
@@ -269,7 +268,7 @@ def main() -> None:
         )
     frame, _ = load_b6_table(feature_path, manifest_path, config)
     if args.device == "cuda" and not torch.cuda.is_available():
-        raise RuntimeError("CUDA is unavailable. Run with .venv-gpu, or explicitly pass --device cpu.")
+        raise RuntimeError("CUDA is unavailable in DAP301m; explicitly pass --device cpu only for supported lightweight checks.")
     device = torch.device(args.device)
     encoder = LabelEncoder().fit(config["emotion_order"])
     train_all = frame[frame["split"] == "train"].reset_index(drop=True)

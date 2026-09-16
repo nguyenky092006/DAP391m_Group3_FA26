@@ -73,7 +73,7 @@ def save_figure(figure, output: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--metrics", nargs=8, type=Path, required=True)
-    parser.add_argument("--output-dir", type=Path, default=ROOT / "artifacts/report")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "reports/centralized_benchmark")
     args = parser.parse_args()
     output = args.output_dir.resolve(); output.mkdir(parents=True, exist_ok=True)
     frame = load_metrics([path.resolve() for path in args.metrics])
@@ -130,7 +130,7 @@ def main() -> None:
     save_figure(figure, output / "model_efficiency_comparison")
 
     (output / "centralized_benchmark_caption.md").write_text(
-        "Centralized eight-model comparison on the fixed speaker-disjoint test set. "
+        "Centralized eight-model comparison on the fixed emotion-stratified test set. "
         "All values and figures are generated from saved prediction-derived metrics; "
         "red markers denote the four-dimensional Pareto front.\n", encoding="utf-8",
     )

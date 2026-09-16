@@ -73,7 +73,7 @@ def render_table(
                 artist[(row_index, column_index)].set_text_props(weight="bold")
     figure.text(
         0.5, 0.035,
-        "Validation set: 646 utterances, speaker_disjoint_v2. Development evidence only — NOT final-test results.",
+        "Validation set: 646 utterances, emotion_stratified_v1. Development evidence only — NOT final-test results.",
         ha="center", fontsize=9, style="italic",
     )
     figure.tight_layout(rect=(0, 0.07, 1, 1))

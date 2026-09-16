@@ -9,22 +9,22 @@
   "test_samples_reserved": 665,
   "features": 168,
   "cv_folds": [
-    "fold_0",
     "fold_1",
     "fold_2",
     "fold_3",
-    "fold_4"
+    "fold_4",
+    "fold_5"
   ],
   "best_parameters": {
     "model__C": 1.0,
-    "model__gamma": "scale"
+    "model__gamma": 0.01
   },
-  "best_cv_macro_f1": 0.41371204477998696,
-  "grid_search_seconds": 6.84735290001845,
+  "best_cv_macro_f1": 0.5945509363044595,
+  "grid_search_seconds": 8.21510119998129,
   "probability_calibration": "sigmoid CalibratedClassifierCV using B5 grouped folds",
   "prediction_rule": "selected estimator decision rule; grouped calibrator supplies confidence only",
-  "calibration_seconds": 3.4817919000051916,
-  "total_tuning_seconds": 10.329144800023641,
+  "calibration_seconds": 3.3919181000092067,
+  "total_tuning_seconds": 11.607019299990498,
   "costs": {
     "total_parameters": null,
     "trainable_parameters": null,
@@ -33,14 +33,14 @@
     },
     "model_size_definition": "serialized deployable artifacts; bytes / 1024^2",
     "checkpoint_artifact": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\checkpoints\\b6_svm_rbf_seed391.joblib",
-    "checkpoint_size_mb": 8.187570571899414,
+    "checkpoint_size_mb": 8.890481948852539,
     "external_artifacts": [],
     "external_artifacts_size_mb": 0.0,
-    "effective_deployment_size_mb": 8.187570571899414,
-    "model_size_mb": 8.187570571899414,
-    "training_start_timestamp": "2026-09-14T02:17:15.923009+00:00",
-    "training_end_timestamp": "2026-09-14T02:17:26.252185+00:00",
-    "training_time_sec": 10.329151399986586,
+    "effective_deployment_size_mb": 8.890481948852539,
+    "model_size_mb": 8.890481948852539,
+    "training_start_timestamp": "2026-09-14T14:44:28.341070+00:00",
+    "training_end_timestamp": "2026-09-14T14:44:39.947847+00:00",
+    "training_time_sec": 11.60702520000632,
     "platform": "Windows-11-10.0.26200-SP0",
     "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
     "device": "cpu",
@@ -51,14 +51,14 @@
     "timed_runs": 50,
     "preprocessing_included": false,
     "primary_latency_statistic": "median",
-    "inference_latency_ms": 2.92895,
-    "latency_mean_ms": 3.0166340000000003,
-    "latency_median_ms": 2.92895,
-    "latency_std_ms": 0.460502989614617,
-    "latency_p95_ms": 3.78059,
+    "inference_latency_ms": 2.64785,
+    "latency_mean_ms": 2.6818419999999996,
+    "latency_median_ms": 2.64785,
+    "latency_std_ms": 0.3300756235107342,
+    "latency_p95_ms": 3.342359999999999,
     "feature_extraction_time_sec": null,
-    "model_training_time_sec": 10.329151399986586,
-    "end_to_end_training_pipeline_time_sec": 10.329151399986586,
+    "model_training_time_sec": 11.60702520000632,
+    "end_to_end_training_pipeline_time_sec": 11.60702520000632,
     "cost_protocol": {
       "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
       "latency_path": "model-ready 168-feature vector -> fitted estimator"
@@ -67,40 +67,40 @@
   "validation_metrics": {
     "overall": {
       "samples": 646,
-      "accuracy": 0.48297213622291024,
-      "macro_f1": 0.4663039778267338,
-      "weighted_f1": 0.48066797698854097,
-      "uar": 0.46225090134382174,
+      "accuracy": 0.6021671826625387,
+      "macro_f1": 0.5909914982662923,
+      "weighted_f1": 0.5996038923279545,
+      "uar": 0.5920557111733582,
       "per_class_f1": {
-        "angry": 0.5813148788927336,
-        "happy": 0.3333333333333333,
-        "neutral": 0.5206611570247934,
-        "sad": 0.42990654205607476
+        "angry": 0.7263427109974424,
+        "happy": 0.45267489711934156,
+        "neutral": 0.5402597402597402,
+        "sad": 0.6446886446886447
       },
       "per_class": {
         "angry": {
-          "precision": 0.60431654676259,
-          "recall": 0.56,
-          "f1": 0.5813148788927336,
-          "support": 150
+          "precision": 0.7029702970297029,
+          "recall": 0.7513227513227513,
+          "f1": 0.7263427109974424,
+          "support": 189
         },
         "happy": {
-          "precision": 0.36666666666666664,
-          "recall": 0.3055555555555556,
-          "f1": 0.3333333333333333,
-          "support": 108
+          "precision": 0.4700854700854701,
+          "recall": 0.4365079365079365,
+          "f1": 0.45267489711934156,
+          "support": 126
         },
         "neutral": {
-          "precision": 0.4883720930232558,
-          "recall": 0.5575221238938053,
-          "f1": 0.5206611570247934,
-          "support": 226
+          "precision": 0.5473684210526316,
+          "recall": 0.5333333333333333,
+          "f1": 0.5402597402597402,
+          "support": 195
         },
         "sad": {
-          "precision": 0.4339622641509434,
-          "recall": 0.42592592592592593,
-          "f1": 0.42990654205607476,
-          "support": 162
+          "precision": 0.6423357664233577,
+          "recall": 0.6470588235294118,
+          "f1": 0.6446886446886447,
+          "support": 136
         }
       },
       "confusion_matrix": {
@@ -112,79 +112,79 @@
         ],
         "values": [
           [
-            84,
-            24,
-            30,
-            12
-          ],
-          [
-            11,
-            33,
-            40,
-            24
-          ],
-          [
+            142,
+            16,
             18,
-            28,
-            126,
-            54
+            13
           ],
           [
             26,
-            5,
-            62,
-            69
+            55,
+            39,
+            6
+          ],
+          [
+            26,
+            35,
+            104,
+            30
+          ],
+          [
+            8,
+            11,
+            29,
+            88
           ]
         ]
       }
     },
     "per_accent": {
       "central": {
-        "samples": 26,
-        "macro_f1": 0.36813186813186816,
-        "uar": 0.48214285714285715,
+        "samples": 35,
+        "macro_f1": 0.5466859716859717,
+        "uar": 0.6666666666666667,
         "per_emotion_f1": {
-          "angry": 0.2857142857142857,
-          "happy": 0.6153846153846154,
-          "neutral": 0.5714285714285714,
-          "sad": 0.0
+          "angry": 0.6666666666666666,
+          "happy": 0.6486486486486487,
+          "neutral": 0.3,
+          "sad": 0.5714285714285714
         }
       },
       "north": {
-        "samples": 200,
-        "macro_f1": 0.43264895330112724,
-        "uar": 0.435748223901534,
+        "samples": 154,
+        "macro_f1": 0.539905990886383,
+        "uar": 0.5422238372093023,
         "per_emotion_f1": {
-          "angry": 0.45,
-          "happy": 0.4074074074074074,
-          "neutral": 0.4166666666666667,
-          "sad": 0.45652173913043476
+          "angry": 0.6172839506172839,
+          "happy": 0.4117647058823529,
+          "neutral": 0.4835164835164835,
+          "sad": 0.6470588235294118
         }
       },
       "south": {
-        "samples": 420,
-        "macro_f1": 0.45492134269729967,
-        "uar": 0.46015486652028376,
+        "samples": 457,
+        "macro_f1": 0.5999939461679886,
+        "uar": 0.5985270212243896,
         "per_emotion_f1": {
-          "angry": 0.6435643564356436,
-          "happy": 0.18181818181818182,
-          "neutral": 0.5539358600583091,
-          "sad": 0.44036697247706424
+          "angry": 0.756578947368421,
+          "happy": 0.42028985507246375,
+          "neutral": 0.5766423357664233,
+          "sad": 0.6464646464646465
         }
       }
     },
-    "worst_accent_macro_f1": 0.36813186813186816,
-    "best_accent_macro_f1": 0.45492134269729967,
-    "accent_macro_f1_gap": 0.08678947456543151,
-    "accent_macro_f1_std": 0.03680417624777542
+    "worst_accent_macro_f1": 0.539905990886383,
+    "best_accent_macro_f1": 0.5999939461679886,
+    "accent_macro_f1_gap": 0.0600879552816056,
+    "accent_macro_f1_std": 0.026870617271457595
   },
   "model_artifact": "artifacts/checkpoints/b6_svm_rbf_seed391.joblib",
-  "model_artifact_sha256": "40eef0bfbe819005a50f7c9c93ab5638621a85fba7f1dbeb667156f7e6cd6186",
+  "model_artifact_sha256": "62bfce6163caedc32f20ded46630fe2232263bbf41da5fea695d92413cdc2bea",
   "lineage": {
-    "config_sha256": "b000f8a74902e37bb44a7d8d81637c021f11f1e540474f68ecda13f8c474a57c",
+    "config_sha256": "db610cc80a477d426017238cde49942b01fb2d3b505d6805222b285901c066e2",
     "features_sha256": "89ed3bd079786b40a9f0a6e84f5952aae9f71beb8c5ec64048cb7ad4b8de994f",
-    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
-    "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+    "manifest_sha256": "d1ff69387dedfee1a07ec46c7e157b04eb322b32adddf4bef6248b56faa9025f",
+    "git_commit": "879595ebd9ee798be11b7544297eb79aedb60119",
     "worktree_dirty": true
   }
 }

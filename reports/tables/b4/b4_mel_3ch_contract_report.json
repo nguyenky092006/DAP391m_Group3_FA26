@@ -11,9 +11,9 @@
   "materialization": "on_load_from_existing_log_mel_artifact",
   "target_frames_selection_scope": "train_only_after_b5",
   "config_path": "configs/features/visec_features_v1.json",
-  "config_sha256": "0d3709e3594e1b0d92c14b51a09e73afc7ec8c42823d503963c0b827cabb2475",
+  "config_sha256": "4b2ad5119b062a128fc54287300ec6e9645927e6582b6e792579585b9d3845c7",
   "source_index_path": "reports/tables/b4/b4_handcrafted_full_feature_index.csv",
   "source_index_sha256": "407f17e9bd4bb550bc705a7e6ee107e7b3419c82ee0511f44ae8d84466be9355",
-  "git_commit": "675568845895309c157442b85fb2c88af3f9b8a3",
+  "git_commit": "879595ebd9ee798be11b7544297eb79aedb60119",
   "worktree_dirty": true
 }

@@ -1,6 +1,6 @@
 {
   "b3_version": "b3.2-v2",
-  "scope": "All B2-eligible rows from canonical speaker-disjoint split v2; split labels are used only for coverage and leakage checks.",
+  "scope": "All B2-eligible rows from the canonical emotion-stratified split; speaker overlap is descriptive and exact waveform duplication is the leakage hard gate.",
   "source_rows": 5280,
   "eligible_rows": 4992,
   "excluded_rows": 288,
@@ -25,7 +25,7 @@
   "quality_flags": {
     "possible_clipping": 77,
     "high_silence": 403,
-    "mean_silent_frame_ratio": 0.2836778173171239
+    "mean_silent_frame_ratio": 0.2836778173171238
   },
   "largest_speaker": {
     "speaker_id": "0",
@@ -34,9 +34,9 @@
     "eligible_share": 0.4441105769230769
   },
   "split_speaker_counts": {
-    "test": 22,
-    "train": 103,
-    "validation": 22
+    "test": 105,
+    "train": 143,
+    "validation": 98
   },
   "split_cross_stratum_complete": true,
   "missing_split_cells": [],

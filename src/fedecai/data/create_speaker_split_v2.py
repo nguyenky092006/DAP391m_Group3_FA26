@@ -1,4 +1,4 @@
-"""Create ViSEC speaker-disjoint split v2 with full accent-emotion coverage.
+"""Historical inactive ViSEC speaker-disjoint v2 generator.
 
 Version 1 is never read as an output target and is never overwritten. Version 2
 starts from the B2 clean manifest, assigns whole speakers, and requires every

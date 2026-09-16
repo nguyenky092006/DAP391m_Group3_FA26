@@ -1,4 +1,4 @@
-"""Build deterministic grouped-CV and federated partitions for B5 split v2."""
+"""Historical grouped-CV helpers retained as inactive source reference."""
 
 from __future__ import annotations
 

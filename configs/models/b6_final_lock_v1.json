@@ -1,0 +1,90 @@
+{
+  "schema_version": "b6.final_lock.v1",
+  "lock_version": "20260915_final_b6_v1",
+  "locked": true,
+  "centralized_hyperparameter_search": "CLOSED",
+  "centralized_retraining": "DISABLED_BY_HUMAN_DECISION",
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "seed": 391,
+  "validation_sample_count": 646,
+  "fixed_test_sample_count": 665,
+  "fixed_test_status": "UNTOUCHED",
+  "federated_backbone": "resnet18_mel3",
+  "backbone_training_policy": "full_finetune",
+  "efficiency_fallback": "mobilenet_v3_mel3",
+  "final_models": [
+    {
+      "experiment_id": "b6_svm_rbf_seed391",
+      "model": "svm_rbf",
+      "training_policy": "standard_training_on_fixed_handcrafted_features",
+      "checkpoint": "artifacts/checkpoints/b6_svm_rbf_seed391.joblib",
+      "metrics": "artifacts/metrics/b6_svm_rbf_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_svm_rbf_seed391_validation.csv",
+      "report": "reports/tables/b6/svm_rbf_validation_report.json"
+    },
+    {
+      "experiment_id": "b6_xgboost_seed391",
+      "model": "xgboost",
+      "training_policy": "standard_training_on_fixed_handcrafted_features",
+      "checkpoint": "artifacts/checkpoints/b6_xgboost_seed391.joblib",
+      "metrics": "artifacts/metrics/b6_xgboost_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_xgboost_seed391_validation.csv",
+      "report": "reports/tables/b6/xgboost_validation_report.json"
+    },
+    {
+      "experiment_id": "b6_cnn2d_logmel_seed391",
+      "model": "cnn2d_logmel",
+      "training_policy": "end_to_end_from_scratch_on_log_mel",
+      "checkpoint": "artifacts/checkpoints/b6_cnn2d_logmel_seed391.pt",
+      "metrics": "artifacts/metrics/b6_cnn2d_logmel_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_cnn2d_logmel_seed391_validation.csv",
+      "report": "reports/tables/b6/cnn2d_logmel_report.json"
+    },
+    {
+      "experiment_id": "b6_resnet18_mel3_finetune_seed391",
+      "model": "resnet18_mel3",
+      "training_policy": "imagenet_pretrained_full_network_finetune_on_mel3",
+      "checkpoint": "artifacts/checkpoints/b6_resnet18_mel3_finetune_seed391.pt",
+      "metrics": "artifacts/metrics/b6_resnet18_mel3_finetune_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_resnet18_mel3_finetune_seed391_validation.csv",
+      "report": "reports/tables/b6_performance/b6_resnet18_mel3_finetune_seed391_report.json"
+    },
+    {
+      "experiment_id": "b6_mobilenet_v3_mel3_finetune_seed391",
+      "model": "mobilenet_v3_mel3",
+      "training_policy": "imagenet_pretrained_full_network_finetune_on_mel3",
+      "checkpoint": "artifacts/checkpoints/b6_mobilenet_v3_mel3_finetune_seed391.pt",
+      "metrics": "artifacts/metrics/b6_mobilenet_v3_mel3_finetune_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_mobilenet_v3_mel3_finetune_seed391_validation.csv",
+      "report": "reports/tables/b6_performance/b6_mobilenet_v3_mel3_finetune_seed391_report.json"
+    },
+    {
+      "experiment_id": "b6_vit_b16_mel3_seed391",
+      "model": "vit_b16_mel3",
+      "training_policy": "frozen_imagenet_backbone_cached_embeddings_head_only",
+      "checkpoint": "artifacts/checkpoints/b6_vit_b16_mel3_seed391.pt",
+      "metrics": "artifacts/metrics/b6_vit_b16_mel3_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_vit_b16_mel3_seed391_validation.csv",
+      "report": "reports/tables/b6/vit_b16_mel3_report.json"
+    },
+    {
+      "experiment_id": "b6_wav2vec2_raw_seed391",
+      "model": "wav2vec2_raw",
+      "training_policy": "frozen_wav2vec2_encoder_cached_embeddings_head_only",
+      "checkpoint": "artifacts/checkpoints/b6_wav2vec2_raw_seed391.pt",
+      "metrics": "artifacts/metrics/b6_wav2vec2_raw_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_wav2vec2_raw_seed391_validation.csv",
+      "report": "reports/tables/b6/wav2vec2_raw_report.json"
+    },
+    {
+      "experiment_id": "b6_pitch_fusion_paper_aligned_seed391",
+      "model": "pitch_fusion_paper_aligned",
+      "training_policy": "paper_aligned_fusion_with_fully_frozen_wav2vec2_encoder",
+      "checkpoint": "artifacts/checkpoints/b6_pitch_fusion_paper_aligned_seed391.pt",
+      "metrics": "artifacts/metrics/b6_pitch_fusion_paper_aligned_seed391_validation.json",
+      "predictions": "artifacts/predictions/b6_pitch_fusion_paper_aligned_seed391_validation.csv",
+      "report": "reports/tables/b6/pitch_fusion_paper_aligned_report.json"
+    }
+  ]
+}

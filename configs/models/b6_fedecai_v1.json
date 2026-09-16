@@ -1,34 +1,117 @@
 {
-  "schema_version": "b6.fedecai.v1",
+  "schema_version": "fedecai.experiment_plan.v2",
+  "execution_status": "COMPLETE",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
+  "split_version": "emotion_stratified_v1",
+  "backbone_status": "SELECTED",
+  "candidate_backbones": ["resnet18_mel3", "mobilenet_v3_mel3"],
+  "selected_backbone": "resnet18_mel3",
+  "selected_backbone_training_policy": "full_finetune",
+  "efficiency_fallback": "mobilenet_v3_mel3",
+  "human_decision_required": false,
+  "selection_source": "FINAL B6 LOCK human decision 2026-09-15",
   "emotion_order": ["angry", "happy", "neutral", "sad"],
-  "accent_order": ["central", "north", "south"],
-  "training": {
-    "epochs": 30,
-    "batch_size": 32,
-    "learning_rate": 0.001,
-    "weight_decay": 0.0001,
-    "dropout": 0.35,
-    "max_frames": 512,
-    "gradient_clip": 5.0,
-    "adversarial_lambda": 0.1,
-    "warmup_epochs": 3
+  "accent_order": ["north", "central", "south"],
+  "input_contract": {
+    "representation": "3-channel Mel-Spectrogram",
+    "adapter": "repeat_normalized_log_mel"
+  },
+  "representation_tap": {
+    "source": "torchvision ResNet18 pooled feature immediately before final emotion FC",
+    "dimension": 512,
+    "shared_by": ["emotion_classifier", "accent_adversary"]
+  },
+  "conditioning_contract": {
+    "emotion_posterior": "softmax(emotion_logits)",
+    "posterior_gradient_policy": "stop_gradient",
+    "conditional_representation": "concat(h, stop_gradient(p_emotion))",
+    "accent_path": "accent_discriminator(GRL(conditional_representation))",
+    "training_condition": "predicted_emotion_posterior",
+    "inference_condition": "predicted_emotion_posterior",
+    "true_emotion_required_at_inference": false,
+    "grl_sign_policy": "verify_against_implemented_grl_primitive"
+  },
+  "controlled_centralized_contract": {
+    "experiments": ["E1", "E2", "E3"],
+    "hold_constant_where_technically_possible": [
+      "resnet18_architecture",
+      "three_channel_mel_representation",
+      "emotion_classifier",
+      "train_validation_membership",
+      "seed_391",
+      "optimizer_family",
+      "training_budget",
+      "augmentation",
+      "batch_policy",
+      "checkpoint_selection_rule",
+      "evaluation_metrics"
+    ]
+  },
+  "lambda_adv": {
+    "grid": [0.0, 0.05, 0.1, 0.25, 0.5, 1.0],
+    "selection_split": "development_only",
+    "max_planning_macro_f1_degradation_absolute": [0.01, 0.02],
+    "preferred_secondary_directions": [
+      "worst_accent_macro_f1_increase",
+      "accent_gap_decrease",
+      "accent_probe_performance_decrease"
+    ]
   },
   "federated": {
+    "client_source": "B5 retained training-only client assignments",
+    "validation_or_test_in_clients": false,
     "rounds": 20,
     "local_epochs": 1,
     "client_fraction": 1.0,
     "fedprox_mu": 0.01,
-    "scenarios": ["main", "stress"]
+    "scenarios": ["main", "stress"],
+    "shared_across_e4_e7": [
+      "client_membership",
+      "initial_model_architecture",
+      "client_sampling_policy",
+      "rounds",
+      "local_epochs",
+      "local_batch_size",
+      "optimizer_baseline",
+      "evaluation_schedule"
+    ]
   },
   "experiments": {
-    "E1": "centralized_cnn",
-    "E2": "centralized_unconditional_grl",
-    "E3": "centralized_emotion_conditioned_grl",
-    "E4": "fedavg_cnn",
-    "E5": "fedprox_cnn",
-    "E6": "fedavg_unconditional_grl",
-    "E7": "fedecai"
-  }
+    "E1": {
+      "name": "centralized_resnet18_baseline",
+      "status": "BASELINE_AVAILABLE_FROM_LOCKED_B6",
+      "reference_experiment_id": "b6_resnet18_mel3_finetune_seed391",
+      "retrain": false,
+      "adversary": "none"
+    },
+    "E2": {"name": "centralized_resnet18_unconditional_grl", "status": "COMPLETE", "active_config": "configs/models/fedecai/e2_resnet18_unconditional_grl.json"},
+    "E3": {"name": "centralized_resnet18_emotion_conditioned_grl", "status": "COMPLETE", "active_config": "configs/models/fedecai/e3_resnet18_emotion_conditioned_grl.json"},
+    "E4": {"name": "federated_resnet18_fedavg", "status": "COMPLETE", "adversary": "none", "active_config": "configs/models/fedecai/e4_fedavg_resnet18.json"},
+    "E5": {"name": "federated_resnet18_fedprox", "status": "COMPLETE", "adversary": "none", "active_config": "configs/models/fedecai/e5_fedprox_resnet18.json"},
+    "E6": {"name": "federated_resnet18_fedavg_unconditional_grl", "status": "COMPLETE", "active_config": "configs/models/fedecai/e6_fedavg_resnet18_unconditional_grl.json"},
+    "E7": {"name": "fedecai_resnet18_emotion_conditioned_grl", "status": "COMPLETE", "active_config": "configs/models/fedecai/e7_fedecai_resnet18.json"}
+  },
+  "future_work": {
+    "E8": {"name": "wav2vec2_based_fedecai", "status": "FUTURE_WORK_ONLY"}
+  },
+  "locked_e1_validation_reference": {
+    "overall_macro_f1": 0.6218351697860597,
+    "uar": 0.6216308745720511,
+    "accuracy": 0.6439628482972136,
+    "north_macro_f1": 0.5651249841390686,
+    "central_macro_f1": 0.5184027777777778,
+    "south_macro_f1": 0.6469934829083388,
+    "worst_accent_macro_f1": 0.5184027777777778,
+    "accent_gap": 0.12859070513056103
+  },
+  "required_metrics": [
+    "overall_macro_f1", "uar", "weighted_f1", "accuracy",
+    "north_macro_f1", "central_macro_f1", "south_macro_f1",
+    "worst_accent_macro_f1", "best_accent_macro_f1", "accent_gap", "accent_std",
+    "per_emotion_f1", "per_emotion_recall", "per_emotion_within_accent",
+    "accent_probe_macro_f1", "accent_probe_uar", "total_parameters",
+    "trainable_parameters", "model_size", "training_time", "inference_latency",
+    "communication_cost_where_applicable"
+  ],
+  "test_set_status": "UNTOUCHED"
 }

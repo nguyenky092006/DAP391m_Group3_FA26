@@ -2,70 +2,55 @@
 
 ## Objective
 
-Maintain one frozen, versioned, speaker-disjoint ViSEC train/validation/test split and reproducible grouped-CV and federated-client assignments. B5 defines data membership only; it does not train models, tune on test data, or claim federated privacy.
+Maintain one deterministic sample-level emotion-stratified global split,
+sample-stratified classical CV folds and versioned main/stress federated clients.
 
 ## Technical Details
 
-- Canonical split version: `speaker_disjoint_v2`, seed `391`.
-- Eligible population: 4,992 unique-waveform samples from 147 released speaker IDs; 288 B2-excluded rows remain excluded.
-- Frozen global membership: train 3,681 samples/103 speakers, validation 646/22, and test 665/22.
-- Speaker overlap must be zero for train–validation, train–test, and validation–test.
-- All 36 split–accent–emotion cells contain at least one sample and speaker; low-support cells remain documented.
-- Grouped CV assigns each training speaker to exactly one of five folds. Validation/test speakers receive no CV fold.
-- Federated main scenario: `main_mixed_accent_v1`, three mixed-accent clients.
-- Federated stress scenario: `stress_accent_domain_v1`, three single-accent domain clients.
-- Every training speaker is assigned exactly once in each scenario; no validation/test speaker is assigned.
-- Augmentation and train-fitted preprocessing may operate only on training membership. The fixed test set is never a tuning source.
-- Speaker-disjoint claims are limited to the released `speaker_id` metadata. Source documentation does not establish whether ID `0` is one person or a catch-all identifier.
+- Split version: `emotion_stratified_v1`; seed 391.
+- Eligible population: 4,992 unique-waveform samples.
+- Preserve established counts: train 3,681, validation 646, test 665.
+- Stratify train/validation/test with emotion as the primary target and accent
+  as a secondary joint balancing stratum; do not group by speaker.
+- `speaker_id` remains metadata. Pairwise overlap is allowed and reported as `INFO`.
+- Hard-fail exact waveform or file identity duplicated across splits.
+- Classical CV uses deterministic shuffled `StratifiedKFold` by emotion on
+  training samples. Fitted preprocessing remains fold-local.
+- Fixed test IDs are shared by all eight models and never used for tuning.
+- Main mixed-accent and stress accent-domain clients use training samples only;
+  speaker metadata may be used descriptively inside client statistics.
 
 ## Metrics
 
-- Samples and distinct speakers by global split.
-- Pairwise speaker overlap counts.
-- Duplicate eligible waveform-hash count.
-- Split–accent–emotion coverage: 36/36 populated cells.
-- Grouped-CV fold count and one-fold-per-training-speaker coverage.
-- Main/stress client counts, samples, speakers, accents, emotions, and assignment completeness.
-- Deterministic speaker-assignment SHA-256 and protected-v1 hash checks.
-- No model metric, privacy guarantee, or fabricated statistic is part of B5.
+- Dataset and split totals; emotion/accent counts by split.
+- Unique speakers by split and pairwise overlaps as `INFO`.
+- Cross-split duplicate waveform/file identity counts.
+- Assignment and fixed-test SHA-256 hashes.
+- CV and federated-client coverage/version checks.
 
 ## Products & Deliverables
 
-- `data/manifests/split_manifest_v2.csv`
-- `data/manifests/split_manifest_v2_enriched.csv`
-- `data/manifests/split_report_v2.json`
-- `data/manifests/federated_speaker_partitions_v1.csv`
-- B5 summaries under `reports/tables/b5/`
-- `src/fedecai/data/create_speaker_split_v2.py`
+- `src/fedecai/data/create_emotion_stratified_split.py`
 - `src/fedecai/data/run_b5_split_pipeline.py`
 - `src/fedecai/data/build_b5_federated_scenarios.py`
-- `tests/test_create_speaker_split_v2.py`
-- `tests/test_b5_federated_scenarios.py`
-- This consolidated `docs/research/B5_SPEC.md`
+- `data/manifests/emotion_stratified_v1.csv`
+- `data/manifests/emotion_stratified_v1_report.json`
+- `data/manifests/federated_client_assignments_emotion_stratified_v1.csv`
+- B5 tests and compact validation/client summaries
 
 ## Definition of Done
 
-- Canonical split v2 is versioned, frozen, deterministic, and preserves v1 artifacts unchanged.
-- Train/validation/test are speaker-disjoint according to released metadata, and eligible waveform hashes are unique.
-- All eligible/excluded row counts, split counts, speaker counts, and 36 cross-stratum cells validate.
-- The same fixed test membership is available to every required centralized model and is not used for tuning.
-- Five grouped-CV folds cover every training speaker exactly once and exclude non-training speakers.
-- Both main and stress federated scenarios exist, are versioned, and assign all training speakers exactly once.
-- Per-client sample/speaker/accent/emotion summaries exist and expose the dominant-speaker/client imbalance.
-- Augmentation and fitted preprocessing are restricted to training data.
-- Source limitation for speaker ID `0` is explicit.
-- Relevant tests and read-only artifact validation pass without regenerating or overwriting split files.
+Every eligible sample is assigned once; reruns are deterministic; emotion
+stratification and fixed-test hash validate; cross-split duplicate hashes/file
+identities equal zero; speaker overlap is informational; sample-level CV and
+new-training-membership federated clients are persisted. Status is determined
+only by the generated validation evidence.
 
-## Verified finalization
+## Verified migration result
 
-The frozen v2 split contains train 3,681/103 speakers, validation 646/22 and test
-665/22. Same-seed regeneration is deterministic, protected v1 hashes remain
-unchanged, all pairwise speaker overlaps equal zero and all 36
-split–accent–emotion cells are populated. Five grouped CV folds cover training
-speakers only. Three main mixed-accent and three stress accent-domain clients
-assign every training speaker exactly once and exclude validation/test speakers.
-
-Authoritative evidence is `split_report_v2.json`,
-`reports/tables/b5/b5_pipeline_summary.json`, speaker assignments, grouped-CV
-summary and client summary. The old planning/finalization narratives have been
-merged here. Status: **DONE**.
+`emotion_stratified_v1_report.json` records PASS: 4,992 eligible samples,
+3,681/646/665 split counts, all four emotions in every split, 147 total released
+speaker IDs, speaker overlaps 95/102/78 as `INFO`, and zero cross-split waveform
+hash or file-identity duplicates. Assignment and test-membership hashes are
+persisted. Main/stress v2 client scenarios were rebuilt from the 3,681 training
+samples and passed their coverage checks. Status: **DONE**.

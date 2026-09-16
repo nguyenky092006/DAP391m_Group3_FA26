@@ -33,6 +33,7 @@ from fedecai.models.centralized_evaluator import evaluate_prediction_file
 try:
     from .b6_common import (
         classification_metrics,
+        enforce_b6_training_lock,
         git_state,
         load_b6_table,
         load_config,
@@ -45,6 +46,7 @@ try:
 except ImportError:
     from b6_common import (  # type: ignore
         classification_metrics,
+        enforce_b6_training_lock,
         git_state,
         load_b6_table,
         load_config,
@@ -59,9 +61,9 @@ except ImportError:
 def parse_args() -> argparse.Namespace:
     root = Path(__file__).resolve().parents[3]
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", type=Path, default=root / "configs/models/b6_classical_v1.json")
+    parser.add_argument("--config", type=Path, default=root / "configs/models/b6_classical_centralized_v1.json")
     parser.add_argument("--features", type=Path, default=root / "data/interim/features/b4_features_v1/b4_full_feature_table.parquet")
-    parser.add_argument("--manifest", type=Path, default=root / "data/manifests/split_manifest_v2_enriched.csv")
+    parser.add_argument("--manifest", type=Path, default=root / "data/manifests/emotion_stratified_v1.csv")
     parser.add_argument("--models", nargs="+", choices=("svm_rbf", "xgboost"), default=["svm_rbf", "xgboost"])
     parser.add_argument("--jobs", type=int, default=-1)
     parser.add_argument("--preflight-only", action="store_true")
@@ -134,8 +136,9 @@ def cv_rows(
 def main() -> None:
     args = parse_args()
     root = Path(__file__).resolve().parents[3]
+    enforce_b6_training_lock(root, "classical training/preflight")
     config = load_config(args.config.resolve())
-    print("[1/4] Validating B4 features and frozen B5 split v2")
+    print("[1/4] Validating B4 features and frozen B5 emotion-stratified split")
     frame, feature_columns = load_b6_table(args.features.resolve(), args.manifest.resolve(), config)
     counts = frame["split"].value_counts().to_dict()
     folds = sorted(frame.loc[frame["split"] == "train", "cv_fold"].unique())
@@ -149,7 +152,7 @@ def main() -> None:
     if missing:
         raise RuntimeError(
             f"Missing model dependencies for {missing}. Run: "
-            r".\.venv-gpu\Scripts\python.exe -m pip install -r requirements.txt"
+            r".\DAP301m\Scripts\python.exe -m pip install -r requirements.txt"
         )
 
     train = frame[frame["split"] == "train"].reset_index(drop=True)
@@ -203,7 +206,7 @@ def main() -> None:
             probability_estimator = search.best_estimator_
             calibration = None
             if model_name == "svm_rbf":
-                # Calibrate probabilities using the same speaker-grouped folds.
+                # Calibrate probabilities using the same emotion-stratified folds.
                 calibration = "sigmoid CalibratedClassifierCV using B5 grouped folds"
                 calibration_started = time.perf_counter()
                 probability_estimator = CalibratedClassifierCV(

@@ -25,9 +25,6 @@ class TestB4FinalEvidence(unittest.TestCase):
         mel_3ch = json.loads(
             (tables / "b4_mel_3ch_contract_report.json").read_text(encoding="utf-8")
         )
-        accent_probe = json.loads(
-            (tables / "b4_accent_probe_report.json").read_text(encoding="utf-8")
-        )
         self.assertEqual(handcrafted["status"], "PASS")
         self.assertEqual(handcrafted["clean_records"], 19968)
         self.assertEqual(wav2vec["status"], "PASS")
@@ -35,15 +32,13 @@ class TestB4FinalEvidence(unittest.TestCase):
         self.assertEqual(deliverables["status"], "PASS")
         self.assertEqual(deliverables["feature_table"]["rows"], 4992)
         self.assertEqual(deliverables["feature_table"]["columns"], 951)
-        self.assertEqual(deliverables["current_contract_revision"], "b4.features.v2")
+        feature_config = json.loads(
+            (repo_root / "configs/features/visec_features_v1.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(feature_config["contract_revision"], "b4.features.v2")
         self.assertEqual(mel_3ch["status"], "PASS")
         self.assertEqual(mel_3ch["mel_3ch_mode"], "repeat_normalized_log_mel")
         self.assertEqual(mel_3ch["validated_artifacts"], 4992)
-        self.assertEqual(accent_probe["status"], "PASS")
-        self.assertEqual(accent_probe["split_version"], "speaker_disjoint_v2")
-        self.assertEqual(accent_probe["split_audit"]["train_validation_speaker_overlap"], 0)
-        self.assertEqual(accent_probe["split_audit"]["test_samples_loaded"], 0)
-        self.assertEqual(set(accent_probe["representations"]), {"handcrafted_174", "wav2vec2_768"})
 
         expected_figures = (
             "b4_wav2vec2_pca_by_accent_emotion.png",

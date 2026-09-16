@@ -51,7 +51,7 @@ class B6CommonTests(unittest.TestCase):
         self.assertTrue(np.isfinite(result["overall"]["macro_f1"]))
         self.assertEqual(result["overall"]["per_class_f1"]["sad"], 0.0)
 
-    def test_cv_export_includes_each_grouped_fold(self):
+    def test_cv_export_includes_each_stratified_fold(self):
         class Search:
             cv_results_ = {
                 "params": [{"model__C": 1}],

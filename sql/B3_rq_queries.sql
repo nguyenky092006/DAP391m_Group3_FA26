@@ -139,6 +139,7 @@ SELECT split,
 FROM ranked
 ORDER BY split_order, accent, emotion;
 
+-- Diagnostic only under emotion_stratified_v1. Non-zero speaker overlap is allowed.
 -- name: evaluation_speaker_overlap_across_splits
 WITH speaker_splits AS (
     SELECT DISTINCT speaker_id, split

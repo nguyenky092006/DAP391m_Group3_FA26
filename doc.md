@@ -1,55 +1,71 @@
-# FedECAI — Trạng thái đã xác minh
+# FedECAI — Trạng thái project đã xác minh
 
-Cập nhật ngày 2026-09-14. Đây là tài liệu trạng thái dành cho người đọc, không phải báo cáo kết quả cuối cùng.
+Cập nhật ngày 2026-09-15 sau khi hoàn tất ladder ResNet18 E1–E7 trên tập
+validation.
 
-## Phạm vi và dữ liệu
+## Dữ liệu và protocol
 
-FedECAI nghiên cứu nhận diện bốn cảm xúc Angry, Happy, Neutral và Sad trên ViSEC, đồng thời đánh giá chênh lệch giữa ba nhóm giọng North, Central và South.
+- Dataset: `visec_clean_eligible_v1`, 4.992 waveform duy nhất, 147 speaker.
+- Split: `emotion_stratified_v1`, seed 391.
+- Train/validation/test: 3.681/646/665 mẫu.
+- Speaker có thể trùng giữa các split và chỉ được báo cáo như thông tin mô tả.
+- Trùng waveform hash và file identity giữa các split: 0.
+- Tập test 665 mẫu vẫn chưa được truy cập.
 
-- Raw ViSEC có 5.280 bản ghi và 147 speaker ID.
-- Sau B2 có 4.992 mẫu hợp lệ; 288 mẫu bị loại đều có lý do lưu trong manifest.
-- Split chuẩn là `speaker_disjoint_v2`: train 3.681 mẫu/103 speaker, validation 646 mẫu/22 speaker, test 665 mẫu/22 speaker.
-- Speaker overlap giữa train, validation và test bằng 0; test cố định chưa được dùng để tạo các kết quả phát triển hiện có.
-- B4 đã tạo đầy đủ feature cho 4.992 mẫu, gồm MFCC, eGeMAPS, pitch, log-Mel và frozen Wav2Vec2 embedding. Mel 3-channel cho các image backbone được tạo on-load từ log-Mel.
+Vì protocol là sample-level và có speaker overlap, các kết quả hiện tại không
+chứng minh khả năng tổng quát hóa tới speaker hoàn toàn mới.
 
-Chi tiết đã hợp nhất theo bước tại `docs/research/B1_SPEC.md` đến `docs/research/B6_SPEC.md`. Audit takeover đầy đủ nằm ở `docs/PROJECT_STATUS_AUDIT.md`.
+## B6 và backbone
 
-## Trạng thái B1–B6
+B6 đã khóa tám centralized model. ResNet18 3-channel Mel với full fine-tuning
+được người dùng chọn làm backbone; MobileNetV3 là phương án hiệu quả dự phòng.
+E1 dùng lại đúng checkpoint B6
+`b6_resnet18_mel3_finetune_seed391`, không train lại.
 
-| Bước | Trạng thái đã xác minh |
+## Kết quả ladder E1–E7 trên validation
+
+E2–E7 đã hoàn tất bằng cùng 646 sample ID validation. Mỗi run có config,
+prediction, metric, checkpoint, history, chi phí tài nguyên và kiểm tra replay.
+Final integrity audit trả về `PASS`; mọi run ghi `test_samples_loaded=0`.
+
+| Experiment | Phương pháp | Macro-F1 | Worst-accent F1 | Accent gap | Accent probe F1 |
+| --- | --- | ---: | ---: | ---: | ---: |
+| E1 | Centralized ResNet18 | 0.621835 | 0.518403 | 0.128591 | 0.712096 |
+| E2 | Centralized unconditional GRL | 0.610973 | 0.455529 | 0.189409 | 0.693879 |
+| E3 | Centralized conditional GRL | 0.587763 | 0.543859 | 0.059016 | 0.652572 |
+| E4 | FedAvg | 0.646339 | 0.552033 | 0.129835 | 0.693218 |
+| E5 | FedProx | 0.648969 | 0.588607 | 0.069624 | 0.684325 |
+| E6 | FedAvg + unconditional GRL | 0.643101 | 0.406917 | 0.263270 | 0.712058 |
+| E7 | FedECAI conditional GRL | 0.642503 | 0.551200 | 0.112855 | 0.748564 |
+
+E5 có Macro-F1 và Worst-accent Macro-F1 cao nhất trong nhóm federated chính.
+E7 chưa chứng minh accent invariance: so với E4, utility và Worst-accent F1 hơi
+thấp hơn, accent gap nhỏ hơn nhưng accent-probe F1 lại cao hơn. Đây chỉ là kết
+quả validation, không phải kết luận final-test.
+
+## Trạng thái B-step
+
+| Bước | Trạng thái hiện tại |
 | --- | --- |
-| B1 | DONE |
-| B2 | DONE |
-| B3 | DONE |
-| B4 | DONE |
-| B5 | DONE |
-| B6 | PARTIAL — 8/8 development validation complete; final test/report/Pareto chưa thực hiện |
+| B1–B5 | DONE theo protocol hiện hành |
+| B6 | LOCKED; tám centralized model được giữ nguyên |
+| B7 | PARTIAL; so sánh validation E1–E7 hoàn tất, final test chưa chạy |
+| B8 | PARTIAL; run kiểm soát dùng lambda 0.10, RQ6 lambda sweep chưa bắt đầu |
+| B9 | Chưa được thực hiện trong task này |
+| B10 | PARTIAL; decision packet đã có, báo cáo cuối chưa hoàn tất |
 
-Benchmark centralized bắt buộc gồm đúng 8 model: SVM, XGBoost, CNN 2D, ResNet-18, MobileNetV3, ViT, raw-waveform frozen Wav2Vec2 và Pitch-Fusion. ViT vẫn được giữ vì thuộc protocol đã chốt; không được xóa chỉ dựa trên một kết quả validation thấp.
+## Bằng chứng chính
 
-Infrastructure của cả 8 path đã pass smoke test với nhãn `SMOKE_TEST_ONLY`; smoke metric không phải benchmark result. Cả 8 model hiện có checkpoint, 646 prediction validation và metrics JSON chuẩn. Macro-F1 validation lần lượt là SVM 0.4663, XGBoost 0.4236, CNN2D 0.3430, ResNet-18 0.3518, MobileNetV3 0.3702, ViT frozen-pretrained 0.4142, raw-waveform frozen Wav2Vec2 0.4193 và Pitch-Fusion 0.6023. Đây vẫn là development evidence, không phải final-test result.
+- Kết quả E1–E7: `reports/tables/fedecai/e1_e7_full_ladder.csv`
+- So sánh RQ4: `reports/tables/fedecai/rq4_e1_e2_e3.csv`
+- So sánh RQ5: `reports/tables/fedecai/rq5_e4_e5_e6_e7.csv`
+- Decision packet: `reports/tables/fedecai/FEDECAI_E1_E7_DECISION_PACKET.md`
+- Integrity audit: `artifacts/fedecai/final_integrity_audit.json`
+- Run evidence: `logs/runs/fedecai_e1_e7_20260915/`
+- Registry: `logs/run_index.csv`, `logs/experiment_registry.csv`
 
-Bảng dễ đọc được sinh trực tiếp từ các metrics JSON tại `artifacts/metrics/b6_centralized_validation_summary.csv`. Chi tiết per-class, per-accent, confusion matrix và chi phí của từng model nằm trong tám file `artifacts/metrics/b6_*_seed391_validation.json`.
+## Chưa được phép tự động thực hiện
 
-## Runtime và hard gate
-
-Benchmark dùng đúng interpreter:
-
-`D:\PROJECT\PVC_FedOrion\DAP391m_Group3_FA26\DAP301m\Scripts\python.exe`
-
-Environment đã xác minh: Python 3.12.13, Torch 2.11.0+cu126, torchvision 0.26.0+cu126, Transformers 4.57.6, CUDA 12.6 và NVIDIA GeForce RTX 4060 Laptop GPU. Torchaudio không có nhưng không phải dependency của 8 runner hiện tại.
-
-`artifacts/audit/benchmark_preflight.json` hiện báo `CENTRALIZED_INFRASTRUCTURE_STATUS = READY`. Development validation 8 model đã hoàn tất; bước còn thiếu của B6 là đánh giá đúng một lần trên fixed test sau khi đóng băng cấu hình, tạo report/Pareto và chờ người dùng chọn backbone. Chưa cho phép GRL, FedAvg, FedProx, federated learning hoặc FedECAI và chưa có backbone nào được chọn.
-
-## Evidence và tổ chức repository
-
-- Tài liệu nghiên cứu chủ đạo: 6 file `docs/research/B1_SPEC.md` … `B6_SPEC.md`.
-- Prediction/checkpoint/metrics hiện hành: `artifacts/predictions/`, `artifacts/checkpoints/`, `artifacts/metrics/`.
-- Run kiểm định hạ tầng đầy đủ mới nhất: `logs/runs/20260914_155444_centralized_infrastructure_seed391/`.
-- Audit 8 bộ artifact validation: `logs/runs/20260914_093211_b6_validation_artifact_audit_seed391/`.
-- Lịch sử các run hạ tầng cũ: `logs/infrastructure_run_history.csv` và `artifacts/archive/infrastructure_runs_pre_155544.zip`.
-- Log terminal B4–B6 cũ đã hợp nhất tại `logs/legacy_terminal_runs.log`.
-- Report FedECAI preliminary cũ đã archive tại `artifacts/archive/legacy_fedecai_reports.zip`; chúng không phải bằng chứng centralized hiện hành.
-- Quyết định dọn file và khả năng khôi phục: `artifacts/audit/repository_cleanup_manifest.csv`.
-
-Fixed-test benchmark, report-ready figures, Pareto frontier và backbone decision đều chưa tồn tại. Không được tự tạo hoặc diễn giải smoke/development metrics thành kết quả cuối cùng.
+RQ6 lambda sweep vẫn là `NOT_STARTED`; chưa có lambda cuối được chọn. Fixed test
+vẫn là `UNTOUCHED`. E8 Wav2Vec2 FedECAI chỉ là future work. Không được tự động
+train thêm, mở test, hoặc diễn giải validation metric thành final result.

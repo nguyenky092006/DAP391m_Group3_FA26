@@ -1,582 +1,63 @@
 # PLAN_FEDECAI.md
 
-> **Master Project Plan — FedECAI**
->
-> This file is the **master specification** for the project.  
-> It is **NOT intended to be read in full for every Codex task**.
->
-> Use the context-loading policy below to reduce token usage and avoid irrelevant context.
+> Master Project Plan — FedECAI
+> Protocol reset effective 2026-09-14. This is the single active master
+> specification; results tied to an earlier split are not current evidence.
 
----
+# 0. Context Policy
 
-# 0. Context Loading Policy for Codex
-
-## 0.1 Default rule
-
-For normal implementation tasks, Codex must **NOT read this entire file**.
-
-Codex should load context in this order:
-
-1. `PROJECT_RULES.md` — always read.
-2. The **single relevant step specification**:
-   - B1 → `docs/research/B1_SPEC.md`
-   - B2 → `docs/research/B2_SPEC.md`
-   - B3 → `docs/research/B3_SPEC.md`
-   - B4 → `docs/research/B4_SPEC.md`
-   - B5 → `docs/research/B5_SPEC.md`
-   - B6 → `docs/research/B6_SPEC.md`
-   - B7 → `docs/research/B7_SPEC.md`
-   - B8 → `docs/research/B8_SPEC.md`
-   - B9 → `docs/research/B9_SPEC.md`
-   - B10 → `docs/research/B10_SPEC.md`
-3. Read adjacent step specs only when the task crosses boundaries.
-4. Read this master plan only when the task changes a **project-wide rule**.
-
-## 0.2 Read this master plan only when
-
-Codex may read `PLAN_FEDECAI.md` when:
-
-- starting a new major project phase;
-- changing the dataset or label definitions;
-- changing the speaker-disjoint policy;
-- changing the list of benchmark models;
-- changing RQs or hypotheses;
-- changing the federated backbone decision policy;
-- changing Pareto dimensions;
-- changing the cloud/service architecture;
-- changing the final report structure;
-- resolving conflicting requirements across B-steps.
-
-## 0.3 Never read all specs by default
-
-Codex must not load all `B1_SPEC.md` ... `B10_SPEC.md` for a single normal task.
-
-Examples:
-
-- Implement ResNet-18 benchmark → read `PROJECT_RULES.md` + `B6_SPEC.md`
-- Add Pareto plotting → read `PROJECT_RULES.md` + `B7_SPEC.md`
-- Implement lambda ablation → read `PROJECT_RULES.md` + `B8_SPEC.md`
-- Add Cloud Run deployment → read `PROJECT_RULES.md` + `B9_SPEC.md`
-
-## 0.4 Documentation rule
-
-`PLAN_FEDECAI.md` = master specification.  
-`PROJECT_RULES.md` = compact always-on rules.  
-`docs/research/B*_SPEC.md` = task-level implementation context.  
-`doc.md` = human-readable project documentation, **not AI context**.  
-`logs/*` = historical evidence and audit trail.
-
----
+Read `PROJECT_RULES.md` for every task and only the relevant compact B-step
+specification. Read this entire plan only for project-wide changes, RQ changes,
+split changes, backbone policy changes or conflicts between steps.
 
 # 1. Project Definition
 
-## English title
+FedECAI studies emotion-conditioned accent-invariant learning for federated
+Vietnamese speech emotion recognition using ViSEC.
 
-**Emotion-Conditioned Accent-Invariant Learning for Federated Vietnamese Speech Emotion Recognition**
+Verified modelling population:
 
-## Method
+- 4,992 B2-eligible, unique-waveform utterances from 5,280 source rows;
+- emotions: Angry, Happy, Neutral and Sad;
+- accents: North, Central and South;
+- 147 released speaker IDs.
 
-**FedECAI — Federated Emotion-Conditioned Accent-Invariant Learning**
+## Active centralized evaluation
 
-## Dataset
+The primary protocol is deterministic sample-level emotion-stratified
+train/validation/test evaluation, version `emotion_stratified_v1`, seed 391.
+Speaker identity is not used to group samples. A speaker may occur in more than
+one split. Speaker overlap is descriptive only and does not support claims
+about generalization to entirely new speakers.
 
-**ViSEC — Vietnamese Speech Emotion Corpus**
+Exact waveform duplication and duplicate file identity across splits remain
+forbidden hard failures. The same fixed test sample IDs are used by all eight
+centralized models. Test is never used for tuning; preprocessing fitting,
+feature selection and augmentation are training-only.
 
-Project assumptions to verify by code:
-
-- 5,280 speech samples.
-- 4 emotion classes:
-  - Angry
-  - Happy
-  - Neutral
-  - Sad
-- 3 accent groups:
-  - North
-  - Central
-  - South
-- Speaker-disjoint evaluation.
-- Exact speaker count must be computed from dataset metadata.
-
----
-
-# 2. Research Questions
+# 2. Research Questions and Hypotheses
 
 ## RQ1 — Accent information in representations
 
-How much accent information remains in speech representations when evaluated on unseen speakers?
+How much accent information remains in MFCC/eGeMAPS, log-Mel, pitch-related and
+Wav2Vec2 representations under the emotion-stratified evaluation protocol?
 
-Main evidence:
-
-- Accent-probe Macro-F1
-- Accent-probe UAR
-- Majority baseline
-- Permutation baseline
-- Speaker-bootstrap 95% CI
-
-Primary steps: B4, B6, B7.
-
----
+Evidence: accent-probe Macro-F1/UAR, majority baseline, permutation-label
+baseline and an explicitly labelled sample-level confidence interval. Because
+speakers may cross splits, the probe may partially reflect speaker-associated
+information and is not a purely speaker-independent accent measurement.
 
 ## RQ2 — Performance disparity across accents
 
-How different is emotion-recognition performance across North, Central, and South accents?
+How much does emotion-recognition performance differ across Northern, Central
+and Southern accents under the same emotion-stratified protocol?
 
-Main evidence:
-
-- Overall Macro-F1
-- Per-accent Macro-F1
-- Worst-accent Macro-F1
-- Accent gap
-- Per-class F1 within accent
-
-Primary steps: B3, B5, B7.
-
----
+Evidence: overall and per-accent Macro-F1, worst/best accent Macro-F1, accent
+gap/std and per-emotion F1 within accent.
 
 ## RQ3 — Centralized benchmark and Pareto trade-off
 
-Compare exactly 8 models:
-
-1. SVM
-2. XGBoost
-3. CNN 2D
-4. ResNet-18 — 3-channel Mel-Spectrogram
-5. MobileNetV3 — 3-channel Mel-Spectrogram
-6. ViT — 3-channel Mel-Spectrogram
-7. Wav2Vec2
-8. Pitch-Fusion
-
-Required Pareto dimensions:
-
-- Overall Macro-F1 ↑
-- Worst-accent Macro-F1 ↑
-- Inference Latency (ms) ↓
-- Model Size (MB) ↓
-
-Primary steps: B6, B7, B8, B9.
-
----
-
-## RQ4 — Conditional vs unconditional adversarial learning
-
-Compare:
-
-- no GRL;
-- unconditional GRL;
-- emotion-conditioned GRL.
-
-Main evidence:
-
-- Emotion Macro-F1
-- Worst-accent Macro-F1
-- Accent gap
-- Accent-probe Macro-F1
-
-Primary steps: B6, B7, B8.
-
----
-
-## RQ5 — FedECAI in Federated Learning
-
-Compare:
-
-- FedAvg
-- FedProx
-- FedAvg + unconditional GRL
-- FedECAI
-
-Federated backbone policy:
-
-- Primary: **ResNet-18**
-- Efficiency alternative: **MobileNetV3**
-
-Selection must be evidence-based using performance + latency + size + FL practicality.
-
-Primary steps: B5, B6, B7, B8.
-
----
-
-## RQ6 — Utility vs accent invariance
-
-Study the trade-off controlled by adversarial weight `lambda_adv`.
-
-Main evidence:
-
-- Emotion Macro-F1
-- Worst-accent Macro-F1
-- Accent-probe Macro-F1
-- Mean/Worst-client Macro-F1
-- Stability across seeds
-- Pareto frontier
-
-Primary steps: B7, B8.
-
----
-
-# 3. Project-Wide Non-Negotiable Rules
-
-1. Speaker-disjoint split is mandatory.
-2. No speaker leakage between train/validation/test.
-3. Same fixed test set for all centralized models.
-4. No test-set tuning.
-5. Training-only fitting for scalers/preprocessing.
-6. Training-only augmentation.
-7. Macro-F1 is the main emotion metric.
-8. Accuracy must never be the only metric.
-9. Per-accent evaluation is mandatory.
-10. Worst-accent Macro-F1 is mandatory.
-11. Accent invariance must be measured with a probe.
-12. UMAP/t-SNE are illustrative only.
-13. All experiments need config + seed + git commit + split version.
-14. No fabricated metrics, citations, dataset counts, or conclusions.
-15. Federated Learning is simulated unless explicitly changed.
-16. Do not claim FL alone guarantees privacy.
-17. Do not use the system for psychological diagnosis.
-18. Major protocol changes must be logged.
-
----
-
-# 4. B1 — Problem Definition and Research Scope
-
-## Objective
-
-Define the problem, research gap, six RQs, six hypotheses, baseline literature, scope, intended contribution, and evidence requirements.
-
-## Technical Details
-
-Required content:
-
-- Problem Statement
-- Research Gap
-- Expected Contributions
-- RQ1–RQ6
-- H1–H6
-- Baseline papers
-- Scope / Out-of-scope
-- Owners
-- Evidence mapping
-
-Minimum foundational references:
-
-- ViSEC / Pitch-Fusion
-- DANN / GRL
-- FedAvg
-- FedProx
-
-## Metrics
-
-Planning completeness:
-
-- 6/6 RQs
-- 6/6 hypotheses
-- 6/6 RQ-to-evidence mappings
-- 0 unsupported novelty claims
-
-## Products & Deliverables
-
-- `docs/research/B1_SPEC.md`
-- `doc.md` update
-- project/decision log update
-
-## Definition of Done
-
-- Problem statement is explicit.
-- All six RQs and hypotheses exist.
-- RQ3 lists all 8 models.
-- RQ5 contains ResNet-18/MobileNetV3 backbone policy.
-- Research gap is evidence-based.
-- Scope is explicit.
-- Human-facing docs updated.
-
----
-
-# 5. B2 — Data Understanding and Quality Audit
-
-## Objective
-
-Verify dataset provenance, schema, label integrity, audio quality, speaker statistics, duplicates, missing data, and preprocessing risks.
-
-## Technical Details
-
-Required checks:
-
-- metadata row count;
-- audio file count;
-- valid paths;
-- unique speakers;
-- emotion distribution;
-- accent distribution;
-- gender distribution if available;
-- duration stats;
-- sample rate;
-- channels;
-- corrupted audio;
-- silence/clipping;
-- missing metadata;
-- duplicate files/waveforms;
-- inconsistent emotion mappings;
-- speakers mapped to multiple accents;
-- rows without audio.
-
-Preprocessing rules:
-
-- target 16 kHz where required;
-- no manual audio editing;
-- no default peak normalization;
-- VAD/denoising/RMS normalization require evidence;
-- all preprocessing scripted/config-driven.
-
-## Metrics
-
-- invalid-file rate
-- missing-data rate
-- duplicate rate
-- class/accent distributions
-- speaker distribution
-- duration quantiles
-
-## Products & Deliverables
-
-- `docs/research/B2_SPEC.md`
-- `data/processed/visec_manifest.csv`
-- `artifacts/data_audit.json`
-- `artifacts/invalid_audio.csv`
-- `artifacts/duplicate_report.csv`
-- `reports/tables/b2/b2_quality_report.md`
-- `doc.md` update
-- logs update
-
-## Definition of Done
-
-- Exact speaker count is computed.
-- Every exclusion has a reason.
-- Label mappings are verified.
-- Dataset quality issues are documented.
-- Raw manifest is versioned.
-
----
-
-# 6. B3 — EDA and Advanced SQL
-
-## Objective
-
-Analyze data composition, imbalance, potential confounders, speaker patterns, and RQ-supporting SQL evidence.
-
-## Technical Details
-
-Required EDA:
-
-- univariate;
-- bivariate;
-- multivariate.
-
-Required SQL examples:
-
-1. samples/speakers per accent;
-2. emotion distribution within accent;
-3. speaker ranking with `RANK()`;
-4. least-represented emotion per accent;
-5. speaker overlap across splits;
-6. federated-client distributions;
-7. manifest + quality JOIN;
-8. CTE/window-function emotion proportions.
-
-Every query must map to an RQ.
-
-## Metrics
-
-- class imbalance
-- accent imbalance
-- speaker concentration
-- subgroup counts
-- duration distribution
-- potential confounders
-
-## Products & Deliverables
-
-- `docs/research/B3_SPEC.md`
-- `notebooks/B3_eda_sql.ipynb`
-- `sql/B3_queries.sql`
-- DuckDB/SQL database if used
-- `reports/tables/b3/`
-- `doc.md` update
-
-## Definition of Done
-
-- Univariate/bivariate/multivariate EDA exists.
-- Advanced SQL exists.
-- RQ mapping exists.
-- Every major chart/table has a quantitative takeaway.
-
----
-
-# 7. B4 — Feature Engineering and Representation Analysis
-
-## Objective
-
-Create reproducible features for all 8 models, define the 3-channel Mel pipeline, and run accent-probe analysis.
-
-## Technical Details
-
-### Classical features
-
-MFCC/eGeMAPS for:
-
-- SVM
-- XGBoost
-
-### Mel pipeline
-
-Used by:
-
-- CNN 2D
-- ResNet-18
-- MobileNetV3
-- ViT
-
-Configurable:
-
-- sample rate
-- n_fft
-- hop length
-- n_mels
-- frequency range
-- duration
-- padding/truncation
-
-### 3-channel Mel
-
-For ResNet-18, MobileNetV3, ViT.
-
-Use one consistent policy:
-
-- preferred simple baseline: repeat normalized log-Mel across 3 channels;
-- optional alternative: log-Mel + delta + delta-delta if explicitly validated.
-
-Record `mel_3ch_mode`.
-
-### Pitch
-
-For Pitch-Fusion and RQ1:
-
-- F0 contour
-- mean/std/range
-- voiced fraction
-
-### Wav2Vec2
-
-- raw 16 kHz waveform
-- frozen baseline first
-- partial fine-tuning only after baseline is stable
-
-### Accent probe
-
-- frozen embedding
-- simple accent classifier
-- speaker-disjoint
-- Macro-F1/UAR
-- majority baseline
-- permutation baseline
-- speaker-bootstrap CI
-
-## Metrics
-
-- feature extraction success
-- feature dimensions
-- probe Macro-F1/UAR
-- runtime/storage where useful
-
-## Products & Deliverables
-
-- `docs/research/B4_SPEC.md`
-- `src/features/`
-- `configs/features/`
-- accent-probe outputs
-- advanced visualizations
-- `doc.md` update
-
-## Definition of Done
-
-- Every feature family is reproducible.
-- One documented 3-channel Mel policy is used.
-- Accent probe is speaker-disjoint.
-- At least three advanced visualizations exist.
-
----
-
-# 8. B5 — Dataset Partition and Federated Clients
-
-## Objective
-
-Create versioned speaker-disjoint global splits and federated client partitions.
-
-## Technical Details
-
-### Global split
-
-Rules:
-
-- same speaker belongs to one split only;
-- fixed test set;
-- no audio-level random leakage;
-- augmentation only in train;
-- reasonable emotion/accent balance where possible.
-
-### Cross-validation
-
-- GroupKFold / StratifiedGroupKFold where appropriate;
-- grouping by `speaker_id`.
-
-### Federated partitions
-
-At least:
-
-- Main partition: moderate accent skew.
-- Stress partition: strong accent/emotion skew.
-
-Each client records:
-
-- sample count
-- speaker count
-- accent distribution
-- emotion distribution
-
-## Metrics
-
-- speakers per split
-- samples per split
-- per-client support
-- accent skew
-- emotion skew
-- speaker overlap = 0
-
-## Products & Deliverables
-
-- `docs/research/B5_SPEC.md`
-- `splits/global_split_v*.csv`
-- `splits/federated_main_v*.csv`
-- `splits/federated_stress_v*.csv`
-- leakage tests
-- `doc.md` update
-
-## Definition of Done
-
-- Zero speaker leakage.
-- Fixed test split.
-- Main + stress federated partitions exist.
-- Split versions are persisted.
-
----
-
-# 9. B6 — Modelling
-
-## Objective
-
-Train the 8 centralized models, compare ResNet-18 vs MobileNetV3 for FL suitability, and implement FedECAI.
-
-## Technical Details
-
-### Centralized models
+Compare exactly:
 
 1. SVM — MFCC/eGeMAPS
 2. XGBoost — MFCC/eGeMAPS
@@ -584,768 +65,397 @@ Train the 8 centralized models, compare ResNet-18 vs MobileNetV3 for FL suitabil
 4. ResNet-18 — 3-channel Mel
 5. MobileNetV3 — 3-channel Mel
 6. ViT — 3-channel Mel
-7. Wav2Vec2 — waveform
-8. Pitch-Fusion — waveform + pitch
+7. Wav2Vec2 — raw waveform, frozen encoder baseline
+8. Pitch-Fusion — waveform plus pitch
 
-### Federated backbone selection
+Primary Pareto dimensions are exactly Overall Macro-F1 ↑, Worst-accent
+Macro-F1 ↑, inference latency ↓ and model size ↓. Parameter count and training
+time are supporting efficiency metrics.
 
-Primary default:
+## RQ4 — Conditional adversarial learning
 
-- ResNet-18
+Using the selected `resnet18_mel3` backbone, compare the locked no-GRL E1
+reference, centralized unconditional GRL (E2), and centralized
+emotion-conditioned GRL (E3). E2/E3 are controlled ablations against E1.
 
-Efficiency fallback:
+## RQ5 — Federated FedECAI comparison
 
-- MobileNetV3
+Compare ResNet18 FedAvg (E4), ResNet18 FedProx (E5), ResNet18 FedAvg plus
+unconditional GRL (E6), and ResNet18 FedECAI with emotion-conditioned GRL (E7)
+on the retained B5 main and stress client scenarios.
 
-Selection criteria:
+## RQ6 — Utility versus accent invariance
 
-- Overall Macro-F1
-- Worst-accent Macro-F1
-- latency
-- model size
-- training stability
-- FL communication burden
+For the selected ResNet18 ladder, study the utility–invariance trade-off
+controlled by `lambda_adv` using development evidence only. Never select
+lambda from the fixed test set.
 
-### FedECAI architecture
+H1–H6 remain preregistered expectations rather than findings: measurable
+residual accent information; accent-associated emotion-performance differences;
+a non-trivial centralized Pareto frontier; a competitive conditional-GRL
+trade-off; a possible federated benefit in at least one scenario; and at least
+one useful non-zero lambda setting. No hypothesis is confirmed without valid
+new-protocol evidence.
+
+# 3. Project-Wide Rules
+
+1. Primary global evaluation uses deterministic sample-level emotion stratification.
+2. `speaker_id` is not a split grouping constraint.
+3. Speaker overlap is allowed and reported as `INFO`.
+4. Exact duplicate waveform or file identity across splits is forbidden.
+5. All centralized models use the same fixed test membership.
+6. Test is excluded from tuning and model selection.
+7. Fitted preprocessing is training-only and fold-local where CV applies.
+8. Augmentation is training-only.
+9. Macro-F1 is the primary emotion metric; Accuracy is never the only metric.
+10. Per-accent evaluation and Worst-accent Macro-F1 are mandatory.
+11. Accent probes use the active split and carry the speaker-associated-information limitation.
+12. Statistical resampling uses samples, stratified by emotion where practical.
+13. UMAP/t-SNE are illustrative only.
+14. Every experiment records config, seed, dataset/split version, commit and outputs.
+15. Never fabricate statistics, metrics, costs, citations or conclusions.
+16. Federated learning is simulated unless explicitly changed and is not a privacy guarantee.
+17. The system is not for psychological or medical diagnosis.
+18. Major protocol decisions are recorded in the decision log.
+
+# 4. FedECAI Backbone Decision Contract
+
+Before 2026-09-15, candidate backbones were ResNet-18 and MobileNetV3 and
+neither was preselected. This records the original protocol, not current state.
+
+Before comparable centralized evidence:
 
 ```text
-3-channel Mel
-    |
-Encoder: ResNet-18 or MobileNetV3
-    |
-Embedding
-   / \
-  /   \
-Emotion Head   GRL
-   |            |
-4 classes   Accent Discriminator
-                 ^
-                 |
-          Emotion Condition
+FEDECAI_BACKBONE_STATUS = UNDECIDED
+FEDECAI_BACKBONE = NONE
 ```
 
-### Required experiment ladder
-
-- E1: backbone baseline
-- E2: backbone + unconditional GRL
-- E3: backbone + emotion-conditioned GRL
-- E4: FedAvg
-- E5: FedProx
-- E6: FedAvg + unconditional GRL
-- E7: FedECAI
-
-## Metrics
-
-For 8-model benchmark:
-
-- Overall Macro-F1
-- Worst-accent Macro-F1
-- latency
-- model size
-- parameter count
-- training time
-
-For adversarial/federated:
-
-- Emotion Macro-F1
-- accent-probe Macro-F1
-- accent gap
-- client metrics
-- convergence metrics
-
-## Products & Deliverables
-
-- `docs/research/B6_SPEC.md`
-- `src/models/`
-- centralized training scripts
-- federated scripts
-- configs for all models
-- predictions/checkpoints
-- model cards
-- `doc.md` update
-- experiment registry update
-
-## Definition of Done
-
-- All 8 models run.
-- Default results exist before tuning.
-- ResNet/MobileNet 3-channel Mel inputs are consistent.
-- E1–E7 run end-to-end.
-- Backbone decision is evidence-based.
-- Experiments are reproducible.
-
----
-
-# 10. B7 — Evaluation and Pareto Analysis
-
-## Objective
-
-Evaluate fairly, answer RQs with evidence, perform 8-model Pareto analysis, and complete error/statistical analysis.
-
-## Technical Details
-
-### Emotion metrics
-
-- Macro-F1
-- UAR
-- Weighted-F1
-- Accuracy
-- per-class metrics
-- confusion matrix
-
-### Accent metrics
-
-- North Macro-F1
-- Central Macro-F1
-- South Macro-F1
-- Worst-accent Macro-F1
-- Best-accent Macro-F1
-- accent gap
-- accent std
-
-### RQ3 mandatory Pareto
-
-Four primary dimensions:
-
-1. Overall Macro-F1 ↑
-2. Worst-accent Macro-F1 ↑
-3. Inference Latency (ms) ↓
-4. Model Size (MB) ↓
-
-All 8 models must be included.
-
-Latency protocol must state:
-
-- hardware
-- batch size
-- warm-up
-- timed runs
-- precision
-- preprocessing inclusion/exclusion
-
-Model-size definition must be consistent.
-
-### Accent invariance
-
-- accent-probe Macro-F1
-- accent-probe UAR
-- majority baseline
-- permutation baseline
-
-### Federated metrics
-
-- Global Macro-F1
-- Mean-client Macro-F1
-- Median-client Macro-F1
-- Worst-client Macro-F1
-- per-accent metrics
-- rounds
-- rounds-to-target
-- estimated communication cost
-- convergence stability
-
-### Statistics
-
-For key experiments:
-
-- at least 3 seeds where feasible;
-- mean ± std;
-- speaker-bootstrap 95% CI;
-- effect sizes where appropriate.
-
-## Metrics
-
-All evaluation metrics above plus Pareto-front membership.
-
-## Products & Deliverables
-
-- `docs/research/B7_SPEC.md`
-- result CSVs
-- Pareto table/plots
-- confusion matrices
-- error analysis
-- `doc.md` update
-
-## Definition of Done
-
-- Same test set across all 8 models.
-- Predictions are saved.
-- Per-accent metrics exist.
-- Four-axis Pareto analysis exists.
-- Latency/size protocol is documented.
-- Error analysis exists.
-
----
-
-# 11. B8 — Tuning and Cross-Validation
-
-## Objective
-
-Tune fairly, analyze `lambda_adv`, apply utility budget, and freeze configs before final test.
-
-## Technical Details
-
-### Tuning
-
-Classical models:
-
-- grouped CV
-
-Deep models:
-
-- development split/grouped protocol
-
-Federated models:
-
-- development client partitions
-
-### Lambda grid
-
-Initial:
-
-- 0.00
-- 0.05
-- 0.10
-- 0.25
-- 0.50
-- 1.00
-
-### Utility budget
-
-Initial planning threshold:
-
-- Overall Macro-F1 degradation no greater than 0.01–0.02 absolute versus matched baseline.
-
-Prefer configurations where:
-
-- probe score decreases;
-- worst-accent improves and/or gap shrinks;
-- utility budget is respected.
-
-## Metrics
-
-- grouped-CV mean/std
-- validation Macro-F1
-- lambda trade-off
-- utility-budget violations
-- tuning runtime
-- failed trials
-
-## Products & Deliverables
-
-- `docs/research/B8_SPEC.md`
-- tuning configs
-- trial registry
-- lambda ablation
-- locked configs
-- `doc.md` update
-
-## Definition of Done
-
-- Search spaces documented.
-- Failed trials logged.
-- Lambda ablation complete.
-- Utility budget enforced.
-- Final configs frozen before final test.
-
----
-
-# 12. B9 — Pipeline, API, Cloud Services, Application
-
-## Objective
-
-Deploy a reproducible model-serving pipeline with FastAPI + Docker + Cloud Run, Pub/Sub alerts, Dialogflow Q&A, and demo UI.
-
-## Technical Details
-
-### Required stack
-
-- FastAPI
-- Docker
-- GCP Cloud Run
-- Pub/Sub
-- Dialogflow
-- Secret Manager/environment variables
-- Streamlit or Dash
-
-### API
-
-Required endpoints:
-
-- `/health`
-- `/predict`
-
-Optional:
-
-- `/model-info`
-
-Prediction response includes:
-
-- predicted emotion
-- 4 probabilities
-- confidence
-- abstain flag
-- model version
-- processing time
-- error field
-
-### Pub/Sub
-
-Used for technical alerts/events:
-
-- endpoint failure
-- repeated invalid input
-- low-confidence event if desired
-
-Alert target:
-
-- webhook and/or email
-
-### Dialogflow
-
-Minimum intents:
-
-1. supported emotions;
-2. how to upload WAV and interpret result.
-
-No medical/psychological advice.
-
-### Security
-
-- no hard-coded secrets
-- input validation
-- CORS
-- rate limiting where practical
-- do not log raw audio
-- do not retain audio unnecessarily
-
-## Metrics
-
-- API latency
-- success/error rate
-- alert delivery success
-- Dialogflow demo success
-- cost estimate
-
-## Products & Deliverables
-
-- `docs/research/B9_SPEC.md`
-- FastAPI service
-- Dockerfile
-- deployment config
-- Pub/Sub integration
-- webhook/email demo
-- Dialogflow config/docs
-- dashboard/app
-- architecture diagram
-- deployment README
-- `doc.md` update
-
-## Definition of Done
-
-- `/predict` works on deployed service.
-- App calls real endpoint.
-- Pub/Sub alert path works.
-- Dialogflow has 2+ working intents.
-- Architecture diagram exists.
-- Security controls documented.
-
----
-
-# 13. B10 — Final Report, Conclusions, Reproducibility, AI Reflection
-
-## Objective
-
-Answer RQ1–RQ6 with real evidence, produce the final report, complete reproducibility docs, and preserve the audit trail.
-
-## Technical Details
-
-### RQ traceability
-
-Each RQ must include:
-
-- question
-- baseline
-- hypothesis
-- method
-- experiment IDs
-- evidence
-- result
-- conclusion
-- limitation
-- owner
-
-### Final Report — exactly 7 top-level sections
-
-1. Abstract
-2. Introduction
-3. Methodology
-4. Results
-5. Discussion
-6. Conclusion and Future Work
-7. References
-
-No extra top-level sections.
-
-Dataset, Experimental Setup, Service Architecture, and Limitations must be subsections under the seven main sections.
-
-### Required Results coverage
-
-- 8-model benchmark
-- per-accent results
-- worst-accent results
-- latency
-- model size
-- RQ3 Pareto frontier
-- accent-probe results
-- conditional vs unconditional GRL
-- FedAvg/FedProx/FedECAI comparison
-- lambda ablation
-- convergence results
-
-### `doc.md`
-
-Human-readable only.
-
-Must include:
-
-1. Project overview
-2. Dataset
-3. Research questions
-4. Methodology
-5. Eight centralized models
-6. FedECAI architecture
-7. Split/client design
-8. Metrics
-9. Main results
-10. Pareto trade-off
-11. Cloud architecture
-12. Reproduction guide
-13. Limitations
-14. Current status
-15. Links to detailed docs/logs
-
-### AI Audit Log
-
-Record:
-
-- prompt
-- output summary
-- use/modify/reject decision
-- human reasoning
-- verification evidence
-- resulting artifact
-- hallucination/error if any
-- final owner
-
-## Metrics
-
-- 6/6 RQs answered or marked inconclusive
-- 7/7 report top-level sections
-- 0 fabricated results
-- 0 unresolved placeholders
-- 0 leaked credentials
-
-## Products & Deliverables
-
-- `docs/research/B10_SPEC.md`
-- final paper source
-- final PDF
-- final figures/tables
-- `doc.md`
-- project log
-- decision log
-- experiment registry
-- AI audit log
-- reproducibility README
-
-## Definition of Done
-
-- All RQs are evidence-backed.
-- Final report has exactly 7 top-level sections.
-- No fake values remain.
-- Demo/services work.
-- `doc.md` accurately reflects implementation.
-- Audit trail is complete.
-
----
-
-# 14. Required Compact Context File
-
-The repository should contain a compact file:
-
-`PROJECT_RULES.md`
-
-This file is the only project-wide context Codex should read for every task.
-
-It should contain:
-
-- project identity;
-- speaker-disjoint rule;
-- 8 centralized models;
-- 4 Pareto dimensions;
-- federated backbone policy;
-- no-fabrication rule;
-- documentation/log-update rule;
-- map from B-step to spec file.
-
-Keep it approximately 100–200 lines where possible.
-
----
-
-# 15. B-Step Spec Files
-
-Each detailed step specification should live in a separate file:
+Compare both candidates using Overall Macro-F1, Worst-accent Macro-F1,
+per-accent results, accent gap, latency, model size, parameter count, training
+time, training/implementation stability and expected FL communication/compute
+burden. Do not select with Accuracy alone, highest Macro-F1 alone or an
+unapproved weighted score.
+
+After the table exists:
 
 ```text
-docs/research/
-├── B1_SPEC.md
-├── B2_SPEC.md
-├── B3_SPEC.md
-├── B4_SPEC.md
-├── B5_SPEC.md
-├── B6_SPEC.md
-├── B7_SPEC.md
-├── B8_SPEC.md
-├── B9_SPEC.md
-└── B10_SPEC.md
+FEDECAI_BACKBONE_STATUS = AWAITING_HUMAN_DECISION
 ```
 
-Each file should contain only:
+Only an explicit human instruction may set `SELECTED` and name the backbone.
+The adversarial/federated E1–E7 ladder is prohibited before selection.
 
-- Objective
-- Technical Details
-- Metrics
-- Products & Deliverables
-- Definition of Done
-
-Avoid repeating full project-wide rules inside every spec.
-
----
-
-# 16. Human Documentation vs AI Context
-
-## `doc.md`
-
-For human readers.
-
-Do not optimize for AI context.
-
-Should explain:
-
-- what the project is;
-- what has been implemented;
-- current results;
-- architecture;
-- limitations;
-- how to reproduce.
-
-## `PLAN_FEDECAI.md`
-
-Master source of truth.
-
-Read only when needed.
-
-## `PROJECT_RULES.md`
-
-Compact always-on context.
-
-## `B*_SPEC.md`
-
-Task-level context.
-
-## `logs/*`
-
-Historical evidence.
-
----
-
-# 17. Logging Policy
-
-Recommended files:
+Final human decision (2026-09-15):
 
 ```text
-logs/
-├── project_log.md
-├── decision_log.md
-├── experiment_registry.csv
-└── ai_audit_log.md
+FEDECAI_BACKBONE_STATUS = SELECTED
+FEDECAI_BACKBONE = resnet18_mel3
+ACTIVE_FEDECAI_BACKBONE = resnet18_mel3
+BACKBONE_TRAINING_POLICY = full_finetune
+EFFICIENCY_FALLBACK = mobilenet_v3_mel3
+B6_STATUS = LOCKED
 ```
 
-Do not require Codex to read the full history every time.
+Centralized B6 hyperparameter search and retraining are closed. The federated
+stage is ready to start only under a separate execution instruction; no FL,
+GRL or FedECAI run was started by the selection decision.
 
-Recommended policy:
+# 5. B1 — Problem Definition and Research Scope
 
-- read only recent relevant project-log entries;
-- search decision log for the specific topic;
-- filter experiment registry by model/RQ/step;
-- do not load entire AI audit log unless specifically needed.
+Define the problem, evidence-based gap, contributions, RQ1–RQ6, H1–H6,
+foundational ViSEC/Pitch-Fusion, DANN/GRL, FedAvg and FedProx literature, scope,
+owners and evidence mapping. The framing must use the active evaluation
+protocol and final ResNet18 backbone contract.
 
----
+Definition of Done: all RQs/hypotheses and evidence mappings exist; RQ3 lists
+eight models and four Pareto dimensions; no unsupported novelty, privacy,
+diagnosis or experiment claim exists.
 
-# 18. Experiment Registry Minimum Schema
+# 6. B2 — Data Understanding and Quality Audit
+
+Verify provenance, schema, labels, speaker metadata, audio readability,
+duration, sample rate/channels, clipping/silence, missingness and duplicate
+waveforms without modifying raw audio. B2 produces the canonical split-independent
+clean manifest. Exact duplicates are resolved before B5.
+
+Definition of Done: source rows remain traceable, exclusions have reasons,
+labels are verified and the eligible population contains unique waveforms.
+
+# 7. B3 — EDA and SQL
+
+Describe data composition, accent/emotion imbalance, speaker concentration,
+quality context, split distributions and federated-client composition. Retain
+the speaker-overlap query as a diagnostic whose non-zero value is expected and
+not a pass/fail gate. SQL remains read-only and RQ-linked.
+
+Definition of Done: univariate/bivariate/multivariate evidence, advanced SQL,
+quantitative takeaways and correct active-split interpretation exist.
+
+# 8. B4 — Feature Engineering and Representation Analysis
+
+Retain deterministic split-independent MFCC, eGeMAPS, log-Mel, pitch and frozen
+Wav2Vec2 extraction. Three-channel Mel uses the shared
+`repeat_normalized_log_mel` adapter. Any duration target, scaler, learned
+normalization, feature selection or augmentation is fitted from training only.
+
+Accent probes use the active emotion-stratified train/validation membership,
+frozen representations, a simple classifier, Macro-F1/UAR, majority and
+permutation baselines, and sample-level bootstrap stratified by emotion where
+practical. Test is not loaded during development probing.
+
+# 9. B5 — Global Split and Federated Clients
+
+Create `emotion_stratified_v1` from the 4,992 eligible samples with seed 391 and
+the established 3,681/646/665 counts. Stratify at sample level with emotion as
+the primary target and accent as a secondary joint balancing stratum.
+Persist sample identity/path, split, emotion, accent, speaker metadata, seed,
+dataset version and split version.
+
+SVM/XGBoost CV uses shuffled deterministic `StratifiedKFold` on training
+samples. Speakers are not CV groups. Report unique speaker counts and overlaps
+as information only. Hard-fail cross-split duplicate waveform/file identity.
+
+Retain main mixed-accent and stress accent-domain federated scenarios, rebuilt
+from the new training membership when necessary. Client statistics may use
+speaker metadata descriptively. No validation/test samples enter clients.
+
+Definition of Done: deterministic split and fixed-test hashes validate, all
+samples are assigned once, emotion distributions are stratified, duplicate
+cross-split count is zero, CV is sample-stratified, and client assignments are
+versioned.
+
+# 10. B6 — Modelling
+
+Train the eight centralized models only after new-split preflight and smoke
+tests pass. Existing old-split checkpoints, caches, predictions and metrics are
+invalid and cannot be relabelled or evaluated as new benchmark evidence.
+
+Current efficient strategies remain: normal SVM/XGBoost/CNN/ResNet/MobileNet
+training; frozen pretrained ViT with cache; frozen Wav2Vec2 with cache while
+retaining full encoder latency; limited Pitch-Fusion reproduction.
+
+E1 does not trigger training. It references the locked ResNet18 run
+`b6_resnet18_mel3_finetune_seed391` and its saved validation predictions and
+checkpoint. A compatibility replay, if ever required, must match architecture,
+split, seed, full-finetune policy and preprocessing, use no test data, and be
+labelled a reproducibility replay rather than a tuned baseline.
+
+Definition of Done after the explicit final lock: eight new-protocol models
+have identical 646-sample validation predictions, prediction-derived metrics
+and measured costs; human selection is recorded before any E1–E7 run. The
+fixed test remains untouched.
+
+## Final E1–E7 Experiment Ladder
+
+### E1 — Centralized ResNet18 baseline
+
+- Backbone: `resnet18_mel3`; training policy: `full_finetune`.
+- Reference: `b6_resnet18_mel3_finetune_seed391`.
+- No adversarial branch and no duplicate training run.
+- `E1_STATUS = BASELINE_AVAILABLE_FROM_LOCKED_B6`.
+
+### E2 — Centralized ResNet18 + unconditional GRL
+
+Use the same ResNet18 backbone and emotion head as E1. The accent adversary
+receives the pooled ResNet18 representation through GRL without emotion
+conditioning.
+
+### E3 — Centralized ResNet18 + emotion-conditioned GRL
+
+This is the centralized FedECAI mechanism. Let `h` be the 512-dimensional
+pooled vector immediately before the ResNet18 emotion FC, let
+`p_emotion = softmax(emotion_logits)`, and define
+`z = concat(h, stop_gradient(p_emotion))`. The accent discriminator consumes
+`GRL(z)`. Training and inference both use the predicted posterior; true emotion
+labels are never required for inference conditioning.
+
+### E4 — Federated ResNet18 with FedAvg
+
+Use the same ResNet18 architecture and task head without GRL. This is the main
+federated utility baseline.
+
+### E5 — Federated ResNet18 with FedProx
+
+Keep the E4 architecture, clients and schedule; change only federated
+optimization to FedProx and log `mu` separately.
+
+### E6 — Federated ResNet18 with FedAvg + unconditional GRL
+
+Keep the E4 client/data scenario and add the E2 unconditional accent adversary.
+
+### E7 — FedECAI
+
+Use federated ResNet18 with the E3 predicted-posterior emotion-conditioned
+adversary. Compare directly with E4, E5 and E6.
+
+E8 is not active. Wav2Vec2-based FedECAI is future work only.
 
 ```text
-experiment_id
-timestamp
-step
-rq
-model
-variant
-dataset_version
-split_version
-client_partition_version
-feature_config
-model_config
-seed
-git_commit
-hardware
-train_time_sec
-inference_latency_ms
-model_size_mb
-overall_macro_f1
-worst_accent_macro_f1
-accent_gap
-accent_probe_macro_f1
-mean_client_macro_f1
-worst_client_macro_f1
-status
-checkpoint_path
-prediction_path
-notes
+E1_STATUS = BASELINE_AVAILABLE_FROM_LOCKED_B6
+E2_STATUS = COMPLETE
+E3_STATUS = COMPLETE
+E4_STATUS = COMPLETE
+E5_STATUS = COMPLETE
+E6_STATUS = COMPLETE
+E7_STATUS = COMPLETE
+ACTIVE_EXPERIMENT_LADDER = RESNET18_E1_TO_E7
+E8_STATUS = FUTURE_WORK_ONLY
+FIXED_TEST_STATUS = UNTOUCHED
+RQ6_LAMBDA_SWEEP_STATUS = NOT_STARTED
 ```
 
-Use blank/null where not applicable.
+### Shared representation and objective contract
 
-Never invent values.
+Input is the shared three-channel Mel tensor. ResNet18 produces `h` by global
+pooling immediately before the final emotion FC; the actual torchvision
+ResNet18 implementation exposes 512 features at this point. The emotion head
+and GRL branch both originate from `h`; do not attach the adversary to emotion
+logits.
 
----
+Conceptually, E1 uses `L_total = L_emotion`. E2 uses emotion loss plus the GRL
+objective from an unconditional North/Central/South discriminator. E3/E7 use
+emotion loss plus the emotion-conditioned GRL objective. The implementation
+must follow the sign convention of its tested GRL primitive rather than
+hard-coding an unverified sign.
 
-# 19. Codex Task Workflow
+E1–E3 hold constant ResNet18 architecture, Mel representation, emotion head,
+train/validation membership, seed 391, optimizer family, budget, augmentation,
+batch policy, checkpoint selection and evaluator wherever technically possible.
+The intended change is only no adversary versus unconditional versus
+emotion-conditioned adversary.
 
-## Before task
+E4–E7 use identical B5 training-only client membership, initial architecture,
+client sampling, rounds, local epochs, local batch, baseline optimizer and
+evaluation schedule unless the method itself requires a logged difference.
+Validation/test samples never enter clients. FedProx `mu` and GRL `lambda_adv`
+are logged independently.
 
-Codex should:
+### Locked E1 validation reference
 
-1. read `PROJECT_RULES.md`;
-2. identify active B-step;
-3. read only the relevant `B*_SPEC.md`;
-4. inspect existing code/config;
-5. read only relevant log entries if needed.
+```text
+Overall Macro-F1 = 0.6218351697860597
+UAR = 0.6216308745720511
+Accuracy = 0.6439628482972136
+North Macro-F1 = 0.5651249841390686
+Central Macro-F1 = 0.5184027777777778
+South Macro-F1 = 0.6469934829083388
+Worst-accent Macro-F1 = 0.5184027777777778
+Accent Gap = 0.12859070513056103
+```
 
-## During task
+Central is the lowest-performing and South the highest-performing accent group
+in this validation reference; the gap is approximately 0.1286 absolute
+Macro-F1. These are descriptive associations, not causal accent claims, and
+speaker overlap prevents unseen-speaker generalization claims.
 
-Codex should:
+# 11. B7 — Evaluation and Pareto Analysis
 
-- follow config-driven design;
-- avoid protocol drift;
-- preserve split semantics;
-- avoid secrets/hard-coded paths;
-- save predictions/metrics needed downstream.
+For every E1-E7 experiment, compute metrics from saved sample-level predictions:
+Overall Macro-F1, UAR, weighted-F1, Accuracy; North/Central/South Macro-F1;
+worst/best accent Macro-F1, accent gap and accent standard deviation;
+per-emotion F1/recall and per-emotion-within-accent metrics where supported.
+Also report the chosen-representation accent-probe Macro-F1/UAR, total and
+trainable parameters, model size, training time, inference latency and
+communication cost where applicable. FedECAI must not be judged by Overall
+Macro-F1 alone. Use sample-level bootstrap, stratified by emotion where
+practical, and name the resampling unit accurately.
 
-## After task
+The comparison stage originally produced a no-winner ResNet-18 versus
+MobileNetV3 candidate table. After human review, that table was archived and
+the final state is `FEDECAI_BACKBONE_STATUS = SELECTED` with
+`FEDECAI_BACKBONE = resnet18_mel3` and MobileNetV3 as efficiency fallback.
+This human selection is complete; B7 must not reopen or automatically rescore
+the backbone decision.
 
-Update only relevant artifacts:
+The authorized E2-E7 validation ladder completed on 2026-09-15. All six runs
+use the same 646 validation sample IDs and report `test_samples_loaded=0`.
+Canonical comparisons are in `reports/tables/fedecai/`; integrity evidence is
+in `artifacts/fedecai/final_integrity_audit.json`. E5 is the strongest primary
+federated validation result (Macro-F1 0.648969; Worst-accent Macro-F1 0.588607).
+E7 does not establish accent invariance: compared with E4 it has slightly lower
+Macro-F1 and Worst-accent Macro-F1, a smaller accent gap, but a higher accent
+probe score. These findings are validation-only and do not authorize RQ6 or
+fixed-test evaluation.
 
-- code/config;
-- relevant `docs/research/B*.md`;
-- `doc.md` if human-visible state changed;
-- project log;
-- decision log if architecture/protocol changed;
-- experiment registry if an experiment ran;
-- AI audit log if required.
+# 12. B8 — Tuning and Cross-Validation
 
-Do not rewrite unrelated docs.
+Classical models use emotion-stratified CV with fold-local preprocessing. Deep
+models use the fixed development/validation protocol. Federated tuning uses
+development clients only. The initial lambda grid remains 0, 0.05, 0.10, 0.25,
+0.50 and 1.00, with the 0.01–0.02 absolute Macro-F1 utility-budget planning
+range against the matched non-adversarial baseline. Prefer settings that improve
+Worst-accent Macro-F1, reduce Accent Gap and reduce accent-probe performance
+without exceeding that utility budget. The backbone gate is satisfied, but no
+tuning is authorized by this plan update. Select no lambda from test evidence;
+freeze configs before the one-time final test.
 
----
+# 13. B9 — Pipeline, API and Cloud Services
 
-# 20. Change-Control Rule
+Deploy a reproducible selected model using FastAPI, Docker, GCP Cloud Run,
+Pub/Sub, webhook/email alerts, Dialogflow and Streamlit or Dash. Required API
+endpoints are `/health` and `/predict`; validate inputs, do not hard-code
+secrets or retain/log raw audio unnecessarily, and do not provide diagnosis.
 
-Any change to these requires updating this master plan:
+# 14. B10 — Final Report and Reproducibility
 
-- dataset version;
-- emotion labels;
-- accent grouping;
-- speaker-disjoint policy;
-- 8-model benchmark list;
-- 3-channel Mel strategy;
-- federated backbone policy;
-- federated client partition policy;
-- primary metrics;
-- utility budget;
-- Pareto dimensions;
-- deployment stack;
-- seven-section report structure.
+The report methodology must state that centralized evaluation uses a
+deterministic sample-level emotion-stratified split and does not group by
+speaker. Required limitation: because a speaker may occur across splits,
+centralized performance is not evidence of generalization to completely new
+speakers.
 
-No silent protocol drift.
+Explain that ResNet-18 and MobileNetV3 were candidates evaluated under an
+identical protocol and that a human selected the final backbone after reviewing
+performance and efficiency evidence on 2026-09-15. Report E1 as the locked B6
+reference, E2-E7 as separate traceable experiments, and Wav2Vec2-based E8 only
+as future work. Do not rewrite the chronology as if ResNet18 had been
+preselected before that decision.
 
----
+The final report has exactly seven top-level sections: Abstract, Introduction,
+Methodology, Results, Discussion, Conclusion and Future Work, References.
+Every reported number must trace to config, split, seed, prediction and run.
 
-# 21. Project Completion Gates
+# 15. Artifacts, Logs and Reproducibility
 
-## Data gate
+- Raw audio, source metadata, B2 clean manifests, reusable extraction code,
+  dependency files and deterministic split-independent raw features are retained.
+- Anything fitted, selected, trained or cached using a superseded split is not
+  active evidence and must be removed before new benchmarking.
+- `logs/experiment_registry.csv` uses the declared schema and contains only
+  new-protocol runs.
+- `logs/ai_audit_log.md` preserves irreplaceable human AI-use evidence and
+  records reset boundaries without reconstructing missing history.
+- Benchmark outputs include predictions, metrics, checkpoints and complete run evidence.
 
-- exact dataset stats computed;
-- speaker-disjoint split verified;
-- no duplicate leakage.
+# 16. Completion Gates
 
-## Benchmark gate
+Data gate: new split deterministic, emotion-stratified, fixed test, duplicate
+waveform/file overlap zero; speaker overlap recorded as information.
 
-- all 8 models evaluated;
-- same test set;
-- predictions saved;
-- latency measured;
-- model size measured.
+Benchmark gate: all eight models retrained/evaluated on the new protocol with
+saved predictions and cost metrics.
 
-## Pareto gate
+Backbone gate: comparison presented, explicit human selection recorded.
 
-All 4 dimensions available:
+E1 gate: locked B6 run `b6_resnet18_mel3_finetune_seed391` and its saved
+validation predictions/checkpoint provide the baseline; no duplicate training
+is required.
 
-- Overall Macro-F1
-- Worst-accent Macro-F1
-- latency
-- model size
+E2/E3 implementation gate: expose the checkpoint-compatible 512-dimensional
+pooled pre-FC ResNet18 representation and reusable emotion head; implement and
+test GRL, the unconditional adversary, and canonical predicted-posterior
+conditioning; use the shared evaluator/output contract; do not access test.
 
-## FedECAI gate
+Federated implementation gate: E4-E7 share the retained B5 training-only client
+membership, architecture, initialization policy, client sampling, rounds, local
+epochs, local batch, optimizer baseline and evaluation schedule. Validation and
+test samples are excluded from clients; method-specific `mu` and `lambda_adv`
+are logged separately.
 
-- ResNet-18 or MobileNetV3 selected with evidence;
-- baseline;
-- unconditional GRL;
-- conditional GRL;
-- FedAvg;
-- FedProx;
-- FedECAI.
+FedECAI completion gate: selected ResNet18 backbone plus completed E1-E7 ladder.
+E8 is not part of this gate.
 
-## Deployment gate
+Deployment gate: API, Docker, Cloud Run, Pub/Sub, Dialogflow and UI verified.
 
-- FastAPI works;
-- Docker builds;
-- Cloud Run deploys;
-- Pub/Sub alerts work;
-- Dialogflow Q&A works.
-
-## Documentation gate
-
-- `doc.md` complete;
-- B1–B10 docs complete;
-- logs complete;
-- report complete.
-
----
-
-# 22. Definition of Project Completion
-
-The project is complete only when:
-
-1. ViSEC pipeline is reproducible;
-2. speaker-disjoint evaluation is verified;
-3. all 8 centralized models are benchmarked;
-4. four-axis Pareto analysis is complete;
-5. federated backbone is evidence-selected;
-6. FedECAI experiments are complete;
-7. RQ1–RQ6 are answered or explicitly inconclusive;
-8. deployment architecture works;
-9. final report has exactly 7 main sections;
-10. `doc.md` accurately reflects implemented reality;
-11. logs preserve the evidence trail;
-12. every reported number is traceable to experiment/config/split/seed/predictions.
+Documentation gate: RQ evidence, seven-section report, reproduction guide and
+audit trail are complete without fabricated values or contradictory protocol.

@@ -26,7 +26,7 @@ from torchvision import models
 
 from fedecai.features.mel_3ch import build_mel_3ch, pad_or_crop_mel_3ch
 from fedecai.models.b6_common import (
-    git_state, load_b6_table, load_config, prediction_rows, register_experiment,
+    enforce_b6_training_lock, git_state, load_b6_table, load_config, prediction_rows, register_experiment,
     sha256_file, write_csv_atomic, write_json_atomic,
 )
 from fedecai.models.benchmark_costs import (
@@ -109,7 +109,7 @@ def cache_metadata(config: dict[str, Any], config_path: Path, manifest_path: Pat
         "cache_version": config["cache_version"],
         "model": MODEL_NAME,
         "dataset_version": "visec_clean_eligible_v1",
-        "split_version": "speaker_disjoint_v2",
+        "split_version": str(config["split_version"]),
         "fit_partitions": ["train", "validation"],
         "feature_config": "configs/features/visec_features_v1.json",
         "feature_config_sha256": sha256_file(ROOT / "configs/features/visec_features_v1.json"),
@@ -152,7 +152,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="configs/models/b6_image_models_v1.json")
     parser.add_argument("--features", default="data/interim/features/b4_features_v1/b4_full_feature_table.parquet")
-    parser.add_argument("--manifest", default="data/manifests/split_manifest_v2_enriched.csv")
+    parser.add_argument("--manifest", default="data/manifests/emotion_stratified_v1.csv")
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--smoke-test", action="store_true")
     parser.add_argument("--rebuild-cache", action="store_true")
@@ -162,11 +162,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    enforce_b6_training_lock(ROOT, "ViT training/cache generation")
     config_path, feature_path, manifest_path = map(
         resolve, (args.config, args.features, args.manifest)
     )
     full_config = load_config(config_path)
-    config = full_config["models"][MODEL_NAME]
+    config = {**full_config["models"][MODEL_NAME], "split_version": full_config["split_version"]}
     if not config.get("freeze_backbone") or not config.get("cache_embeddings"):
         raise ValueError("ViT baseline requires frozen backbone and embedding cache")
     if args.device == "cuda" and not torch.cuda.is_available():
@@ -188,7 +189,7 @@ def main() -> None:
         smoke_expected = {
             "cache_version": "smoke_v1", "model": MODEL_NAME,
             "dataset_version": "visec_clean_eligible_v1",
-            "split_version": "speaker_disjoint_v2",
+            "split_version": full_config["split_version"],
         }
         with tempfile.TemporaryDirectory() as directory:
             smoke_dir = Path(directory)

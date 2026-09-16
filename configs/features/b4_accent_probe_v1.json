@@ -1,8 +1,8 @@
 {
   "schema_version": "b4.accent_probe.v1",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
-  "split_manifest": "data/manifests/split_manifest_v2_enriched.csv",
+  "split_version": "emotion_stratified_v1",
+  "split_manifest": "data/manifests/emotion_stratified_v1.csv",
   "feature_table": "data/interim/features/b4_features_v1/b4_full_feature_table.parquet",
   "fit_split": "train",
   "evaluation_split": "validation",
@@ -31,10 +31,10 @@
     "permutations": 50,
     "shuffle_scope": "training_accent_labels_only"
   },
-  "speaker_bootstrap": {
+  "sample_bootstrap": {
     "resamples": 2000,
-    "unit": "validation_speaker",
+    "unit": "validation_sample_emotion_stratified",
     "confidence_level": 0.95
   },
-  "interpretation": "Development diagnostic only; does not confirm H1 and must not replace the final speaker-disjoint probe evaluation."
+  "interpretation": "Development diagnostic under the sample-level emotion-stratified protocol. Speaker overlap is allowed, so results may partially reflect speaker-associated information and are not evidence of speaker-independent accent information."
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": "b6.pitch_fusion.paper_aligned.v1",
   "seed": 391,
-  "split_version": "speaker_disjoint_v2",
+  "split_version": "emotion_stratified_v1",
   "emotion_order": ["angry", "happy", "neutral", "sad"],
   "feature_contract": {"numeric_prefixes": ["mfcc_", "egemaps_", "pitch_"], "expected_features": 174},
   "models": {"pitch_fusion_paper_aligned": {}},
@@ -37,6 +37,6 @@
   "reproduction_boundary": {
     "paper_aligned": true,
     "exact_historical_reproduction": false,
-    "difference": "Uses the validated B4 pYIN pitch contour interpolated to waveform length instead of torchaudio compute_kaldi_pitch; uses padding-aware pooling and the fixed B5 speaker-disjoint split."
+    "difference": "Uses the validated B4 pYIN pitch contour interpolated to waveform length instead of torchaudio compute_kaldi_pitch; uses padding-aware pooling and the fixed B5 emotion-stratified split."
   }
 }

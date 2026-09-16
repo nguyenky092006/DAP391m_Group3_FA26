@@ -1,4 +1,4 @@
-"""Create the frozen ViSEC speaker-disjoint train/validation/test split."""
+"""Historical inactive generator for the superseded speaker-disjoint split."""
 
 from __future__ import annotations
 

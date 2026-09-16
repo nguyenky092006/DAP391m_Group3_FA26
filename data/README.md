@@ -13,7 +13,8 @@ The pinned ViSEC file is expected at `raw/visec_hf/train-00000-of-00001.parquet`
 
 Raw audio, archives, processed audio, and large generated features are excluded from Git. A tracked manifest must use stable sample identifiers and repository-safe relative paths rather than relying only on one person's absolute local path.
 
-See `docs/research/B1_SPEC.md` before downloading or moving ViSEC data.
+See `docs/research/B1_SPEC.md` before downloading or moving ViSEC data. The
+active split is `data/manifests/emotion_stratified_v1.csv`.
 
 ## Reproduce the ViSEC download
 
@@ -33,11 +34,11 @@ Expected SHA-256:
 ## Reproduce the B2 quality audit
 
 ```powershell
-python -m pip install -r requirements-audit.txt
-python src/fedecai/data/audit_visec.py
-python src/fedecai/data/clean_visec_manifest.py
+$python = (Resolve-Path '.\DAP301m\Scripts\python.exe').Path
+& $python src/fedecai/data/audit_visec.py
+& $python src/fedecai/data/clean_visec_manifest.py
 $env:PYTHONPATH = 'src'
-python -m unittest discover -s tests -v
+& $python -m unittest discover -s tests -v
 ```
 
 Audit v2 adds signal-quality screening to the original record audit. It creates
@@ -50,12 +51,12 @@ Version numbers are stored inside the artifacts instead of in filenames.
 ## Reproduce B3 EDA and SQL
 
 ```powershell
-python -m pip install -r requirements-eda.txt
-python src/fedecai/eda/b3_eda_sql.py
+$python = (Resolve-Path '.\DAP301m\Scripts\python.exe').Path
+& $python src/fedecai/eda/b3_eda_sql.py
 ```
 
 The command builds `data/processed/visec_metadata.sqlite`, which is generated
 and ignored by Git. It also writes the tracked SQL evidence tables under
 `reports/tables/b3/` and figures under `reports/figures/b3/`. B3 uses all
-B2-eligible rows for descriptive EDA; split labels are read only for coverage
-and leakage checks.
+B2-eligible rows for descriptive EDA; speaker overlap is descriptive only and
+exact cross-split waveform/file duplication is the leakage hard gate.

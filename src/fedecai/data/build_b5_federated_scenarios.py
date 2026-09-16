@@ -1,4 +1,4 @@
-"""Build versioned main and stress federated scenarios without changing B5 splits."""
+"""Build federated clients from the active emotion-stratified training samples."""
 
 from __future__ import annotations
 
@@ -19,8 +19,9 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[3]
 ACCENTS = ("central", "north", "south")
 EMOTIONS = ("angry", "happy", "neutral", "sad")
-MAIN_VERSION = "main_mixed_accent_v1"
-STRESS_VERSION = "stress_accent_domain_v1"
+SPLIT_VERSION = "emotion_stratified_v1"
+MAIN_VERSION = "main_mixed_accent_v2"
+STRESS_VERSION = "stress_accent_domain_v2"
 
 
 def speaker_profiles(frame: pd.DataFrame) -> dict[str, dict[str, Any]]:
@@ -149,7 +150,7 @@ def scenario_summary(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", default="data/manifests/split_manifest_v2_enriched.csv")
+    parser.add_argument("--manifest", default="data/manifests/emotion_stratified_v1.csv")
     parser.add_argument("--main-clients", type=int, default=3)
     return parser.parse_args()
 
@@ -168,7 +169,7 @@ def main() -> None:
     for speaker in sorted(profiles, key=int):
         rows.append({
             "speaker_id": speaker,
-            "split_version": "speaker_disjoint_v2",
+            "split_version": SPLIT_VERSION,
             "main_partition_version": MAIN_VERSION,
             "main_client_id": main_assignment[speaker],
             "stress_partition_version": STRESS_VERSION,
@@ -188,9 +189,11 @@ def main() -> None:
     }
     output_dir = ROOT / "data/manifests"
     report_dir = ROOT / "reports/tables/b5"
-    assignment_path = output_dir / "federated_speaker_partitions_v1.csv"
-    summary_path = report_dir / "b5_federated_scenarios_v1.json"
-    table_path = report_dir / "b5_federated_scenarios_v1.csv"
+    assignment_path = output_dir / "federated_client_assignments_emotion_stratified_v1.csv"
+    summary_path = report_dir / "federated_scenarios_emotion_stratified_v1.json"
+    table_path = report_dir / "federated_scenarios_emotion_stratified_v1.csv"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    report_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(assignment_path, index=False)
     summary_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     flat = []

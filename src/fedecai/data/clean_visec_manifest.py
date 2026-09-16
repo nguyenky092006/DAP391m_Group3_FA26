@@ -1,7 +1,7 @@
 """Apply the approved B2 cleaning policy to the ViSEC raw manifest.
 
 The output keeps every source row for traceability and marks whether each row
-is eligible for a later speaker-disjoint split. No raw column is overwritten.
+is eligible for the later sample-level emotion-stratified split. No raw column is overwritten.
 """
 
 from __future__ import annotations

@@ -1,7 +1,7 @@
 scenario,client_id,speakers,utterances,accents,pct_of_scenario_utterances,size_rank
-main,main_client_01,47,2858,3,77.64,1
-main,main_client_00,20,458,3,12.44,2
-main,main_client_02,36,365,3,9.92,3
-stress,stress_client_south,51,2652,1,72.05,1
-stress,stress_client_north,40,805,1,21.87,2
-stress,stress_client_central,12,224,1,6.09,3
+main,main_client_01,46,2240,3,60.85,1
+main,main_client_00,80,1074,3,29.18,2
+main,main_client_02,17,367,3,9.97,3
+stress,stress_client_south,68,2606,1,70.8,1
+stress,stress_client_north,56,873,1,23.72,2
+stress,stress_client_central,19,202,1,5.49,3

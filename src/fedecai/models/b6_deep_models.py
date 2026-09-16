@@ -61,18 +61,21 @@ class MelImageClassifier(nn.Module):
         if backbone == "resnet18":
             self.network = models.resnet18(weights=None, num_classes=classes)
             self.network.fc = nn.Sequential(nn.Dropout(dropout), self.network.fc)
+            self.feature_dim = int(self.network.fc[1].in_features)
         elif backbone == "mobilenet_v3_small":
             self.network = models.mobilenet_v3_small(weights=None, num_classes=classes)
             self.network.classifier[2] = nn.Dropout(p=dropout, inplace=True)
+            self.feature_dim = int(self.network.classifier[-1].in_features)
         elif backbone == "vit_b_16":
             self.network = models.vit_b_16(weights=None, image_size=224, num_classes=classes)
             self.network.heads.head = nn.Sequential(
                 nn.Dropout(dropout), self.network.heads.head
             )
+            self.feature_dim = int(self.network.heads.head[1].in_features)
         else:
             raise ValueError(f"Unsupported image backbone: {backbone}")
 
-    def forward(self, values: torch.Tensor) -> torch.Tensor:
+    def _validate_input(self, values: torch.Tensor) -> torch.Tensor:
         if values.ndim != 4 or values.shape[1] != 3 or values.shape[2] != 80:
             raise ValueError(
                 f"Expected B4 Mel tensor shape (batch, 3, 80, frames), got {tuple(values.shape)}"
@@ -81,48 +84,85 @@ class MelImageClassifier(nn.Module):
             values = F.interpolate(
                 values, size=(224, 224), mode="bilinear", align_corners=False
             )
-        return self.network(values)
+        return values
+
+    def forward_features(self, values: torch.Tensor) -> torch.Tensor:
+        """Return the stable pooled representation immediately before the task FC."""
+        values = self._validate_input(values)
+        if self.backbone_name != "resnet18":
+            raise RuntimeError("The formal forward_features API is active only for resnet18")
+        network = self.network
+        values = network.conv1(values)
+        values = network.bn1(values)
+        values = network.relu(values)
+        values = network.maxpool(values)
+        values = network.layer1(values)
+        values = network.layer2(values)
+        values = network.layer3(values)
+        values = network.layer4(values)
+        values = network.avgpool(values)
+        return torch.flatten(values, 1)
+
+    def forward_emotion(self, representation: torch.Tensor) -> torch.Tensor:
+        """Classify a pooled ResNet18 representation."""
+        if self.backbone_name != "resnet18":
+            raise RuntimeError("The formal forward_emotion API is active only for resnet18")
+        if representation.ndim != 2 or representation.shape[1] != self.feature_dim:
+            raise ValueError(
+                f"Expected pooled feature shape (batch, {self.feature_dim}), "
+                f"got {tuple(representation.shape)}"
+            )
+        return self.network.fc(representation)
+
+    def forward(self, values: torch.Tensor) -> torch.Tensor:
+        if self.backbone_name == "resnet18":
+            return self.forward_emotion(self.forward_features(values))
+        return self.network(self._validate_input(values))
 
 
-class AccentInvariantCNN(nn.Module):
-    """CNN emotion model with optional (conditional) GRL accent supervision."""
+class ResNet18EmotionAccentModel(nn.Module):
+    """Only active E1-E7 model: ResNet18 with optional compact accent adversary."""
+
+    MODES = ("none", "unconditional", "conditional")
 
     def __init__(
-        self, classes: int = 4, accents: int = 3, dropout: float = 0.35,
-        adversarial: bool = False, conditional: bool = False,
+        self, *, adversary: str = "none", classes: int = 4, accents: int = 3,
+        dropout: float = 0.2, adversary_hidden_dim: int = 128,
     ) -> None:
         super().__init__()
-        blocks = []
-        channels = (1, 16, 32, 64)
-        for source, target in zip(channels, channels[1:]):
-            blocks.extend([
-                nn.Conv2d(source, target, 3, padding=1),
-                nn.BatchNorm2d(target), nn.ReLU(), nn.MaxPool2d(2),
-            ])
-        self.encoder = nn.Sequential(*blocks, nn.AdaptiveAvgPool2d((1, 1)), nn.Flatten())
-        self.emotion_head = nn.Sequential(nn.Dropout(dropout), nn.Linear(64, classes))
-        self.adversarial = adversarial
-        self.conditional = conditional
-        discriminator_input = 64 + (classes if conditional else 0)
-        self.accent_head = nn.Sequential(
-            nn.Linear(discriminator_input, 64), nn.ReLU(), nn.Dropout(dropout),
-            nn.Linear(64, accents),
-        ) if adversarial else None
+        if adversary not in self.MODES:
+            raise ValueError(f"Unsupported adversary mode: {adversary}")
+        self.emotion_model = MelImageClassifier("resnet18", classes=classes, dropout=dropout)
+        self.adversary = adversary
+        self.feature_dim = self.emotion_model.feature_dim
+        adversary_input = self.feature_dim + (classes if adversary == "conditional" else 0)
+        self.accent_head = None if adversary == "none" else nn.Sequential(
+            nn.Linear(adversary_input, adversary_hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(adversary_hidden_dim, accents),
+        )
+
+    def forward_features(self, values: torch.Tensor) -> torch.Tensor:
+        return self.emotion_model.forward_features(values)
+
+    def forward_emotion(self, representation: torch.Tensor) -> torch.Tensor:
+        return self.emotion_model.forward_emotion(representation)
 
     def forward(
-        self, values: torch.Tensor, grl_strength: float = 0.0,
-        emotion_condition: torch.Tensor | None = None,
+        self, values: torch.Tensor, lambda_adv: float = 0.0,
     ) -> tuple[torch.Tensor, torch.Tensor | None]:
-        embedding = self.encoder(values)
-        emotion_logits = self.emotion_head(embedding)
-        if not self.adversarial or self.accent_head is None:
+        representation = self.forward_features(values)
+        emotion_logits = self.forward_emotion(representation)
+        if self.accent_head is None:
             return emotion_logits, None
-        reversed_embedding = gradient_reverse(embedding, grl_strength)
-        if self.conditional:
-            if emotion_condition is None:
-                emotion_condition = torch.softmax(emotion_logits.detach(), dim=1)
-            reversed_embedding = torch.cat((reversed_embedding, emotion_condition), dim=1)
-        return emotion_logits, self.accent_head(reversed_embedding)
+        if self.adversary == "conditional":
+            # The conditioning branch is deliberately detached. GRL supplies the
+            # only reversal; the positive accent CE must never be negated again.
+            posterior = torch.softmax(emotion_logits, dim=1).detach()
+            representation = torch.cat((representation, posterior), dim=1)
+        accent_logits = self.accent_head(gradient_reverse(representation, lambda_adv))
+        return emotion_logits, accent_logits
 
 
 class Wav2Vec2EmbeddingMLP(nn.Module):

@@ -2,7 +2,7 @@
   "schema_version": "b6.wav2vec2_raw.v1",
   "seed": 391,
   "dataset_version": "visec_clean_eligible_v1",
-  "split_version": "speaker_disjoint_v2",
+  "split_version": "emotion_stratified_v1",
   "emotion_order": ["angry", "happy", "neutral", "sad"],
   "model": {
     "name": "wav2vec2_raw",

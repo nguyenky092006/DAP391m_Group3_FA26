@@ -11,6 +11,12 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[3]
+SOURCE_ROOT = Path(__file__).resolve().parents[2]
+if str(SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SOURCE_ROOT))
+
+from fedecai.models.b6_common import enforce_b6_training_lock
+
 REPORT_DIR = ROOT / "reports/tables/b6"
 DISPLAY_NAMES = {
     "svm_rbf": "SVM RBF",
@@ -130,6 +136,7 @@ def write_validation_metrics_table() -> Path:
 
 def main() -> None:
     args = parse_args()
+    enforce_b6_training_lock(ROOT, "eight-model B6 orchestration")
     dap301m_python = (ROOT / "DAP301m/Scripts/python.exe").resolve()
     if not dap301m_python.is_file():
         raise FileNotFoundError(f"Required DAP301m interpreter is absent: {dap301m_python}")

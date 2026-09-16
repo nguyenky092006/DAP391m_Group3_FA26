@@ -2,88 +2,60 @@
 
 ## Objective
 
-Define the FedECAI problem, evidence-based research gap, expected contributions, six research questions, six testable hypotheses, foundational literature, scope, ownership, and evidence requirements without claiming unrun results.
+Define FedECAI, the evidence-based research gap, intended contributions, six
+research questions and hypotheses, scope, owners and evidence requirements
+under the active sample-level emotion-stratified evaluation protocol.
 
 ## Technical Details
 
-- Dataset: ViSEC; four emotion classes and three accent groups.
-- Evaluation unit: speaker-disjoint train/validation/test; the same fixed test set is required for every centralized model.
-- RQ1–RQ6 and H1–H6 are defined below in this consolidated specification.
-- RQ3 compares exactly eight centralized models: SVM, XGBoost, CNN 2D, ResNet-18 with 3-channel Mel-Spectrogram, MobileNetV3 with 3-channel Mel-Spectrogram, ViT with 3-channel Mel-Spectrogram, Wav2Vec2, and Pitch-Fusion.
-- RQ3 uses four primary Pareto dimensions: Overall Macro-F1, Worst-accent Macro-F1, inference latency, and model size.
-- RQ5 treats ResNet-18 as the primary federated-backbone candidate and MobileNetV3 as the efficiency alternative. Selection requires performance, latency, size, stability, communication burden, and FL practicality evidence.
-- Required method ladder: baseline, unconditional GRL, emotion-conditioned GRL, FedAvg, FedProx, FedAvg with unconditional GRL, and FedECAI.
-- Foundational literature covers ViSEC/Pitch-Fusion, DANN/GRL, FedAvg, and FedProx.
-- Existing five-model and compact-CNN E1–E7 outputs are preliminary legacy evidence. They do not satisfy the eight-model benchmark or final FedECAI-backbone requirements.
-- Ownership is assigned by workstream role because no verified individual assignment is present in the repository. Named-person allocation remains a project-management action, not a scientific requirement or result.
+- Dataset: ViSEC; four emotions and three accent groups.
+- Evaluation: deterministic sample-level emotion-stratified train/validation/test,
+  fixed seed and one fixed test membership across all centralized models.
+- `speaker_id` is descriptive metadata, not a split grouping constraint.
+- RQ1 asks how much accent information remains in MFCC/eGeMAPS, log-Mel,
+  pitch-related and Wav2Vec2 representations under the active protocol.
+- RQ2 asks how emotion-recognition performance differs among North, Central
+  and South under the same protocol.
+- RQ3 compares exactly SVM, XGBoost, CNN2D, ResNet-18, MobileNetV3, ViT,
+  Wav2Vec2 and Pitch-Fusion using Overall Macro-F1, Worst-accent Macro-F1,
+  latency and model size as the four primary Pareto dimensions.
+- RQ4 compares the locked ResNet18 E1 baseline, E2 unconditional GRL and E3
+  emotion-conditioned GRL as controlled centralized ablations.
+- RQ5 compares E4 FedAvg, E5 FedProx, E6 FedAvg + unconditional GRL and E7
+  FedECAI, all using the selected ResNet18 architecture.
+- RQ6 studies the ResNet18 `lambda_adv` utility-invariance trade-off using
+  development evidence only.
+- ResNet-18 and MobileNetV3 were originally candidates. The human selected
+  `resnet18_mel3` with `full_finetune` on 2026-09-15; MobileNetV3 remains the
+  efficiency fallback. Wav2Vec2-based E8 is future work, not active.
+- Foundational literature remains ViSEC/Pitch-Fusion, DANN/GRL, FedAvg and FedProx.
+- Because speakers may occur across splits, no result may be framed as
+  generalization to completely new speakers or purely speaker-independent accent evidence.
+
+H1–H6 are expectations, not findings: residual accent information; differences
+among accent groups; a non-trivial RQ3 Pareto frontier; a competitive
+emotion-conditioned GRL trade-off; possible FedECAI benefit in at least one
+federated scenario; and at least one useful non-zero lambda setting.
 
 ## Metrics
 
-Planning-completeness checks:
-
-- 6/6 research questions defined.
-- 6/6 hypotheses defined.
-- 6/6 RQ-to-method, metric, evidence, decision-rule, and owner mappings defined.
-- Exactly 8 centralized models in RQ3.
-- Four mandatory Pareto dimensions in RQ3.
-- ResNet-18/MobileNetV3 federated-backbone policy in RQ5.
-- Zero claimed experimental values not supported by existing artifacts.
-- Zero unsupported “first”, “novel”, privacy-guarantee, or diagnostic claims.
-
-## Consolidated research questions and hypotheses
-
-- **RQ1:** How much accent information remains in MFCC/eGeMAPS, log-Mel,
-  pitch-related and Wav2Vec2 representations on unseen speakers?
-- **RQ2:** How much does emotion recognition differ among North, Central and
-  South accents on unseen speakers?
-- **RQ3:** Which of the eight centralized models is Pareto-efficient across
-  overall Macro-F1, worst-accent Macro-F1, latency and model size?
-- **RQ4:** Does emotion-conditioned adversarial learning improve the
-  utility–accent-invariance trade-off relative to no GRL and unconditional GRL?
-- **RQ5:** How does FedECAI compare with FedAvg, FedProx and FedAvg plus
-  unconditional GRL under the versioned client scenarios?
-- **RQ6:** How does `lambda_adv` control utility versus accent invariance?
-
-H1–H6 are preregistered expectations, not findings: measurable residual accent
-information; non-zero emotion performance gaps by accent; a non-trivial
-four-axis centralized Pareto frontier; conditional GRL competitive with or
-better than unconditional GRL within a utility budget; FedECAI improvement in
-at least one federated scenario; and at least one non-zero Pareto-efficient
-`lambda_adv` setting. None may be claimed without its required experiment.
-
-## Consolidated dataset provenance and dictionary
-
-- Source: ViSEC release used by the ICASSP 2024 Pitch-Fusion work; the pinned
-  local Parquet and SHA-256 in `data/manifests/raw_audit.json` are authoritative.
-- License recorded by the acquisition source: CC BY 4.0. Attribution remains
-  mandatory; raw audio, personal data and large artifacts are not committed.
-- Verified raw population: 5,280 rows, 147 released speaker IDs, four emotions
-  (`angry`, `happy`, `neutral`, `sad`) and three canonical accents
-  (`central`, `north`, `south`).
-- Core identity fields are `sample_id`, `source_row_index`, `speaker_id`,
-  `audio_sha256`, emotion and accent. Audit fields preserve WAV readability,
-  sample rate, channel count, duration, clipping/silence flags and duplicate
-  membership. Split/client fields are downstream assignments, never raw facts.
-- Missing/unreadable/invalid-label rows cannot enter modelling. Exact duplicate
-  waveforms cannot cross splits. Conflicting duplicates are excluded rather
-  than relabelled. Speaker ID `0` may be a catch-all; claims are limited to the
-  released identifier.
+- 6/6 RQs and 6/6 hypotheses.
+- Exactly eight RQ3 models and four Pareto dimensions.
+- Complete RQ-to-method/metric/evidence/decision/owner mapping.
+- Zero unsupported novelty, privacy, diagnosis or experiment-result claims.
 
 ## Products & Deliverables
 
-- This consolidated `docs/research/B1_SPEC.md`.
-- `data/manifests/raw_manifest.csv`, `raw_audit.json`, `invalid_audio.csv` and
-  `duplicate_report.csv`.
-- `doc.md`, `docs/PROJECT_STATUS_AUDIT.md` and `logs/project_log.md`.
+- `docs/research/B1_SPEC.md`
+- `PROJECT_RULES.md`
+- `PLAN_FEDECAI.md`
+- `doc.md`
+- decision/project logs
 
 ## Definition of Done
 
-- Problem statement is explicit.
-- Research gap is tied to the foundational literature without an unsupported novelty claim.
-- Expected contributions are stated as intended, evidence-dependent outputs.
-- RQ1–RQ6 and H1–H6 exist and map one-to-one.
-- RQ3 lists exactly the required eight models and four Pareto dimensions.
-- RQ5 contains the ResNet-18/MobileNetV3 backbone policy.
-- Included scope, out-of-scope boundaries, non-negotiable evaluation rules, and workstream owners are explicit.
-- Every RQ maps to a method, metrics, future evidence, a decision rule, and an owner.
-- Human-facing documentation reflects that B1 is complete while downstream implementation remains incomplete.
+The problem, gap, intended contributions, RQ1–RQ6, H1–H6, foundational
+literature, scope and ownership are explicit; RQ3 has the exact model/Pareto
+contract; the active split, completed human backbone decision and ResNet18
+E1-E7 ladder are unambiguous.
+Status after protocol migration: **DONE**.
