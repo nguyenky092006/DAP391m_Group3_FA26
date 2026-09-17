@@ -1,0 +1,131 @@
+{
+  "experiment_id": "b6_vit_b16_mel3_seed391",
+  "model": "vit_b16_mel3",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.5093765168395876,
+  "uar": 0.5136238897268308,
+  "weighted_f1": 0.5203508362459265,
+  "accuracy": 0.521671826625387,
+  "north_macro_f1": 0.5251403795944698,
+  "central_macro_f1": 0.1652777777777778,
+  "south_macro_f1": 0.505601783614871,
+  "worst_accent_macro_f1": 0.1652777777777778,
+  "best_accent_macro_f1": 0.5251403795944698,
+  "accent_gap": 0.359862601816692,
+  "accent_std": 0.165228218557155,
+  "total_parameters": 85803268,
+  "trainable_parameters": 4612,
+  "model_size_mb": 330.3075981140137,
+  "training_time_sec": 2.049539100000402,
+  "feature_extraction_time_sec": 35.01555529999314,
+  "model_training_time_sec": 2.049539100000402,
+  "end_to_end_training_pipeline_time_sec": 37.06509439999354,
+  "inference_latency_ms": 10.17915,
+  "latency_mean_ms": 10.940086,
+  "latency_median_ms": 10.17915,
+  "latency_std_ms": 2.8025202856721667,
+  "latency_p95_ms": 16.538734999999996,
+  "per_class": {
+    "angry": {
+      "precision": 0.6326530612244898,
+      "recall": 0.656084656084656,
+      "f1": 0.6441558441558441,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.375,
+      "recall": 0.38095238095238093,
+      "f1": 0.3779527559055118,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5269461077844312,
+      "recall": 0.4512820512820513,
+      "f1": 0.4861878453038674,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.4967741935483871,
+      "recall": 0.5661764705882353,
+      "f1": 0.5292096219931272,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        124,
+        27,
+        21,
+        17
+      ],
+      [
+        28,
+        48,
+        36,
+        14
+      ],
+      [
+        27,
+        33,
+        88,
+        47
+      ],
+      [
+        17,
+        20,
+        22,
+        77
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.1652777777777778,
+      "uar": 0.19999999999999998,
+      "per_emotion_f1": {
+        "angry": 0.0,
+        "happy": 0.55,
+        "neutral": 0.1111111111111111,
+        "sad": 0.0
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.5251403795944698,
+      "uar": 0.5246002906976744,
+      "per_emotion_f1": {
+        "angry": 0.6753246753246753,
+        "happy": 0.4117647058823529,
+        "neutral": 0.4782608695652174,
+        "sad": 0.5352112676056338
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.505601783614871,
+      "uar": 0.5086287229282586,
+      "per_emotion_f1": {
+        "angry": 0.6468646864686468,
+        "happy": 0.3150684931506849,
+        "neutral": 0.5158730158730159,
+        "sad": 0.5446009389671361
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "one-time frozen pretrained ViT extraction; cache reuse recorded",
+    "cache_reused": false,
+    "latency_path": "model-ready 3-channel Mel -> resize/normalize -> frozen ViT -> head"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_vit_b16_mel3_seed391_validation.csv"
+}

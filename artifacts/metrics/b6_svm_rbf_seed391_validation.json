@@ -1,0 +1,130 @@
+{
+  "experiment_id": "b6_svm_rbf_seed391",
+  "model": "svm_rbf",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.5909914982662923,
+  "uar": 0.5920557111733582,
+  "weighted_f1": 0.5996038923279545,
+  "accuracy": 0.6021671826625387,
+  "north_macro_f1": 0.539905990886383,
+  "central_macro_f1": 0.5466859716859717,
+  "south_macro_f1": 0.5999939461679886,
+  "worst_accent_macro_f1": 0.539905990886383,
+  "best_accent_macro_f1": 0.5999939461679886,
+  "accent_gap": 0.0600879552816056,
+  "accent_std": 0.026870617271457595,
+  "total_parameters": null,
+  "trainable_parameters": null,
+  "model_size_mb": 8.890481948852539,
+  "training_time_sec": 11.60702520000632,
+  "feature_extraction_time_sec": null,
+  "model_training_time_sec": 11.60702520000632,
+  "end_to_end_training_pipeline_time_sec": 11.60702520000632,
+  "inference_latency_ms": 2.64785,
+  "latency_mean_ms": 2.6818419999999996,
+  "latency_median_ms": 2.64785,
+  "latency_std_ms": 0.3300756235107342,
+  "latency_p95_ms": 3.342359999999999,
+  "per_class": {
+    "angry": {
+      "precision": 0.7029702970297029,
+      "recall": 0.7513227513227513,
+      "f1": 0.7263427109974424,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.4700854700854701,
+      "recall": 0.4365079365079365,
+      "f1": 0.45267489711934156,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5473684210526316,
+      "recall": 0.5333333333333333,
+      "f1": 0.5402597402597402,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.6423357664233577,
+      "recall": 0.6470588235294118,
+      "f1": 0.6446886446886447,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        142,
+        16,
+        18,
+        13
+      ],
+      [
+        26,
+        55,
+        39,
+        6
+      ],
+      [
+        26,
+        35,
+        104,
+        30
+      ],
+      [
+        8,
+        11,
+        29,
+        88
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.5466859716859717,
+      "uar": 0.6666666666666667,
+      "per_emotion_f1": {
+        "angry": 0.6666666666666666,
+        "happy": 0.6486486486486487,
+        "neutral": 0.3,
+        "sad": 0.5714285714285714
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.539905990886383,
+      "uar": 0.5422238372093023,
+      "per_emotion_f1": {
+        "angry": 0.6172839506172839,
+        "happy": 0.4117647058823529,
+        "neutral": 0.4835164835164835,
+        "sad": 0.6470588235294118
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.5999939461679886,
+      "uar": 0.5985270212243896,
+      "per_emotion_f1": {
+        "angry": 0.756578947368421,
+        "happy": 0.42028985507246375,
+        "neutral": 0.5766423357664233,
+        "sad": 0.6464646464646465
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
+    "latency_path": "model-ready 168-feature vector -> fitted estimator"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_svm_rbf_seed391_validation.csv"
+}

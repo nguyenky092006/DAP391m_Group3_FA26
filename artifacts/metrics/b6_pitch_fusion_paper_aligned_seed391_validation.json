@@ -1,0 +1,132 @@
+{
+  "experiment_id": "b6_pitch_fusion_paper_aligned_seed391",
+  "model": "pitch_fusion_paper_aligned",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.5739922841397556,
+  "uar": 0.5692476777035601,
+  "weighted_f1": 0.5881579367324715,
+  "accuracy": 0.5804953560371517,
+  "north_macro_f1": 0.521661554695676,
+  "central_macro_f1": 0.3194444444444444,
+  "south_macro_f1": 0.5859311035807231,
+  "worst_accent_macro_f1": 0.3194444444444444,
+  "best_accent_macro_f1": 0.5859311035807231,
+  "accent_gap": 0.26648665913627867,
+  "accent_std": 0.11354757891144691,
+  "total_parameters": 141871492,
+  "trainable_parameters": 47499780,
+  "model_size_mb": 541.2906789779663,
+  "training_time_sec": 1661.7473978000053,
+  "feature_extraction_time_sec": null,
+  "model_training_time_sec": 1661.7473978000053,
+  "end_to_end_training_pipeline_time_sec": 1661.7473978000053,
+  "inference_latency_ms": 15.482800000000001,
+  "latency_mean_ms": 15.606206,
+  "latency_median_ms": 15.482800000000001,
+  "latency_std_ms": 1.12070289611654,
+  "latency_p95_ms": 17.888104999999996,
+  "per_class": {
+    "angry": {
+      "precision": 0.7888198757763976,
+      "recall": 0.671957671957672,
+      "f1": 0.7257142857142858,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.38095238095238093,
+      "recall": 0.5079365079365079,
+      "f1": 0.43537414965986393,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5502392344497608,
+      "recall": 0.5897435897435898,
+      "f1": 0.5693069306930693,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.6388888888888888,
+      "recall": 0.5073529411764706,
+      "f1": 0.5655737704918032,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        127,
+        34,
+        21,
+        7
+      ],
+      [
+        14,
+        64,
+        39,
+        9
+      ],
+      [
+        13,
+        44,
+        115,
+        23
+      ],
+      [
+        7,
+        26,
+        34,
+        69
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.3194444444444444,
+      "uar": 0.35,
+      "per_emotion_f1": {
+        "angry": 0.5,
+        "happy": 0.6666666666666666,
+        "neutral": 0.1111111111111111,
+        "sad": 0.0
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.521661554695676,
+      "uar": 0.5167368242222894,
+      "per_emotion_f1": {
+        "angry": 0.6493506493506493,
+        "happy": 0.42105263157894735,
+        "neutral": 0.5416666666666666,
+        "sad": 0.4745762711864407
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.5859311035807231,
+      "uar": 0.5816946856033542,
+      "per_emotion_f1": {
+        "angry": 0.7509293680297398,
+        "happy": 0.3815028901734104,
+        "neutral": 0.6068965517241379,
+        "sad": 0.6043956043956044
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "raw decode and pitch loading occur in the training data path",
+    "latency_path": "model-ready waveform and pitch tensors -> Wav2Vec2 plus fusion network",
+    "reused_completed_checkpoint": false,
+    "training_time_source": "current TrainingTimer"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_pitch_fusion_paper_aligned_seed391_validation.csv"
+}

@@ -1,0 +1,130 @@
+{
+  "experiment_id": "b6_mobilenet_v3_mel3_finetune_seed391",
+  "model": "mobilenet_v3_mel3",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.5361178122499793,
+  "uar": 0.5435821123321123,
+  "weighted_f1": 0.544493686999826,
+  "accuracy": 0.544891640866873,
+  "north_macro_f1": 0.502275073289566,
+  "central_macro_f1": 0.45551378446115287,
+  "south_macro_f1": 0.5418726115544565,
+  "worst_accent_macro_f1": 0.45551378446115287,
+  "best_accent_macro_f1": 0.5418726115544565,
+  "accent_gap": 0.08635882709330367,
+  "accent_std": 0.03529625442272698,
+  "total_parameters": 1521956,
+  "trainable_parameters": 1521956,
+  "model_size_mb": 5.930148124694824,
+  "training_time_sec": 198.576824400021,
+  "feature_extraction_time_sec": null,
+  "model_training_time_sec": 198.576824400021,
+  "end_to_end_training_pipeline_time_sec": 198.576824400021,
+  "inference_latency_ms": 7.55505,
+  "latency_mean_ms": 8.824656,
+  "latency_median_ms": 7.55505,
+  "latency_std_ms": 3.5951912408749553,
+  "latency_p95_ms": 16.246085,
+  "per_class": {
+    "angry": {
+      "precision": 0.6648648648648648,
+      "recall": 0.6507936507936508,
+      "f1": 0.6577540106951871,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.41911764705882354,
+      "recall": 0.4523809523809524,
+      "f1": 0.4351145038167939,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5723684210526315,
+      "recall": 0.4461538461538462,
+      "f1": 0.5014409221902018,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.4913294797687861,
+      "recall": 0.625,
+      "f1": 0.5501618122977346,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        123,
+        32,
+        11,
+        23
+      ],
+      [
+        23,
+        57,
+        22,
+        24
+      ],
+      [
+        30,
+        37,
+        87,
+        41
+      ],
+      [
+        9,
+        10,
+        32,
+        85
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.45551378446115287,
+      "uar": 0.5416666666666667,
+      "per_emotion_f1": {
+        "angry": 0.5714285714285714,
+        "happy": 0.631578947368421,
+        "neutral": 0.3333333333333333,
+        "sad": 0.2857142857142857
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.502275073289566,
+      "uar": 0.5100908902144368,
+      "per_emotion_f1": {
+        "angry": 0.6,
+        "happy": 0.37681159420289856,
+        "neutral": 0.49382716049382713,
+        "sad": 0.5384615384615384
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.5418726115544565,
+      "uar": 0.5469024010045682,
+      "per_emotion_f1": {
+        "angry": 0.6759581881533101,
+        "happy": 0.4129032258064516,
+        "neutral": 0.5161290322580645,
+        "sad": 0.5625
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "deterministic B4 log-Mel cache excluded",
+    "latency_path": "model-ready Mel tensor -> neural network"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_mobilenet_v3_mel3_finetune_seed391_validation.csv"
+}

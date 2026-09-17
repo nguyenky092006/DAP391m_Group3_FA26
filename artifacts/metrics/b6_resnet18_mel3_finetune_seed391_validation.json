@@ -1,0 +1,130 @@
+{
+  "experiment_id": "b6_resnet18_mel3_finetune_seed391",
+  "model": "resnet18_mel3",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.6218351697860597,
+  "uar": 0.6216308745720511,
+  "weighted_f1": 0.6367225088173246,
+  "accuracy": 0.6439628482972136,
+  "north_macro_f1": 0.5651249841390686,
+  "central_macro_f1": 0.5184027777777778,
+  "south_macro_f1": 0.6469934829083388,
+  "worst_accent_macro_f1": 0.5184027777777778,
+  "best_accent_macro_f1": 0.6469934829083388,
+  "accent_gap": 0.12859070513056103,
+  "accent_std": 0.05314653234635135,
+  "total_parameters": 11178564,
+  "trainable_parameters": 11178564,
+  "model_size_mb": 42.71912670135498,
+  "training_time_sec": 158.98527500004275,
+  "feature_extraction_time_sec": null,
+  "model_training_time_sec": 158.98527500004275,
+  "end_to_end_training_pipeline_time_sec": 158.98527500004275,
+  "inference_latency_ms": 3.513,
+  "latency_mean_ms": 4.371882,
+  "latency_median_ms": 3.513,
+  "latency_std_ms": 1.8569287838460582,
+  "latency_p95_ms": 8.275559999999999,
+  "per_class": {
+    "angry": {
+      "precision": 0.7391304347826086,
+      "recall": 0.7195767195767195,
+      "f1": 0.7292225201072386,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.5421686746987951,
+      "recall": 0.35714285714285715,
+      "f1": 0.430622009569378,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5933609958506224,
+      "recall": 0.7333333333333333,
+      "f1": 0.6559633027522935,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.6666666666666666,
+      "recall": 0.6764705882352942,
+      "f1": 0.6715328467153284,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        136,
+        17,
+        23,
+        13
+      ],
+      [
+        20,
+        45,
+        50,
+        11
+      ],
+      [
+        17,
+        13,
+        143,
+        22
+      ],
+      [
+        11,
+        8,
+        25,
+        92
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.5184027777777778,
+      "uar": 0.5416666666666666,
+      "per_emotion_f1": {
+        "angry": 0.6666666666666666,
+        "happy": 0.4444444444444444,
+        "neutral": 0.5625,
+        "sad": 0.4
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.5651249841390686,
+      "uar": 0.5793581055572334,
+      "per_emotion_f1": {
+        "angry": 0.647887323943662,
+        "happy": 0.2857142857142857,
+        "neutral": 0.6126126126126126,
+        "sad": 0.7142857142857143
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.6469934829083388,
+      "uar": 0.641617863560588,
+      "per_emotion_f1": {
+        "angry": 0.75,
+        "happy": 0.49206349206349204,
+        "neutral": 0.6825938566552902,
+        "sad": 0.6633165829145728
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "deterministic B4 log-Mel cache excluded",
+    "latency_path": "model-ready Mel tensor -> neural network"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_resnet18_mel3_finetune_seed391_validation.csv"
+}

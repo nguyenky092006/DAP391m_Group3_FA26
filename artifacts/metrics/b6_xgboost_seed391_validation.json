@@ -1,0 +1,130 @@
+{
+  "experiment_id": "b6_xgboost_seed391",
+  "model": "xgboost",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.6046575725674517,
+  "uar": 0.6004876523258876,
+  "weighted_f1": 0.6170268934970745,
+  "accuracy": 0.6222910216718266,
+  "north_macro_f1": 0.5261922561754353,
+  "central_macro_f1": 0.5138888888888888,
+  "south_macro_f1": 0.6188735244659469,
+  "worst_accent_macro_f1": 0.5138888888888888,
+  "best_accent_macro_f1": 0.6188735244659469,
+  "accent_gap": 0.10498463557705806,
+  "accent_std": 0.046860269887984994,
+  "total_parameters": null,
+  "trainable_parameters": null,
+  "model_size_mb": 3.6082677841186523,
+  "training_time_sec": 93.14844950000406,
+  "feature_extraction_time_sec": null,
+  "model_training_time_sec": 93.14844950000406,
+  "end_to_end_training_pipeline_time_sec": 93.14844950000406,
+  "inference_latency_ms": 1.9339,
+  "latency_mean_ms": 2.003602,
+  "latency_median_ms": 1.9339,
+  "latency_std_ms": 0.42139558492703744,
+  "latency_p95_ms": 2.7195899999999997,
+  "per_class": {
+    "angry": {
+      "precision": 0.7121951219512195,
+      "recall": 0.7724867724867724,
+      "f1": 0.7411167512690355,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.5222222222222223,
+      "recall": 0.373015873015873,
+      "f1": 0.4351851851851852,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5407725321888412,
+      "recall": 0.6461538461538462,
+      "f1": 0.5887850467289719,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.7033898305084746,
+      "recall": 0.6102941176470589,
+      "f1": 0.6535433070866141,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        146,
+        15,
+        21,
+        7
+      ],
+      [
+        23,
+        47,
+        48,
+        8
+      ],
+      [
+        26,
+        23,
+        126,
+        20
+      ],
+      [
+        10,
+        5,
+        38,
+        83
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.5138888888888888,
+      "uar": 0.525,
+      "per_emotion_f1": {
+        "angry": 0.3333333333333333,
+        "happy": 0.7222222222222222,
+        "neutral": 0.5,
+        "sad": 0.5
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.5261922561754353,
+      "uar": 0.5273298286016309,
+      "per_emotion_f1": {
+        "angry": 0.6585365853658537,
+        "happy": 0.27586206896551724,
+        "neutral": 0.5370370370370371,
+        "sad": 0.6333333333333333
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.6188735244659469,
+      "uar": 0.6135111985537682,
+      "per_emotion_f1": {
+        "angry": 0.7712418300653595,
+        "happy": 0.4262295081967213,
+        "neutral": 0.6148648648648649,
+        "sad": 0.6631578947368421
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "B4 MFCC/eGeMAPS precomputation excluded",
+    "latency_path": "model-ready 168-feature vector -> fitted estimator"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_xgboost_seed391_validation.csv"
+}

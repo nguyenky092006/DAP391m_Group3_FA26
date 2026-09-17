@@ -1,0 +1,131 @@
+{
+  "experiment_id": "b6_wav2vec2_raw_seed391",
+  "model": "wav2vec2_raw",
+  "seed": 391,
+  "dataset_version": "visec_clean_eligible_v1",
+  "split_version": "emotion_stratified_v1",
+  "overall_macro_f1": 0.5577071933578428,
+  "uar": 0.5552407287701405,
+  "weighted_f1": 0.5768281090879672,
+  "accuracy": 0.5835913312693498,
+  "north_macro_f1": 0.49658107178630395,
+  "central_macro_f1": 0.426487414187643,
+  "south_macro_f1": 0.5680631254228514,
+  "worst_accent_macro_f1": 0.426487414187643,
+  "best_accent_macro_f1": 0.5680631254228514,
+  "accent_gap": 0.1415757112352084,
+  "accent_std": 0.05779896850234121,
+  "total_parameters": 94376324,
+  "trainable_parameters": 4612,
+  "model_size_mb": 362.65835762023926,
+  "training_time_sec": 38.86327600001823,
+  "feature_extraction_time_sec": null,
+  "model_training_time_sec": 38.86327600001823,
+  "end_to_end_training_pipeline_time_sec": null,
+  "inference_latency_ms": 11.6758,
+  "latency_mean_ms": 12.287206000000001,
+  "latency_median_ms": 11.6758,
+  "latency_std_ms": 1.652966505820369,
+  "latency_p95_ms": 14.980524999999998,
+  "per_class": {
+    "angry": {
+      "precision": 0.6682692307692307,
+      "recall": 0.7354497354497355,
+      "f1": 0.7002518891687658,
+      "support": 189
+    },
+    "happy": {
+      "precision": 0.423728813559322,
+      "recall": 0.3968253968253968,
+      "f1": 0.4098360655737705,
+      "support": 126
+    },
+    "neutral": {
+      "precision": 0.5617021276595745,
+      "recall": 0.676923076923077,
+      "f1": 0.6139534883720931,
+      "support": 195
+    },
+    "sad": {
+      "precision": 0.6588235294117647,
+      "recall": 0.4117647058823529,
+      "f1": 0.5067873303167421,
+      "support": 136
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angry",
+      "happy",
+      "neutral",
+      "sad"
+    ],
+    "values": [
+      [
+        139,
+        27,
+        18,
+        5
+      ],
+      [
+        29,
+        50,
+        35,
+        12
+      ],
+      [
+        27,
+        24,
+        132,
+        12
+      ],
+      [
+        13,
+        17,
+        50,
+        56
+      ]
+    ]
+  },
+  "per_accent": {
+    "central": {
+      "samples": 35,
+      "macro_f1": 0.426487414187643,
+      "uar": 0.4,
+      "per_emotion_f1": {
+        "angry": 0.5,
+        "happy": 0.6842105263157895,
+        "neutral": 0.5217391304347826,
+        "sad": 0.0
+      }
+    },
+    "north": {
+      "samples": 154,
+      "macro_f1": 0.49658107178630395,
+      "uar": 0.49593731123527635,
+      "per_emotion_f1": {
+        "angry": 0.6172839506172839,
+        "happy": 0.3188405797101449,
+        "neutral": 0.594059405940594,
+        "sad": 0.45614035087719296
+      }
+    },
+    "south": {
+      "samples": 457,
+      "macro_f1": 0.5680631254228514,
+      "uar": 0.5649415084399604,
+      "per_emotion_f1": {
+        "angry": 0.7243589743589743,
+        "happy": 0.3795620437956204,
+        "neutral": 0.6274509803921569,
+        "sad": 0.5408805031446541
+      }
+    }
+  },
+  "cost_protocol": {
+    "feature_extraction": "reused validated B4 one-time raw-waveform extraction; historical duration unavailable",
+    "cache_reused": false,
+    "latency_path": "raw waveform tensor -> frozen Wav2Vec2 encoder -> masked pooling -> classifier"
+  },
+  "prediction_file": "D:\\PROJECT\\PVC_FedOrion\\DAP391m_Group3_FA26\\artifacts\\predictions\\b6_wav2vec2_raw_seed391_validation.csv"
+}
