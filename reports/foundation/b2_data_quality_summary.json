@@ -1,0 +1,24 @@
+{
+  "source_rows": 5280,
+  "eligible_rows": 4992,
+  "excluded_rows": 288,
+  "speakers": 147,
+  "missing_embedded_audio": 0,
+  "unreadable_audio": 0,
+  "duplicate_waveform_rows": 555,
+  "possible_clipping": 77,
+  "high_silence": 403,
+  "sample_rates": {
+    "16000": 5280
+  },
+  "channels": {
+    "1": 5280
+  },
+  "duration_seconds": {
+    "min": 1.0,
+    "median": 1.92,
+    "mean": 2.129415126702724,
+    "p95": 4.150512499999997,
+    "max": 24.704
+  }
+}

@@ -1,0 +1,5 @@
+emotion,samples,mean_seconds,min_seconds,max_seconds
+angry,1465,1.979,1.0,8.512
+happy,973,2.376,1.0,24.704
+neutral,1505,2.207,1.024,21.184
+sad,1049,2.0,1.0,10.368

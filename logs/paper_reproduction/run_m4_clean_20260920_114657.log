@@ -1,0 +1,35 @@
+[m4-prosody] 128/4992 | elapsed=2.1s
+[m4-prosody] 256/4992 | elapsed=5.0s
+[m4-prosody] 384/4992 | elapsed=8.0s
+[m4-prosody] 512/4992 | elapsed=10.9s
+[m4-prosody] 640/4992 | elapsed=13.5s
+[m4-prosody] 768/4992 | elapsed=16.3s
+[m4-prosody] 896/4992 | elapsed=19.2s
+[m4-prosody] 1024/4992 | elapsed=21.9s
+[m4-prosody] 1152/4992 | elapsed=24.8s
+[m4-prosody] 1280/4992 | elapsed=27.4s
+[m4-prosody] 1408/4992 | elapsed=30.2s
+[m4-prosody] 1536/4992 | elapsed=32.7s
+[m4-prosody] 1664/4992 | elapsed=35.5s
+[m4-prosody] 1792/4992 | elapsed=38.4s
+[m4-prosody] 1920/4992 | elapsed=41.1s
+[m4-prosody] 2048/4992 | elapsed=44.2s
+[m4-prosody] 2176/4992 | elapsed=46.9s
+[m4-prosody] 2304/4992 | elapsed=49.8s
+[m4-prosody] 2432/4992 | elapsed=52.5s
+[m4-prosody] 2560/4992 | elapsed=55.0s
+[m4-prosody] 2688/4992 | elapsed=57.7s
+[m4-prosody] 2816/4992 | elapsed=60.8s
+Traceback (most recent call last):
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 154, in <module>
+    if __name__ == "__main__": main()
+                               ~~~~^^
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 134, in main
+    stats=prepare_features(manifest,audio,feature_root,kaldi,config,args.force_features)
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 72, in prepare_features
+    values = matrix_to_prosody(matrices[str(row.sample_id)], audio)
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 52, in matrix_to_prosody
+    energy = frame_energy(audio, len(matrix))
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 42, in frame_energy
+    raise ValueError(f"Audio has {len(windows)} energy frames, Kaldi has {frames}")
+ValueError: Audio has 115 energy frames, Kaldi has 116

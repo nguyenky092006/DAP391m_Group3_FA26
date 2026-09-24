@@ -1,0 +1,12 @@
+{
+  "split_version": "speaker_disjoint_v2",
+  "seed": 391,
+  "speaker_overlap": {
+    "train_validation": 0,
+    "train_test": 0,
+    "validation_test": 0
+  },
+  "coverage_cells": 36,
+  "expected_coverage_cells": 36,
+  "status": "PASS"
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": "pitchfusion.m2_m4.v1",
+  "seed": 391,
+  "split_version": "speaker_disjoint_v2",
+  "emotion_order": ["angry", "happy", "neutral", "sad"],
+  "models": ["m2_wav2vec2", "m3_pitch_fusion", "m4_multi_prosody"],
+  "backbone": {
+    "model_id": "nguyenvulebinh/wav2vec2-base-vi",
+    "revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "local_snapshot": "data/interim/models/huggingface/models--nguyenvulebinh--wav2vec2-base-vi/snapshots/86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "freeze_feature_encoder": true
+  },
+  "architecture": {
+    "hidden_size": 768,
+    "classifier_projection_size": 256,
+    "attention_heads": 16,
+    "dropout": 0.1,
+    "m4_prosody_channels": [
+      "log_f0",
+      "voicing_confidence",
+      "log_energy",
+      "delta_log_f0",
+      "delta_log_energy"
+    ],
+    "m3_prosody_channels": ["log_f0"],
+    "m3_m4_difference": "input channel count only"
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 8,
+    "learning_rate": 0.00001,
+    "weight_decay": 0.0001,
+    "max_audio_samples": 160000,
+    "gradient_clip": 1.0,
+    "num_workers": 0,
+    "mixed_precision": true,
+    "loss": "class_weighted_cross_entropy",
+    "optimizer": "AdamW"
+  },
+  "comparison_contract": {
+    "same_split": true,
+    "same_seed": true,
+    "same_waveform_preprocessing": true,
+    "same_wav2vec2_backbone": true,
+    "same_training_configuration": true,
+    "same_fusion_and_classifier_for_m3_m4": true,
+    "m3_to_m4_interpretation": "feature_gain",
+    "m5_status": "not_implemented_pending_human_decision"
+  }
+}

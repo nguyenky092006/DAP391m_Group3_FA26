@@ -1,0 +1,25 @@
+**********************
+PowerShell transcript start
+Start time: 20260919001615
+Username: THUKY\Thu Ky
+RunAs User: THUKY\Thu Ky
+Configuration Name: 
+Machine: THUKY (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.6.0_x64__8wekyb3d8bbwe\pwsh.dll -noexit -command try { . "c:\Users\Thu Ky\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 19860
+PSVersion: 7.6.6
+PSEdition: Core
+GitCommitId: 7.6.6
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Run log: C:\FPT\DAP391m\code\logs\m1_m4\run_m2_20260919_001615.log
+
+**********************
+PowerShell transcript end
+End time: 20260919011203
+**********************

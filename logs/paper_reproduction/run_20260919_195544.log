@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "stage": "split",
+  "rows": 4992,
+  "counts": {
+    "train": 3993,
+    "test": 500,
+    "validation": 499
+  },
+  "speaker_overlap_allowed": true,
+  "split": "data/manifests/paper_reproduction_clean_seed391.csv"
+}
+[kaldi-pitch] extracted=128/4992 total-cache=4992 | elapsed=2.9s | eta=108.9s
+Traceback (most recent call last):
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 1042, in <module>
+    main()
+    ~~~~^^
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 907, in main
+    prepare_pitch_cache(
+    ~~~~~~~~~~~~~~~~~~~^
+        manifest,
+        ^^^^^^^^^
+    ...<4 lines>...
+        force=args.force_pitch,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 395, in prepare_pitch_cache
+    results = run_kaldi_pitch_batch(
+        batch, audio_bytes, kaldi_executable, pitch_root / ".work", config["pitch"]
+    )
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 346, in run_kaldi_pitch_batch
+    raise RuntimeError(
+        f"Kaldi pitch extraction failed with exit code {result.returncode}: {detail}"
+    )
+RuntimeError: Kaldi pitch extraction failed with exit code 4294967295: 'C:\FPT\DAP391m\code\.kaldi-win\Library\bin\compute-kaldi-pitch-feats.exe' --sample-frequency=16000 --frame-length=25 --frame-shift=10 scp:wav.scp ark,t:pitch.txt 
+ERROR (compute-kaldi-pitch-feats.exe[5.5.1172]:kaldi::WaveInfo::Read():feat\wave-reader.cc:200) WaveData: unsupported bits_per_sample = 24
+WARNING (compute-kaldi-pitch-feats.exe[5.5.1172]:kaldi::WaveHolder::Read():feat/wave-reader.h:197) Exception caught in WaveHolder::Read(). kaldi::KaldiFatalError
+WARNING (compute-kaldi-pitch-feats.exe[5.5.1172]:kaldi::SequentialTableReaderScriptImpl<class kaldi::WaveHolder>::EnsureObjectLoaded():util/kaldi-table-inl.h:317) Failed to load object from audio/visec_hf_000155.wav
+ERROR (compute-kaldi-pitch-feats.exe[5.5.1172]:kaldi::SequentialTableReaderScriptImpl<class kaldi::WaveHolder>::Value():util/kaldi-table-inl.h:164) Failed to load object from audio/visec_hf_000155.wav (to suppress this error, add the permissive (p, ) option to the rspecifier.
+kaldi::KaldiFatalError

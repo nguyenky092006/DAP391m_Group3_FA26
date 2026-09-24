@@ -1,0 +1,83 @@
+{
+  "model": "m4_multi_prosody_full5",
+  "protocol": "cleaned_utterance_stratified_80_10_10_v1",
+  "split_counts": {
+    "train": 3993,
+    "validation": 499,
+    "test": 500
+  },
+  "best_epoch": 0,
+  "best_validation_ua": 0.6977923772248625,
+  "validation": {
+    "samples": 499,
+    "wa": 0.7094188376753507,
+    "ua": 0.6977923772248625,
+    "macro_f1": 0.7022837518831186,
+    "per_class_f1": {
+      "happy": 0.6274509803921569,
+      "neutral": 0.668769716088328,
+      "sad": 0.6881720430107527,
+      "angry": 0.8247422680412371
+    }
+  },
+  "test": {
+    "samples": 500,
+    "wa": 0.692,
+    "ua": 0.674898437561684,
+    "macro_f1": 0.6774947687474818,
+    "per_class_f1": {
+      "happy": 0.5393258426966292,
+      "neutral": 0.6455696202531646,
+      "sad": 0.6956521739130435,
+      "angry": 0.8294314381270903
+    },
+    "loss": 1.8817408485421911
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "train_loss": null,
+      "validation_loss": 1.7577748862375133,
+      "validation_ua": 0.6977923772248625,
+      "validation_wa": 0.7094188376753507,
+      "validation_macro_f1": 0.7022837518831186,
+      "learning_rate": 0.0
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.60362717369376,
+      "validation_loss": 1.6682399032651007,
+      "validation_ua": 0.692633025813065,
+      "validation_wa": 0.7014028056112225,
+      "validation_macro_f1": 0.6949127392791163,
+      "learning_rate": 4.615562403697997e-05
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5623491227415369,
+      "validation_loss": 1.6147397237448189,
+      "validation_ua": 0.6924629577858541,
+      "validation_wa": 0.7014028056112225,
+      "validation_macro_f1": 0.6952358183373781,
+      "learning_rate": 4.102722136620442e-05
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5089769388642092,
+      "validation_loss": 1.7004406044861808,
+      "validation_ua": 0.6909663591463983,
+      "validation_wa": 0.6993987975951904,
+      "validation_macro_f1": 0.6926170235827874,
+      "learning_rate": 3.589881869542887e-05
+    }
+  ],
+  "runtime_seconds": 5601.449061700001,
+  "lineage": {
+    "model": "m4_multi_prosody_full5",
+    "architecture_version": "unified_conv1d_5_to_512_v1",
+    "training_strategy": "m4_v1_transplant_full5_with_fusion",
+    "config_sha256": "872a13fad585523d2cff25a3bfa920abf0689d251bd51d99f7c2d1c2b1e9be18",
+    "split_sha256": "41a09dbdd955e192a4bff770b537afb40571b4ef08e54568842112691619a341",
+    "feature_index_sha256": "40d39fbe16cbea1f7d81388e275f5c92386785b71fba272c681e23f862c74810"
+  }
+}

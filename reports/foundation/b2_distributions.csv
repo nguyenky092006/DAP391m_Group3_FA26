@@ -1,0 +1,10 @@
+field,value,samples,percent
+emotion,neutral,1505,30.14823717948718
+emotion,angry,1465,29.346955128205128
+emotion,sad,1049,21.013621794871796
+emotion,happy,973,19.491185897435898
+accent_clean,south,3534,70.79326923076923
+accent_clean,north,1183,23.697916666666668
+accent_clean,central,275,5.508814102564102
+gender_clean,female,3542,70.95352564102564
+gender_clean,male,1450,29.046474358974358

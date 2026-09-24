@@ -1,0 +1,67 @@
+{
+  "schema_version": "pitchfusion.paper_reproduction.clean.v1",
+  "seed": 391,
+  "split_protocol": "cleaned_utterance_stratified_80_10_10_v1",
+  "emotion_order": ["happy", "neutral", "sad", "angry"],
+  "data": {
+    "clean_manifest": "data/manifests/clean_manifest.csv",
+    "raw_parquet": "data/raw/visec_hf/train-00000-of-00001.parquet",
+    "eligible_column": "is_eligible_for_split",
+    "expected_eligible_rows": 4992,
+    "train_fraction": 0.8,
+    "validation_fraction": 0.1,
+    "test_fraction": 0.1,
+    "speaker_disjoint": false
+  },
+  "backbone": {
+    "model_id": "nguyenvulebinh/wav2vec2-base-vi",
+    "revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "local_snapshot": "data/interim/models/huggingface/models--nguyenvulebinh--wav2vec2-base-vi/snapshots/86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "freeze_feature_encoder": true
+  },
+  "pitch": {
+    "extractor": "kaldi.compute-kaldi-pitch-feats",
+    "frame_length_ms": 25.0,
+    "frame_shift_ms": 10.0,
+    "kaldi_binary_output_index": 1,
+    "extraction_batch_size": 128,
+    "interpolation": "linear_to_waveform_length",
+    "normalization": "none"
+  },
+  "architecture": {
+    "pitch_encoder": "Wav2Vec2FeatureEncoder_and_Wav2Vec2FeatureProjection",
+    "hidden_size": 768,
+    "classifier_projection_size": 256,
+    "attention_heads": 16,
+    "dropout": 0.1,
+    "padding_mask": false,
+    "pooling": "unmasked_temporal_mean"
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 1,
+    "learning_rate": 0.000015,
+    "weight_decay": 0.0,
+    "warmup_steps": 0,
+    "scheduler": "linear",
+    "loss": "cross_entropy",
+    "optimizer": "AdamW",
+    "mixed_precision": false,
+    "gradient_clip": 1.0,
+    "num_workers": 0,
+    "selection_metric": "validation_ua"
+  },
+  "published_target": {
+    "dataset": "ViSEC original 5280",
+    "test_ua": 0.7272,
+    "test_wa": 0.7190
+  },
+  "reproduction_boundary": {
+    "exact_historical_reproduction": false,
+    "differences": [
+      "Uses 4992 cleaned utterances instead of all 5280 original utterances.",
+      "Uses project seed 391 because the paper split seed and official split files were not published."
+    ]
+  }
+}

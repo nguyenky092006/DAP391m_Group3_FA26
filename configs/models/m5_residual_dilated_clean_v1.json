@@ -1,0 +1,69 @@
+{
+  "schema_version": "pitchfusion.m5.residual_dilated.clean.v1",
+  "seed": 391,
+  "split_protocol": "cleaned_utterance_stratified_80_10_10_v1",
+  "emotion_order": ["happy", "neutral", "sad", "angry"],
+  "data": {
+    "clean_manifest": "data/manifests/clean_manifest.csv",
+    "raw_parquet": "data/raw/visec_hf/train-00000-of-00001.parquet",
+    "eligible_column": "is_eligible_for_split",
+    "expected_eligible_rows": 4992,
+    "train_fraction": 0.8,
+    "validation_fraction": 0.1,
+    "test_fraction": 0.1,
+    "speaker_disjoint": false
+  },
+  "backbone": {
+    "model_id": "nguyenvulebinh/wav2vec2-base-vi",
+    "revision": "86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "local_snapshot": "data/interim/models/huggingface/models--nguyenvulebinh--wav2vec2-base-vi/snapshots/86bde51fa76dd7f2c4c1bb28d7475d622639f869",
+    "freeze_feature_encoder": true
+  },
+  "pitch": {
+    "extractor": "kaldi.compute-kaldi-pitch-feats",
+    "frame_length_ms": 25.0,
+    "frame_shift_ms": 10.0,
+    "kaldi_binary_output_index": 1,
+    "extraction_batch_size": 128,
+    "interpolation": "linear_to_waveform_length",
+    "normalization": "train_statistics_per_channel"
+  },
+  "m5_architecture": {
+    "name": "lightweight_residual_dilated_cnn1d",
+    "input_channels": 5,
+    "bottleneck_channels": 128,
+    "dilations": [1, 2, 4],
+    "kernel_size": 3,
+    "dropout": 0.1,
+    "residual_scale_initial": 0.1,
+    "placement": "after_m4_pitch_feature_encoder_before_projection"
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 1,
+    "learning_rate": 0.000015,
+    "weight_decay": 0.0,
+    "warmup_steps": 0,
+    "scheduler": "linear",
+    "loss": "cross_entropy",
+    "optimizer": "AdamW",
+    "mixed_precision": false,
+    "gradient_clip": 1.0,
+    "num_workers": 0,
+    "selection_metric": "validation_ua"
+  },
+  "comparison_contract": {
+    "baseline": "m4_multi_prosody_clean",
+    "same_split": true,
+    "same_seed": true,
+    "same_multi_prosody_input": true,
+    "same_waveform_preprocessing": true,
+    "same_wav2vec2_backbone": true,
+    "same_fusion": true,
+    "same_classifier": true,
+    "same_training_configuration": true,
+    "only_intended_change": "simple_cnn1d_to_lightweight_residual_dilated_cnn1d",
+    "initialization_from_m4_checkpoint": false
+  }
+}

@@ -1,160 +1,181 @@
-# DAP391m Group 3 - Federated Vietnamese Speech Emotion Recognition
+# DAP391m Pitch Fusion Multi Prosody
 
-This project studies Vietnamese speech emotion recognition using the ViSEC dataset. The main objective is to evaluate emotion recognition performance on unseen speakers and examine performance differences among Northern, Central, and Southern accents.
+This repository implements the approved cleaned-data ViSEC comparison through
+M5. M5 uses the human-approved lightweight residual dilated CNN1D extension.
 
-The project compares five models: SVM, XGBoost, CNN 2D, Wav2Vec2, and Pitch-Fusion. It also investigates emotion-conditioned accent-invariant learning and federated learning methods.
+## Fixed research comparison
 
-## Main rules
+- M1: SVM-RBF over the existing 174 handcrafted summary features.
+- M2: raw waveform to Vietnamese Wav2Vec2 to the shared emotion classifier.
+- M3: pitch-only Pitch-Fusion baseline using log-F0.
+- M4: the same M3 architecture with five prosody channels: log-F0, voicing
+  confidence, log-energy, delta log-F0, and delta log-energy.
+- M5: the same five-channel input, Wav2Vec2 branch, fusion, classifier, and
+  training policy as M4, with three lightweight residual CNN1D blocks using
+  dilations 1, 2, and 4 after the M4 pitch encoder.
+- M3 to M4 changes only the prosody input channel count. The temporal Conv1D
+  encoder, Wav2Vec2 branch, bidirectional cross-attention fusion, classifier,
+  split, seed, loss, optimizer, batch size, and epoch policy stay fixed.
+- Spectrogram and CNN2D are excluded from the main Pitch-Fusion comparison.
 
-- All evaluation splits must be speaker-disjoint.
-- The test set must remain unchanged after it is finalized.
-- Data augmentation is applied only to training data.
-- Accent information is used for analysis and domain-invariance experiments, not as the main application output.
-- All models must use the same finalized data split for fair comparison.
+## Data and leakage contract
 
-## Current progress
+- Use `data/manifests/split_manifest_v2_enriched.csv` for every model.
+- Train and validation speakers must be disjoint.
+- Test is reserved and is never used for M1-M4 selection or reporting.
+- Multi-prosody features are extracted deterministically for every eligible
+  sample, but channel normalization is fitted from training frames only.
+- M1 uses `StandardScaler` inside each grouped training fold and fits the final
+  scaler only on the full training partition.
 
-- B1: research framing and dataset provenance documented.
-- B2: record audit, cleaning policy, and audio-quality screening completed.
-- B3: metadata EDA and RQ-linked SQL completed with reproducible tables and
-  figures. The audit found that frozen split v1 has no Central-Sad test sample.
-- B4: complete. All five feature families were extracted for 4,992 eligible
-  utterances. The final 4,992-row, 951-column feature table combines 80 MFCC,
-  88 eGeMAPS, six pitch-summary, and 768 Wav2Vec2 values plus metadata and
-  variable-length artifact paths. Three RQ-linked advanced figures and an
-  interactive Plotly dashboard were generated and visually reviewed. All
-  generated arrays and the Parquet table remain under ignored `data/interim/`.
-- B5: complete. The frozen speaker-disjoint v2 split has full 36/36
-  split-accent-emotion coverage. Same-seed reproducibility, preservation of v1,
-  grouped five-fold CV, and three accent-domain federated clients all passed.
-- B6: in progress. The leakage-safe modelling contract and one-command
-  SVM/XGBoost grouped-CV runner are prepared; CNN 2D, Wav2Vec2, and
-  Pitch-Fusion remain in the same modelling step.
+## Environment
 
-The deep-model runtime uses a separate CUDA environment so the verified CPU
-environment remains reproducible:
+Create the environment yourself; no setup command is executed automatically:
 
 ```powershell
-.\scripts\setup_b6_gpu.ps1
+py -3.14 -m venv .venv-gpu
+.\.venv-gpu\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-The reproducible version 2 split runner is available at
-`src/fedecai/data/run_b5_split_pipeline.py`. It writes new versioned files,
-checks same-seed reproducibility, and verifies that the frozen version 1 files
-remain byte-for-byte unchanged. Run it once from the repository root:
+The default Wav2Vec2 configuration first looks for the existing pinned local
+snapshot. Add `--allow-download` only when you intentionally allow Hugging Face
+to download the pinned revision.
+
+## Run in evidence order
+
+Generate and validate the B1-B5 foundation package first:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\data\run_b5_split_pipeline.py
+.\scripts\run_b1_b5.ps1
 ```
 
-## Reproduce B3 EDA and SQL
+This writes the data dictionary, quality summary, five SQL result tables, EDA
+notebook, six figures, t-SNE projection, interactive dashboard, split/CV
+validation, completion report, and a timestamped log. It uses existing frozen
+features and does not train a model.
+
+Run M1 first:
 
 ```powershell
-python -m pip install -r requirements.txt
-python src/fedecai/eda/b3_eda_sql.py
+.\scripts\run_m1_m4.ps1 -Model m1
 ```
 
-See `docs/research/B3_eda_sql_report.md` and
-`notebooks/B3_eda_sql.ipynb` for the findings and review workflow.
+The wrapper first creates or validates the 174-feature M1 table using the new
+`pitchfusion` extractor, then runs the fixed SVM-RBF baseline.
 
-## Reproduce B4 pilot diagnostics
+Run M2:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\render_feature_pilot_diagnostics.py --run-name balanced_12
+.\scripts\run_m1_m4.ps1 -Model m2
 ```
 
-The command requires the ignored pilot arrays under
-`data/interim/features/b4_features_v1/balanced_12/`. See
-`docs/research/B4_feature_pilot_diagnostics.md` for the three tracked figures,
-quantitative checks, and interpretation limits.
-
-## Reproduce the B4 Wav2Vec2 one-sample pilot
+M3 and M4 require the multi-prosody preparation step. The wrapper runs it
+automatically and safely resumes existing artifacts:
 
 ```powershell
-$env:HF_HUB_DISABLE_IMPLICIT_TOKEN = '1'
-$env:HF_TOKEN = ''
-.\.venv\Scripts\python.exe src\fedecai\features\extract_wav2vec2_pilot.py --local-files-only
+.\scripts\run_paper_reproduction.ps1
+.\scripts\run_m4_clean.ps1 -PreflightOnly
+.\scripts\run_m4_clean.ps1
+.\scripts\run_m5_clean.ps1 -PreflightOnly
+.\scripts\run_m5_clean.ps1
 ```
 
-The offline command requires the ignored checkpoint cache created by the first
-online run. See `docs/research/B4_wav2vec2_one_sample_pilot.md` for the pinned
-model, sample lineage, output checks, and scope limits.
-
-## Reproduce the B4 Wav2Vec2 three-sample resume pilot
+To execute the complete approved sequence:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\extract_wav2vec2_resume_pilot.py
+.\scripts\run_m1_m4.ps1 -Model all
 ```
 
-The first run computes any missing or invalid artifact. Repeating the command
-reopens and verifies lineage, SHA-256, shape, dtype, and finite values before it
-skips a sample. See `docs/research/B4_wav2vec2_resume_pilot.md`.
+For an online first run, append `-AllowDownload`. Use `-Force` only when you
+intend to replace completed model outputs.
 
-## Reproduce the B4 Wav2Vec2 eligible-chunk preflight
+## Direct commands
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\extract_wav2vec2_chunk.py --chunk-offset 0 --chunk-size 12
+.\.venv-gpu\Scripts\python.exe src\pitchfusion\features\prepare_m1_features.py
+.\.venv-gpu\Scripts\python.exe src\pitchfusion\models\run_m1_svm.py --preflight-only
+
+.\.venv-gpu\Scripts\python.exe src\pitchfusion\features\prepare_multi_prosody.py
+
+.\.venv-gpu\Scripts\python.exe src\pitchfusion\models\run_m2_m4.py `
+  --models m2_wav2vec2 --device cuda --preflight-only
 ```
 
-Chunk offsets are applied after filtering the B2 manifest to eligible rows and
-sorting numerically by source row. The report records both the complete
-manifest SHA-256 and selected-row SHA-256. See
-`docs/research/B4_wav2vec2_chunk_preflight.md`.
+Remove `--preflight-only` when you want to train. M2-M4 checkpoints are saved
+atomically after every epoch and a repeated command resumes model, optimizer,
+mixed-precision scaler, best weights, history, runtime, and random states. M1
+saves a resumable checkpoint after every grouped-CV fold, final fit, and
+probability-calibration stage.
 
-## Reproduce the B4 Wav2Vec2 full-run plan
+Every wrapper run writes a complete PowerShell/Python transcript to
+`logs/m1_m4/run_<model>_<timestamp>.log`, including errors and checkpoint paths.
+After every M2-M4 epoch, the console and log show the model name, epoch progress,
+train/validation loss, Macro-F1, UAR, best epoch, learning rate, elapsed time,
+estimated remaining time, and the checkpoint path.
+
+The runner stores Numba/Librosa compilation cache in
+`data/interim/numba_cache/`. The first pitch extraction may spend several
+seconds compiling; later samples reuse that cache.
+
+Static and unit checks can be run separately without starting training:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\plan_wav2vec2_full_run.py --chunk-size 256
+.\.venv-gpu\Scripts\python.exe -m pytest
 ```
 
-This command reads only the clean manifest and writes a 20-row execution plan.
-It does not load audio, the model, or embeddings. See
-`docs/research/B4_wav2vec2_full_run_plan.md`.
+## Outputs
 
-## Run the complete Wav2Vec2 extraction with one command
+- Model artifacts: `artifacts/m1_m4/m1/` and `artifacts/m1_m4/pitch_fusion/`
+- Metrics and predictions: `reports/m1_m4/`
+- Raw multi-prosody artifacts and train-only normalization:
+  `data/interim/features/multi_prosody_v1/`
+
+The code reports Macro-F1 and UAR as the main metrics and also records accuracy,
+per-class F1, configuration hashes, input hashes, runtime, and test predictions.
+M5 writes to separate artifact, report, prediction, and log paths and safely
+resumes from its own epoch checkpoint.
+
+## Paper reproduction before the M3-M5 comparison
+
+The published ViSEC result (UA 72.72%, WA 71.90%) used an utterance-level
+stratified split rather than the project's speaker-disjoint split. A separate
+reproduction runner is provided so this check cannot overwrite M1-M4 evidence.
+Per the project decision, it uses the 4,992 utterances accepted after cleaning,
+then creates a deterministic 80/10/10 emotion-stratified split with speaker
+overlap allowed. It therefore measures a cleaned-data reproduction and is not
+claimed as an exact historical reproduction of the paper's 5,280-row split.
+
+The pitch feature is extracted by Kaldi's official
+`compute-kaldi-pitch-feats` executable. On Windows, install Miniforge and create
+the repository-local Kaldi environment with:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\run_wav2vec2_full_extraction.py
+.\scripts\setup_paper_reproduction.ps1 -InstallMiniforge
 ```
 
-The runner executes all 20 planned chunks sequentially, safely resumes partial
-runs, validates every chunk, and writes one aggregate 4,992-row feature index.
-If the terminal is interrupted, run the same command again.
+If Conda/Miniforge is already installed, omit `-InstallMiniforge`. The Kaldi
+binary is isolated under `.kaldi-win`; model training continues to use the
+existing `.venv-gpu` environment.
 
-## Run all remaining B4 deliverables with one command
+Run a one-sample model and Kaldi-pitch check first, then start the full run:
 
 ```powershell
-.\.venv\Scripts\python.exe src\fedecai\features\run_b4_remaining_pipeline.py
+.\scripts\run_paper_reproduction.ps1 -PreflightOnly
+.\scripts\run_paper_reproduction.ps1
 ```
 
-This resume-safe runner extracts full MFCC, eGeMAPS, log-Mel, and pitch
-features, joins them with the completed Wav2Vec2 index, writes the full Parquet
-feature table, renders three advanced figures, and creates the interactive
-Plotly HTML dashboard. If interrupted during extraction, run the same command
-again.
+Pitch extraction is cached and resumable. Training saves a last checkpoint
+after every epoch, keeps the best validation-UA checkpoint, prints train loss,
+validation loss, UA, WA, Macro-F1, learning rate, elapsed time and ETA after
+every epoch, and evaluates the test split once after model selection. Complete
+console output is duplicated to `logs/paper_reproduction/`. Final results are
+written to `reports/paper_reproduction/m3_paper_reproduction_report.json` and
+the independent model artifact is stored under
+`artifacts/paper_reproduction/m3_pitch_fusion/`.
 
-## Run all five B6 models with one command
-
-```powershell
-.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_all_models.py
-```
-
-The runner executes SVM RBF, XGBoost, CNN2D, Wav2Vec2 embedding MLP, and
-Pitch-Fusion in sequence. A normal rerun skips completed models. Pass `--force`
-to retrain all five; neural grouped-CV folds run all 30 epochs and checkpoint
-after each completed fold.
-
-## Run the B6 E1-E7 FedECAI experiment ladder
-
-```powershell
-.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_fedecai_pipeline.py
-
-# Paper-aligned raw-waveform Pitch-Fusion (30 epochs, resumable)
-.\.venv-gpu\Scripts\python.exe src\fedecai\models\run_b6_pitch_fusion_paper.py
-```
-
-The runner trains centralized CNN, unconditional GRL, and emotion-conditioned
-GRL, followed by FedAvg, FedProx, federated unconditional GRL, and FedECAI on
-both B5 main and stress client scenarios. It checkpoints every centralized
-epoch and communication round. Run the same command to resume; use `--force`
-only to restart all E1-E7 experiments.
+M4 uses the same cleaned split and training contract as this M3. Its five
+channels are Kaldi log-F0, Kaldi NCCF, frame log-energy, delta log-F0, and
+delta log-energy. Train-only channel normalization, feature cache, checkpoints,
+logs, and final test reporting are handled by `run_m4_clean.ps1`. The older
+speaker-disjoint M3/M4 path is retained only as legacy evidence and its wrapper
+now refuses to launch it accidentally.

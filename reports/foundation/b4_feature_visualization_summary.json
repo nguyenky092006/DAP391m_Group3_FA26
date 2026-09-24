@@ -1,0 +1,13 @@
+{
+  "prosody_samples": 4992,
+  "prosody_channels": [
+    "log_f0",
+    "voicing_confidence",
+    "log_energy",
+    "delta_log_f0",
+    "delta_log_energy"
+  ],
+  "m1_feature_dimensions": 174,
+  "tsne_samples": 2000,
+  "normalization_policy": "multi-prosody normalization is fitted on train only for modelling; visual summaries are exploratory"
+}

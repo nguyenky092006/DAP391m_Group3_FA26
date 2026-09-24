@@ -1,0 +1,83 @@
+{
+  "model": "m4_multi_prosody_direct5",
+  "protocol": "cleaned_utterance_stratified_80_10_10_v1",
+  "split_counts": {
+    "train": 3993,
+    "validation": 499,
+    "test": 500
+  },
+  "best_epoch": 0,
+  "best_validation_ua": 0.6977923772248625,
+  "validation": {
+    "samples": 499,
+    "wa": 0.7094188376753507,
+    "ua": 0.6977923772248625,
+    "macro_f1": 0.7022837518831186,
+    "per_class_f1": {
+      "happy": 0.6274509803921569,
+      "neutral": 0.668769716088328,
+      "sad": 0.6881720430107527,
+      "angry": 0.8247422680412371
+    }
+  },
+  "test": {
+    "samples": 500,
+    "wa": 0.692,
+    "ua": 0.674898437561684,
+    "macro_f1": 0.6774947687474818,
+    "per_class_f1": {
+      "happy": 0.5393258426966292,
+      "neutral": 0.6455696202531646,
+      "sad": 0.6956521739130435,
+      "angry": 0.8294314381270903
+    },
+    "loss": 1.8817301232225727
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "train_loss": null,
+      "validation_loss": 1.7577748964186048,
+      "validation_ua": 0.6977923772248625,
+      "validation_wa": 0.7094188376753507,
+      "validation_macro_f1": 0.7022837518831186,
+      "learning_rate": 0.0001
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.6564601516320666,
+      "validation_loss": 1.756567848911173,
+      "validation_ua": 0.6977923772248625,
+      "validation_wa": 0.7094188376753507,
+      "validation_macro_f1": 0.7022837518831186,
+      "learning_rate": 9e-05
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.6447850259481804,
+      "validation_loss": 1.756393924311997,
+      "validation_ua": 0.6977923772248625,
+      "validation_wa": 0.7094188376753507,
+      "validation_macro_f1": 0.7022837518831186,
+      "learning_rate": 8e-05
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6067761470469948,
+      "validation_loss": 1.7564555423795936,
+      "validation_ua": 0.6977923772248625,
+      "validation_wa": 0.7094188376753507,
+      "validation_macro_f1": 0.7022837518831186,
+      "learning_rate": 7e-05
+    }
+  ],
+  "runtime_seconds": 18699.4024951,
+  "lineage": {
+    "model": "m4_multi_prosody_direct5",
+    "architecture_version": "direct_5_channel_first_conv_v1",
+    "training_strategy": "m4_v1_transplant_aux_conv_only",
+    "config_sha256": "872a13fad585523d2cff25a3bfa920abf0689d251bd51d99f7c2d1c2b1e9be18",
+    "split_sha256": "41a09dbdd955e192a4bff770b537afb40571b4ef08e54568842112691619a341",
+    "feature_index_sha256": "40d39fbe16cbea1f7d81388e275f5c92386785b71fba272c681e23f862c74810"
+  }
+}

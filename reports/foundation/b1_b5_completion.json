@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "steps": {
+    "B1": "scope and RQ evidence matrix",
+    "B2": {
+      "source_rows": 5280,
+      "eligible_rows": 4992,
+      "excluded_rows": 288,
+      "speakers": 147,
+      "missing_embedded_audio": 0,
+      "unreadable_audio": 0,
+      "duplicate_waveform_rows": 555,
+      "possible_clipping": 77,
+      "high_silence": 403,
+      "sample_rates": {
+        "16000": 5280
+      },
+      "channels": {
+        "1": 5280
+      },
+      "duration_seconds": {
+        "min": 1.0,
+        "median": 1.92,
+        "mean": 2.129415126702724,
+        "p95": 4.150512499999997,
+        "max": 24.704
+      }
+    },
+    "B3": {
+      "queries": [
+        "emotion_distribution_by_accent",
+        "duration_by_emotion",
+        "speaker_concentration",
+        "quality_by_accent_emotion",
+        "split_coverage"
+      ],
+      "eligible_rows": 4992,
+      "median_duration_seconds": 1.92,
+      "accent_counts": {
+        "south": 3534,
+        "north": 1183,
+        "central": 275
+      }
+    },
+    "B4": {
+      "prosody_samples": 4992,
+      "prosody_channels": [
+        "log_f0",
+        "voicing_confidence",
+        "log_energy",
+        "delta_log_f0",
+        "delta_log_energy"
+      ],
+      "m1_feature_dimensions": 174,
+      "tsne_samples": 2000,
+      "normalization_policy": "multi-prosody normalization is fitted on train only for modelling; visual summaries are exploratory"
+    },
+    "B5": {
+      "split_version": "speaker_disjoint_v2",
+      "seed": 391,
+      "speaker_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "coverage_cells": 36,
+      "expected_coverage_cells": 36,
+      "status": "PASS"
+    }
+  },
+  "lineage": {
+    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a",
+    "m1_features_sha256": "ac4a0cd3f969892579e596d37794a47cee81a003274445b04bffdb50606d6e1a"
+  }
+}

@@ -1,131 +1,36 @@
--- B3 SQL evidence queries for the reviewed ViSEC metadata.
--- Every query is read-only, uses B2-eligible records, and is tied to an RQ.
+-- B3 read-only SQL evidence queries. The executable definitions are also
+-- embedded in src/pitchfusion/prepare_foundation.py to keep one runner.
 
--- name: rq2_emotion_distribution_by_accent
-WITH accents AS (
-    SELECT 'central' AS accent UNION ALL
-    SELECT 'north' UNION ALL
-    SELECT 'south'
-),
-emotions AS (
-    SELECT 'angry' AS emotion UNION ALL
-    SELECT 'happy' UNION ALL
-    SELECT 'neutral' UNION ALL
-    SELECT 'sad'
-),
-grid AS (
-    SELECT a.accent, e.emotion FROM accents a CROSS JOIN emotions e
-),
-counts AS (
-    SELECT accent, emotion, COUNT(*) AS utterances
-    FROM eligible_utterances
-    GROUP BY accent, emotion
-),
-completed AS (
-    SELECT g.accent, g.emotion, COALESCE(c.utterances, 0) AS utterances
-    FROM grid g
-    LEFT JOIN counts c USING (accent, emotion)
+-- 1. Emotion distribution by accent, including a window rank.
+WITH counts AS (
+  SELECT accent_clean AS accent, emotion, COUNT(*) AS samples
+  FROM eligible GROUP BY accent_clean, emotion
 )
-SELECT accent,
-       emotion,
-       utterances,
-       ROUND(100.0 * utterances / SUM(utterances) OVER (PARTITION BY accent), 2) AS pct_within_accent,
-       RANK() OVER (PARTITION BY accent ORDER BY utterances DESC) AS frequency_rank
-FROM completed
-ORDER BY accent, frequency_rank, emotion;
+SELECT *, RANK() OVER (PARTITION BY accent ORDER BY samples DESC) AS frequency_rank
+FROM counts ORDER BY accent, frequency_rank;
 
--- name: rq1_rq2_speaker_concentration
-WITH speaker_counts AS (
-    SELECT accent, speaker_id, COUNT(*) AS utterances
-    FROM eligible_utterances
-    GROUP BY accent, speaker_id
-),
-ranked AS (
-    SELECT accent,
-           speaker_id,
-           utterances,
-           SUM(utterances) OVER (PARTITION BY accent) AS accent_utterances,
-           RANK() OVER (PARTITION BY accent ORDER BY utterances DESC) AS speaker_rank
-    FROM speaker_counts
-)
-SELECT accent,
-       speaker_id,
-       utterances,
-       accent_utterances,
-       ROUND(100.0 * utterances / accent_utterances, 2) AS pct_of_accent,
-       speaker_rank
-FROM ranked
-WHERE speaker_rank <= 5
-ORDER BY accent, speaker_rank, CAST(speaker_id AS INTEGER);
+-- 2. Average duration by emotion.
+SELECT emotion, COUNT(*) AS samples, AVG(duration_sec_measured) AS mean_seconds
+FROM eligible GROUP BY emotion ORDER BY emotion;
 
--- name: rq1_rq2_quality_by_accent_emotion
-WITH grouped AS (
-    SELECT accent,
-           emotion,
-           COUNT(*) AS utterances,
-           AVG(duration_sec) AS mean_duration_sec,
-           AVG(silent_frame_ratio) AS mean_silent_frame_ratio,
-           SUM(possible_clipping) AS possible_clipping,
-           SUM(high_silence) AS high_silence
-    FROM eligible_utterances
-    GROUP BY accent, emotion
+-- 3. Top speakers per accent using CTE and window functions.
+WITH counts AS (
+  SELECT accent_clean AS accent, speaker_id, COUNT(*) AS samples
+  FROM eligible GROUP BY accent_clean, speaker_id
+), ranked AS (
+  SELECT *, RANK() OVER (PARTITION BY accent ORDER BY samples DESC) AS speaker_rank
+  FROM counts
 )
-SELECT accent,
-       emotion,
-       utterances,
-       ROUND(mean_duration_sec, 3) AS mean_duration_sec,
-       ROUND(100.0 * possible_clipping / utterances, 2) AS clipping_pct,
-       ROUND(100.0 * high_silence / utterances, 2) AS high_silence_pct,
-       ROUND(100.0 * mean_silent_frame_ratio, 2) AS mean_silent_frame_pct
-FROM grouped
-ORDER BY accent, emotion;
+SELECT * FROM ranked WHERE speaker_rank <= 5 ORDER BY accent, speaker_rank;
 
--- name: b5_split_coverage_check
-WITH splits(split, split_order) AS (
-    VALUES ('train', 1), ('validation', 2), ('test', 3)
-),
-accents(accent) AS (
-    VALUES ('central'), ('north'), ('south')
-),
-emotions(emotion) AS (
-    VALUES ('angry'), ('happy'), ('neutral'), ('sad')
-),
-grid AS (
-    SELECT s.split, s.split_order, a.accent, e.emotion
-    FROM splits s CROSS JOIN accents a CROSS JOIN emotions e
-),
-split_cells AS (
-    SELECT split,
-           accent,
-           emotion,
-           COUNT(*) AS utterances,
-           COUNT(DISTINCT speaker_id) AS speakers
-    FROM eligible_utterances
-    GROUP BY split, accent, emotion
-),
-completed AS (
-    SELECT g.split,
-           g.split_order,
-           g.accent,
-           g.emotion,
-           COALESCE(c.utterances, 0) AS utterances,
-           COALESCE(c.speakers, 0) AS speakers
-    FROM grid g
-    LEFT JOIN split_cells c
-      ON c.split = g.split AND c.accent = g.accent AND c.emotion = g.emotion
-),
-ranked AS (
-    SELECT *,
-           SUM(utterances) OVER (PARTITION BY split) AS split_utterances,
-           RANK() OVER (PARTITION BY split, accent ORDER BY utterances DESC) AS emotion_rank
-    FROM completed
-)
-SELECT split,
-       accent,
-       emotion,
-       utterances,
-       speakers,
-       ROUND(100.0 * utterances / split_utterances, 2) AS pct_of_split,
-       emotion_rank
-FROM ranked
-ORDER BY split_order, accent, emotion;
+-- 4. Quality by accent and emotion.
+SELECT accent_clean AS accent, emotion, COUNT(*) AS samples,
+       AVG(duration_sec_measured) AS mean_duration_seconds,
+       100.0 * AVG(possible_clipping) AS clipping_percent,
+       100.0 * AVG(CASE WHEN high_silence_ratio >= 0.60 THEN 1.0 ELSE 0.0 END) AS high_silence_percent
+FROM eligible GROUP BY accent_clean, emotion ORDER BY accent, emotion;
+
+-- 5. Split coverage.
+SELECT split, accent_clean AS accent, emotion, COUNT(*) AS samples,
+       COUNT(DISTINCT speaker_id) AS speakers
+FROM eligible GROUP BY split, accent_clean, emotion ORDER BY split, accent, emotion;

@@ -1,0 +1,40 @@
+{
+  "schema_version": "pitchfusion.m5.residual_dilated.clean.v1",
+  "split_protocol": "cleaned_utterance_stratified_80_10_10_v1",
+  "seed": 391,
+  "source": "data/manifests/clean_manifest.csv",
+  "source_sha256": "dfde353769f23bbac8aecf1f3d7c3e3211604e7cc8c15c28bdafd055f784704c",
+  "rows": 4992,
+  "split_counts": {
+    "train": 3993,
+    "test": 500,
+    "validation": 499
+  },
+  "emotion_counts": {
+    "train": {
+      "happy": 778,
+      "neutral": 1204,
+      "sad": 839,
+      "angry": 1172
+    },
+    "validation": {
+      "happy": 98,
+      "neutral": 150,
+      "sad": 105,
+      "angry": 146
+    },
+    "test": {
+      "happy": 97,
+      "neutral": 151,
+      "sad": 105,
+      "angry": 147
+    }
+  },
+  "speaker_disjoint_required": false,
+  "speaker_overlap": {
+    "train_validation": 94,
+    "train_test": 86,
+    "validation_test": 69
+  },
+  "status": "PASS"
+}

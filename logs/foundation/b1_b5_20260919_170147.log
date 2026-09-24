@@ -1,0 +1,26 @@
+**********************
+PowerShell transcript start
+Start time: 20260919170147
+Username: THUKY\Thu Ky
+RunAs User: THUKY\Thu Ky
+Configuration Name: 
+Machine: THUKY (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.6.0_x64__8wekyb3d8bbwe\pwsh.dll -NoProfile -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+& '.\scripts\run_b1_b5.ps1'
+Process ID: 6464
+PSVersion: 7.6.6
+PSEdition: Core
+GitCommitId: 7.6.6
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+B1-B5 log: C:\FPT\DAP391m\code\logs\foundation\b1_b5_20260919_170147.log
+
+**********************
+PowerShell transcript end
+End time: 20260919170152
+**********************

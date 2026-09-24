@@ -1,0 +1,55 @@
+Some weights of DirectFiveChannelM4Model were not initialized from the model checkpoint at C:\FPT\DAP391m\code\data\interim\models\huggingface\models--nguyenvulebinh--wav2vec2-base-vi\snapshots\86bde51fa76dd7f2c4c1bb28d7475d622639f869 and are newly initialized: ['attn_a_p.linear1.bias', 'attn_a_p.linear1.weight', 'attn_a_p.linear2.bias', 'attn_a_p.linear2.weight', 'attn_a_p.norm1.bias', 'attn_a_p.norm1.weight', 'attn_a_p.norm2.bias', 'attn_a_p.norm2.weight', 'attn_a_p.self_attn.in_proj_bias', 'attn_a_p.self_attn.in_proj_weight', 'attn_a_p.self_attn.out_proj.bias', 'attn_a_p.self_attn.out_proj.weight', 'attn_p_a.linear1.bias', 'attn_p_a.linear1.weight', 'attn_p_a.linear2.bias', 'attn_p_a.linear2.weight', 'attn_p_a.norm1.bias', 'attn_p_a.norm1.weight', 'attn_p_a.norm2.bias', 'attn_p_a.norm2.weight', 'attn_p_a.self_attn.in_proj_bias', 'attn_p_a.self_attn.in_proj_weight', 'attn_p_a.self_attn.out_proj.bias', 'attn_p_a.self_attn.out_proj.weight', 'classifier.bias', 'classifier.weight', 'pitch_encoder.auxiliary_conv.weight', 'pitch_encoder.base_bias', 'pitch_encoder.base_scale', 'pitch_encoder.feature_encoder.conv_layers.0.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.bias', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.weight', 'pitch_encoder.feature_encoder.conv_layers.1.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.2.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.3.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.4.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.5.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.6.conv.weight', 'pitch_projection.layer_norm.bias', 'pitch_projection.layer_norm.weight', 'pitch_projection.projection.bias', 'pitch_projection.projection.weight', 'projector.bias', 'projector.weight', 'self_attn.linear1.bias', 'self_attn.linear1.weight', 'self_attn.linear2.bias', 'self_attn.linear2.weight', 'self_attn.norm1.bias', 'self_attn.norm1.weight', 'self_attn.norm2.bias', 'self_attn.norm2.weight', 'self_attn.self_attn.in_proj_bias', 'self_attn.self_attn.in_proj_weight', 'self_attn.self_attn.out_proj.bias', 'self_attn.self_attn.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[resume] checkpoint epoch 1: C:\FPT\DAP391m\code\artifacts\paper_reproduction\m4_multi_prosody_direct5\last_checkpoint.pt
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1/1997 | batch_loss=0.003057 | running_loss=0.003057 | lr=9.00e-05 | epoch_elapsed=0.8s | batch_eta=1511.5s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 100/1997 | batch_loss=0.004843 | running_loss=0.543986 | lr=8.95e-05 | epoch_elapsed=377.6s | batch_eta=7162.9s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 200/1997 | batch_loss=2.977624 | running_loss=0.648287 | lr=8.90e-05 | epoch_elapsed=736.4s | batch_eta=6616.2s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 300/1997 | batch_loss=0.001743 | running_loss=0.652668 | lr=8.85e-05 | epoch_elapsed=1094.1s | batch_eta=6189.2s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 400/1997 | batch_loss=0.006235 | running_loss=0.651237 | lr=8.80e-05 | epoch_elapsed=1467.8s | batch_eta=5860.0s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 500/1997 | batch_loss=3.480707 | running_loss=0.710771 | lr=8.75e-05 | epoch_elapsed=1863.7s | batch_eta=5579.9s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 600/1997 | batch_loss=0.001423 | running_loss=0.676185 | lr=8.70e-05 | epoch_elapsed=2249.2s | batch_eta=5237.0s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 700/1997 | batch_loss=0.001478 | running_loss=0.682171 | lr=8.65e-05 | epoch_elapsed=2601.4s | batch_eta=4820.1s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 800/1997 | batch_loss=0.009042 | running_loss=0.658423 | lr=8.60e-05 | epoch_elapsed=2937.9s | batch_eta=4395.8s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 900/1997 | batch_loss=0.015127 | running_loss=0.670360 | lr=8.55e-05 | epoch_elapsed=3322.9s | batch_eta=4050.3s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1000/1997 | batch_loss=0.002680 | running_loss=0.661504 | lr=8.50e-05 | epoch_elapsed=3665.3s | batch_eta=3654.3s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1100/1997 | batch_loss=2.816623 | running_loss=0.651457 | lr=8.45e-05 | epoch_elapsed=4011.9s | batch_eta=3271.6s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1200/1997 | batch_loss=0.001723 | running_loss=0.646869 | lr=8.40e-05 | epoch_elapsed=4348.7s | batch_eta=2888.2s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1300/1997 | batch_loss=0.001845 | running_loss=0.634116 | lr=8.35e-05 | epoch_elapsed=4728.5s | batch_eta=2535.2s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1400/1997 | batch_loss=0.003565 | running_loss=0.616402 | lr=8.30e-05 | epoch_elapsed=5124.2s | batch_eta=2185.1s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1500/1997 | batch_loss=0.001601 | running_loss=0.607646 | lr=8.25e-05 | epoch_elapsed=5498.5s | batch_eta=1821.8s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1600/1997 | batch_loss=0.004233 | running_loss=0.614789 | lr=8.20e-05 | epoch_elapsed=5840.3s | batch_eta=1449.1s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1700/1997 | batch_loss=0.004480 | running_loss=0.619804 | lr=8.15e-05 | epoch_elapsed=6226.4s | batch_eta=1087.8s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1800/1997 | batch_loss=0.025866 | running_loss=0.627691 | lr=8.10e-05 | epoch_elapsed=6633.1s | batch_eta=726.0s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1900/1997 | batch_loss=0.240982 | running_loss=0.638431 | lr=8.05e-05 | epoch_elapsed=6949.2s | batch_eta=354.8s
+[m4_multi_prosody_direct5] epoch 2/10 | batch 1997/1997 | batch_loss=0.003119 | running_loss=0.644785 | lr=8.00e-05 | epoch_elapsed=7292.5s | batch_eta=0.0s
+[m4_multi_prosody_direct5] epoch 2/10 | train_loss=0.6448 | val_loss=1.7564 | val_UA=0.6978 | val_WA=0.7094 | val_macro_f1=0.7023 | best_UA=0.6978@0 | lr=8.00e-05 | epoch_time=8144.1s | elapsed=10422.0s | eta=65148.7s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m4_multi_prosody_direct5\last_checkpoint.pt
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1/1997 | batch_loss=0.001484 | running_loss=0.001484 | lr=8.00e-05 | epoch_elapsed=5.6s | batch_eta=11115.0s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 100/1997 | batch_loss=0.003592 | running_loss=0.739739 | lr=7.95e-05 | epoch_elapsed=367.5s | batch_eta=6970.6s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 200/1997 | batch_loss=3.181850 | running_loss=0.657551 | lr=7.90e-05 | epoch_elapsed=729.3s | batch_eta=6552.6s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 300/1997 | batch_loss=0.003265 | running_loss=0.619864 | lr=7.85e-05 | epoch_elapsed=1091.3s | batch_eta=6173.4s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 400/1997 | batch_loss=2.621110 | running_loss=0.657258 | lr=7.80e-05 | epoch_elapsed=1491.5s | batch_eta=5954.7s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 500/1997 | batch_loss=0.003148 | running_loss=0.639445 | lr=7.75e-05 | epoch_elapsed=1870.4s | batch_eta=5599.9s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 600/1997 | batch_loss=0.002945 | running_loss=0.606243 | lr=7.70e-05 | epoch_elapsed=2238.1s | batch_eta=5211.1s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 700/1997 | batch_loss=0.002457 | running_loss=0.620165 | lr=7.65e-05 | epoch_elapsed=2618.9s | batch_eta=4852.4s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 800/1997 | batch_loss=0.002273 | running_loss=0.605221 | lr=7.60e-05 | epoch_elapsed=2939.7s | batch_eta=4398.5s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 900/1997 | batch_loss=0.002986 | running_loss=0.580253 | lr=7.55e-05 | epoch_elapsed=3300.3s | batch_eta=4022.7s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1000/1997 | batch_loss=2.866057 | running_loss=0.589647 | lr=7.50e-05 | epoch_elapsed=3618.3s | batch_eta=3607.4s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1100/1997 | batch_loss=0.001401 | running_loss=0.600550 | lr=7.45e-05 | epoch_elapsed=3973.6s | batch_eta=3240.3s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1200/1997 | batch_loss=0.007809 | running_loss=0.618211 | lr=7.40e-05 | epoch_elapsed=4390.1s | batch_eta=2915.8s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1300/1997 | batch_loss=1.437117 | running_loss=0.609675 | lr=7.35e-05 | epoch_elapsed=4727.4s | batch_eta=2534.6s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1400/1997 | batch_loss=0.003112 | running_loss=0.607851 | lr=7.30e-05 | epoch_elapsed=5121.6s | batch_eta=2184.0s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1500/1997 | batch_loss=0.001517 | running_loss=0.610907 | lr=7.25e-05 | epoch_elapsed=5504.6s | batch_eta=1823.9s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1600/1997 | batch_loss=2.262331 | running_loss=0.610047 | lr=7.20e-05 | epoch_elapsed=5910.1s | batch_eta=1466.4s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1700/1997 | batch_loss=0.012088 | running_loss=0.605555 | lr=7.15e-05 | epoch_elapsed=6259.0s | batch_eta=1093.5s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1800/1997 | batch_loss=0.004608 | running_loss=0.609057 | lr=7.10e-05 | epoch_elapsed=6658.4s | batch_eta=728.7s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1900/1997 | batch_loss=0.006005 | running_loss=0.609311 | lr=7.05e-05 | epoch_elapsed=7042.0s | batch_eta=359.5s
+[m4_multi_prosody_direct5] epoch 3/10 | batch 1997/1997 | batch_loss=0.005694 | running_loss=0.606776 | lr=7.00e-05 | epoch_elapsed=7408.1s | batch_eta=0.0s
+[m4_multi_prosody_direct5] epoch 3/10 | train_loss=0.6068 | val_loss=1.7565 | val_UA=0.6978 | val_WA=0.7094 | val_macro_f1=0.7023 | best_UA=0.6978@0 | lr=7.00e-05 | epoch_time=8276.9s | elapsed=18698.4s | eta=57470.0s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m4_multi_prosody_direct5\last_checkpoint.pt
+[m4_multi_prosody_direct5] early_stop epoch=3 | best_epoch=0 | patience=3
+{
+  "status": "PASS",
+  "best_epoch": 0,
+  "test_UA": 0.674898437561684,
+  "test_WA": 0.692,
+  "test_macro_f1": 0.6774947687474818
+}

@@ -1,0 +1,37 @@
+Some weights of M4Model were not initialized from the model checkpoint at C:\FPT\DAP391m\code\data\interim\models\huggingface\models--nguyenvulebinh--wav2vec2-base-vi\snapshots\86bde51fa76dd7f2c4c1bb28d7475d622639f869 and are newly initialized: ['attn_a_p.linear1.bias', 'attn_a_p.linear1.weight', 'attn_a_p.linear2.bias', 'attn_a_p.linear2.weight', 'attn_a_p.norm1.bias', 'attn_a_p.norm1.weight', 'attn_a_p.norm2.bias', 'attn_a_p.norm2.weight', 'attn_a_p.self_attn.in_proj_bias', 'attn_a_p.self_attn.in_proj_weight', 'attn_a_p.self_attn.out_proj.bias', 'attn_a_p.self_attn.out_proj.weight', 'attn_p_a.linear1.bias', 'attn_p_a.linear1.weight', 'attn_p_a.linear2.bias', 'attn_p_a.linear2.weight', 'attn_p_a.norm1.bias', 'attn_p_a.norm1.weight', 'attn_p_a.norm2.bias', 'attn_p_a.norm2.weight', 'attn_p_a.self_attn.in_proj_bias', 'attn_p_a.self_attn.in_proj_weight', 'attn_p_a.self_attn.out_proj.bias', 'attn_p_a.self_attn.out_proj.weight', 'classifier.bias', 'classifier.weight', 'pitch_encoder.feature_encoder.conv_layers.0.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.bias', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.weight', 'pitch_encoder.feature_encoder.conv_layers.1.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.2.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.3.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.4.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.5.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.6.conv.weight', 'pitch_encoder.input_adapter.bias', 'pitch_encoder.input_adapter.weight', 'pitch_projection.layer_norm.bias', 'pitch_projection.layer_norm.weight', 'pitch_projection.projection.bias', 'pitch_projection.projection.weight', 'projector.bias', 'projector.weight', 'self_attn.linear1.bias', 'self_attn.linear1.weight', 'self_attn.linear2.bias', 'self_attn.linear2.weight', 'self_attn.norm1.bias', 'self_attn.norm1.weight', 'self_attn.norm2.bias', 'self_attn.norm2.weight', 'self_attn.self_attn.in_proj_bias', 'self_attn.self_attn.in_proj_weight', 'self_attn.self_attn.out_proj.bias', 'self_attn.self_attn.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Traceback (most recent call last):
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 183, in <module>
+    if __name__ == "__main__": main()
+                               ~~~~^^
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 174, in main
+    history,best_epoch,best_ua,runtime=train(model,loaders["train"],loaders["validation"],device,config,artifact,metadata,force_training=False,run_name="m4_multi_prosody_clean")
+                                       ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 745, in train
+    logits = model(audio, pitch).logits
+             ~~~~~^^^^^^^^^^^^^^
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 558, in forward
+    pitch = self.pitch_encoder(pitch_input).transpose(1, 2)
+            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_m4_clean.py", line 137, in forward
+    return self.feature_encoder(mixed)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\FPT\DAP391m\code\.venv-gpu\Lib\site-packages\transformers\models\wav2vec2\modeling_wav2vec2.py", line 423, in forward
+    hidden_states.requires_grad = True
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: you can only change requires_grad flags of leaf variables.

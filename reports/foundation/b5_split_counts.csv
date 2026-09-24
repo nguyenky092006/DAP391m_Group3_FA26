@@ -1,0 +1,4 @@
+split,samples,speakers
+test,665,22
+train,3681,103
+validation,646,22

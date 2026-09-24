@@ -1,0 +1,28 @@
+{
+  "schema_version": "pitchfusion.m1.svm_rbf.v1",
+  "seed": 391,
+  "split_version": "speaker_disjoint_v2",
+  "emotion_order": ["angry", "happy", "neutral", "sad"],
+  "feature_contract": {
+    "families": ["mfcc40_summary", "egemaps_v02", "pitch_summary"],
+    "numeric_prefixes": ["mfcc_", "egemaps_", "pitch_"],
+    "expected_features": 174,
+    "normalization": "StandardScaler fitted inside training data only"
+  },
+  "models": {
+    "m1_svm_rbf": {
+      "kernel": "rbf",
+      "C": 1.0,
+      "gamma": "scale",
+      "class_weight": "balanced"
+    }
+  },
+  "evaluation": {
+    "selection_partition": "none; fixed baseline configuration",
+    "diagnostic_partition": "speaker-grouped cv_fold within train",
+    "report_partition": "validation",
+    "test_policy": "reserved and never used by M1-M4",
+    "primary_metric": "macro_f1",
+    "secondary_metrics": ["uar", "accuracy", "per_class_f1"]
+  }
+}

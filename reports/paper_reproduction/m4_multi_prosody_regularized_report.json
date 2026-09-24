@@ -1,0 +1,155 @@
+{
+  "model": "m4_multi_prosody_clean_regularized",
+  "protocol": "cleaned_utterance_stratified_80_10_10_v1",
+  "split_counts": {
+    "train": 3993,
+    "validation": 499,
+    "test": 500
+  },
+  "best_epoch": 1,
+  "best_validation_ua": 0.25476190476190474,
+  "validation": {
+    "samples": 499,
+    "wa": 0.250501002004008,
+    "ua": 0.25476190476190474,
+    "macro_f1": 0.1681739879414298,
+    "per_class_f1": {
+      "happy": 0.0,
+      "neutral": 0.37037037037037035,
+      "sad": 0.3023255813953488,
+      "angry": 0.0
+    }
+  },
+  "test": {
+    "samples": 500,
+    "wa": 0.252,
+    "ua": 0.2557552822453485,
+    "macro_f1": 0.16807008349680957,
+    "per_class_f1": {
+      "happy": 0.0,
+      "neutral": 0.3620178041543027,
+      "sad": 0.31026252983293556,
+      "angry": 0.0
+    },
+    "loss": 2.262863973289728
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.0811586218790215,
+      "validation_loss": 2.251600441659142,
+      "validation_ua": 0.25476190476190474,
+      "validation_wa": 0.250501002004008,
+      "validation_macro_f1": 0.1681739879414298,
+      "learning_rate": 1.45e-05,
+      "tracked_parameters": {
+        "pitch_encoder.input_adapter.weight": [
+          0.9996485710144043,
+          9.005102765513584e-05,
+          9.004017192637548e-05,
+          9.005161700770259e-05,
+          9.005190804600716e-05
+        ]
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 2.065209607813193,
+      "validation_loss": 2.2502130990276834,
+      "validation_ua": 0.25476190476190474,
+      "validation_wa": 0.250501002004008,
+      "validation_macro_f1": 0.1681739879414298,
+      "learning_rate": 1.4e-05,
+      "tracked_parameters": {
+        "pitch_encoder.input_adapter.weight": [
+          0.9994105100631714,
+          9.003649756778032e-05,
+          9.002564183901995e-05,
+          9.003708692034706e-05,
+          9.003737795865163e-05
+        ]
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 2.062461349015065,
+      "validation_loss": 2.248760067299755,
+      "validation_ua": 0.25476190476190474,
+      "validation_wa": 0.250501002004008,
+      "validation_macro_f1": 0.1681739879414298,
+      "learning_rate": 1.3500000000000001e-05,
+      "tracked_parameters": {
+        "pitch_encoder.input_adapter.weight": [
+          0.9991724491119385,
+          9.002196748042479e-05,
+          9.001111175166443e-05,
+          9.002255683299154e-05,
+          9.002284787129611e-05
+        ]
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 2.0749495755848417,
+      "validation_loss": 2.247321881786855,
+      "validation_ua": 0.25476190476190474,
+      "validation_wa": 0.250501002004008,
+      "validation_macro_f1": 0.1681739879414298,
+      "learning_rate": 1.3000000000000001e-05,
+      "tracked_parameters": {
+        "pitch_encoder.input_adapter.weight": [
+          0.9989343881607056,
+          9.000743739306927e-05,
+          8.99965816643089e-05,
+          9.000802674563602e-05,
+          9.000831778394058e-05
+        ]
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 2.0857627107898247,
+      "validation_loss": 2.245792666155255,
+      "validation_ua": 0.25476190476190474,
+      "validation_wa": 0.250501002004008,
+      "validation_macro_f1": 0.1681739879414298,
+      "learning_rate": 1.25e-05,
+      "tracked_parameters": {
+        "pitch_encoder.input_adapter.weight": [
+          0.9986963272094727,
+          8.999290730571374e-05,
+          8.998205157695338e-05,
+          8.999349665828049e-05,
+          8.999378769658506e-05
+        ]
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 2.0583086482921162,
+      "validation_loss": 2.244384333162843,
+      "validation_ua": 0.25476190476190474,
+      "validation_wa": 0.250501002004008,
+      "validation_macro_f1": 0.1681739879414298,
+      "learning_rate": 1.2e-05,
+      "tracked_parameters": {
+        "pitch_encoder.input_adapter.weight": [
+          0.9984582662582397,
+          8.997837721835822e-05,
+          8.996752148959786e-05,
+          8.997896657092497e-05,
+          8.997925760922953e-05
+        ]
+      }
+    }
+  ],
+  "runtime_seconds": 1626.3319214999992,
+  "lineage": {
+    "model": "m4_multi_prosody_clean_regularized",
+    "architecture_version": "pointwise_5_to_1_logf0_init_v1",
+    "training_strategy": "shared_lr_weight_decay_early_stop",
+    "config_sha256": "872a13fad585523d2cff25a3bfa920abf0689d251bd51d99f7c2d1c2b1e9be18",
+    "split_sha256": "41a09dbdd955e192a4bff770b537afb40571b4ef08e54568842112691619a341",
+    "feature_index_sha256": "40d39fbe16cbea1f7d81388e275f5c92386785b71fba272c681e23f862c74810"
+  }
+}

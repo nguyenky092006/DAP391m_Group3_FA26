@@ -1,0 +1,186 @@
+Some weights of M5Model were not initialized from the model checkpoint at C:\FPT\DAP391m\code\data\interim\models\huggingface\models--nguyenvulebinh--wav2vec2-base-vi\snapshots\86bde51fa76dd7f2c4c1bb28d7475d622639f869 and are newly initialized: ['attn_a_p.linear1.bias', 'attn_a_p.linear1.weight', 'attn_a_p.linear2.bias', 'attn_a_p.linear2.weight', 'attn_a_p.norm1.bias', 'attn_a_p.norm1.weight', 'attn_a_p.norm2.bias', 'attn_a_p.norm2.weight', 'attn_a_p.self_attn.in_proj_bias', 'attn_a_p.self_attn.in_proj_weight', 'attn_a_p.self_attn.out_proj.bias', 'attn_a_p.self_attn.out_proj.weight', 'attn_p_a.linear1.bias', 'attn_p_a.linear1.weight', 'attn_p_a.linear2.bias', 'attn_p_a.linear2.weight', 'attn_p_a.norm1.bias', 'attn_p_a.norm1.weight', 'attn_p_a.norm2.bias', 'attn_p_a.norm2.weight', 'attn_p_a.self_attn.in_proj_bias', 'attn_p_a.self_attn.in_proj_weight', 'attn_p_a.self_attn.out_proj.bias', 'attn_p_a.self_attn.out_proj.weight', 'classifier.bias', 'classifier.weight', 'pitch_encoder.feature_encoder.conv_layers.0.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.bias', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.weight', 'pitch_encoder.feature_encoder.conv_layers.1.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.2.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.3.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.4.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.5.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.6.conv.weight', 'pitch_encoder.input_adapter.bias', 'pitch_encoder.input_adapter.weight', 'pitch_encoder.residual_blocks.0.depthwise.bias', 'pitch_encoder.residual_blocks.0.depthwise.weight', 'pitch_encoder.residual_blocks.0.expand.bias', 'pitch_encoder.residual_blocks.0.expand.weight', 'pitch_encoder.residual_blocks.0.norm.bias', 'pitch_encoder.residual_blocks.0.norm.weight', 'pitch_encoder.residual_blocks.0.reduce.bias', 'pitch_encoder.residual_blocks.0.reduce.weight', 'pitch_encoder.residual_blocks.0.residual_scale', 'pitch_encoder.residual_blocks.1.depthwise.bias', 'pitch_encoder.residual_blocks.1.depthwise.weight', 'pitch_encoder.residual_blocks.1.expand.bias', 'pitch_encoder.residual_blocks.1.expand.weight', 'pitch_encoder.residual_blocks.1.norm.bias', 'pitch_encoder.residual_blocks.1.norm.weight', 'pitch_encoder.residual_blocks.1.reduce.bias', 'pitch_encoder.residual_blocks.1.reduce.weight', 'pitch_encoder.residual_blocks.1.residual_scale', 'pitch_encoder.residual_blocks.2.depthwise.bias', 'pitch_encoder.residual_blocks.2.depthwise.weight', 'pitch_encoder.residual_blocks.2.expand.bias', 'pitch_encoder.residual_blocks.2.expand.weight', 'pitch_encoder.residual_blocks.2.norm.bias', 'pitch_encoder.residual_blocks.2.norm.weight', 'pitch_encoder.residual_blocks.2.reduce.bias', 'pitch_encoder.residual_blocks.2.reduce.weight', 'pitch_encoder.residual_blocks.2.residual_scale', 'pitch_projection.layer_norm.bias', 'pitch_projection.layer_norm.weight', 'pitch_projection.projection.bias', 'pitch_projection.projection.weight', 'projector.bias', 'projector.weight', 'self_attn.linear1.bias', 'self_attn.linear1.weight', 'self_attn.linear2.bias', 'self_attn.linear2.weight', 'self_attn.norm1.bias', 'self_attn.norm1.weight', 'self_attn.norm2.bias', 'self_attn.norm2.weight', 'self_attn.self_attn.in_proj_bias', 'self_attn.self_attn.in_proj_weight', 'self_attn.self_attn.out_proj.bias', 'self_attn.self_attn.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[resume] checkpoint epoch 22: C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 23/30 | batch 1/1997 | batch_loss=0.000574 | running_loss=0.000574 | grad_norm=0.0169 | lr=4.00e-06 | epoch_elapsed=9.1s | batch_eta=18243.7s
+[m5_residual_dilated_clean] epoch 23/30 | batch 100/1997 | batch_loss=0.000667 | running_loss=0.418829 | grad_norm=0.0190 | lr=3.97e-06 | epoch_elapsed=143.0s | batch_eta=2712.5s
+[m5_residual_dilated_clean] epoch 23/30 | batch 200/1997 | batch_loss=0.000668 | running_loss=0.357800 | grad_norm=0.0187 | lr=3.95e-06 | epoch_elapsed=187.1s | batch_eta=1681.3s
+[m5_residual_dilated_clean] epoch 23/30 | batch 300/1997 | batch_loss=0.000533 | running_loss=0.334530 | grad_norm=0.0226 | lr=3.92e-06 | epoch_elapsed=218.7s | batch_eta=1237.2s
+[m5_residual_dilated_clean] epoch 23/30 | batch 400/1997 | batch_loss=0.000551 | running_loss=0.339412 | grad_norm=0.0218 | lr=3.90e-06 | epoch_elapsed=251.6s | batch_eta=1004.4s
+[m5_residual_dilated_clean] epoch 23/30 | batch 500/1997 | batch_loss=0.005412 | running_loss=0.352835 | grad_norm=1.7490 | lr=3.87e-06 | epoch_elapsed=264.9s | batch_eta=793.2s
+[m5_residual_dilated_clean] epoch 23/30 | batch 600/1997 | batch_loss=0.000787 | running_loss=0.344778 | grad_norm=0.0556 | lr=3.85e-06 | epoch_elapsed=279.5s | batch_eta=650.7s
+[m5_residual_dilated_clean] epoch 23/30 | batch 700/1997 | batch_loss=0.000551 | running_loss=0.345002 | grad_norm=0.0202 | lr=3.82e-06 | epoch_elapsed=294.7s | batch_eta=546.0s
+[m5_residual_dilated_clean] epoch 23/30 | batch 800/1997 | batch_loss=0.001089 | running_loss=0.361985 | grad_norm=0.1120 | lr=3.80e-06 | epoch_elapsed=313.3s | batch_eta=468.8s
+[m5_residual_dilated_clean] epoch 23/30 | batch 900/1997 | batch_loss=0.000566 | running_loss=0.361921 | grad_norm=0.0194 | lr=3.77e-06 | epoch_elapsed=330.8s | batch_eta=403.2s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1000/1997 | batch_loss=0.000445 | running_loss=0.345205 | grad_norm=0.0130 | lr=3.75e-06 | epoch_elapsed=351.2s | batch_eta=350.1s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1100/1997 | batch_loss=0.637255 | running_loss=0.340603 | grad_norm=251.6785 | lr=3.72e-06 | epoch_elapsed=368.7s | batch_eta=300.7s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1200/1997 | batch_loss=0.000694 | running_loss=0.342555 | grad_norm=0.0222 | lr=3.70e-06 | epoch_elapsed=393.4s | batch_eta=261.3s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1300/1997 | batch_loss=3.729635 | running_loss=0.343377 | grad_norm=44.6190 | lr=3.67e-06 | epoch_elapsed=413.4s | batch_eta=221.6s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1400/1997 | batch_loss=0.249880 | running_loss=0.337644 | grad_norm=120.1559 | lr=3.65e-06 | epoch_elapsed=428.7s | batch_eta=182.8s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1500/1997 | batch_loss=0.000516 | running_loss=0.335623 | grad_norm=0.0181 | lr=3.62e-06 | epoch_elapsed=444.7s | batch_eta=147.3s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1600/1997 | batch_loss=0.001685 | running_loss=0.334499 | grad_norm=0.6176 | lr=3.60e-06 | epoch_elapsed=463.9s | batch_eta=115.1s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1700/1997 | batch_loss=0.000334 | running_loss=0.326295 | grad_norm=0.0128 | lr=3.57e-06 | epoch_elapsed=478.5s | batch_eta=83.6s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1800/1997 | batch_loss=0.000600 | running_loss=0.332000 | grad_norm=0.0340 | lr=3.55e-06 | epoch_elapsed=496.2s | batch_eta=54.3s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1900/1997 | batch_loss=0.000487 | running_loss=0.331262 | grad_norm=0.0221 | lr=3.52e-06 | epoch_elapsed=509.7s | batch_eta=26.0s
+[m5_residual_dilated_clean] epoch 23/30 | batch 1997/1997 | batch_loss=0.000529 | running_loss=0.332637 | grad_norm=0.0200 | lr=3.50e-06 | epoch_elapsed=524.9s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 23/30 | train_loss=0.3326 | val_loss=2.1833 | val_UA=0.7127 | val_WA=0.7114 | val_macro_f1=0.7068 | best_UA=0.7239@19 | lr=3.50e-06 | epoch_time=539.4s | elapsed=85533.6s | eta=3757.2s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 24/30 | batch 1/1997 | batch_loss=0.000352 | running_loss=0.000352 | grad_norm=0.0154 | lr=3.50e-06 | epoch_elapsed=0.3s | batch_eta=515.6s
+[m5_residual_dilated_clean] epoch 24/30 | batch 100/1997 | batch_loss=0.000510 | running_loss=0.342535 | grad_norm=0.0336 | lr=3.47e-06 | epoch_elapsed=15.9s | batch_eta=301.9s
+[m5_residual_dilated_clean] epoch 24/30 | batch 200/1997 | batch_loss=2.878219 | running_loss=0.412272 | grad_norm=143.8600 | lr=3.45e-06 | epoch_elapsed=32.5s | batch_eta=292.1s
+[m5_residual_dilated_clean] epoch 24/30 | batch 300/1997 | batch_loss=0.000586 | running_loss=0.401770 | grad_norm=0.0221 | lr=3.42e-06 | epoch_elapsed=47.0s | batch_eta=265.8s
+[m5_residual_dilated_clean] epoch 24/30 | batch 400/1997 | batch_loss=0.003181 | running_loss=0.368250 | grad_norm=0.8703 | lr=3.40e-06 | epoch_elapsed=63.8s | batch_eta=254.6s
+[m5_residual_dilated_clean] epoch 24/30 | batch 500/1997 | batch_loss=0.000463 | running_loss=0.354059 | grad_norm=0.0149 | lr=3.37e-06 | epoch_elapsed=80.9s | batch_eta=242.3s
+[m5_residual_dilated_clean] epoch 24/30 | batch 600/1997 | batch_loss=2.674414 | running_loss=0.368989 | grad_norm=448.2751 | lr=3.35e-06 | epoch_elapsed=98.3s | batch_eta=228.8s
+[m5_residual_dilated_clean] epoch 24/30 | batch 700/1997 | batch_loss=0.000982 | running_loss=0.365672 | grad_norm=0.1161 | lr=3.32e-06 | epoch_elapsed=113.5s | batch_eta=210.4s
+[m5_residual_dilated_clean] epoch 24/30 | batch 800/1997 | batch_loss=0.000390 | running_loss=0.374979 | grad_norm=0.0113 | lr=3.30e-06 | epoch_elapsed=134.3s | batch_eta=201.0s
+[m5_residual_dilated_clean] epoch 24/30 | batch 900/1997 | batch_loss=3.523866 | running_loss=0.366342 | grad_norm=149.9757 | lr=3.27e-06 | epoch_elapsed=273.8s | batch_eta=333.8s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1000/1997 | batch_loss=0.000348 | running_loss=0.360903 | grad_norm=0.0095 | lr=3.25e-06 | epoch_elapsed=405.2s | batch_eta=404.0s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1100/1997 | batch_loss=0.000405 | running_loss=0.363007 | grad_norm=0.0152 | lr=3.22e-06 | epoch_elapsed=527.3s | batch_eta=429.9s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1200/1997 | batch_loss=0.000221 | running_loss=0.356463 | grad_norm=0.0088 | lr=3.20e-06 | epoch_elapsed=649.5s | batch_eta=431.4s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1300/1997 | batch_loss=0.000359 | running_loss=0.373736 | grad_norm=0.0110 | lr=3.17e-06 | epoch_elapsed=777.3s | batch_eta=416.7s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1400/1997 | batch_loss=0.000567 | running_loss=0.365487 | grad_norm=0.0227 | lr=3.15e-06 | epoch_elapsed=917.4s | batch_eta=391.2s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1500/1997 | batch_loss=0.000500 | running_loss=0.369559 | grad_norm=0.0318 | lr=3.12e-06 | epoch_elapsed=1060.6s | batch_eta=351.4s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1600/1997 | batch_loss=0.002559 | running_loss=0.365841 | grad_norm=0.4008 | lr=3.10e-06 | epoch_elapsed=1197.3s | batch_eta=297.1s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1700/1997 | batch_loss=0.007580 | running_loss=0.365556 | grad_norm=2.4441 | lr=3.07e-06 | epoch_elapsed=1339.7s | batch_eta=234.0s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1800/1997 | batch_loss=0.641242 | running_loss=0.361379 | grad_norm=191.5174 | lr=3.05e-06 | epoch_elapsed=1477.4s | batch_eta=161.7s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1900/1997 | batch_loss=0.000321 | running_loss=0.363075 | grad_norm=0.0092 | lr=3.02e-06 | epoch_elapsed=1612.0s | batch_eta=82.3s
+[m5_residual_dilated_clean] epoch 24/30 | batch 1997/1997 | batch_loss=0.000264 | running_loss=0.364989 | grad_norm=0.0116 | lr=3.00e-06 | epoch_elapsed=1743.1s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 24/30 | train_loss=0.3650 | val_loss=2.2110 | val_UA=0.6959 | val_WA=0.6974 | val_macro_f1=0.6934 | best_UA=0.7239@19 | lr=3.00e-06 | epoch_time=1776.5s | elapsed=87310.9s | eta=6942.1s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 25/30 | batch 1/1997 | batch_loss=0.001099 | running_loss=0.001099 | grad_norm=0.1337 | lr=3.00e-06 | epoch_elapsed=0.9s | batch_eta=1854.6s
+[m5_residual_dilated_clean] epoch 25/30 | batch 100/1997 | batch_loss=0.000600 | running_loss=0.172982 | grad_norm=0.0274 | lr=2.97e-06 | epoch_elapsed=140.1s | batch_eta=2657.5s
+[m5_residual_dilated_clean] epoch 25/30 | batch 200/1997 | batch_loss=0.000404 | running_loss=0.222937 | grad_norm=0.0175 | lr=2.95e-06 | epoch_elapsed=267.2s | batch_eta=2400.8s
+[m5_residual_dilated_clean] epoch 25/30 | batch 300/1997 | batch_loss=0.000513 | running_loss=0.230409 | grad_norm=0.0202 | lr=2.92e-06 | epoch_elapsed=398.2s | batch_eta=2252.7s
+[m5_residual_dilated_clean] epoch 25/30 | batch 400/1997 | batch_loss=0.000442 | running_loss=0.240667 | grad_norm=0.0308 | lr=2.90e-06 | epoch_elapsed=536.2s | batch_eta=2140.8s
+[m5_residual_dilated_clean] epoch 25/30 | batch 500/1997 | batch_loss=0.000427 | running_loss=0.246118 | grad_norm=0.0235 | lr=2.87e-06 | epoch_elapsed=665.9s | batch_eta=1993.6s
+[m5_residual_dilated_clean] epoch 25/30 | batch 600/1997 | batch_loss=0.000812 | running_loss=0.259895 | grad_norm=0.0651 | lr=2.85e-06 | epoch_elapsed=791.9s | batch_eta=1843.8s
+[m5_residual_dilated_clean] epoch 25/30 | batch 700/1997 | batch_loss=0.000217 | running_loss=0.292462 | grad_norm=0.0064 | lr=2.82e-06 | epoch_elapsed=921.2s | batch_eta=1706.8s
+[m5_residual_dilated_clean] epoch 25/30 | batch 800/1997 | batch_loss=0.002701 | running_loss=0.287944 | grad_norm=0.2308 | lr=2.80e-06 | epoch_elapsed=1055.9s | batch_eta=1579.9s
+[m5_residual_dilated_clean] epoch 25/30 | batch 900/1997 | batch_loss=0.000653 | running_loss=0.292467 | grad_norm=0.0445 | lr=2.77e-06 | epoch_elapsed=1186.7s | batch_eta=1446.4s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1000/1997 | batch_loss=0.000337 | running_loss=0.291751 | grad_norm=0.0102 | lr=2.75e-06 | epoch_elapsed=1305.2s | batch_eta=1301.3s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1100/1997 | batch_loss=0.000435 | running_loss=0.284069 | grad_norm=0.0152 | lr=2.72e-06 | epoch_elapsed=1424.5s | batch_eta=1161.6s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1200/1997 | batch_loss=0.006507 | running_loss=0.290527 | grad_norm=1.9490 | lr=2.70e-06 | epoch_elapsed=1574.3s | batch_eta=1045.6s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1300/1997 | batch_loss=0.000410 | running_loss=0.306410 | grad_norm=0.0158 | lr=2.67e-06 | epoch_elapsed=1715.1s | batch_eta=919.6s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1400/1997 | batch_loss=0.000348 | running_loss=0.307417 | grad_norm=0.0150 | lr=2.65e-06 | epoch_elapsed=1854.5s | batch_eta=790.8s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1500/1997 | batch_loss=0.000407 | running_loss=0.301952 | grad_norm=0.0130 | lr=2.62e-06 | epoch_elapsed=1999.0s | batch_eta=662.4s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1600/1997 | batch_loss=0.000381 | running_loss=0.301116 | grad_norm=0.0138 | lr=2.60e-06 | epoch_elapsed=2137.5s | batch_eta=530.4s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1700/1997 | batch_loss=0.000696 | running_loss=0.312753 | grad_norm=0.0668 | lr=2.57e-06 | epoch_elapsed=2268.9s | batch_eta=396.4s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1800/1997 | batch_loss=0.005997 | running_loss=0.319249 | grad_norm=1.7056 | lr=2.55e-06 | epoch_elapsed=2407.2s | batch_eta=263.5s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1900/1997 | batch_loss=0.000400 | running_loss=0.313758 | grad_norm=0.0133 | lr=2.52e-06 | epoch_elapsed=2533.1s | batch_eta=129.3s
+[m5_residual_dilated_clean] epoch 25/30 | batch 1997/1997 | batch_loss=0.000279 | running_loss=0.308898 | grad_norm=0.0120 | lr=2.50e-06 | epoch_elapsed=2664.4s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 25/30 | train_loss=0.3089 | val_loss=2.2506 | val_UA=0.6976 | val_WA=0.7034 | val_macro_f1=0.6996 | best_UA=0.7239@19 | lr=2.50e-06 | epoch_time=2696.7s | elapsed=90008.1s | eta=8352.1s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 26/30 | batch 1/1997 | batch_loss=1.191175 | running_loss=1.191175 | grad_norm=80.4966 | lr=2.50e-06 | epoch_elapsed=0.9s | batch_eta=1819.2s
+[m5_residual_dilated_clean] epoch 26/30 | batch 100/1997 | batch_loss=3.924203 | running_loss=0.343832 | grad_norm=197.2321 | lr=2.47e-06 | epoch_elapsed=143.2s | batch_eta=2716.6s
+[m5_residual_dilated_clean] epoch 26/30 | batch 200/1997 | batch_loss=0.000305 | running_loss=0.268925 | grad_norm=0.0086 | lr=2.45e-06 | epoch_elapsed=269.4s | batch_eta=2420.9s
+[m5_residual_dilated_clean] epoch 26/30 | batch 300/1997 | batch_loss=0.282086 | running_loss=0.251541 | grad_norm=207.7729 | lr=2.42e-06 | epoch_elapsed=400.9s | batch_eta=2267.6s
+[m5_residual_dilated_clean] epoch 26/30 | batch 400/1997 | batch_loss=0.000606 | running_loss=0.254680 | grad_norm=0.0467 | lr=2.40e-06 | epoch_elapsed=536.6s | batch_eta=2142.5s
+[m5_residual_dilated_clean] epoch 26/30 | batch 500/1997 | batch_loss=0.001492 | running_loss=0.264548 | grad_norm=0.3443 | lr=2.37e-06 | epoch_elapsed=666.2s | batch_eta=1994.5s
+[m5_residual_dilated_clean] epoch 26/30 | batch 600/1997 | batch_loss=0.000353 | running_loss=0.247530 | grad_norm=0.0135 | lr=2.35e-06 | epoch_elapsed=788.3s | batch_eta=1835.5s
+[m5_residual_dilated_clean] epoch 26/30 | batch 700/1997 | batch_loss=0.000340 | running_loss=0.244385 | grad_norm=0.0150 | lr=2.32e-06 | epoch_elapsed=933.1s | batch_eta=1728.9s
+[m5_residual_dilated_clean] epoch 26/30 | batch 800/1997 | batch_loss=0.000246 | running_loss=0.257353 | grad_norm=0.0124 | lr=2.30e-06 | epoch_elapsed=1060.5s | batch_eta=1586.8s
+[m5_residual_dilated_clean] epoch 26/30 | batch 900/1997 | batch_loss=0.000242 | running_loss=0.261075 | grad_norm=0.0073 | lr=2.27e-06 | epoch_elapsed=1194.8s | batch_eta=1456.3s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1000/1997 | batch_loss=0.000217 | running_loss=0.260607 | grad_norm=0.0096 | lr=2.25e-06 | epoch_elapsed=1320.2s | batch_eta=1316.2s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1100/1997 | batch_loss=0.000262 | running_loss=0.267199 | grad_norm=0.0084 | lr=2.22e-06 | epoch_elapsed=1453.2s | batch_eta=1185.0s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1200/1997 | batch_loss=0.000379 | running_loss=0.279585 | grad_norm=0.0244 | lr=2.20e-06 | epoch_elapsed=1598.7s | batch_eta=1061.8s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1300/1997 | batch_loss=0.000288 | running_loss=0.275341 | grad_norm=0.0103 | lr=2.17e-06 | epoch_elapsed=1723.2s | batch_eta=923.9s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1400/1997 | batch_loss=0.000366 | running_loss=0.292854 | grad_norm=0.0109 | lr=2.15e-06 | epoch_elapsed=1860.6s | batch_eta=793.4s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1500/1997 | batch_loss=0.000468 | running_loss=0.290808 | grad_norm=0.0261 | lr=2.12e-06 | epoch_elapsed=2004.5s | batch_eta=664.2s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1600/1997 | batch_loss=0.000883 | running_loss=0.298424 | grad_norm=0.1281 | lr=2.10e-06 | epoch_elapsed=2126.7s | batch_eta=527.7s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1700/1997 | batch_loss=0.002435 | running_loss=0.292059 | grad_norm=1.1236 | lr=2.07e-06 | epoch_elapsed=2245.7s | batch_eta=392.3s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1800/1997 | batch_loss=0.000242 | running_loss=0.296025 | grad_norm=0.0082 | lr=2.05e-06 | epoch_elapsed=2381.4s | batch_eta=260.6s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1900/1997 | batch_loss=0.000407 | running_loss=0.287483 | grad_norm=0.0224 | lr=2.02e-06 | epoch_elapsed=2534.8s | batch_eta=129.4s
+[m5_residual_dilated_clean] epoch 26/30 | batch 1997/1997 | batch_loss=0.000477 | running_loss=0.292475 | grad_norm=0.0682 | lr=2.00e-06 | epoch_elapsed=2653.9s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 26/30 | train_loss=0.2925 | val_loss=2.2594 | val_UA=0.7067 | val_WA=0.7114 | val_macro_f1=0.7078 | best_UA=0.7239@19 | lr=2.00e-06 | epoch_time=2686.7s | elapsed=92694.8s | eta=7698.0s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 27/30 | batch 1/1997 | batch_loss=0.845564 | running_loss=0.845564 | grad_norm=190.6304 | lr=2.00e-06 | epoch_elapsed=1.0s | batch_eta=2046.6s
+[m5_residual_dilated_clean] epoch 27/30 | batch 100/1997 | batch_loss=0.000322 | running_loss=0.185159 | grad_norm=0.0123 | lr=1.97e-06 | epoch_elapsed=113.4s | batch_eta=2150.4s
+[m5_residual_dilated_clean] epoch 27/30 | batch 200/1997 | batch_loss=0.000326 | running_loss=0.231395 | grad_norm=0.0102 | lr=1.95e-06 | epoch_elapsed=238.9s | batch_eta=2146.1s
+[m5_residual_dilated_clean] epoch 27/30 | batch 300/1997 | batch_loss=0.000294 | running_loss=0.216648 | grad_norm=0.0090 | lr=1.92e-06 | epoch_elapsed=387.0s | batch_eta=2189.2s
+[m5_residual_dilated_clean] epoch 27/30 | batch 400/1997 | batch_loss=0.002474 | running_loss=0.238343 | grad_norm=1.3695 | lr=1.90e-06 | epoch_elapsed=516.9s | batch_eta=2063.8s
+[m5_residual_dilated_clean] epoch 27/30 | batch 500/1997 | batch_loss=0.000328 | running_loss=0.257397 | grad_norm=0.0333 | lr=1.87e-06 | epoch_elapsed=652.2s | batch_eta=1952.8s
+[m5_residual_dilated_clean] epoch 27/30 | batch 600/1997 | batch_loss=0.000138 | running_loss=0.253535 | grad_norm=0.0055 | lr=1.85e-06 | epoch_elapsed=791.1s | batch_eta=1841.9s
+[m5_residual_dilated_clean] epoch 27/30 | batch 700/1997 | batch_loss=0.000178 | running_loss=0.244501 | grad_norm=0.0054 | lr=1.82e-06 | epoch_elapsed=926.7s | batch_eta=1717.1s
+[m5_residual_dilated_clean] epoch 27/30 | batch 800/1997 | batch_loss=0.000429 | running_loss=0.252578 | grad_norm=0.0167 | lr=1.80e-06 | epoch_elapsed=1049.5s | batch_eta=1570.2s
+[m5_residual_dilated_clean] epoch 27/30 | batch 900/1997 | batch_loss=0.000233 | running_loss=0.243810 | grad_norm=0.0066 | lr=1.77e-06 | epoch_elapsed=1162.7s | batch_eta=1417.2s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1000/1997 | batch_loss=0.000488 | running_loss=0.261390 | grad_norm=0.0621 | lr=1.75e-06 | epoch_elapsed=1281.7s | batch_eta=1277.8s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1100/1997 | batch_loss=0.005403 | running_loss=0.259342 | grad_norm=2.3023 | lr=1.72e-06 | epoch_elapsed=1405.2s | batch_eta=1145.8s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1200/1997 | batch_loss=0.001012 | running_loss=0.266672 | grad_norm=0.3830 | lr=1.70e-06 | epoch_elapsed=1526.2s | batch_eta=1013.6s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1300/1997 | batch_loss=0.000221 | running_loss=0.265314 | grad_norm=0.0063 | lr=1.67e-06 | epoch_elapsed=1639.2s | batch_eta=878.8s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1400/1997 | batch_loss=0.000246 | running_loss=0.261585 | grad_norm=0.0079 | lr=1.65e-06 | epoch_elapsed=1748.0s | batch_eta=745.4s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1500/1997 | batch_loss=0.568631 | running_loss=0.269328 | grad_norm=247.7470 | lr=1.62e-06 | epoch_elapsed=1864.1s | batch_eta=617.6s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1600/1997 | batch_loss=0.000320 | running_loss=0.261102 | grad_norm=0.0144 | lr=1.60e-06 | epoch_elapsed=1987.1s | batch_eta=493.0s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1700/1997 | batch_loss=0.000100 | running_loss=0.266770 | grad_norm=0.0040 | lr=1.57e-06 | epoch_elapsed=2104.3s | batch_eta=367.6s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1800/1997 | batch_loss=0.000262 | running_loss=0.265371 | grad_norm=0.0144 | lr=1.55e-06 | epoch_elapsed=2214.2s | batch_eta=242.3s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1900/1997 | batch_loss=0.000351 | running_loss=0.263932 | grad_norm=0.0369 | lr=1.52e-06 | epoch_elapsed=2318.4s | batch_eta=118.4s
+[m5_residual_dilated_clean] epoch 27/30 | batch 1997/1997 | batch_loss=0.000095 | running_loss=0.257080 | grad_norm=0.0038 | lr=1.50e-06 | epoch_elapsed=2433.8s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 27/30 | train_loss=0.2571 | val_loss=2.2345 | val_UA=0.7189 | val_WA=0.7214 | val_macro_f1=0.7172 | best_UA=0.7239@19 | lr=1.50e-06 | epoch_time=2466.8s | elapsed=95160.3s | eta=6098.1s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 28/30 | batch 1/1997 | batch_loss=0.000464 | running_loss=0.000464 | grad_norm=0.0182 | lr=1.50e-06 | epoch_elapsed=1.2s | batch_eta=2453.9s
+[m5_residual_dilated_clean] epoch 28/30 | batch 100/1997 | batch_loss=0.000175 | running_loss=0.236411 | grad_norm=0.0055 | lr=1.47e-06 | epoch_elapsed=122.0s | batch_eta=2314.5s
+[m5_residual_dilated_clean] epoch 28/30 | batch 200/1997 | batch_loss=0.000309 | running_loss=0.177048 | grad_norm=0.0122 | lr=1.45e-06 | epoch_elapsed=228.6s | batch_eta=2054.3s
+[m5_residual_dilated_clean] epoch 28/30 | batch 300/1997 | batch_loss=0.000422 | running_loss=0.162073 | grad_norm=0.0357 | lr=1.42e-06 | epoch_elapsed=343.6s | batch_eta=1943.5s
+[m5_residual_dilated_clean] epoch 28/30 | batch 400/1997 | batch_loss=0.000267 | running_loss=0.159632 | grad_norm=0.0150 | lr=1.40e-06 | epoch_elapsed=483.6s | batch_eta=1930.9s
+[m5_residual_dilated_clean] epoch 28/30 | batch 500/1997 | batch_loss=0.000215 | running_loss=0.159225 | grad_norm=0.0072 | lr=1.37e-06 | epoch_elapsed=619.6s | batch_eta=1855.2s
+[m5_residual_dilated_clean] epoch 28/30 | batch 600/1997 | batch_loss=0.000463 | running_loss=0.156894 | grad_norm=0.0315 | lr=1.35e-06 | epoch_elapsed=753.7s | batch_eta=1754.8s
+[m5_residual_dilated_clean] epoch 28/30 | batch 700/1997 | batch_loss=0.000271 | running_loss=0.170932 | grad_norm=0.0213 | lr=1.32e-06 | epoch_elapsed=875.3s | batch_eta=1621.7s
+[m5_residual_dilated_clean] epoch 28/30 | batch 800/1997 | batch_loss=0.000193 | running_loss=0.179526 | grad_norm=0.0082 | lr=1.30e-06 | epoch_elapsed=988.7s | batch_eta=1479.3s
+[m5_residual_dilated_clean] epoch 28/30 | batch 900/1997 | batch_loss=0.000447 | running_loss=0.202343 | grad_norm=0.1977 | lr=1.27e-06 | epoch_elapsed=1107.2s | batch_eta=1349.6s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1000/1997 | batch_loss=0.000252 | running_loss=0.211189 | grad_norm=0.0073 | lr=1.25e-06 | epoch_elapsed=1222.3s | batch_eta=1218.6s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1100/1997 | batch_loss=0.000760 | running_loss=0.209508 | grad_norm=0.0848 | lr=1.22e-06 | epoch_elapsed=1347.3s | batch_eta=1098.7s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1200/1997 | batch_loss=0.000244 | running_loss=0.217025 | grad_norm=0.0081 | lr=1.20e-06 | epoch_elapsed=1464.5s | batch_eta=972.7s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1300/1997 | batch_loss=0.000145 | running_loss=0.213527 | grad_norm=0.0072 | lr=1.17e-06 | epoch_elapsed=1567.1s | batch_eta=840.2s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1400/1997 | batch_loss=0.000176 | running_loss=0.216274 | grad_norm=0.0052 | lr=1.15e-06 | epoch_elapsed=1707.6s | batch_eta=728.2s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1500/1997 | batch_loss=0.000273 | running_loss=0.219073 | grad_norm=0.0130 | lr=1.12e-06 | epoch_elapsed=1827.1s | batch_eta=605.4s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1600/1997 | batch_loss=0.041921 | running_loss=0.227091 | grad_norm=42.3547 | lr=1.10e-06 | epoch_elapsed=1943.8s | batch_eta=482.3s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1700/1997 | batch_loss=0.000122 | running_loss=0.242602 | grad_norm=0.0049 | lr=1.07e-06 | epoch_elapsed=2049.2s | batch_eta=358.0s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1800/1997 | batch_loss=0.000178 | running_loss=0.250905 | grad_norm=0.0052 | lr=1.05e-06 | epoch_elapsed=2156.3s | batch_eta=236.0s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1900/1997 | batch_loss=0.000309 | running_loss=0.261447 | grad_norm=0.0158 | lr=1.02e-06 | epoch_elapsed=2265.7s | batch_eta=115.7s
+[m5_residual_dilated_clean] epoch 28/30 | batch 1997/1997 | batch_loss=0.007734 | running_loss=0.258231 | grad_norm=2.3768 | lr=1.00e-06 | epoch_elapsed=2368.5s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 28/30 | train_loss=0.2582 | val_loss=2.3236 | val_UA=0.7183 | val_WA=0.7174 | val_macro_f1=0.7141 | best_UA=0.7239@19 | lr=1.00e-06 | epoch_time=2403.0s | elapsed=97563.4s | eta=4188.9s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 29/30 | batch 1/1997 | batch_loss=0.000124 | running_loss=0.000124 | grad_norm=0.0053 | lr=1.00e-06 | epoch_elapsed=1.3s | batch_eta=2693.5s
+[m5_residual_dilated_clean] epoch 29/30 | batch 100/1997 | batch_loss=0.000240 | running_loss=0.394651 | grad_norm=0.0090 | lr=9.75e-07 | epoch_elapsed=113.6s | batch_eta=2154.2s
+[m5_residual_dilated_clean] epoch 29/30 | batch 200/1997 | batch_loss=0.000169 | running_loss=0.367710 | grad_norm=0.0051 | lr=9.50e-07 | epoch_elapsed=245.8s | batch_eta=2208.1s
+[m5_residual_dilated_clean] epoch 29/30 | batch 300/1997 | batch_loss=0.002591 | running_loss=0.348383 | grad_norm=0.6241 | lr=9.25e-07 | epoch_elapsed=364.5s | batch_eta=2061.8s
+[m5_residual_dilated_clean] epoch 29/30 | batch 400/1997 | batch_loss=0.000295 | running_loss=0.367616 | grad_norm=0.0129 | lr=9.00e-07 | epoch_elapsed=478.7s | batch_eta=1911.0s
+[m5_residual_dilated_clean] epoch 29/30 | batch 500/1997 | batch_loss=0.000285 | running_loss=0.331388 | grad_norm=0.0087 | lr=8.75e-07 | epoch_elapsed=580.5s | batch_eta=1738.1s
+[m5_residual_dilated_clean] epoch 29/30 | batch 600/1997 | batch_loss=0.000679 | running_loss=0.316741 | grad_norm=0.0916 | lr=8.50e-07 | epoch_elapsed=698.5s | batch_eta=1626.3s
+[m5_residual_dilated_clean] epoch 29/30 | batch 700/1997 | batch_loss=0.000255 | running_loss=0.315931 | grad_norm=0.0073 | lr=8.25e-07 | epoch_elapsed=813.6s | batch_eta=1507.4s
+[m5_residual_dilated_clean] epoch 29/30 | batch 800/1997 | batch_loss=0.000179 | running_loss=0.313862 | grad_norm=0.0056 | lr=8.00e-07 | epoch_elapsed=930.3s | batch_eta=1392.0s
+[m5_residual_dilated_clean] epoch 29/30 | batch 900/1997 | batch_loss=0.000243 | running_loss=0.294274 | grad_norm=0.0071 | lr=7.75e-07 | epoch_elapsed=1035.9s | batch_eta=1262.6s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1000/1997 | batch_loss=0.000273 | running_loss=0.280798 | grad_norm=0.0116 | lr=7.50e-07 | epoch_elapsed=1141.8s | batch_eta=1138.4s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1100/1997 | batch_loss=0.000324 | running_loss=0.275362 | grad_norm=0.0261 | lr=7.25e-07 | epoch_elapsed=1258.4s | batch_eta=1026.2s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1200/1997 | batch_loss=0.000209 | running_loss=0.273078 | grad_norm=0.0067 | lr=7.00e-07 | epoch_elapsed=1372.8s | batch_eta=911.7s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1300/1997 | batch_loss=0.000326 | running_loss=0.266052 | grad_norm=0.0131 | lr=6.75e-07 | epoch_elapsed=1512.7s | batch_eta=811.0s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1400/1997 | batch_loss=0.000473 | running_loss=0.256242 | grad_norm=0.0230 | lr=6.49e-07 | epoch_elapsed=1633.4s | batch_eta=696.5s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1500/1997 | batch_loss=0.000293 | running_loss=0.257988 | grad_norm=0.0226 | lr=6.24e-07 | epoch_elapsed=1745.9s | batch_eta=578.5s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1600/1997 | batch_loss=0.000287 | running_loss=0.257797 | grad_norm=0.0153 | lr=5.99e-07 | epoch_elapsed=1877.0s | batch_eta=465.7s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1700/1997 | batch_loss=0.000140 | running_loss=0.260086 | grad_norm=0.0042 | lr=5.74e-07 | epoch_elapsed=1980.4s | batch_eta=346.0s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1800/1997 | batch_loss=0.000377 | running_loss=0.256670 | grad_norm=0.0139 | lr=5.49e-07 | epoch_elapsed=2097.9s | batch_eta=229.6s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1900/1997 | batch_loss=0.000146 | running_loss=0.249485 | grad_norm=0.0047 | lr=5.24e-07 | epoch_elapsed=2213.5s | batch_eta=113.0s
+[m5_residual_dilated_clean] epoch 29/30 | batch 1997/1997 | batch_loss=0.000375 | running_loss=0.247602 | grad_norm=0.0703 | lr=5.00e-07 | epoch_elapsed=2328.4s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 29/30 | train_loss=0.2476 | val_loss=2.2580 | val_UA=0.7258 | val_WA=0.7275 | val_macro_f1=0.7238 | best_UA=0.7258@29 | lr=5.00e-07 | epoch_time=2364.3s | elapsed=99927.2s | eta=2132.9s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+[m5_residual_dilated_clean] epoch 30/30 | batch 1/1997 | batch_loss=0.000135 | running_loss=0.000135 | grad_norm=0.0039 | lr=5.00e-07 | epoch_elapsed=2.4s | batch_eta=4695.3s
+[m5_residual_dilated_clean] epoch 30/30 | batch 100/1997 | batch_loss=0.000298 | running_loss=0.246690 | grad_norm=0.0090 | lr=4.75e-07 | epoch_elapsed=131.6s | batch_eta=2496.2s
+[m5_residual_dilated_clean] epoch 30/30 | batch 200/1997 | batch_loss=0.000178 | running_loss=0.185129 | grad_norm=0.0057 | lr=4.50e-07 | epoch_elapsed=249.0s | batch_eta=2237.4s
+[m5_residual_dilated_clean] epoch 30/30 | batch 300/1997 | batch_loss=0.000357 | running_loss=0.192102 | grad_norm=0.0263 | lr=4.25e-07 | epoch_elapsed=350.5s | batch_eta=1982.9s
+[m5_residual_dilated_clean] epoch 30/30 | batch 400/1997 | batch_loss=0.000308 | running_loss=0.201811 | grad_norm=0.0105 | lr=4.00e-07 | epoch_elapsed=455.9s | batch_eta=1820.0s
+[m5_residual_dilated_clean] epoch 30/30 | batch 500/1997 | batch_loss=4.576782 | running_loss=0.215716 | grad_norm=31.0884 | lr=3.75e-07 | epoch_elapsed=559.8s | batch_eta=1676.1s
+[m5_residual_dilated_clean] epoch 30/30 | batch 600/1997 | batch_loss=0.000226 | running_loss=0.216980 | grad_norm=0.0090 | lr=3.50e-07 | epoch_elapsed=688.6s | batch_eta=1603.2s
+[m5_residual_dilated_clean] epoch 30/30 | batch 700/1997 | batch_loss=0.000265 | running_loss=0.232492 | grad_norm=0.0099 | lr=3.25e-07 | epoch_elapsed=819.2s | batch_eta=1517.8s
+[m5_residual_dilated_clean] epoch 30/30 | batch 800/1997 | batch_loss=0.000335 | running_loss=0.227580 | grad_norm=0.0309 | lr=3.00e-07 | epoch_elapsed=926.3s | batch_eta=1386.0s
+[m5_residual_dilated_clean] epoch 30/30 | batch 900/1997 | batch_loss=0.000355 | running_loss=0.231561 | grad_norm=0.0163 | lr=2.75e-07 | epoch_elapsed=1046.7s | batch_eta=1275.8s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1000/1997 | batch_loss=1.951206 | running_loss=0.237895 | grad_norm=411.4777 | lr=2.50e-07 | epoch_elapsed=1159.9s | batch_eta=1156.4s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1100/1997 | batch_loss=0.000448 | running_loss=0.221423 | grad_norm=0.0303 | lr=2.25e-07 | epoch_elapsed=1274.8s | batch_eta=1039.5s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1200/1997 | batch_loss=0.000272 | running_loss=0.215716 | grad_norm=0.0104 | lr=2.00e-07 | epoch_elapsed=1392.0s | batch_eta=924.5s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1300/1997 | batch_loss=0.000135 | running_loss=0.220869 | grad_norm=0.0040 | lr=1.75e-07 | epoch_elapsed=1517.9s | batch_eta=813.8s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1400/1997 | batch_loss=0.785960 | running_loss=0.213950 | grad_norm=332.4414 | lr=1.49e-07 | epoch_elapsed=1647.1s | batch_eta=702.4s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1500/1997 | batch_loss=0.000244 | running_loss=0.216987 | grad_norm=0.0075 | lr=1.24e-07 | epoch_elapsed=1771.3s | batch_eta=586.9s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1600/1997 | batch_loss=0.000233 | running_loss=0.230299 | grad_norm=0.0090 | lr=9.94e-08 | epoch_elapsed=1918.1s | batch_eta=475.9s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1700/1997 | batch_loss=0.000334 | running_loss=0.232340 | grad_norm=0.0145 | lr=7.44e-08 | epoch_elapsed=2066.7s | batch_eta=361.1s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1800/1997 | batch_loss=0.000363 | running_loss=0.232886 | grad_norm=0.0188 | lr=4.93e-08 | epoch_elapsed=2191.9s | batch_eta=239.9s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1900/1997 | batch_loss=0.000206 | running_loss=0.238178 | grad_norm=0.0064 | lr=2.43e-08 | epoch_elapsed=2329.5s | batch_eta=118.9s
+[m5_residual_dilated_clean] epoch 30/30 | batch 1997/1997 | batch_loss=7.907435 | running_loss=0.239723 | grad_norm=118.6824 | lr=0.00e+00 | epoch_elapsed=2450.5s | batch_eta=0.0s
+[m5_residual_dilated_clean] epoch 30/30 | train_loss=0.2397 | val_loss=2.2681 | val_UA=0.7166 | val_WA=0.7174 | val_macro_f1=0.7149 | best_UA=0.7258@29 | lr=0.00e+00 | epoch_time=2487.3s | elapsed=102414.5s | eta=0.0s | checkpoint=C:\FPT\DAP391m\code\artifacts\paper_reproduction\m5_residual_dilated\last_checkpoint.pt
+{
+  "status": "PASS",
+  "best_epoch": 29,
+  "test_UA": 0.6716503669809564,
+  "test_WA": 0.678,
+  "test_macro_f1": 0.6685699870471198
+}

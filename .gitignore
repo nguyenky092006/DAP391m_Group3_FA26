@@ -7,6 +7,9 @@ __pycache__/
 .ruff_cache/
 .venv/
 .venv-gpu/
+.venv-paper/
+.kaldi-win/
+.miniforge-win/
 venv/
 
 # IDE and operating system

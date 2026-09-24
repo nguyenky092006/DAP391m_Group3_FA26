@@ -1,0 +1,22 @@
+Some weights of M5Model were not initialized from the model checkpoint at C:\FPT\DAP391m\code\data\interim\models\huggingface\models--nguyenvulebinh--wav2vec2-base-vi\snapshots\86bde51fa76dd7f2c4c1bb28d7475d622639f869 and are newly initialized: ['attn_a_p.linear1.bias', 'attn_a_p.linear1.weight', 'attn_a_p.linear2.bias', 'attn_a_p.linear2.weight', 'attn_a_p.norm1.bias', 'attn_a_p.norm1.weight', 'attn_a_p.norm2.bias', 'attn_a_p.norm2.weight', 'attn_a_p.self_attn.in_proj_bias', 'attn_a_p.self_attn.in_proj_weight', 'attn_a_p.self_attn.out_proj.bias', 'attn_a_p.self_attn.out_proj.weight', 'attn_p_a.linear1.bias', 'attn_p_a.linear1.weight', 'attn_p_a.linear2.bias', 'attn_p_a.linear2.weight', 'attn_p_a.norm1.bias', 'attn_p_a.norm1.weight', 'attn_p_a.norm2.bias', 'attn_p_a.norm2.weight', 'attn_p_a.self_attn.in_proj_bias', 'attn_p_a.self_attn.in_proj_weight', 'attn_p_a.self_attn.out_proj.bias', 'attn_p_a.self_attn.out_proj.weight', 'classifier.bias', 'classifier.weight', 'pitch_encoder.feature_encoder.conv_layers.0.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.bias', 'pitch_encoder.feature_encoder.conv_layers.0.layer_norm.weight', 'pitch_encoder.feature_encoder.conv_layers.1.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.2.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.3.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.4.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.5.conv.weight', 'pitch_encoder.feature_encoder.conv_layers.6.conv.weight', 'pitch_encoder.input_adapter.bias', 'pitch_encoder.input_adapter.weight', 'pitch_encoder.residual_blocks.0.depthwise.bias', 'pitch_encoder.residual_blocks.0.depthwise.weight', 'pitch_encoder.residual_blocks.0.expand.bias', 'pitch_encoder.residual_blocks.0.expand.weight', 'pitch_encoder.residual_blocks.0.norm.bias', 'pitch_encoder.residual_blocks.0.norm.weight', 'pitch_encoder.residual_blocks.0.reduce.bias', 'pitch_encoder.residual_blocks.0.reduce.weight', 'pitch_encoder.residual_blocks.0.residual_scale', 'pitch_encoder.residual_blocks.1.depthwise.bias', 'pitch_encoder.residual_blocks.1.depthwise.weight', 'pitch_encoder.residual_blocks.1.expand.bias', 'pitch_encoder.residual_blocks.1.expand.weight', 'pitch_encoder.residual_blocks.1.norm.bias', 'pitch_encoder.residual_blocks.1.norm.weight', 'pitch_encoder.residual_blocks.1.reduce.bias', 'pitch_encoder.residual_blocks.1.reduce.weight', 'pitch_encoder.residual_blocks.1.residual_scale', 'pitch_encoder.residual_blocks.2.depthwise.bias', 'pitch_encoder.residual_blocks.2.depthwise.weight', 'pitch_encoder.residual_blocks.2.expand.bias', 'pitch_encoder.residual_blocks.2.expand.weight', 'pitch_encoder.residual_blocks.2.norm.bias', 'pitch_encoder.residual_blocks.2.norm.weight', 'pitch_encoder.residual_blocks.2.reduce.bias', 'pitch_encoder.residual_blocks.2.reduce.weight', 'pitch_encoder.residual_blocks.2.residual_scale', 'pitch_projection.layer_norm.bias', 'pitch_projection.layer_norm.weight', 'pitch_projection.projection.bias', 'pitch_projection.projection.weight', 'projector.bias', 'projector.weight', 'self_attn.linear1.bias', 'self_attn.linear1.weight', 'self_attn.linear2.bias', 'self_attn.linear2.weight', 'self_attn.norm1.bias', 'self_attn.norm1.weight', 'self_attn.norm2.bias', 'self_attn.norm2.weight', 'self_attn.self_attn.in_proj_bias', 'self_attn.self_attn.in_proj_weight', 'self_attn.self_attn.out_proj.bias', 'self_attn.self_attn.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{
+  "status": "PASS",
+  "model": "m5_residual_dilated_clean",
+  "input_shape": [
+    1,
+    5,
+    40640
+  ],
+  "logits_shape": [
+    1,
+    4
+  ],
+  "loss": 1.504022479057312,
+  "gradient_norm_before_clip": 30.816558837890625,
+  "gradient_clip": 1.0,
+  "parameters": 142268685,
+  "trainable_parameters": 138068237,
+  "m4_checkpoint_used": false,
+  "feature_cache_reused": true
+}

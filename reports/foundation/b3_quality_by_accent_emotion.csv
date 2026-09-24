@@ -1,0 +1,13 @@
+accent,emotion,samples,mean_duration_seconds,clipping_percent,high_silence_percent
+central,angry,25,2.734,0.0,0.0
+central,happy,117,4.252,0.0,0.85
+central,neutral,118,2.997,1.69,0.85
+central,sad,15,2.795,0.0,0.0
+north,angry,331,2.599,2.42,0.6
+north,happy,268,2.657,0.0,1.49
+north,neutral,341,2.287,1.76,1.17
+north,sad,243,2.188,10.7,0.82
+south,angry,1109,1.777,2.25,14.43
+south,happy,588,1.874,0.68,9.01
+south,neutral,1046,2.092,0.1,7.46
+south,sad,791,1.927,0.63,12.39

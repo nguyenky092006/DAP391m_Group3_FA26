@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "stage": "split",
+  "rows": 4992,
+  "counts": {
+    "train": 3993,
+    "test": 500,
+    "validation": 499
+  },
+  "speaker_overlap_allowed": true,
+  "split": "data/manifests/paper_reproduction_clean_seed391.csv"
+}
+C:\FPT\DAP391m\code\.venv-paper\lib\site-packages\torchaudio\backend\utils.py:62: UserWarning: No audio backend is available.
+  warnings.warn("No audio backend is available.")
+Traceback (most recent call last):
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 920, in <module>
+    main()
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 759, in main
+    pitch = extract_official_kaldi_pitch(audio, 16_000, config["pitch"])
+  File "C:\FPT\DAP391m\code\src\pitchfusion\models\run_paper_reproduction.py", line 260, in extract_official_kaldi_pitch
+    features = compute_kaldi_pitch(
+  File "C:\FPT\DAP391m\code\.venv-paper\lib\site-packages\torchaudio\_internal\module_utils.py", line 84, in wrapped
+    raise RuntimeError(f"{func.__module__}.{func.__name__} requires kaldi")
+RuntimeError: torchaudio.functional.functional.compute_kaldi_pitch requires kaldi

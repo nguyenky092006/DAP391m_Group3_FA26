@@ -1,0 +1,59 @@
+{
+  "schema_version": "pitchfusion.m1.svm_rbf.v1",
+  "model": "m1_svm_rbf",
+  "configuration_policy": "fixed M1 baseline; no hyperparameter tuning",
+  "grouped_train_cv": {
+    "folds": [
+      "fold_0",
+      "fold_1",
+      "fold_2",
+      "fold_3",
+      "fold_4"
+    ],
+    "mean_macro_f1": 0.40789191229451893,
+    "std_macro_f1": 0.09663959645344986,
+    "mean_uar": 0.43114262611822046
+  },
+  "validation": {
+    "overall": {
+      "samples": 646,
+      "accuracy": 0.4845201238390093,
+      "macro_f1": 0.46728031418753074,
+      "uar": 0.46326941986234027,
+      "per_class_f1": {
+        "angry": 0.5910652920962199,
+        "happy": 0.32989690721649484,
+        "neutral": 0.5195876288659794,
+        "sad": 0.42857142857142855
+      }
+    },
+    "per_accent": {
+      "central": {
+        "samples": 26,
+        "macro_f1": 0.35027472527472525,
+        "uar": 0.4642857142857143
+      },
+      "north": {
+        "samples": 200,
+        "macro_f1": 0.4375030088299129,
+        "uar": 0.43973709217611656
+      },
+      "south": {
+        "samples": 420,
+        "macro_f1": 0.45739659022205215,
+        "uar": 0.4628144409883688
+      }
+    },
+    "worst_accent_macro_f1": 0.35027472527472525,
+    "accent_macro_f1_gap": 0.1071218649473269
+  },
+  "runtime_seconds": 7.493056600000273,
+  "test_samples_used": 0,
+  "model_artifact": "artifacts/m1_m4/m1/m1_svm_rbf.joblib",
+  "model_artifact_sha256": "106958270abe4c19e677129baa61b53424db324fc1b30148bc8b91d018d6c3a7",
+  "lineage": {
+    "config_sha256": "21e3f5e11ca324515497124e67713e11a9f0d01b7251e7a2689a558d8b01e0a2",
+    "features_sha256": "ac4a0cd3f969892579e596d37794a47cee81a003274445b04bffdb50606d6e1a",
+    "manifest_sha256": "ae447a95e2932670646e40dcef55f914c17177b89a85293b72cb5686b9a5f30a"
+  }
+}
