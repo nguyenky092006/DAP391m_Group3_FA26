@@ -1,0 +1,14 @@
+numpy
+pandas
+scipy
+scikit-learn
+soundfile
+librosa
+matplotlib
+torch
+torchaudio
+transformers
+accelerate
+praat-parselmouth==0.4.6
+tabulate
+statsmodels

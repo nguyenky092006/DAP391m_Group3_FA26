@@ -9,6 +9,7 @@ Minimal self-contained Springer LNCS paper package.
 - `llncs.cls` and `splncs04.bst`: Springer LNCS support files.
 - `figures/`: figures referenced by `main.tex`.
 - `manuscript.pdf`: verified compiled manuscript.
+- `code/`: reproduction scripts, shared Python package, dependencies, and run guide.
 
 ## Build
 
@@ -20,4 +21,4 @@ tectonic -X compile main.tex
 
 The verified output uses A4 paper, contains 13 pages including References, and embeds all fonts.
 
-This directory intentionally excludes datasets, checkpoints, predictions, intermediate LaTeX files, review prompts, and local experiment artifacts.
+This directory intentionally excludes datasets, checkpoints, predictions, intermediate LaTeX files, review prompts, and local experiment artifacts. See `code/README.md` for the expected local data layout and experiment order.
