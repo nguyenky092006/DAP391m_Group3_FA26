@@ -230,7 +230,6 @@ def finalize_rq2(core, common):
 def make_figures(rq1, rq2, matrix):
     colors = {"Mel-CNN": "#4C78A8", "RawWave-CNN": "#F58518", "Prosody-Fusion": "#54A24B", "Overall mean": "#555555"}
     single = rq1[rq1.section == "single_component"].pivot(index="condition", columns="model", values="mean_delta_p_angry").reindex(["Pitch", "Energy", "Duration"])
-    single["Overall mean"] = single.mean(axis=1)
     fig, ax = plt.subplots(figsize=(8.2, 4.8))
     single.plot.bar(ax=ax, color=[colors[c] for c in single.columns], width=.78)
     ax.axhline(0, color="black", lw=.8); ax.set_ylabel("Mean ΔP(Angry)"); ax.set_xlabel(""); ax.legend(frameon=False, ncol=2); fig.tight_layout(); fig.savefig(FIG/"rq1_single_components.png", dpi=240); plt.close(fig)
